@@ -1,0 +1,27 @@
+{
+  "name": "p5-sketch-module",
+  "version": "1.0.0",
+  "description": " Simple package that gives a basic p5 setup, with p5 and p5.sound, and a structure for running multiple sketches that can seamlessly  be rotated through in real time. A basic express server is included if you want to load images or songs.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afellman/p5-sketch-module.git"
+  },
+  "author": "Andrew Fellman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Afellman/p5-sketch-module/issues"
+  },
+  "homepage": "https://github.com/Afellman/p5-sketch-module#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "osc": "^2.3.1",
+    "osc-js": "^2.0.4",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
