@@ -1,9 +1,9 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var port = 3000;
+var port = 8080;
 var osc = require("osc");
-const server = require('http').createServer();
+const server = require('http').createServer(app);
 const remoteIP = "10.0.0.124";
 let glClient;
 
@@ -11,10 +11,6 @@ let glClient;
 app.use(express.static(__dirname + '/'))
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'))
-});
-
-app.listen(port, () => {
-  console.log(`Listening on port:${port}`)
 });
 
 
@@ -96,4 +92,6 @@ io.on('connection', client => {
   //   udpPort.send({ address: '/1/rowAmtLabel', args: [{ type: "f", value: val }] }, remoteIP, 9000)
   // });
 });
-server.listen(3001);
+server.listen(port, () => {
+  console.log("Server listening on port: " + port);
+});

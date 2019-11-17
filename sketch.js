@@ -1,46 +1,37 @@
-let glBackground = [50, 76, 100, 255]
+let glBackground = [240, 240, 250, 100]
 let scenes = [];
-var socket = io('http://localhost:3001');
-socket.on('connect', function () { console.log("Socket Connected") });
-socket.on('disconnected', function () { console.log("Socket Disconnected") });
-attachSceneListeners();
+let goodColor = [];
+let maxPal = 512;
+let numPal = 0;
+// var socket = io('http://localhost:3001');
+// socket.on('connect', function () { console.log("Socket Connected") });
+// socket.on('disconnected', function () { console.log("Socket Disconnected") });
+// attachSceneListeners();
 
 function attachSceneListeners() {
   socket.on('/0/scene1', (data) => {
-    if (data.args[0] == 1) {
-      loadScene(maze);
-    } else {
-      unloadScene(maze);
-    }
+    loadUnload(new Grid(), data.args[0], 0);
   });
   socket.on('/0/scene2', (data) => {
-    if (data.args[0] == 1) {
-      loadScene(maze);
-    } else {
-      unloadScene(maze);
-    }
+    loadUnload(new Grid(), data.args[0], 1);
   });
   socket.on('/0/scene3', (data) => {
-    if (data.args[0] == 1) {
-      loadScene(maze);
-    } else {
-      unloadScene(maze);
-    }
+    loadUnload(new Grid(), data.args[0], 2);
   });
   socket.on('/0/scene4', (data) => {
-    if (data.args[0] == 1) {
-      loadScene(maze);
-    } else {
-      unloadScene(maze);
-    }
+    loadUnload(new Grid(), data.args[0], 3);
   });
   socket.on('/0/scene5', (data) => {
-    if (data.args[0] == 1) {
-      loadScene(maze);
-    } else {
-      unloadScene(maze);
-    }
+    loadUnload(new Grid(), data.args[0], 4);
   });
+}
+
+const loadUnload = (load, scene, index) => {
+  if (load) {
+    loadScene(scene);
+  } else {
+    unloadScene(scenes[index]);
+  }
 }
 /*************************************************
  * P5 Functions
@@ -53,14 +44,14 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
-  createCanvas(windowWidth, windowHeight)
+  createCanvas(windowWidth, windowHeight);
+  loadImage("./colorImg1.jpg", (img) => takeColor(img));
 };
 
 function draw() {
-  // background(glBackground);
-  background(250, 25);
+  background(glBackground);
   for (let i = 0; i < scenes.length; i++) {
-    scenes[i].draw();
+    if (scenes[i]) scenes[i].draw();
   }
 };
 
@@ -75,8 +66,8 @@ function mouseClicked() {
 
 
 function loadScene(scene) {
-  scene.init(scenes.length);
-  scene.attachSockets();
+  let sceneLength = scenes.length;
+  scene.init(sceneLength);
   scenes.push(scene);
 }
 
@@ -84,21 +75,58 @@ function unloadScene(scene) {
   scene.unload();
   scenes.splice(scene.index, 1);
 }
+
+function someColor() {
+  // pick some random good color
+  return goodColor[int(random(numPal))];
+}
+
+function getPixel(context, x, y) {
+  return context.getImageData(x, y, 1, 1).data;
+}
+
+function takeColor(img) {
+  let canvas = document.getElementById('defaultCanvas0');
+  let context = canvas.getContext('2d');
+  image(img, 0, 0);
+  for (let x = 0; x < img.width; x += 10) {
+    for (let y = 0; y < img.height; y += 10) {
+      let c = getPixel(context, x, y);
+      let exists = false;
+      for (let n = 0; n < numPal; n++) {
+        if (c == goodColor[n]) {
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) {
+        // add color to pal
+        if (numPal < maxPal) {
+          goodColor[numPal] = c;
+          numPal++;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+}
+
 /*************************************************
  * Dom Listeners
  *************************************************/
 
 document.addEventListener('keydown', function (event) {
   if (event.key == " ") {
-    loadScene(maze);
+    loadScene(new Rain());
   } else if (event.key == "Shift") {
-    unloadScene(maze)
+    unloadScene(scenes[0])
   }
 
   if (event.key == "a") {
-    loadScene(grid);
+    loadScene(new Grid());
   } else if (event.key == "s") {
-    unloadScene(grid)
+    unloadScene(scenes[0]);
   }
 });
 

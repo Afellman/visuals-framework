@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+  <title>Document</title>
+</head>
+<style>
+  html,
+  body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+
+<body>
+
+  <script src="node_modules/socket.io-client/dist/socket.io.slim.dev.js"></script>
+</body>
+<script src="p5.min.js"></script>
+<script src="p5.sound.min.js"></script>
+
+<script>
+  let ballArray = [];
+  let ballAmt = 100;
+  let angle = 0.01
+  let jumpHeight = 0;
+  let positionOffset = 0;
+  let speed = 1;
+  let grassArray = [];
+
+  function setup() {
+    createCanvas(windowWidth, windowHeight)
+    // for (var i = 0; i < ballAmt; i++) {
+    //   let x = map(i, 0, ballAmt, 0, width);
+    //   let y = map(i, 0, ballAmt, height, 0);
+    //   ballArray.push({ x, y })
+    // }
+
+    for (let i = 0; i < 1000; i++) {
+      let x = map(i, 0, 1000, 0, width);
+      grassArray.push({
+        x: x, y: 475, x2: x + (Math.random() * 10), y2: 475 - (50 + (Math.random() * 10))
+      })
+    }
+  }
+
+
+  function draw() {
+    background(30, 68, 130);
+    // for (let i = 0; i < ballAmt; i++) {
+    //   const thisBall = ballArray[i];
+    //   if (dist(mouseX, mouseY, thisBall.x, thisBall.y) < 150) {
+    //     stroke(150)
+    //     line(mouseX, mouseY, thisBall.x, thisBall.y)
+    //   }
+    //   noStroke();
+    //   fill(150, 100, 30)
+    //   angle += 0.0001
+    //   thisBall.x = width / 2 + sin(angle + i) * 100;
+    //   thisBall.y = height / 2 + cos(angle + i) * 100 + i;
+    //   ellipse(thisBall.x, thisBall.y, 10, 10);
+    // }
+
+
+    // background(125, 86, 5);
+    fill(255)
+    // rect(width / 2 - 20, height / 4, 40, 300);
+    ellipse(width / 2 + positionOffset, height / 2 - jumpHeight, 40, 250);
+    ellipse(width / 2 + positionOffset, height / 4 - jumpHeight, 100);
+
+    fill(0)
+    ellipse(width / 2 + 15 + positionOffset, height / 4 - jumpHeight, 15);
+    ellipse(width / 2 - 15 + positionOffset, height / 4 - jumpHeight, 15);
+
+
+    for (let i = 0; i < 1000; i++) {
+      stroke(0, 100, 20)
+      line(grassArray[i].x, grassArray[i].y, grassArray[i].x2, grassArray[i].y2)
+    }
+
+  }
+
+  function jump() {
+    jumpHeight = 25;
+    let isJumping = setInterval(() => {
+      jumpHeight -= 1;
+      if (jumpHeight <= 0) {
+        clearInterval(isJumping);
+      }
+    }, 10)
+  }
+
+  function moveLeft() {
+    positionOffset -= 5 * speed;
+  }
+
+  function moveRight() {
+    positionOffset += 5 * speed;
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key == " ") {
+      jump();
+    } else if (event.key == "ArrowLeft") {
+      moveLeft();
+    } else if (event.key == "ArrowRight") {
+      moveRight();
+    }
+    if (event.key == "Shift") {
+      speed = 2;
+    }
+  });
+
+  document.addEventListener("keyup", function (event) {
+    if (event.key == "Shift") {
+      speed = 1;
+    }
+  })
+
+</script>
+
+</html>

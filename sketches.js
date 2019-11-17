@@ -42,6 +42,7 @@ let maze = {
     this.lines = [];
     this.index = -1;
     this.detachSockets();
+    this.linesPerRow = 0;
   },
   attachSockets: function () {
     let length = this.sockets.length;
@@ -124,18 +125,47 @@ let maze = {
   }
 }
 
+class Sketch {
+  constructor() {
+    this.index = -1;
+    this.sockets = [
+    ];
+  }
+  init() {
+    this.index = -1;
+    this.attachSockets();
+  }
+  unload() {
+    this.detachSockets();
+  }
+  attachSockets() {
+    let length = this.sockets.length;
+    for (let i = 0; i < length; i++) {
+      let thisSocket = this.sockets[i];
+      socket.on(thisSocket.name, thisSocket.method);
+    }
+  }
+  detachSockets() {
+    let length = this.sockets.length;
+    for (let i = 0; i < length; i++) {
+      let thisSocket = this.sockets[i];
+      socket.removeListener(thisSocket.name, thisSocket.method);
+    }
+  }
+}
 
-let grid = {
-  index: -1,
-  sockets: [
+class Grid {
+  index = -1;
+  sockets = [
     {}
-  ],
-  gridPointsLength: 0,
-  gridPointsX: 0,
-  gridPointsY: 0,
-  gridPoints: [],
-  angle: 0.01,
-  init: function (index) {
+  ];
+  gridPointsLength = 0;
+  gridPointsX = 0;
+  gridPointsY = 0;
+  gridPoints = [];
+  angle = 0.01;
+
+  init(index) {
     this.index = index;
     this.gridPointsX = 20;
     this.gridPointsY = 20;
@@ -149,58 +179,282 @@ let grid = {
       this.gridPoints.push(row);
     }
     this.gridPointsLength = this.gridPoints.length;
-  },
-  unload: function () {
+  }
+  unload() {
     this.index = -1;
-    this.gridPoints = []
+    this.gridPoints = [];
+    this.gridPointsLength = 0
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
     this.detachSockets();
-  },
-  attachSockets: function () {
+  }
+  attachSockets() {
     let length = this.sockets.length;
     for (let i = 0; i < length; i++) {
       let thisSocket = this.sockets[i];
       socket.on(thisSocket.name, thisSocket.method);
     }
-  },
-  detachSockets: function () {
+  }
+  detachSockets() {
     let length = this.sockets.length;
     for (let i = 0; i < length; i++) {
       let thisSocket = this.sockets[i];
       socket.removeListener(thisSocket.name, thisSocket.method);
     }
-  },
+  }
 
-  draw: function () {
-    this.move();
+  draw() {
     for (let i = 1; i < this.gridPointsLength; i++) {
       for (let j = 0; j < this.gridPointsX - 1; j++) {
-        if (i < this.gridPointsLength - 1) line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
-        stroke(0)
+        if (i < this.gridPointsLength - 1) {
+          line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
+          this.move(this.gridPoints[i][j], i)
+        }
+        stroke(80, 0, 0);
         line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
       }
     }
+    this.angle += 0.01;
+  }
 
-    // for (let i = 0; i < this.gridPointsLength - 1; i++) {
-    //   if (i % this.gridPointsX) {
-    //     line(this.gridPoints[i].x, this.gridPoints[i].y, this.gridPoints[i + 1].x, this.gridPoints[i + 1].y);
-    //   }
-    // }
-  },
+  move(point, i) {
 
-  move: function () {
-    let speed = mouseY / 1000;
-    let amp = mouseX / 1000
-    for (var i = 0; i < this.gridPointsLength; i++) {
-      this.gridPoints[i].x += sin(this.angle + i) * 10;
-      this.gridPoints[i].y += sin(this.angle + i) * 10;
+    let amp = mouseX / 1000;
+    let mouse = createVector(mouseX, mouseY);
+    let acc = p5.Vector.sub(point, mouse);
+    acc.normalize();
+
+
+    // acc.mult(5)
+    point.x += sin(this.angle) * acc.x;
+    point.y += cos(this.angle) * acc.y;
+  }
+}
+
+
+
+class ImageTweak {
+  iamge;
+  index = -1;
+  sockets = [
+    {}
+  ];
+
+  init() {
+    loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80", img => {
+      this.img = img;
+      img.loadPixels();
+    });
+  }
+
+  unload() {
+    this.index = -1;
+    this.gridPoints = [];
+    this.gridPointsLength = 0
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+    this.detachSockets();
+  }
+  attachSockets() {
+    let length = this.sockets.length;
+    for (let i = 0; i < length; i++) {
+      let thisSocket = this.sockets[i];
+      socket.on(thisSocket.name, thisSocket.method);
     }
-    for (let i = 1; i < this.gridPointsLength; i++) {
-      for (let j = 0; j < this.gridPointsX - 1; j++) {
-        this.gridPoints[i][j].x = this.gridPoints[i][j].x + sin(this.angle + i) * amp;
-        this.gridPoints[i][j].y = this.gridPoints[i][j].y + cos(this.angle + i) * amp;
+  }
+  detachSockets() {
+    let length = this.sockets.length;
+    for (let i = 0; i < length; i++) {
+      let thisSocket = this.sockets[i];
+      socket.removeListener(thisSocket.name, thisSocket.method);
+    }
+  }
+
+  draw() {
+    if (this.img) {
+      for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+          stroke(this.img.pixels[i + j])
+          point(i, j)
+        }
       }
     }
+  }
+}
 
-    this.angle += speed
+
+class EarthQuake extends Sketch {
+  constructor() {
+    super();
+  }
+
+  unload() {
+    super.unload();
+    this.gridPoints = [];
+    this.gridPointsLength = 0
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+  }
+
+
+  init() {
+    super.init();
+    this.time = new Date().getTime();
+    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson")
+      .then((res) => res.json())
+      .then(data => {
+        this.quakeData = data.features;
+        this.firstQuake = this.quakeData.reduce((min, obj) => obj.properties.time < min ? obj.properties.time : min, this.quakeData[0].properties.time)
+      })
+      .catch(err => console.log(err));
+  }
+
+  draw() {
+    if (this.quakeData) {
+      for (let i = 0; i < this.quakeData.length; i++) {
+        let thisQuake = this.quakeData[i].properties;
+        let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
+        text(thisQuake.title, x, height / 2 - (i * 30));
+        ellipse(x, height / 2, thisQuake.mag * 25)
+      }
+    }
+  }
+}
+
+class Rings extends Sketch {
+  constructor() {
+    super();
+    this.funcs = [];
+    this.funcsLength = 0;
+    this.ringSize = 0;
+    this.currentVol = 11;
+    this.threshold = 10;
+    this.angle = 0.01;
+    this.circleWidth = 50;
+  }
+  init() {
+    super.init();
+    this.colors = [someColor(), someColor(), someColor(), someColor(), someColor(), someColor(), someColor()];
+  }
+  draw() {
+    stroke("blue");
+    this.checkVol();
+    this.checkDraw();
+  }
+  checkVol() {
+    if (this.currentVol > this.threshold && !this.animationActive) {
+      this.centerX = Math.floor(Math.random() * width);
+      this.centerY = Math.floor(Math.random() * height);
+      this.funcsLength++;
+      this.animationActive = true;
+    }
+  }
+
+  checkDraw() {
+    if (this.animationActive) {
+      this.drawRings();
+    }
+  }
+  drawRings = () => {
+    fill(this.colors[0][0], this.colors[0][1], this.colors[0][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 6));
+    fill(this.colors[1][0], this.colors[1][1], this.colors[1][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 5));
+    fill(this.colors[2][0], this.colors[2][1], this.colors[2][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 4));
+    fill(this.colors[3][0], this.colors[3][1], this.colors[3][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 3));
+    fill(this.colors[4][0], this.colors[4][1], this.colors[4][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 2));
+    fill(this.colors[5][0], this.colors[5][1], this.colors[5][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth));
+    fill(this.colors[6][0], this.colors[6][1], this.colors[6][2]);
+    ellipse(this.centerX, this.centerY, this.ringSize);
+    this.ringSize += sin(this.angle * 15) * 20
+    this.colors[0][0] += sin(this.angle)
+    this.colors[1][0] += sin(this.angle)
+    this.colors[3][0] += sin(this.angle)
+    this.colors[4][0] += sin(this.angle)
+    this.colors[5][0] += sin(this.angle)
+    this.colors[6][0] += sin(this.angle)
+    this.angle += 0.01
+    if (this.ringSize > height) {
+      this.ringSize = 0;
+      this.angle = 0.01;
+      this.animationActive = false;
+    }
+  }
+}
+
+class Sin extends Sketch {
+  constructor() {
+    super();
+    this.angle = 0.01
+  }
+  init() {
+    super.init();
+  }
+
+  draw() {
+    stroke("black")
+    beginShape();
+    for (let i = 0; i < 360; i++) {
+      let x = map(i, 0, 360, 0, width);
+      let y = height / 2 + sin(i * (mouseY / 100)) * (mouseX / 10)
+      vertex(x, y)
+      this.angle += 0.01
+    }
+    endShape()
+  }
+}
+
+class Rain extends Sketch {
+  constructor() {
+    super();
+    this.dots = [];
+    this.rowsAmount = 20;
+    this.dotsAmount = 100;
+    this.angle = 0.01
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.rowsAmount; i++) {
+      let x = map(i, 0, this.rowsAmount, 0, width);
+      this.dots[i] = []
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let y = map(j, 0, this.dotsAmount, 0, height);
+        this.dots[i].push(new Objects.Dot({ x: x, y: y, size: 10, fill: 0 }))
+      }
+    }
+  }
+
+  draw() {
+    for (let i = 0; i < this.rowsAmount; i++) {
+      for (let j = 0; j < this.dotsAmount; j++) {
+        this.angle += 0.1
+        this.dots[i][j].size += sin(j + this.angle) * 5
+        this.dots[i][j].draw();
+      }
+    }
+  }
+}
+
+
+
+const Objects = {
+  Dot: class {
+    constructor(params) {
+      this.stroke = params.stroke || 0;
+      this.fill = params.fill || 0;
+      this.x = params.x || 0;
+      this.y = params.y || 0;
+      this.size = params.size || 10;
+    }
+    draw() {
+      stroke(this.stroke);
+      fill(this.fill);
+      ellipse(this.x, this.y, this.size);
+    }
   }
 }
