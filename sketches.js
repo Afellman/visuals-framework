@@ -453,6 +453,7 @@ class Rain extends Sketch {
             y: y,
             size: 2,
             fill: someColor(),
+            stroke: [0 ,0, 0, 0],
             variant: 1
           }))
       }
@@ -471,14 +472,14 @@ class Rain extends Sketch {
   draw() {
     this.controls().changeSpacing(mouseX / 100000)
     this.controls().changePeriod(mouseY / 100000)
-    this.rateChange = (TWO_PI / this.period) * this.xspacing;
+    this.rateChange = (PI / this.period) * this.xspacing;
     this.globalChange += this.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         // thisDot.variant = Math.random(10);
-        thisDot.size = Math.round(Math.pow(sin(change) * this.amplitude * thisDot.variant, 2));
+        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant);
         thisDot.draw();
         change += this.rateChange;
       }
@@ -489,6 +490,7 @@ class Rain extends Sketch {
   }
   keyPressed(e) {
     if (e.key == "g") {
+      console.log(this.amplitude)
       this.controls().changeAmp(this.amplitude - 1)
     }
   }
@@ -497,7 +499,8 @@ class Rain extends Sketch {
 const Objects = {
   Dot: class {
     constructor(params) {
-      this.stroke = params.stroke || 0;
+      this.stroke = typeof params.stroke == "object" ? [params.stroke[0], params.stroke[1], params.stroke[2]] :
+      params.stroke || 0;
       this.fill = typeof params.fill == "object" ? [params.fill[0], params.fill[1], params.fill[2]] :
         params.fill || 0;
       this.x = params.x || 0;
