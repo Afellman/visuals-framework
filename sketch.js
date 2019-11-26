@@ -1,12 +1,11 @@
-let glBackground = [240, 240, 250, 100]
+let glBackground = [255, 255, 255, 50]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
 let numPal = 0;
-// var socket = io('http://localhost:3001');
-// socket.on('connect', function () { console.log("Socket Connected") });
-// socket.on('disconnected', function () { console.log("Socket Disconnected") });
-// attachSceneListeners();
+// var socket = io('http://localhost:3001'); socket.on('connect', function () {
+// console.log("Socket Connected") }); socket.on('disconnected', function () {
+// console.log("Socket Disconnected") }); attachSceneListeners();
 
 function attachSceneListeners() {
   socket.on('/0/scene1', (data) => {
@@ -37,10 +36,7 @@ const loadUnload = (load, scene, index) => {
  * P5 Functions
  *************************************************/
 // For any preloading of sounds or images.
-function preload() {
-
-};
-
+function preload() {};
 
 // Starting with a canvas the full window size.
 function setup() {
@@ -51,9 +47,10 @@ function setup() {
 function draw() {
   background(glBackground);
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) scenes[i].draw();
-  }
-};
+    if (scenes[i]) 
+      scenes[i].draw();
+    }
+  };
 
 /*************************************************
  * Other Functions
@@ -61,9 +58,20 @@ function draw() {
 
 // Sending the mouseClicked event to the sketches[currentSketch].
 function mouseClicked() {
-
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].mouseClicked();
+    }
+  };
 };
 
+function keyPressed(e) {
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].keyPressed(e);
+    }
+  };
+};
 
 function loadScene(scene) {
   let sceneLength = scenes.length;
@@ -82,7 +90,9 @@ function someColor() {
 }
 
 function getPixel(context, x, y) {
-  return context.getImageData(x, y, 1, 1).data;
+  return context
+    .getImageData(x, y, 1, 1)
+    .data;
 }
 
 function takeColor(img) {
@@ -116,18 +126,17 @@ function takeColor(img) {
  * Dom Listeners
  *************************************************/
 
-document.addEventListener('keydown', function (event) {
-  if (event.key == " ") {
-    loadScene(new Rain());
-  } else if (event.key == "Shift") {
-    unloadScene(scenes[0])
-  }
+document
+  .addEventListener('keydown', function (event) {
+    if (event.key == " ") {
+      loadScene(new Rain());
+    } else if (event.key == "Shift") {
+      unloadScene(scenes[0])
+    }
 
-  if (event.key == "a") {
-    loadScene(new Grid());
-  } else if (event.key == "s") {
-    unloadScene(scenes[0]);
-  }
-});
-
-
+    if (event.key == "a") {
+      loadScene(new Grid());
+    } else if (event.key == "s") {
+      unloadScene(scenes[0]);
+    }
+  });

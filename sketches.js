@@ -11,9 +11,10 @@ let maze = {
   waveVol: 0.00,
   waveAmt: 1,
   waveOn: false,
-  sockets: [
-    { address: "/1/jitter", method: this.jitter }
-  ],
+  sockets: [{
+    address: "/1/jitter",
+    method: this.jitter
+  }],
   init: function (index) {
     this.index = index;
     // this.setupOsc();
@@ -21,7 +22,9 @@ let maze = {
     this.rows = height / (this.lineLength / 2 + this.spacing);
     let source = new p5.AudioIn();
     this.amplitude = new p5.Amplitude(0.9);
-    this.amplitude.setInput(source);
+    this
+      .amplitude
+      .setInput(source);
     source.start();
 
     fft = new p5.FFT(0.8, 512);
@@ -34,7 +37,9 @@ let maze = {
         let y = map(i, 0, this.rows, 0, height);
         row.push(new this.Line(x, y, this.lineLength));
       }
-      this.lines.push(row);
+      this
+        .lines
+        .push(row);
 
     }
   },
@@ -60,18 +65,23 @@ let maze = {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.linesPerRow; j++) {
         if (Math.random() * 100 > 99.99) {
-          this.lines[i][j].rotate(i, j, this.lines);
+          this
+            .lines[i][j]
+            .rotate(i, j, this.lines);
         }
-        this.lines[i][j].display();
+        this
+          .lines[i][j]
+          .display();
         if (this.waveOn) {
-          this.lines[i][j].wave()
+          this
+            .lines[i][j]
+            .wave()
         }
       }
     }
   },
   controls: {
-    jitter: (val) => {
-    },
+    jitter: (val) => {},
     setWaveVol: (val) => waveVol = val,
     toggleWave: () => waveOn = !waveOn
   },
@@ -105,12 +115,8 @@ let maze = {
     display(r) {
       push()
       translate(this.x, this.y);
-      // strokeWeight(10)
-      // if (Math.random() * 10 > 10) {
-      //   this.length = 6;
-      // } else {
-      //   this.length = 12
-      // }
+      // strokeWeight(10) if (Math.random() * 10 > 10) {   this.length = 6; } else {
+      // this.length = 12 }
       strokeWeight(3)
       rotate(this.r);
       line(-this.length, -this.length, this.length, this.length);
@@ -128,8 +134,7 @@ let maze = {
 class Sketch {
   constructor() {
     this.index = -1;
-    this.sockets = [
-    ];
+    this.sockets = [];
   }
   init() {
     this.index = -1;
@@ -152,13 +157,17 @@ class Sketch {
       socket.removeListener(thisSocket.name, thisSocket.method);
     }
   }
+  mouseClicked() {
+
+  }
+  keyPressed() {
+
+  }
 }
 
 class Grid {
   index = -1;
-  sockets = [
-    {}
-  ];
+  sockets = [{}];
   gridPointsLength = 0;
   gridPointsX = 0;
   gridPointsY = 0;
@@ -176,7 +185,9 @@ class Grid {
         let x = map(j, 0, this.gridPointsX, 0, width);
         row.push(createVector(x, y))
       }
-      this.gridPoints.push(row);
+      this
+        .gridPoints
+        .push(row);
     }
     this.gridPointsLength = this.gridPoints.length;
   }
@@ -221,9 +232,10 @@ class Grid {
 
     let amp = mouseX / 1000;
     let mouse = createVector(mouseX, mouseY);
-    let acc = p5.Vector.sub(point, mouse);
+    let acc = p5
+      .Vector
+      .sub(point, mouse);
     acc.normalize();
-
 
     // acc.mult(5)
     point.x += sin(this.angle) * acc.x;
@@ -231,20 +243,18 @@ class Grid {
   }
 }
 
-
-
 class ImageTweak {
   iamge;
   index = -1;
-  sockets = [
-    {}
-  ];
+  sockets = [{}];
 
   init() {
-    loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80", img => {
-      this.img = img;
-      img.loadPixels();
-    });
+    loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
+      "=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+      img => {
+        this.img = img;
+        img.loadPixels();
+      });
   }
 
   unload() {
@@ -282,7 +292,6 @@ class ImageTweak {
   }
 }
 
-
 class EarthQuake extends Sketch {
   constructor() {
     super();
@@ -296,17 +305,17 @@ class EarthQuake extends Sketch {
     this.gridPointsY = 0;
   }
 
-
   init() {
     super.init();
     this.time = new Date().getTime();
-    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson")
-      .then((res) => res.json())
-      .then(data => {
-        this.quakeData = data.features;
-        this.firstQuake = this.quakeData.reduce((min, obj) => obj.properties.time < min ? obj.properties.time : min, this.quakeData[0].properties.time)
-      })
-      .catch(err => console.log(err));
+    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then((res) => res.json()).then(data => {
+      this.quakeData = data.features;
+      this.firstQuake = this
+        .quakeData
+        .reduce((min, obj) => obj.properties.time < min ?
+          obj.properties.time :
+          min, this.quakeData[0].properties.time)
+    }).catch(err => console.log(err));
   }
 
   draw() {
@@ -334,7 +343,15 @@ class Rings extends Sketch {
   }
   init() {
     super.init();
-    this.colors = [someColor(), someColor(), someColor(), someColor(), someColor(), someColor(), someColor()];
+    this.colors = [
+      someColor(),
+      someColor(),
+      someColor(),
+      someColor(),
+      someColor(),
+      someColor(),
+      someColor()
+    ];
   }
   draw() {
     stroke("blue");
@@ -412,49 +429,103 @@ class Rain extends Sketch {
   constructor() {
     super();
     this.dots = [];
-    this.rowsAmount = 20;
-    this.dotsAmount = 100;
-    this.angle = 0.01
+    this.rowsAmount = 50;
+    this.dotsAmount = 50;
+    this.globalChange = 1;
+    this.period = 1000;
+    this.xspacing = 10;
+    this.speed = 0.1;
+    this.rateChange = (TWO_PI / this.period) * this.xspacing;
+    this.amplitude = 8;
   }
 
   init() {
     super.init();
     for (let i = 0; i < this.rowsAmount; i++) {
-      let x = map(i, 0, this.rowsAmount, 0, width);
+      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
       this.dots[i] = []
       for (let j = 0; j < this.dotsAmount; j++) {
-        let y = map(j, 0, this.dotsAmount, 0, height);
-        this.dots[i].push(new Objects.Dot({ x: x, y: y, size: 10, fill: 0 }))
+        let y = Math.round(map(j, 0, this.dotsAmount, 0, height));
+        this
+          .dots[i]
+          .push(new Objects.Dot({
+            x: x,
+            y: y,
+            size: 2,
+            fill: someColor(),
+            variant: 1
+          }))
       }
+    }
+  }
+
+  controls() {
+    return {
+      changeSpeed: (val) => this.speed = sin(val),
+      changePeriod: (val) => this.period = val,
+      changeSpacing: (val) => this.xspacing = val,
+      changeAmp: (val) => this.amplitude = val,
     }
   }
 
   draw() {
+    this.controls().changeSpacing(mouseX / 100000)
+    this.controls().changePeriod(mouseY / 100000)
+    this.rateChange = (TWO_PI / this.period) * this.xspacing;
+    this.globalChange += this.speed;
+    let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
-        this.angle += 0.1
-        this.dots[i][j].size += sin(j + this.angle) * 5
-        this.dots[i][j].draw();
+        let thisDot = this.dots[i][j];
+        // thisDot.variant = Math.random(10);
+        thisDot.size = Math.round(Math.pow(sin(change) * this.amplitude * thisDot.variant, 2));
+        thisDot.draw();
+        change += this.rateChange;
       }
     }
   }
+  mouseClicked() {
+    this.controls().changeAmp(this.amplitude + 1)
+  }
+  keyPressed(e) {
+    if (e.key == "g") {
+      this.controls().changeAmp(this.amplitude - 1)
+    }
+  }
 }
-
-
 
 const Objects = {
   Dot: class {
     constructor(params) {
       this.stroke = params.stroke || 0;
-      this.fill = params.fill || 0;
+      this.fill = typeof params.fill == "object" ? [params.fill[0], params.fill[1], params.fill[2]] :
+        params.fill || 0;
       this.x = params.x || 0;
       this.y = params.y || 0;
       this.size = params.size || 10;
+      this.variant = params.variant || 1;
     }
     draw() {
       stroke(this.stroke);
       fill(this.fill);
       ellipse(this.x, this.y, this.size);
     }
+  },
+  Plane: class {
+    constructor() {}
   }
+}
+
+function ease(val, low, high) {
+  return easeInOutQuad(normalize(val))
+}
+
+function normalize(val) {
+  return (val - 0) / (1 - 0);
+}
+
+let easeInOutQuad = function (t) {
+  return t < .5 ?
+    2 * t * t :
+    -1 + (4 - 2 * t) * t
 }
