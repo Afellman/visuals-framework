@@ -36,7 +36,9 @@ const loadUnload = (load, scene, index) => {
  * P5 Functions
  *************************************************/
 // For any preloading of sounds or images.
-function preload() {};
+function preload() {
+  theShader = loadShader("./shader.vert", "./shader.frag");
+};
 
 // Starting with a canvas the full window size.
 function setup() {
@@ -47,10 +49,10 @@ function setup() {
 function draw() {
   background(glBackground);
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) 
+    if (scenes[i])
       scenes[i].draw();
-    }
-  };
+  }
+};
 
 /*************************************************
  * Other Functions
@@ -135,7 +137,7 @@ document
     }
 
     if (event.key == "a") {
-      loadScene(new Grid());
+      loadScene(new Shader101());
     } else if (event.key == "s") {
       unloadScene(scenes[0]);
     }
