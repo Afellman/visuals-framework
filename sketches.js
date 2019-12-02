@@ -81,7 +81,7 @@ let maze = {
     }
   },
   controls: {
-    jitter: (val) => {},
+    jitter: (val) => { },
     setWaveVol: (val) => waveVol = val,
     toggleWave: () => waveOn = !waveOn
   },
@@ -157,8 +157,8 @@ class Sketch {
       socket.removeListener(thisSocket.name, thisSocket.method);
     }
   }
-  mouseClicked() {}
-  keyPressed() {}
+  mouseClicked() { }
+  keyPressed() { }
 }
 
 class Grid {
@@ -430,7 +430,7 @@ class Rain extends Sketch {
     this.globalChange = 1;
     this.period = 1000;
     this.xspacing = 10;
-    this.speed = 0.1;
+    this.speed = 0.01;
     this.rateChange = (TWO_PI / this.period) * this.xspacing;
     this.amplitude = 8;
   }
@@ -448,13 +448,9 @@ class Rain extends Sketch {
             x: x,
             y: y,
             size: 2,
-<<<<<<< HEAD
             // fill: someColor(),
             fill: "#abcdef",
-=======
-            fill: someColor(),
-            stroke: [0 ,0, 0, 0],
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
+            stroke: [0, 0, 0, 0],
             variant: 1
           }))
       }
@@ -471,26 +467,16 @@ class Rain extends Sketch {
   }
 
   draw() {
-<<<<<<< HEAD
-    this
-      .controls()
-      .changeSpacing(mouseX / 100000)
-    this
-      .controls()
-      .changePeriod(mouseY / 100000)
-    this.rateChange = (TWO_PI / this.period) * this.xspacing;
-=======
-    this.controls().changeSpacing(mouseX / 100000)
-    this.controls().changePeriod(mouseY / 100000)
+    this.controls().changeSpacing(mouseX / 1000)
+    this.controls().changePeriod(mouseY / 1000)
     this.rateChange = (PI / this.period) * this.xspacing;
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
     this.globalChange += this.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         // thisDot.variant = Math.random(10);
-        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant);
+        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant) * 5;
         thisDot.draw();
         change += this.rateChange;
       }
@@ -503,7 +489,6 @@ class Rain extends Sketch {
   }
   keyPressed(e) {
     if (e.key == "g") {
-<<<<<<< HEAD
       this
         .controls()
         .changeAmp(this.amplitude - 1)
@@ -515,7 +500,8 @@ class Shader101 extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
-    this.pointsAmt = 4;
+    this.pointsAmt = 10;
+    this.diameter = 200;
   }
 
   init() {
@@ -526,20 +512,23 @@ class Shader101 extends Sketch {
   }
 
   draw() {
-    let pointArray = [];
-    // theShader.setUniform("u_pointsAmt", this.pointsAmt);
+    const pointArray = [];
+    background("black");
     for (let i = 0; i < this.pointsAmt; i++) {
       const point = this.points[i];
-      point[0] += sin(this.lightSpeed) * 5;
-      point[1] += cos(this.lightSpeed) * 2;
-      // theShader.setUniform("u_point" + i, this.plot(point));
+      point[0] = width / 2 + sin(this.lightSpeed + i) * this.diameter;
+      point[1] =  height / 2 +  cos(this.lightSpeed + i) * this.diameter;
       pointArray.push(this.plot(point));
-=======
-      console.log(this.amplitude)
-      this.controls().changeAmp(this.amplitude - 1)
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
+
+      // Can't manage to set the whole array at once using the p5 setUniform method, so setting them directely and individually.
+      // I made adjustments to p5.js to put gl and glShaderProgram on the window object.
+      var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points["+i+"]");
+      window.gl.uniform2fv(someVec2Element0Loc, this.plot(point));  // set element 0
     }
-    theShader.setUniform("u_points", pointArray);
+
+
+    theShader.setUniform("u_spread", (1000 / this.pointsAmt) * (this.diameter) ); // Get this equation correct.
+
     theShader.setUniform("u_resolution", [width, height]);
     theShader.setUniform("u_mouse", [
       map(mouseX, width, 0, 1.0, 0.0),
@@ -551,13 +540,14 @@ class Shader101 extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     this.lightSpeed += 0.01;
+
   }
 
   makePoints() {
     let pointsArray = [];
     for (let i = 0; i < this.pointsAmt; i++) {
-      let x = width / 2 + sin(i) * 10;
-      let y = height / 2 + cos(i) * 10;
+      let x = width / 2 + sin(i * HALF_PI) * 100;
+      let y = height / 2 + cos(i * HALF_PI) * 50;
       pointsArray.push([x, y])
     }
     return pointsArray;
@@ -572,7 +562,7 @@ const Objects = {
   Dot: class {
     constructor(params) {
       this.stroke = typeof params.stroke == "object" ? [params.stroke[0], params.stroke[1], params.stroke[2]] :
-      params.stroke || 0;
+        params.stroke || 0;
       this.fill = typeof params.fill == "object" ? [params.fill[0], params.fill[1], params.fill[2]] :
         params.fill || 0;
       this.x = params.x || 0;
@@ -587,7 +577,7 @@ const Objects = {
     }
   },
   Plane: class {
-    constructor() {}
+    constructor() { }
   }
 }
 
