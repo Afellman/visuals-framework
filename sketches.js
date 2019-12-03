@@ -500,30 +500,52 @@ class Shader101 extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
-    this.pointsAmt = 10;
+    this.pointsAmt = 1;
     this.diameter = 200;
   }
+
+  sockets = [
+    {
+      name: '/1/xy1',
+      method: (val) => {
+        this.points[0] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/1',
+      method: (val) => {
+        this.points[0] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/2',
+      method: (val) => {
+        this.points[1] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/3',
+      method: (val) => {
+        this.points[2] = [val.args[1], val.args[0]]
+      }
+    },
+  ]
 
   init() {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     noStroke();
-    this.points = this.makePoints();;
+    this.points = [[0.5, 0.5]]
   }
 
   draw() {
-    const pointArray = [];
     background("black");
-    for (let i = 0; i < this.pointsAmt; i++) {
+    for (let i = 0; i < this.points.length; i++) {
       const point = this.points[i];
-      point[0] = width / 2 + sin(this.lightSpeed + i) * this.diameter;
-      point[1] =  height / 2 +  cos(this.lightSpeed + i) * this.diameter;
-      pointArray.push(this.plot(point));
-
       // Can't manage to set the whole array at once using the p5 setUniform method, so setting them directely and individually.
       // I made adjustments to p5.js to put gl and glShaderProgram on the window object.
       var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points["+i+"]");
-      window.gl.uniform2fv(someVec2Element0Loc, this.plot(point));  // set element 0
+      window.gl.uniform2fv(someVec2Element0Loc, point);  // set element 0
     }
 
 

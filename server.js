@@ -1,10 +1,11 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var port = 8080;
+var port = 3001;
 var osc = require("osc");
 const server = require('http').createServer(app);
-const remoteIP = "10.0.0.124";
+const remoteIP = "192.168.1.12";
+const io = require('socket.io')(server);
 let glClient;
 
 
@@ -82,7 +83,7 @@ udpPort.on("error", function (err) {
 udpPort.open();
 
 
-const io = require('socket.io')(server);
+
 io.on('connection', client => {
   glClient = client
   console.log('Web socket connected')

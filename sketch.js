@@ -4,9 +4,9 @@ let goodColor = [];
 let maxPal = 512;
 let numPal = 0;
 let theShader;
-// var socket = io('http://localhost:3001'); socket.on('connect', function () {
-// console.log("Socket Connected") }); socket.on('disconnected', function () {
-// console.log("Socket Disconnected") }); attachSceneListeners();
+var socket = io('http://localhost:3001'); socket.on('connect', function () {
+console.log("Socket Connected") }); socket.on('disconnected', function () {
+console.log("Socket Disconnected") }); attachSceneListeners();
 
 function attachSceneListeners() {
   socket.on('/0/scene1', (data) => {
