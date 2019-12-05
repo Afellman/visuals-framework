@@ -74671,7 +74671,7 @@ p5.Shader = function(renderer, vertSrc, fragSrc) {
  */
 p5.Shader.prototype.init = function() {
   if (this._glProgram === 0 /* or context is stale? */) {
-    var gl = this._renderer.GL;
+    var gl = window.gl = this._renderer.GL;
 
     // @todo: once custom shading is allowed,
     // friendly error messages should be used here to share
@@ -74707,7 +74707,7 @@ p5.Shader.prototype.init = function() {
       return null;
     }
 
-    this._glProgram = gl.createProgram();
+    this._glProgram = window.glShaderProgram = gl.createProgram();
     gl.attachShader(this._glProgram, this._vertShader);
     gl.attachShader(this._glProgram, this._fragShader);
     gl.linkProgram(this._glProgram);

@@ -430,7 +430,7 @@ class Rain extends Sketch {
     this.globalChange = 1;
     this.period = 1000;
     this.xspacing = 10;
-    this.speed = 0.1;
+    this.speed = 0.01;
     this.rateChange = (TWO_PI / this.period) * this.xspacing;
     this.amplitude = 8;
   }
@@ -448,16 +448,10 @@ class Rain extends Sketch {
             x: x,
             y: y,
             size: 2,
-            <<
-            << << < HEAD
-            // fill: someColor(),
             fill: "#abcdef",
-            ===
-            === =
-            fill: someColor(),
+            // fill: someColor(),
             stroke: [0, 0, 0, 0],
-            >>>
-            >>> > c4746d751dae1c8cf41615b111dbd203f3955c9d
+            stroke: [0, 0, 0, 0],
             variant: 1
           }))
       }
@@ -474,8 +468,19 @@ class Rain extends Sketch {
   }
 
   draw() {
+    <<
+    <<
+    <<
+    < HEAD
     this.controls().changeSpacing(mouseX / 100000)
-    this.controls().changePeriod(mouseY / 100000)
+    this.controls().changePeriod(mouseY / 100000) ===
+      ===
+      =
+      this.controls().changeSpacing(mouseX / 1000)
+    this.controls().changePeriod(mouseY / 1000) >>>
+      >>>
+      >
+      a3c3fa0b66fc606068e88abf9367975da2fae2ed
     this.rateChange = (PI / this.period) * this.xspacing;
     this.globalChange += this.speed;
     let change = this.globalChange;
@@ -483,7 +488,7 @@ class Rain extends Sketch {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         // thisDot.variant = Math.random(10);
-        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant);
+        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant) * 5;
         thisDot.draw();
         change += this.rateChange;
       }
@@ -507,27 +512,62 @@ class Shader101 extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
-    this.pointsAmt = 4;
+    this.pointsAmt = 1;
+    this.diameter = 200;
   }
+
+  sockets = [{
+      name: '/1/xy1',
+      method: (val) => {
+        this.points[0] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/1',
+      method: (val) => {
+        this.points[0] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/2',
+      method: (val) => {
+        this.points[1] = [val.args[1], val.args[0]]
+      }
+    },
+    {
+      name: '/1/multixy1/3',
+      method: (val) => {
+        this.points[2] = [val.args[1], val.args[0]]
+      }
+    },
+  ]
 
   init() {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     noStroke();
-    this.points = this.makePoints();;
+    this.points = [
+      [0.5, 0.5]
+    ]
   }
 
   draw() {
-    let pointArray = [];
-    // theShader.setUniform("u_pointsAmt", this.pointsAmt);
-    for (let i = 0; i < this.pointsAmt; i++) {
+    background("black");
+    for (let i = 0; i < this.points.length; i++) {
       const point = this.points[i];
       point[0] += sin(this.lightSpeed) * 5;
       point[1] += cos(this.lightSpeed) * 2;
       // theShader.setUniform("u_point" + i, this.plot(point));
       pointArray.push(this.plot(point));
+      // Can't manage to set the whole array at once using the p5 setUniform method, so setting them directely and individually.
+      // I made adjustments to p5.js to put gl and glShaderProgram on the window object.
+      var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+      window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
     }
-    theShader.setUniform("u_points", pointArray);
+
+
+    theShader.setUniform("u_spread", (1000 / this.pointsAmt) * (this.diameter)); // Get this equation correct.
+
     theShader.setUniform("u_resolution", [width, height]);
     theShader.setUniform("u_mouse", [
       map(mouseX, width, 0, 1.0, 0.0),
@@ -539,13 +579,14 @@ class Shader101 extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     this.lightSpeed += 0.01;
+
   }
 
   makePoints() {
     let pointsArray = [];
     for (let i = 0; i < this.pointsAmt; i++) {
-      let x = width / 2 + sin(i) * 10;
-      let y = height / 2 + cos(i) * 10;
+      let x = width / 2 + sin(i * HALF_PI) * 100;
+      let y = height / 2 + cos(i * HALF_PI) * 50;
       pointsArray.push([x, y])
     }
     return pointsArray;
