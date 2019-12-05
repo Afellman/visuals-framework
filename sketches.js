@@ -448,13 +448,16 @@ class Rain extends Sketch {
             x: x,
             y: y,
             size: 2,
-<<<<<<< HEAD
+            <<
+            << << < HEAD
             // fill: someColor(),
             fill: "#abcdef",
-=======
+            ===
+            === =
             fill: someColor(),
-            stroke: [0 ,0, 0, 0],
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
+            stroke: [0, 0, 0, 0],
+            >>>
+            >>> > c4746d751dae1c8cf41615b111dbd203f3955c9d
             variant: 1
           }))
       }
@@ -471,19 +474,9 @@ class Rain extends Sketch {
   }
 
   draw() {
-<<<<<<< HEAD
-    this
-      .controls()
-      .changeSpacing(mouseX / 100000)
-    this
-      .controls()
-      .changePeriod(mouseY / 100000)
-    this.rateChange = (TWO_PI / this.period) * this.xspacing;
-=======
     this.controls().changeSpacing(mouseX / 100000)
     this.controls().changePeriod(mouseY / 100000)
     this.rateChange = (PI / this.period) * this.xspacing;
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
     this.globalChange += this.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
@@ -503,7 +496,6 @@ class Rain extends Sketch {
   }
   keyPressed(e) {
     if (e.key == "g") {
-<<<<<<< HEAD
       this
         .controls()
         .changeAmp(this.amplitude - 1)
@@ -534,10 +526,6 @@ class Shader101 extends Sketch {
       point[1] += cos(this.lightSpeed) * 2;
       // theShader.setUniform("u_point" + i, this.plot(point));
       pointArray.push(this.plot(point));
-=======
-      console.log(this.amplitude)
-      this.controls().changeAmp(this.amplitude - 1)
->>>>>>> c4746d751dae1c8cf41615b111dbd203f3955c9d
     }
     theShader.setUniform("u_points", pointArray);
     theShader.setUniform("u_resolution", [width, height]);
@@ -572,7 +560,7 @@ const Objects = {
   Dot: class {
     constructor(params) {
       this.stroke = typeof params.stroke == "object" ? [params.stroke[0], params.stroke[1], params.stroke[2]] :
-      params.stroke || 0;
+        params.stroke || 0;
       this.fill = typeof params.fill == "object" ? [params.fill[0], params.fill[1], params.fill[2]] :
         params.fill || 0;
       this.x = params.x || 0;
