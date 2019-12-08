@@ -450,8 +450,12 @@ class Rain extends Sketch {
             size: 2,
             fill: "#abcdef",
             // fill: someColor(),
-            stroke: [0, 0, 0, 0],
-            stroke: [0, 0, 0, 0],
+            stroke: [
+              0, 0, 0, 0
+            ],
+            stroke: [
+              0, 0, 0, 0
+            ],
             variant: 1
           }))
       }
@@ -468,19 +472,10 @@ class Rain extends Sketch {
   }
 
   draw() {
-    <<
-    <<
-    <<
-    < HEAD
-    this.controls().changeSpacing(mouseX / 100000)
-    this.controls().changePeriod(mouseY / 100000) ===
-      ===
-      =
-      this.controls().changeSpacing(mouseX / 1000)
-    this.controls().changePeriod(mouseY / 1000) >>>
-      >>>
-      >
-      a3c3fa0b66fc606068e88abf9367975da2fae2ed
+    // this.controls().changeSpacing(mouseX / 100000)
+    // this.controls().changePeriod(mouseY / 100000)
+    // this.controls().changeSpacing(mouseX / 1000)
+    // this.controls().changePeriod(mouseY / 1000)
     this.rateChange = (PI / this.period) * this.xspacing;
     this.globalChange += this.speed;
     let change = this.globalChange;
@@ -517,31 +512,26 @@ class Shader101 extends Sketch {
   }
 
   sockets = [{
-      name: '/1/xy1',
-      method: (val) => {
-        this.points[0] = [val.args[1], val.args[0]]
-      }
-    },
-    {
-      name: '/1/multixy1/1',
-      method: (val) => {
-        this.points[0] = [val.args[1], val.args[0]]
-      }
-    },
-    {
-      name: '/1/multixy1/2',
-      method: (val) => {
-        this.points[1] = [val.args[1], val.args[0]]
-      }
-    },
-    {
-      name: '/1/multixy1/3',
-      method: (val) => {
-        this.points[2] = [val.args[1], val.args[0]]
-      }
-    },
-  ]
-
+    name: '/1/xy1',
+    method: (val) => {
+      this.points[0] = [val.args[1], val.args[0]]
+    }
+  }, {
+    name: '/1/multixy1/1',
+    method: (val) => {
+      this.points[0] = [val.args[1], val.args[0]]
+    }
+  }, {
+    name: '/1/multixy1/2',
+    method: (val) => {
+      this.points[1] = [val.args[1], val.args[0]]
+    }
+  }, {
+    name: '/1/multixy1/3',
+    method: (val) => {
+      this.points[2] = [val.args[1], val.args[0]]
+    }
+  }]
   init() {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
@@ -552,19 +542,22 @@ class Shader101 extends Sketch {
   }
 
   draw() {
-    background("black");
+    // background("black");
     for (let i = 0; i < this.points.length; i++) {
       const point = this.points[i];
-      point[0] += sin(this.lightSpeed) * 5;
-      point[1] += cos(this.lightSpeed) * 2;
-      // theShader.setUniform("u_point" + i, this.plot(point));
-      pointArray.push(this.plot(point));
-      // Can't manage to set the whole array at once using the p5 setUniform method, so setting them directely and individually.
-      // I made adjustments to p5.js to put gl and glShaderProgram on the window object.
-      var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
-      window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
-    }
+      // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
+      // the whole array at once using the p5 setUniform method, so setting them
+      // directely and individually. I made adjustments to p5.js to put gl and
+      // glShaderProgram on the window object.
+      var someVec2Element0Loc = window
+        .gl
+        .getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+      window
+        .gl
+        .uniform2fv(someVec2Element0Loc, point); // set element 0
+      stroke(0)
 
+    }
 
     theShader.setUniform("u_spread", (1000 / this.pointsAmt) * (this.diameter)); // Get this equation correct.
 
@@ -573,12 +566,21 @@ class Shader101 extends Sketch {
       map(mouseX, width, 0, 1.0, 0.0),
       map(mouseY, 0, height, 1.0, 0.0)
     ]);
-    this.shaderBox.shader(theShader);
-    fill("#abcdef");
+    this
+      .shaderBox
+      .shader(theShader);
+    // fill("#abcdef");
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+    this
+      .shaderBox
+      .rect(0, 0, width, height);
 
     this.lightSpeed += 0.01;
+
+    for (let i = 0; i < this.points.length; i++) {
+      const point = this.points[i];
+      ellipse(map(point[0], 0, 1, 0, width), map(point[1], 0, 1, 0, height), 300);
+    }
 
   }
 
@@ -597,17 +599,97 @@ class Shader101 extends Sketch {
   }
 }
 
+class Ripples extends Sketch {
+  constructor() {
+    super();
+    this.circles = [];
+  }
+
+  init() {
+    super.init();
+    this.angle = 0.01
+  }
+
+  draw() {
+    if (pmouseX !== mouseX || pmouseY !== mouseY) {
+      this
+        .circles
+        .push(new Objects.ExplodingCircle({
+          x: mouseX,
+          y: mouseY,
+          size: 25,
+          stroke: "white"
+        }))
+    }
+    for (let i = 0; i < this.circles.length; i++) {
+      let thisCircle = this.circles[i];
+      thisCircle.draw();
+      if (thisCircle.size > 200) {
+        this.circles.splice(i, 1);
+      }
+    }
+  }
+}
+
 const Objects = {
+  Point: class {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color
+    }
+
+    draw() {
+      stroke(this.color);
+      point(this.x, this.y)
+    }
+  },
+  ExplodingCircle: class {
+    constructor({
+      stroke,
+      fill,
+      x,
+      y,
+      size,
+      variant,
+      speed
+    }) {
+      this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
+        stroke || 0;
+      this.fill = typeof fill == "object" ? [fill[0], fill[1], fill[2]] :
+        fill || 0;
+      this.x = x || 0;
+      this.y = y || 0;
+      this.size = size || 10;
+      this.variant = variant || 1;
+      this.speed = speed || 0.1;
+      this.angle = this.speed;
+    }
+    draw() {
+      this.size += sin(this.angle) * 10;
+      stroke(this.stroke);
+      fill(this.fill);
+      ellipse(this.x, this.y, this.size);
+      this.angle += this.speed;
+    }
+  },
   Dot: class {
-    constructor(params) {
-      this.stroke = typeof params.stroke == "object" ? [params.stroke[0], params.stroke[1], params.stroke[2]] :
-        params.stroke || 0;
-      this.fill = typeof params.fill == "object" ? [params.fill[0], params.fill[1], params.fill[2]] :
-        params.fill || 0;
-      this.x = params.x || 0;
-      this.y = params.y || 0;
-      this.size = params.size || 10;
-      this.variant = params.variant || 1;
+    constructor({
+      stroke,
+      fill,
+      x,
+      y,
+      size,
+      variant
+    }) {
+      this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
+        stroke || 0;
+      this.fill = typeof fill == "object" ? [fill[0], fill[1], fill[2]] :
+        fill || 0;
+      this.x = x || 0;
+      this.y = y || 0;
+      this.size = size || 10;
+      this.variant = variant || 1;
     }
     draw() {
       stroke(this.stroke);

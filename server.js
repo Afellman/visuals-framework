@@ -4,7 +4,7 @@ var app = express();
 var port = 3001;
 var osc = require("osc");
 const server = require('http').createServer(app);
-const remoteIP = "192.168.1.12";
+const remoteIP = "192.168.1.16";
 const io = require('socket.io')(server);
 let glClient;
 
