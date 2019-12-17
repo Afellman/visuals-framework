@@ -1,43 +1,21 @@
-let glBackground = [0, 0, 0, 50]
+let glBackground = [0, 0, 0, 100]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
 let numPal = 0;
 let theShader;
+let glCanvas;
 var socket = io('http://localhost:3001');
+
 socket.on('connect', function () {
   console.log("Socket Connected")
 });
 socket.on('disconnected', function () {
   console.log("Socket Disconnected")
 });
+
 attachSceneListeners();
 
-function attachSceneListeners() {
-  socket.on('/0/scene1', (data) => {
-    loadUnload(new Grid(), data.args[0], 0);
-  });
-  socket.on('/0/scene2', (data) => {
-    loadUnload(new Grid(), data.args[0], 1);
-  });
-  socket.on('/0/scene3', (data) => {
-    loadUnload(new Grid(), data.args[0], 2);
-  });
-  socket.on('/0/scene4', (data) => {
-    loadUnload(new Grid(), data.args[0], 3);
-  });
-  socket.on('/0/scene5', (data) => {
-    loadUnload(new Grid(), data.args[0], 4);
-  });
-}
-
-const loadUnload = (load, scene, index) => {
-  if (load) {
-    loadScene(scene);
-  } else {
-    unloadScene(scenes[index]);
-  }
-}
 /*************************************************
  * P5 Functions
  *************************************************/
@@ -48,7 +26,7 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  glCanvas = createCanvas(windowWidth, windowHeight);
   loadImage("./colorImg1.jpg", (img) => takeColor(img));
 };
 
@@ -57,6 +35,7 @@ function draw() {
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
       scenes[i].draw();
+
   }
 };
 
@@ -87,9 +66,10 @@ function loadScene(scene) {
   scenes.push(scene);
 }
 
-function unloadScene(scene) {
+function unloadScene(index) {
+  let scene = scenes[0];
   scene.unload();
-  scenes.splice(scene.index, 1);
+  scenes.splice(index, 1);
 }
 
 function someColor() {
@@ -130,21 +110,25 @@ function takeColor(img) {
   }
 }
 
+function attachSceneListeners() {
+
+}
 /*************************************************
  * Dom Listeners
  *************************************************/
 
+
 document
   .addEventListener('keydown', function (event) {
     if (event.key == " ") {
-      loadScene(new Rain());
+      loadScene(new Connecter());
     } else if (event.key == "Shift") {
-      unloadScene(scenes[0])
+      unloadScene(0)
     }
 
     if (event.key == "a") {
-      loadScene(new Ripples());
+      loadScene(new Shader101());
     } else if (event.key == "s") {
-      unloadScene(scenes[0]);
+      unloadScene(0);
     }
   });

@@ -402,37 +402,71 @@ class Rings extends Sketch {
 class Sin extends Sketch {
   constructor() {
     super();
-    this.angle = 0.01
+    this.waves = [];
+    this.time = 0;
   }
+
   init() {
     super.init();
+    this.waves.push(new Objects.SineWave(50, 0.004))
+    this.waves.push(new Objects.SineWave(100, 0.01))
+    this.waves.push(new Objects.SineWave(15, 0.01))
   }
 
   draw() {
-    stroke("black")
-    beginShape();
+    let howManyWaves = this.waves.length;
+    stroke("white")
+    beginShape()
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
-      let y = height / 2 + sin(i * (mouseY / 100)) * (mouseX / 10)
-      vertex(x, y)
-      this.angle += 0.01
+      let y = height / 2;
+      let n = i * 0.005
+      for (let j = 0; j < howManyWaves; j++) {
+        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
+      }
+      vertex(x, y);
     }
     endShape()
+    translate(width, 0)
+    scale(-1, 1)
+    image(glCanvas, 0, 0, width / 2, height)
+    this.time += 0.1
   }
+
+  sockets = [{
+      name: '/1/multifader1/1',
+      method: (val) => {
+        this.amplitude = val.args[0] * 200;
+      }
+    },
+    {
+      name: '/1/multifader1/2',
+      method: (val) => {
+        this.frequency = val.args[0] / 100
+      }
+    },
+    {
+      name: '/1/multifader1/3',
+      method: (val) => {
+        this.speed = val.args[0]
+      }
+    },
+  ]
+
 }
 
 class Rain extends Sketch {
   constructor() {
     super();
     this.dots = [];
-    this.rowsAmount = 25;
-    this.dotsAmount = 10;
-    this.globalChange = 1;
-    this.period = 1000;
-    this.xspacing = 10;
+    this.rowsAmount = 50;
+    this.dotsAmount = 20;
+    this.globalChange = 14
+    this.period = 0.04;
+    this.xspacing = 0.003;
     this.speed = 0.01;
     this.rateChange = (TWO_PI / this.period) * this.xspacing;
-    this.amplitude = 8;
+    this.amplitude = 2.5;
   }
 
   init() {
@@ -444,7 +478,7 @@ class Rain extends Sketch {
         let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
         this
           .dots[i]
-          .push(new Objects.Dot({
+          .push(new Objects.Circle({
             x: x,
             y: y,
             size: 2,
@@ -456,7 +490,6 @@ class Rain extends Sketch {
             stroke: [
               0, 0, 0, 0
             ],
-            variant: 1
           }))
       }
     }
@@ -472,8 +505,6 @@ class Rain extends Sketch {
   }
 
   draw() {
-    // this.controls().changeSpacing(mouseX / 100000)
-    // this.controls().changePeriod(mouseY / 100000)
     // this.controls().changeSpacing(mouseX / 1000)
     // this.controls().changePeriod(mouseY / 1000)
     this.rateChange = (PI / this.period) * this.xspacing;
@@ -483,7 +514,7 @@ class Rain extends Sketch {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         // thisDot.variant = Math.random(10);
-        thisDot.size = Math.round(sin(change * i) * this.amplitude * thisDot.variant) * 5;
+        thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
         thisDot.draw();
         change += this.rateChange;
       }
@@ -509,6 +540,7 @@ class Shader101 extends Sketch {
     this.lightSpeed = 0.01;
     this.pointsAmt = 1;
     this.diameter = 200;
+    this.time = 0;
   }
 
   sockets = [{
@@ -535,10 +567,10 @@ class Shader101 extends Sketch {
   init() {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    noStroke();
     this.points = [
       [0.5, 0.5]
     ]
+
   }
 
   draw() {
@@ -549,39 +581,22 @@ class Shader101 extends Sketch {
       // the whole array at once using the p5 setUniform method, so setting them
       // directely and individually. I made adjustments to p5.js to put gl and
       // glShaderProgram on the window object.
-      var someVec2Element0Loc = window
-        .gl
-        .getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
-      window
-        .gl
-        .uniform2fv(someVec2Element0Loc, point); // set element 0
-      stroke(0)
-
+      var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+      window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
     }
 
+    noStroke();
     theShader.setUniform("u_spread", (1000 / this.pointsAmt) * (this.diameter)); // Get this equation correct.
-
     theShader.setUniform("u_resolution", [width, height]);
+    theShader.setUniform("u_time", this.time);
     theShader.setUniform("u_mouse", [
       map(mouseX, width, 0, 1.0, 0.0),
       map(mouseY, 0, height, 1.0, 0.0)
     ]);
-    this
-      .shaderBox
-      .shader(theShader);
-    // fill("#abcdef");
+    this.shaderBox.shader(theShader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this
-      .shaderBox
-      .rect(0, 0, width, height);
-
-    this.lightSpeed += 0.01;
-
-    for (let i = 0; i < this.points.length; i++) {
-      const point = this.points[i];
-      ellipse(map(point[0], 0, 1, 0, width), map(point[1], 0, 1, 0, height), 300);
-    }
-
+    this.shaderBox.rect(0, 0, width, height);
+    this.time += 0.01
   }
 
   makePoints() {
@@ -611,27 +626,135 @@ class Ripples extends Sketch {
   }
 
   draw() {
-    if (pmouseX !== mouseX || pmouseY !== mouseY) {
-      this
-        .circles
-        .push(new Objects.ExplodingCircle({
-          x: mouseX,
-          y: mouseY,
-          size: 25,
-          stroke: "white"
-        }))
-    }
     for (let i = 0; i < this.circles.length; i++) {
       let thisCircle = this.circles[i];
       thisCircle.draw();
-      if (thisCircle.size > 200) {
+      if (thisCircle.size > 400) {
         this.circles.splice(i, 1);
       }
     }
   }
+
+  addCircle(x, y) {
+    this
+      .circles
+      .push(new Objects.ExplodingCircle({
+        x: x,
+        y: y,
+        size: 25,
+        stroke: someColor()
+      }))
+  }
+  mouseClicked() {
+    if (this.clicked) {
+      let x = mouseX;
+      let y = mouseY;
+      this.addCircle(x, y);
+      setTimeout(() => this.addCircle(x, y), 200)
+      setTimeout(() => this.addCircle(x, y), 400)
+      this.clicked = false;
+    } else {
+      this.clicked = true;
+      setTimeout(() => {
+        this.clicked = false
+      }, 500)
+    }
+  }
 }
 
+class Connecter extends Sketch {
+  constructor() {
+    super();
+    this.pointAmt = 500;
+    this.topPoints = [];
+    this.bottomPoints = [];
+    this.diameter = 50;
+    this.curl = 300;
+    this.proximity = 500;
+    this.strokeWeight = 1;
+    this.multiplier = 10;
+  }
+
+  sockets = [{
+    name: '/1/multifader1/1',
+    method: (val) => {
+      this.circleDiameter = val.args[0] * 500;
+    }
+  }, {
+    name: '/1/multifader1/2',
+    method: (val) => {
+      this.curl = val.args[0] * 500;
+    }
+  }, {
+    name: '/1/multifader1/3',
+    method: (val) => {
+      this.freq = val.args[0]
+    }
+  }, {
+    name: '/1/multifader1/4',
+    method: (val) => {
+      this.points[2] = [val.args[1], val.args[0]]
+    }
+  }, {
+    name: '/1/multifader1/5',
+    method: (val) => {
+      this.points[2] = [val.args[1], val.args[0]]
+    }
+  }]
+  init() {
+    super.init();
+    let color1 = someColor();
+    let color2 = someColor();
+    for (let i = 0; i < this.pointAmt; i++) {
+      let x = width / this.pointAmt * i;
+      let y = 0;
+      this.topPoints.push({
+        x: x,
+        y: y,
+        color: color1
+      });
+      this.bottomPoints.push({
+        x: width - x,
+        y: height,
+        color: color2
+      });
+    }
+    this.freq = 0.01;
+  }
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    for (let i = 0; i < this.pointAmt; i++) {
+      let bottomPoint = this.bottomPoints[i];
+      let topPoint = this.topPoints[i];
+      let orbit = sin(this.freq) + sin(i * 10) * this.curl;
+      let circle = sin(i) * this.circleDiameter;
+      let x = width / 2 + orbit + circle
+      let y = (height / 2 + cos(this.freq) + cos(i * this.multiplier) * this.curl) + cos(i) * this.circleDiameter;
+      if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
+        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
+        line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
+      }
+      if (dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
+        line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
+      }
+      ellipse(x, y, 10)
+    }
+  }
+
+  mouseClicked() {}
+}
+
+
 const Objects = {
+  /**
+   * @class Point
+   * @classdesc Draws an Point
+   * @prop {int} x X coordinate
+   * @prop {int} y y coordinate
+   * @prop {color} color Color of the point
+   */
   Point: class {
     constructor(x, y, color) {
       this.x = x;
@@ -644,6 +767,15 @@ const Objects = {
       point(this.x, this.y)
     }
   },
+  /**
+   * @class ExplodingCircle
+   * @classdesc Draws an ellipse that expands over time.
+   * @prop {color} stroke Color for the stroke of the circle. Defaulted to black
+   * @prop {color} fill Color for the fill of the circle. Defaulted to black
+   * @prop {int} x X coordinate of the center of the circle
+   * @prop {int} y y  coordinate of the center of the circle
+   * @prop {int} size diameter of the circle
+   */
   ExplodingCircle: class {
     constructor({
       stroke,
@@ -651,8 +783,6 @@ const Objects = {
       x,
       y,
       size,
-      variant,
-      speed
     }) {
       this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
         stroke || 0;
@@ -661,26 +791,35 @@ const Objects = {
       this.x = x || 0;
       this.y = y || 0;
       this.size = size || 10;
-      this.variant = variant || 1;
-      this.speed = speed || 0.1;
+      this.speed = HALF_PI;
       this.angle = this.speed;
     }
     draw() {
-      this.size += sin(this.angle) * 10;
+      this.size += sin(radians(this.angle)) * 10;
+      this.color
       stroke(this.stroke);
-      fill(this.fill);
-      ellipse(this.x, this.y, this.size);
+      strokeWeight(10);
+      noFill();
+      ellipse(Math.round(this.x), Math.round(this.y), Math.round(this.size));
       this.angle += this.speed;
     }
   },
-  Dot: class {
+  /**
+   * @class Circle
+   * @classdesc Draws an ellipse
+   * @prop {color} stroke Color for the stroke of the circle. Defaulted to black
+   * @prop {color} fill Color for the fill of the circle. Defaulted to black
+   * @prop {int} x X coordinate of the center of the circle
+   * @prop {int} y y  coordinate of the center of the circle
+   * @prop {int} size diameter of the circle
+   */
+  Circle: class {
     constructor({
       stroke,
       fill,
       x,
       y,
       size,
-      variant
     }) {
       this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
         stroke || 0;
@@ -689,7 +828,6 @@ const Objects = {
       this.x = x || 0;
       this.y = y || 0;
       this.size = size || 10;
-      this.variant = variant || 1;
     }
     draw() {
       stroke(this.stroke);
@@ -699,6 +837,32 @@ const Objects = {
   },
   Plane: class {
     constructor() {}
+  },
+
+  /**
+   * @class SineWave
+   * @classdesc Stores properties of a sine wave and exposes a getVoltage function which returns the voltage at a given time
+   * @param {int} amp amplitude in pixels
+   * @param {float} freq frequency of the wave
+   * @param {float} phase Offsets the starting point in the cycle
+   * @param {int} startY starting y coord of the wave
+   */
+  SineWave: class {
+    constructor(
+      amp,
+      frequency,
+      phase,
+      startY
+    ) {
+      this.time = 1;
+      this.amplitude = amp || 100;
+      this.frequency = frequency || 0.01;
+      this.phase = phase || 1;
+      this.startY = startY || height / 2;
+    }
+    getVoltage(time) {
+      return this.amplitude * sin(2 * PI * this.frequency * time + this.phase);
+    }
   }
 }
 
