@@ -5,13 +5,18 @@ let maxPal = 512;
 let numPal = 0;
 let theShader;
 let glCanvas;
-var socket = io('http://localhost:3001');
+var socket = io('http://localhost:3000');
 
 socket.on('connect', function () {
   console.log("Socket Connected")
 });
 socket.on('disconnected', function () {
   console.log("Socket Disconnected")
+});
+socket.on("refresh", (val) => {
+  if (val) {
+    window.location.reload()
+  }
 });
 
 attachSceneListeners();
@@ -27,7 +32,10 @@ function preload() {
 // Starting with a canvas the full window size.
 function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
-  loadImage("./colorImg1.jpg", (img) => takeColor(img));
+  loadImage("./colorImg1.jpg", (img) => {
+    takeColor(img);
+    loadScene(new Connecter());
+  });
 };
 
 function draw() {
@@ -35,7 +43,6 @@ function draw() {
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
       scenes[i].draw();
-
   }
 };
 
@@ -116,19 +123,20 @@ function attachSceneListeners() {
 /*************************************************
  * Dom Listeners
  *************************************************/
+function windowResized() { // p5
+  resizeCanvas(windowWidth, windowHeight);
+}
 
+document.addEventListener('keydown', function (event) {
+  if (event.key == " ") {
+    loadScene(new Connecter());
+  } else if (event.key == "Shift") {
+    unloadScene(0)
+  }
 
-document
-  .addEventListener('keydown', function (event) {
-    if (event.key == " ") {
-      loadScene(new Connecter());
-    } else if (event.key == "Shift") {
-      unloadScene(0)
-    }
-
-    if (event.key == "a") {
-      loadScene(new Shader101());
-    } else if (event.key == "s") {
-      unloadScene(0);
-    }
-  });
+  if (event.key == "a") {
+    loadScene(new Shader101());
+  } else if (event.key == "s") {
+    unloadScene(0);
+  }
+});

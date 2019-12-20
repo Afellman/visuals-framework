@@ -668,11 +668,15 @@ class Connecter extends Sketch {
     this.pointAmt = 500;
     this.topPoints = [];
     this.bottomPoints = [];
-    this.diameter = 50;
+    this.leftPoints = [];
+    this.rightPoints = [];
+    this.circleDiameter = 50;
     this.curl = 300;
-    this.proximity = 500;
+    this.proximity = 300;
     this.strokeWeight = 1;
     this.multiplier = 10;
+    this.rotateRate = 0.001;
+    this.circleSize = 3
   }
 
   sockets = [{
@@ -688,17 +692,25 @@ class Connecter extends Sketch {
   }, {
     name: '/1/multifader1/3',
     method: (val) => {
-      this.freq = val.args[0]
+      this.rotateRate = val.args[0] / 10;
     }
   }, {
     name: '/1/multifader1/4',
     method: (val) => {
-      this.points[2] = [val.args[1], val.args[0]]
+      this.circleSize = val.args[0] * 10;
     }
   }, {
     name: '/1/multifader1/5',
     method: (val) => {
-      this.points[2] = [val.args[1], val.args[0]]
+      this.proximity = val.args[0] * 1000
+    }
+  }, {
+    name: '/1/breathe',
+    method: (val) => {
+      if (val) {
+        this.curlSpeed = sin(this.freq) * 2
+      }
+
     }
   }]
   init() {
@@ -711,12 +723,23 @@ class Connecter extends Sketch {
       this.topPoints.push({
         x: x,
         y: y,
-        color: color1
+        color: [70, 100, 97, 248]
       });
       this.bottomPoints.push({
         x: width - x,
         y: height,
-        color: color2
+        color: [70, 100, 97, 248]
+      });
+      y = height / this.pointAmt * i;
+      this.leftPoints.push({
+        x: 0,
+        y: y,
+        color: [70, 100, 97, 248]
+      });
+      this.rightPoints.push({
+        x: width,
+        y: y,
+        color: [70, 100, 97, 248]
       });
     }
     this.freq = 0.01;
@@ -724,13 +747,27 @@ class Connecter extends Sketch {
 
   draw() {
     strokeWeight(this.strokeWeight);
+    let bottomPoint;
+    let topPoint;
+    let rightPoint;
+    let leftPoint;
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    let x;
+    let y;
     for (let i = 0; i < this.pointAmt; i++) {
-      let bottomPoint = this.bottomPoints[i];
-      let topPoint = this.topPoints[i];
-      let orbit = sin(this.freq) + sin(i * 10) * this.curl;
-      let circle = sin(i) * this.circleDiameter;
-      let x = width / 2 + orbit + circle
-      let y = (height / 2 + cos(this.freq) + cos(i * this.multiplier) * this.curl) + cos(i) * this.circleDiameter;
+      bottomPoint = this.bottomPoints[i];
+      topPoint = this.topPoints[i];
+      rightPoint = this.rightPoints[i];
+      leftPoint = this.leftPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      x = width / 2 + orbit + circle
+      y = (height / 2 + orbitY * this.curl) + circleY;
       if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
@@ -739,8 +776,18 @@ class Connecter extends Sketch {
         stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
       }
-      ellipse(x, y, 10)
+      // FOR CONNECTER LINES ON SIDES
+      // if (dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
+      //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80)
+      //   line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y))
+      // }
+      // if (dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
+      //   stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80)
+      //   line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y))
+      // }
+      ellipse(Math.round(x), Math.round(y), this.circleSize)
     }
+    this.freq += this.rotateRate;
   }
 
   mouseClicked() {}

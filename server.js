@@ -1,11 +1,12 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var port = 3001;
+var port = 3000;
 var osc = require("osc");
 const server = require('http').createServer(app);
 const remoteIP = "192.168.1.16";
 const io = require('socket.io')(server);
+const fs = require('fs');
 let glClient;
 
 
@@ -96,3 +97,14 @@ io.on('connection', client => {
 server.listen(port, () => {
   console.log("Server listening on port: " + port);
 });
+
+
+
+fs.watch("./", { recursive: true }, (e, name) => {
+  console.log(name + " changed");
+  try {
+    glClient.emit("refresh", true);
+  } catch (err) {
+    console.log(err);
+  }
+})
