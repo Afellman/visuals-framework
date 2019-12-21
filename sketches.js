@@ -29,7 +29,7 @@ let maze = {
 
     fft = new p5.FFT(0.8, 512);
     fft.setInput(source);
-
+ 
     for (let i = 0; i < this.rows; i++) {
       let row = []
       for (let j = 0; j < this.linesPerRow; j++) {
@@ -134,26 +134,33 @@ let maze = {
 class Sketch {
   constructor() {
     this.index = -1;
-    this.sockets = [];
+    this.listeners= [];
   }
   init() {
     this.index = -1;
-    this.attachSockets();
+    this.attachListeners();
+
   }
   unload() {
-    this.detachSockets();
+    this.detachListeners();
   }
-  attachSockets() {
-    let length = this.sockets.length;
+  attachListeners() {
+    let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.on(thisSocket.name, thisSocket.method);
+      let thisListener = this.listeners[i];
+      socket.on(thisListener.socketName, thisListener.method);
+      const node = document.querySelectorAll("#" + thisListener.nodeID);
+      if(node[0]){
+        node[0].addEventListener("click", (e)=>{
+          thisListener.method({args: [e.target.value / 100]});
+        })
+      }
     }
   }
-  detachSockets() {
-    let length = this.sockets.length;
+  detachListeners() {
+    let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
+      let thisSocket = this.listeners[i];
       socket.removeListener(thisSocket.name, thisSocket.method);
     }
   }
@@ -163,7 +170,7 @@ class Sketch {
 
 class Grid {
   index = -1;
-  sockets = [{}];
+  listeners= [{}];
   gridPointsLength = 0;
   gridPointsX = 0;
   gridPointsY = 0;
@@ -242,7 +249,7 @@ class Grid {
 class ImageTweak {
   iamge;
   index = -1;
-  sockets = [{}];
+  listeners= [{}];
 
   init() {
     loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
@@ -433,20 +440,20 @@ class Sin extends Sketch {
     this.time += 0.1
   }
 
-  sockets = [{
-      name: '/1/multifader1/1',
+  listeners= [{
+      socketName: '/1/multifader1/1',
       method: (val) => {
         this.amplitude = val.args[0] * 200;
       }
     },
     {
-      name: '/1/multifader1/2',
+      socketName: '/1/multifader1/2',
       method: (val) => {
         this.frequency = val.args[0] / 100
       }
     },
     {
-      name: '/1/multifader1/3',
+      socketName: '/1/multifader1/3',
       method: (val) => {
         this.speed = val.args[0]
       }
@@ -543,23 +550,23 @@ class Shader101 extends Sketch {
     this.time = 0;
   }
 
-  sockets = [{
-    name: '/1/xy1',
+  listeners= [{
+    socketName: '/1/xy1',
     method: (val) => {
       this.points[0] = [val.args[1], val.args[0]]
     }
   }, {
-    name: '/1/multixy1/1',
+    socketName: '/1/multixy1/1',
     method: (val) => {
       this.points[0] = [val.args[1], val.args[0]]
     }
   }, {
-    name: '/1/multixy1/2',
+    socketName: '/1/multixy1/2',
     method: (val) => {
       this.points[1] = [val.args[1], val.args[0]]
     }
   }, {
-    name: '/1/multixy1/3',
+    socketName: '/1/multixy1/3',
     method: (val) => {
       this.points[2] = [val.args[1], val.args[0]]
     }
@@ -665,7 +672,7 @@ class Ripples extends Sketch {
 class Connecter extends Sketch {
   constructor() {
     super();
-    this.pointAmt = 500;
+    this.pointAmt = 100;
     this.topPoints = [];
     this.bottomPoints = [];
     this.leftPoints = [];
@@ -679,38 +686,65 @@ class Connecter extends Sketch {
     this.circleSize = 3
   }
 
-  sockets = [{
-    name: '/1/multifader1/1',
+  listeners= [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
     method: (val) => {
       this.circleDiameter = val.args[0] * 500;
     }
   }, {
-    name: '/1/multifader1/2',
+    socketName: '/1/multifader1/2',
+    nodeID: "slider2",
     method: (val) => {
       this.curl = val.args[0] * 500;
     }
   }, {
-    name: '/1/multifader1/3',
+    socketName: '/1/multifader1/3',
+    nodeID: "slider3",
     method: (val) => {
       this.rotateRate = val.args[0] / 10;
     }
   }, {
-    name: '/1/multifader1/4',
+    socketName: '/1/multifader1/4',
+    nodeID: "slider4",
     method: (val) => {
       this.circleSize = val.args[0] * 10;
     }
   }, {
-    name: '/1/multifader1/5',
+    socketName: '/1/multifader1/5',
+    nodeID: "slider5",
     method: (val) => {
       this.proximity = val.args[0] * 1000
     }
   }, {
-    name: '/1/breathe',
+    socketName: '/1/breathe',
+    nodeID: "btn1",
     method: (val) => {
       if (val) {
-        this.curlSpeed = sin(this.freq) * 2
+        let x = width / this.pointAmt;
+        let y = 0;
+        this.topPoints.push({
+          x: x,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+        this.bottomPoints.push({
+          x: width - x,
+          y: height,
+          color: [70, 100, 97, 248]
+        });
+        this.pointAmt ++
       }
-
+    }
+  }, {
+    socketName: '/1/breathe',
+    nodeID: "btn2",
+    method: (val) => {
+      if (val) {
+       this.topPoints.pop();
+       this.bottomPoints.pop();
+       this.pointAmt --
+      }
     }
   }]
   init() {

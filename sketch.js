@@ -131,12 +131,20 @@ document.addEventListener('keydown', function (event) {
   if (event.key == " ") {
     loadScene(new Connecter());
   } else if (event.key == "Shift") {
-    unloadScene(0)
+    unloadScene(0) 
   }
 
   if (event.key == "a") {
     loadScene(new Shader101());
   } else if (event.key == "s") {
     unloadScene(0);
+  }
+
+  if(event.key == "q"){
+    if(document.getElementById("controls").style.display == "none"){
+      document.getElementById("controls").style.display = "block"
+    }else {
+      document.getElementById("controls").style.display = "none"
+    }
   }
 });
