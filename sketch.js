@@ -127,24 +127,34 @@ function windowResized() { // p5
   resizeCanvas(windowWidth, windowHeight);
 }
 
-document.addEventListener('keydown', function (event) {
-  if (event.key == " ") {
+document.addEventListener('keydown', function ({
+  key
+}) {
+  if (key == " ") {
     loadScene(new Connecter());
-  } else if (event.key == "Shift") {
-    unloadScene(0) 
+  } else if (key == "Shift") {
+    unloadScene(0)
   }
 
-  if (event.key == "a") {
+  if (key == "a") {
     loadScene(new Shader101());
-  } else if (event.key == "s") {
+  } else if (key == "s") {
     unloadScene(0);
   }
 
-  if(event.key == "q"){
-    if(document.getElementById("controls").style.display == "none"){
+  if (key == "q") {
+    if (document.getElementById("controls").style.display == "none") {
       document.getElementById("controls").style.display = "block"
-    }else {
+    } else {
       document.getElementById("controls").style.display = "none"
+    }
+  }
+
+  if (key == "b") {
+    if (glBackground[3] == 0) {
+      glBackground[3] = 100
+    } else {
+      glBackground[3] = 0
     }
   }
 });
