@@ -15,7 +15,7 @@ uniform float u_time;
 
 void main() {
   vec2 coord = vTexCoord;
-  float dist = distance(vTexCoord.y, 0.75) * abs(sin(u_time)) * 3.0;
+  float dist = distance(vTexCoord.y, 0.5) * 0.5 * 2.0;
 
   // for(int i = 1; i < pointsAmt; i ++){
   //   if(u_points[i].x + u_points[i].y > 0.0){
@@ -24,6 +24,6 @@ void main() {
   // }
   //   float color = dist * 200.0;
 
-  gl_FragColor = vec4(1.0-dist, 1.0-dist, 0.0, 1.0);
+  gl_FragColor = vec4(0.3-dist, 0.6-dist, 0.4, 1.0);
 }
 
