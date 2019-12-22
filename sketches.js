@@ -29,7 +29,7 @@ let maze = {
 
     fft = new p5.FFT(0.8, 512);
     fft.setInput(source);
- 
+
     for (let i = 0; i < this.rows; i++) {
       let row = []
       for (let j = 0; j < this.linesPerRow; j++) {
@@ -134,7 +134,7 @@ let maze = {
 class Sketch {
   constructor() {
     this.index = -1;
-    this.listeners= [];
+    this.listeners = [];
   }
   init() {
     this.index = -1;
@@ -150,9 +150,11 @@ class Sketch {
       let thisListener = this.listeners[i];
       socket.on(thisListener.socketName, thisListener.method);
       const node = document.querySelectorAll("#" + thisListener.nodeID);
-      if(node[0]){
-        node[0].addEventListener("click", (e)=>{
-          thisListener.method({args: [e.target.value / 100]});
+      if (node[0]) {
+        node[0].addEventListener("click", (e) => {
+          thisListener.method({
+            args: [e.target.value / 100]
+          });
         })
       }
     }
@@ -170,7 +172,7 @@ class Sketch {
 
 class Grid {
   index = -1;
-  listeners= [{}];
+  listeners = [{}];
   gridPointsLength = 0;
   gridPointsX = 0;
   gridPointsY = 0;
@@ -249,7 +251,7 @@ class Grid {
 class ImageTweak {
   iamge;
   index = -1;
-  listeners= [{}];
+  listeners = [{}];
 
   init() {
     loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
@@ -440,7 +442,7 @@ class Sin extends Sketch {
     this.time += 0.1
   }
 
-  listeners= [{
+  listeners = [{
       socketName: '/1/multifader1/1',
       method: (val) => {
         this.amplitude = val.args[0] * 200;
@@ -550,7 +552,7 @@ class Shader101 extends Sketch {
     this.time = 0;
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/xy1',
     method: (val) => {
       this.points[0] = [val.args[1], val.args[0]]
@@ -672,7 +674,7 @@ class Ripples extends Sketch {
 class Connecter extends Sketch {
   constructor() {
     super();
-    this.pointAmt = 100;
+    this.pointAmt = 1000;
     this.topPoints = [];
     this.bottomPoints = [];
     this.leftPoints = [];
@@ -686,7 +688,7 @@ class Connecter extends Sketch {
     this.circleSize = 3
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
@@ -733,7 +735,7 @@ class Connecter extends Sketch {
           y: height,
           color: [70, 100, 97, 248]
         });
-        this.pointAmt ++
+        this.pointAmt++
       }
     }
   }, {
@@ -741,9 +743,9 @@ class Connecter extends Sketch {
     nodeID: "btn2",
     method: (val) => {
       if (val) {
-       this.topPoints.pop();
-       this.bottomPoints.pop();
-       this.pointAmt --
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
       }
     }
   }]
