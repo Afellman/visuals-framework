@@ -34,7 +34,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
-    loadScene(new Connecter());
+    loadScene(new GoldenSpiral());
   });
 };
 
@@ -132,13 +132,12 @@ document.addEventListener('keydown', function ({
 }) {
   if (key == " ") {
     loadScene(new Connecter());
-  } else if (key == "Shift") {
-    unloadScene(0)
   }
 
   if (key == "a") {
     loadScene(new Shader101());
-  } else if (key == "s") {
+  }
+  if (key == "d") {
     unloadScene(0);
   }
 
