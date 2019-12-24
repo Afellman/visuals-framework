@@ -34,7 +34,8 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
-    loadScene(new GoldenSpiral());
+    // loadScene(new Sun());
+    loadScene(new Starry());
   });
 };
 
@@ -131,7 +132,7 @@ document.addEventListener('keydown', function ({
   key
 }) {
   if (key == " ") {
-    loadScene(new Connecter());
+    loadScene(new SpinningCircles());
   }
 
   if (key == "a") {

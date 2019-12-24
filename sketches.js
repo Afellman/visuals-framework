@@ -782,7 +782,13 @@ class SpinningCircles extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({stroke: someColor(), fill: "white", x: width / 2 + orbit + circle, y: (height / 2 + orbitY * this.curl) + circleY, size: 5}))
+      this.centerPoints.push(new Objects.Circle({
+        stroke: someColor(),
+        fill: "white",
+        x: width / 2 + orbit + circle,
+        y: (height / 2 + orbitY * this.curl) + circleY,
+        size: 5
+      }))
     }
     this.freq = 0.01;
   }
@@ -816,7 +822,7 @@ class SpinningCircles extends Sketch {
       // if(i > 0) {
       //   line(x, y, prevX, prevY)
       // }
-     
+
       // if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
       //   stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
       //   line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
@@ -844,6 +850,7 @@ class SpinningCircles extends Sketch {
 
   mouseClicked() {}
 }
+
 class Connecter extends Sketch {
   constructor() {
     super();
@@ -857,7 +864,7 @@ class Connecter extends Sketch {
     this.centerPoints = [];
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
@@ -904,7 +911,7 @@ class Connecter extends Sketch {
           y: height,
           color: [70, 100, 97, 248]
         });
-        this.pointAmt ++
+        this.pointAmt++
       }
     }
   }, {
@@ -912,9 +919,9 @@ class Connecter extends Sketch {
     nodeID: "btn2",
     method: (val) => {
       if (val) {
-       this.topPoints.pop();
-       this.bottomPoints.pop();
-       this.pointAmt --
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
       }
     }
   }]
@@ -925,7 +932,13 @@ class Connecter extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({stroke: someColor(), fill: "white", x: width / 2 + orbit + circle, y: (height / 2 + orbitY * this.curl) + circleY, size: 5}))
+      this.centerPoints.push(new Objects.Circle({
+        stroke: someColor(),
+        fill: "white",
+        x: width / 2 + orbit + circle,
+        y: (height / 2 + orbitY * this.curl) + circleY,
+        size: 5
+      }))
     }
     this.freq = 0.01;
     glBackground = [0, 0, 0, 0];
@@ -933,7 +946,7 @@ class Connecter extends Sketch {
 
   draw() {
     strokeWeight(this.strokeWeight);
-    
+
     let orbit;
     let circle;
     let orbitY;
@@ -948,9 +961,9 @@ class Connecter extends Sketch {
       circleY = cos(i) * this.circleDiameter;
       thisPoint.x = width / 2 + orbit + circle
       thisPoint.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke); 
-      for(let j = 0 ; j < this.pointAmt; j ++){
-        if(dist(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y) < 500){
+      stroke(thisPoint.stroke);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y) < 500) {
           line(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y)
         }
       }
@@ -962,9 +975,9 @@ class Connecter extends Sketch {
 }
 
 class GoldenSpiral extends Sketch {
-  constructor(){
+  constructor() {
     super();
-    this.goldenAngle = PI * (3.0 - sqrt(5));   
+    this.goldenAngle = PI * (3.0 - sqrt(5));
     this.time = 0;
     this.number = 500;
     this.size = 200;
@@ -976,11 +989,11 @@ class GoldenSpiral extends Sketch {
   listeners = [{
 
   }]
-  init(){
+  init() {
     super.init();
   }
 
-  draw(){
+  draw() {
     // background(0);
     fill(255, 10);
     stroke(255, 255, 255, 75)
@@ -995,7 +1008,72 @@ class GoldenSpiral extends Sketch {
       // ellipse(0, 0, this.size);						// draw an ellipse (circle)
       // rect(0, 0, this.size, this.size); 					// draw a rectangle
     }
-    this.time += 0.00001;                                
+    this.time += 0.00001;
+  }
+}
+
+class Starry extends Sketch {
+  constructor() {
+    super();
+  }
+  listeners = [{}]
+  init() {
+    this.points = [];
+    super.init();
+    this.starAmt = 200;
+    for (let i = 0; i < this.starAmt; i++) {
+      this.points.push(createVector(random() * width, random() * height));
+    }
+  }
+  draw() {
+    let x;
+    let y;
+    let thisPoint;
+
+    for (let i = 0; i < this.starAmt; i++) {
+      if (i < 10) {
+        // stroke("white")
+        fill(0, 255, 0, 10)
+        ellipse(width / 2, height / 2, 100 * i)
+      }
+      thisPoint = this.points[i];
+      let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 50;
+      let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
+      thisPoint.add(acc.div(100))
+      // stroke("white");
+      noStroke();
+      fill(255);
+      ellipse(thisPoint.x, thisPoint.y, size);
+      if (thisPoint.x > width || thisPoint.x < 0 || thisPoint.y > height || thisPoint.y < 0) {
+        this.points.splice(i, 1);
+        this.points.push(createVector(random(width / 2 - 100, width / 2 + 100), random(height / 2 - 100, height / 2 + 100)))
+      }
+    }
+  }
+}
+
+
+class Sun extends Sketch {
+  constructor() {
+    super();
+
+  }
+  listeners = [{
+
+  }]
+  init() {
+    super.init();
+  }
+
+  draw() {
+    let size;
+    for (let i = 0; i < 50; i++) {
+      noStroke();
+      size = 200 + (i * 10) + sin(i + frameCount / 10) * 10
+      fill(100, 53, 0, (255 / i));
+      ellipse(width / 2, height / 2, size);
+
+    }
   }
 }
 
@@ -1114,6 +1192,22 @@ const Objects = {
     }
     getVoltage(time) {
       return this.amplitude * sin(2 * PI * this.frequency * time + this.phase);
+    }
+  }
+}
+
+const Methods = {
+  connect: (point, arrayOfObjects, distance, stroke) => {
+    const length = arrayOfObjects.length
+    let thisPoint;
+    if (stroke) {
+      stroke(stroke);
+    }
+    for (let i = 0; i < length; i++) {
+      thisPoint = arrayOfObjects[i];
+      if (dist(point.x, point.y, thisPoint.x, thisPoint.y) < distance) {
+        line(point.x, point.y, thisPoint.x, thisPoint.y);
+      }
     }
   }
 }
