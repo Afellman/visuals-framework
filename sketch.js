@@ -35,7 +35,7 @@ function setup() {
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new Starry());
+    loadScene(new Sun());
   });
 };
 
@@ -46,28 +46,14 @@ function draw() {
     if (scenes[i])
       scenes[i].draw();
   }
+  text("FPS:" + frameRate().toFixed(2), 10, height - 10)
 };
 
 /*************************************************
  * Other Functions
  *************************************************/
 
-// Sending the mouseClicked event to the sketches[currentSketch].
-function mouseClicked() {
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) {
-      scenes[i].mouseClicked();
-    }
-  };
-};
 
-function keyPressed(e) {
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) {
-      scenes[i].keyPressed(e);
-    }
-  };
-};
 
 function loadScene(scene) {
   let sceneLength = scenes.length;
@@ -129,9 +115,17 @@ function windowResized() { // p5
   resizeCanvas(windowWidth, windowHeight);
 }
 
-document.addEventListener('keydown', function ({
-  key
-}) {
+// Sending the mouseClicked event to the sketches[currentSketch].
+function mouseClicked() {
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].mouseClicked();
+    }
+  };
+};
+
+function keyPressed(e) {
+  const key = e.key;
   if (key == " ") {
     loadScene(new SpinningCircles());
   }
@@ -158,4 +152,14 @@ document.addEventListener('keydown', function ({
       glBackground[3] = 0
     }
   }
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].keyPressed(e);
+    }
+  };
+};
+document.addEventListener('keydown', function ({
+  key
+}) {
+
 });

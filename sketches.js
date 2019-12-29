@@ -163,23 +163,27 @@ class Sketch {
     let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
       let thisSocket = this.listeners[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
+      socket.removeListener(thisSocket.socketName, thisSocket.method);
     }
   }
   mouseClicked() {}
   keyPressed() {}
 }
 
-class Grid {
-  index = -1;
-  listeners = [{}];
-  gridPointsLength = 0;
-  gridPointsX = 0;
-  gridPointsY = 0;
-  gridPoints = [];
-  angle = 0.01;
+class Grid extends Sketch {
+  constructor() {
+    super();
+    this.index = -1;
+    this.listeners = [{}];
+    this.gridPointsLength = 0;
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+    this.gridPoints = [];
+    this.angle = 0.01;
+  }
 
   init(index) {
+    super.init()
     this.index = index;
     this.gridPointsX = 20;
     this.gridPointsY = 20;
@@ -196,41 +200,20 @@ class Grid {
     }
     this.gridPointsLength = this.gridPoints.length;
   }
-  unload() {
-    this.index = -1;
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-    this.detachSockets();
-  }
-  attachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.on(thisSocket.name, thisSocket.method);
-    }
-  }
-  detachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
-    }
-  }
 
   draw() {
+    strokeWeight(3);
+    stroke(80, 0, 0);
     for (let i = 1; i < this.gridPointsLength; i++) {
       for (let j = 0; j < this.gridPointsX - 1; j++) {
         if (i < this.gridPointsLength - 1) {
           line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
           this.move(this.gridPoints[i][j], i)
         }
-        stroke(80, 0, 0);
         line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
       }
     }
-    this.angle += 0.01;
+    // this.angle += 0.01;
   }
 
   move(point, i) {
@@ -243,8 +226,8 @@ class Grid {
     acc.normalize();
 
     // acc.mult(5)
-    point.x += sin(this.angle) * acc.x;
-    point.y += cos(this.angle) * acc.y;
+    // point.x += sin(this.angle) * acc.x;
+    // point.y += cos(this.angle) * acc.y;
   }
 }
 
@@ -377,7 +360,7 @@ class Rings extends Sketch {
       this.drawRings();
     }
   }
-  drawRings = () => {
+  drawRings() {
     fill(this.colors[0][0], this.colors[0][1], this.colors[0][2]);
     ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 6));
     fill(this.colors[1][0], this.colors[1][1], this.colors[1][2]);
@@ -1023,8 +1006,12 @@ class Starry extends Sketch {
     this.points = [];
     super.init();
     this.starAmt = 200;
+
     for (let i = 0; i < this.starAmt; i++) {
-      this.points.push(createVector(random() * width, random() * height));
+      this.points.push({
+        pos: createVector(random() * width, random() * height),
+        color: someColor()
+      });
     }
   }
   draw() {
@@ -1033,50 +1020,84 @@ class Starry extends Sketch {
     let thisPoint;
 
     for (let i = 0; i < this.starAmt; i++) {
-      // if (i < 10) { // Shows green circles
+      // if (i < 10) {
       //   // stroke("white")
       //   fill(0, 255, 0, 10)
       //   ellipse(width / 2, height / 2, 100 * i)
       // }
       thisPoint = this.points[i];
-      let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 50;
-      let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-      thisPoint.add(acc.div(100));
+      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) / 50;
+      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
+      thisPoint.pos.add(acc.div(100))
       // stroke("white");
       noStroke();
-      fill(255);
-      ellipse(thisPoint.x, thisPoint.y, size);
-      if (thisPoint.x > width || thisPoint.x < 0 || thisPoint.y > height || thisPoint.y < 0) {
+      fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
+      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
-        this.points.push(createVector(random(width / 2 - 100, width / 2 + 100), random(height / 2 - 100, height / 2 + 100)))
+        this.starAmt--;
+        this.addPoint();
       }
     }
   }
+  addPoint() {
+    this.points.push({
+      pos: createVector(random() * width, random() * height),
+      color: someColor()
+    })
+    this.starAmt++;
+  }
 }
-
 
 class Sun extends Sketch {
   constructor() {
     super();
-
+    this.listeners = [{
+        socketName: '/1/multifader1/1',
+        nodeID: "slider1",
+        method: (val) => {
+          this.freq = val.args[0] * 100;
+        }
+      },
+      {
+        socketName: '/1/multifader1/2',
+        nodeID: "slider2",
+        method: (val) => {
+          this.amp = val.args[0] * 1000;
+        }
+      }
+    ];
   }
-  listeners = [{
 
-  }]
   init() {
     super.init();
+    this.freq = 10;
+    this.amp = 20
   }
 
   draw() {
     let size;
     for (let i = 0; i < 50; i++) {
       noStroke();
-      size = 200 + (i * 10) + sin(i + frameCount / 10) * 10
+      size = 200 + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
       fill(100, 53, 0, (255 / i));
       ellipse(width / 2, height / 2, size);
 
     }
   }
+}
+
+class FlyingDots extends Sketch {
+  constructor() {
+    super();
+    this.listeners = [{}];
+  }
+
+  init() {
+    super.init();
+    glBackground = [220, 220, 220, 100];
+  }
+  draw() {}
 }
 
 const Objects = {
@@ -1089,14 +1110,13 @@ const Objects = {
    */
   Point: class {
     constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.color = color
+      this.pos = createVector(x, y);
+      this.color = color;
     }
 
     draw() {
       stroke(this.color);
-      point(this.x, this.y)
+      point(this.pos.x, this.pos.y)
     }
   },
   /**
@@ -1146,25 +1166,24 @@ const Objects = {
    * @prop {int} size diameter of the circle
    */
   Circle: class {
-    constructor({
-      stroke,
-      fill,
+    constructor(
       x,
       y,
       size,
-    }) {
+      stroke,
+      fill,
+    ) {
       this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
         stroke || 0;
       this.fill = typeof fill == "object" ? [fill[0], fill[1], fill[2]] :
         fill || 0;
-      this.x = x || 0;
-      this.y = y || 0;
+      this.pos = createVector(x, y);
       this.size = size || 10;
     }
     draw() {
       stroke(this.stroke);
       fill(this.fill);
-      ellipse(this.x, this.y, this.size);
+      ellipse(this.pos.x, this.pos.y, this.size);
     }
   },
   Plane: class {
@@ -1211,6 +1230,9 @@ const Methods = {
         line(point.x, point.y, thisPoint.x, thisPoint.y);
       }
     }
+  },
+  sin: (amp, freq, time, phase) => {
+    return amp * sin(2 * PI * freq * time + phase);
   }
 }
 
