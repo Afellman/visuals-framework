@@ -1016,7 +1016,9 @@ class Starry extends Sketch {
   constructor() {
     super();
   }
-  listeners = [{}]
+  listeners = [{
+    
+  }]
   init() {
     this.points = [];
     super.init();
@@ -1031,15 +1033,15 @@ class Starry extends Sketch {
     let thisPoint;
 
     for (let i = 0; i < this.starAmt; i++) {
-      if (i < 10) {
-        // stroke("white")
-        fill(0, 255, 0, 10)
-        ellipse(width / 2, height / 2, 100 * i)
-      }
+      // if (i < 10) { // Shows green circles
+      //   // stroke("white")
+      //   fill(0, 255, 0, 10)
+      //   ellipse(width / 2, height / 2, 100 * i)
+      // }
       thisPoint = this.points[i];
       let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 50;
       let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-      thisPoint.add(acc.div(100))
+      thisPoint.add(acc.div(100));
       // stroke("white");
       noStroke();
       fill(255);

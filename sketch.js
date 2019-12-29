@@ -41,6 +41,7 @@ function setup() {
 
 function draw() {
   background(glBackground);
+  text("FPS: " + frameRate().toFixed(2), 10, height - 10);
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
       scenes[i].draw();
@@ -75,8 +76,8 @@ function loadScene(scene) {
 }
 
 function unloadScene(index) {
-  let scene = scenes[0];
-  scene.unload();
+  // let scene = scenes[0];
+  // scene.unload();
   scenes.splice(index, 1);
 }
 
