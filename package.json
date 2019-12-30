@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "sync": "git add . && git commit -m 'sync' && git push origin master"
   },
   "repository": {
     "type": "git",
