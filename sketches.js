@@ -29,7 +29,7 @@ let maze = {
 
     fft = new p5.FFT(0.8, 512);
     fft.setInput(source);
- 
+
     for (let i = 0; i < this.rows; i++) {
       let row = []
       for (let j = 0; j < this.linesPerRow; j++) {
@@ -134,7 +134,7 @@ let maze = {
 class Sketch {
   constructor() {
     this.index = -1;
-    this.listeners= [];
+    this.listeners = [];
   }
   init() {
     this.index = -1;
@@ -150,9 +150,11 @@ class Sketch {
       let thisListener = this.listeners[i];
       socket.on(thisListener.socketName, thisListener.method);
       const node = document.querySelectorAll("#" + thisListener.nodeID);
-      if(node[0]){
-        node[0].addEventListener("click", (e)=>{
-          thisListener.method({args: [e.target.value / 100]});
+      if (node[0]) {
+        node[0].addEventListener("click", (e) => {
+          thisListener.method({
+            args: [e.target.value / 100]
+          });
         })
       }
     }
@@ -161,23 +163,27 @@ class Sketch {
     let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
       let thisSocket = this.listeners[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
+      socket.removeListener(thisSocket.socketName, thisSocket.method);
     }
   }
   mouseClicked() {}
   keyPressed() {}
 }
 
-class Grid {
-  index = -1;
-  listeners= [{}];
-  gridPointsLength = 0;
-  gridPointsX = 0;
-  gridPointsY = 0;
-  gridPoints = [];
-  angle = 0.01;
+class Grid extends Sketch {
+  constructor() {
+    super();
+    this.index = -1;
+    this.listeners = [{}];
+    this.gridPointsLength = 0;
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+    this.gridPoints = [];
+    this.angle = 0.01;
+  }
 
   init(index) {
+    super.init()
     this.index = index;
     this.gridPointsX = 20;
     this.gridPointsY = 20;
@@ -194,41 +200,20 @@ class Grid {
     }
     this.gridPointsLength = this.gridPoints.length;
   }
-  unload() {
-    this.index = -1;
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-    this.detachSockets();
-  }
-  attachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.on(thisSocket.name, thisSocket.method);
-    }
-  }
-  detachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
-    }
-  }
 
   draw() {
+    strokeWeight(3);
+    stroke(80, 0, 0);
     for (let i = 1; i < this.gridPointsLength; i++) {
       for (let j = 0; j < this.gridPointsX - 1; j++) {
         if (i < this.gridPointsLength - 1) {
           line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
           this.move(this.gridPoints[i][j], i)
         }
-        stroke(80, 0, 0);
         line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
       }
     }
-    this.angle += 0.01;
+    // this.angle += 0.01;
   }
 
   move(point, i) {
@@ -241,15 +226,15 @@ class Grid {
     acc.normalize();
 
     // acc.mult(5)
-    point.x += sin(this.angle) * acc.x;
-    point.y += cos(this.angle) * acc.y;
+    // point.x += sin(this.angle) * acc.x;
+    // point.y += cos(this.angle) * acc.y;
   }
 }
 
 class ImageTweak {
   iamge;
   index = -1;
-  listeners= [{}];
+  listeners = [{}];
 
   init() {
     loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
@@ -375,7 +360,7 @@ class Rings extends Sketch {
       this.drawRings();
     }
   }
-  drawRings = () => {
+  drawRings() {
     fill(this.colors[0][0], this.colors[0][1], this.colors[0][2]);
     ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 6));
     fill(this.colors[1][0], this.colors[1][1], this.colors[1][2]);
@@ -440,7 +425,7 @@ class Sin extends Sketch {
     this.time += 0.1
   }
 
-  listeners= [{
+  listeners = [{
       socketName: '/1/multifader1/1',
       method: (val) => {
         this.amplitude = val.args[0] * 200;
@@ -550,7 +535,7 @@ class Shader101 extends Sketch {
     this.time = 0;
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/xy1',
     method: (val) => {
       this.points[0] = [val.args[1], val.args[0]]
@@ -672,7 +657,7 @@ class Ripples extends Sketch {
 class SpinningCircles extends Sketch {
   constructor() {
     super();
-    this.pointAmt = 100;
+    this.pointAmt = 1000;
     this.topPoints = [];
     this.bottomPoints = [];
     this.leftPoints = [];
@@ -687,7 +672,7 @@ class SpinningCircles extends Sketch {
     this.centerPoints = [];
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
@@ -734,7 +719,7 @@ class SpinningCircles extends Sketch {
           y: height,
           color: [70, 100, 97, 248]
         });
-        this.pointAmt ++
+        this.pointAmt++
       }
     }
   }, {
@@ -742,9 +727,9 @@ class SpinningCircles extends Sketch {
     nodeID: "btn2",
     method: (val) => {
       if (val) {
-       this.topPoints.pop();
-       this.bottomPoints.pop();
-       this.pointAmt --
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
       }
     }
   }]
@@ -780,7 +765,13 @@ class SpinningCircles extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({stroke: someColor(), fill: "white", x: width / 2 + orbit + circle, y: (height / 2 + orbitY * this.curl) + circleY, size: 5}))
+      this.centerPoints.push(new Objects.Circle({
+        stroke: someColor(),
+        fill: "white",
+        x: width / 2 + orbit + circle,
+        y: (height / 2 + orbitY * this.curl) + circleY,
+        size: 5
+      }))
     }
     this.freq = 0.01;
   }
@@ -814,7 +805,7 @@ class SpinningCircles extends Sketch {
       // if(i > 0) {
       //   line(x, y, prevX, prevY)
       // }
-     
+
       // if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
       //   stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
       //   line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
@@ -842,6 +833,7 @@ class SpinningCircles extends Sketch {
 
   mouseClicked() {}
 }
+
 class Connecter extends Sketch {
   constructor() {
     super();
@@ -855,7 +847,7 @@ class Connecter extends Sketch {
     this.centerPoints = [];
   }
 
-  listeners= [{
+  listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
@@ -902,7 +894,7 @@ class Connecter extends Sketch {
           y: height,
           color: [70, 100, 97, 248]
         });
-        this.pointAmt ++
+        this.pointAmt++
       }
     }
   }, {
@@ -910,9 +902,9 @@ class Connecter extends Sketch {
     nodeID: "btn2",
     method: (val) => {
       if (val) {
-       this.topPoints.pop();
-       this.bottomPoints.pop();
-       this.pointAmt --
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
       }
     }
   }]
@@ -923,7 +915,13 @@ class Connecter extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({stroke: someColor(), fill: "white", x: width / 2 + orbit + circle, y: (height / 2 + orbitY * this.curl) + circleY, size: 5}))
+      this.centerPoints.push(new Objects.Circle({
+        stroke: someColor(),
+        fill: "white",
+        x: width / 2 + orbit + circle,
+        y: (height / 2 + orbitY * this.curl) + circleY,
+        size: 5
+      }))
     }
     this.freq = 0.01;
     glBackground = [0, 0, 0, 0];
@@ -931,7 +929,7 @@ class Connecter extends Sketch {
 
   draw() {
     strokeWeight(this.strokeWeight);
-    
+
     let orbit;
     let circle;
     let orbitY;
@@ -946,9 +944,9 @@ class Connecter extends Sketch {
       circleY = cos(i) * this.circleDiameter;
       thisPoint.x = width / 2 + orbit + circle
       thisPoint.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke); 
-      for(let j = 0 ; j < this.pointAmt; j ++){
-        if(dist(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y) < 500){
+      stroke(thisPoint.stroke);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y) < 500) {
           line(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y)
         }
       }
@@ -960,9 +958,9 @@ class Connecter extends Sketch {
 }
 
 class GoldenSpiral extends Sketch {
-  constructor(){
+  constructor() {
     super();
-    this.goldenAngle = PI * (3.0 - sqrt(5));   
+    this.goldenAngle = PI * (3.0 - sqrt(5));
     this.time = 0;
     this.number = 500;
     this.size = 200;
@@ -974,11 +972,11 @@ class GoldenSpiral extends Sketch {
   listeners = [{
 
   }]
-  init(){
+  init() {
     super.init();
   }
 
-  draw(){
+  draw() {
     // background(0);
     fill(255, 10);
     stroke(255, 255, 255, 75)
@@ -993,8 +991,159 @@ class GoldenSpiral extends Sketch {
       // ellipse(0, 0, this.size);						// draw an ellipse (circle)
       // rect(0, 0, this.size, this.size); 					// draw a rectangle
     }
-    this.time += 0.00001;                                
+    this.time += 0.00001;
   }
+}
+
+class Starry extends Sketch {
+  constructor() {
+    super();
+  }
+  listeners = [{
+    
+  }]
+  init() {
+    this.points = [];
+    super.init();
+    this.starAmt = 200;
+
+    for (let i = 0; i < this.starAmt; i++) {
+      this.points.push({
+        pos: createVector(random() * width, random() * height),
+        color: someColor()
+      });
+    }
+  }
+  draw() {
+    let x;
+    let y;
+    let thisPoint;
+
+    for (let i = 0; i < this.starAmt; i++) {
+      // if (i < 10) {
+      //   // stroke("white")
+      //   fill(0, 255, 0, 10)
+      //   ellipse(width / 2, height / 2, 100 * i)
+      // }
+      thisPoint = this.points[i];
+      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) / 50;
+      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
+      thisPoint.pos.add(acc.div(100))
+      // stroke("white");
+      noStroke();
+      fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
+      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
+        this.points.splice(i, 1);
+        this.starAmt--;
+        this.addPoint();
+      }
+    }
+  }
+  addPoint() {
+    this.points.push({
+      pos: createVector(random() * width, random() * height),
+      color: someColor()
+    })
+    this.starAmt++;
+  }
+}
+
+class Sun extends Sketch {
+  constructor() {
+    super();
+    this.listeners = [{
+        socketName: '/1/multifader1/1',
+        nodeID: "slider1",
+        method: (val) => {
+          this.freq = val.args[0] * 100;
+        }
+      },
+      {
+        socketName: '/1/multifader1/2',
+        nodeID: "slider2",
+        method: (val) => {
+          this.amp = val.args[0] * 1000;
+        }
+      }
+    ];
+  }
+
+  init() {
+    super.init();
+    this.freq = 10;
+    this.amp = 20
+  }
+
+  draw() {
+    let size;
+    for (let i = 0; i < 50; i++) {
+      noStroke();
+      size = 200 + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
+      fill(100, 53, 0, (255 / i));
+      ellipse(width / 2, height / 2, size);
+
+    }
+  }
+}
+
+class FlyingDots extends Sketch {
+  constructor() {
+    super();
+    this.listeners = [{}];
+  }
+
+  init() {
+    super.init();
+    glBackground = [220, 220, 220, 100];
+  }
+  draw() {}
+}
+
+class Orbitals extends Sketch{
+  constructor(){
+    super();
+    this.spinnerAmt = 100;
+    this.spinners = [];
+  }
+
+  init(){
+    super.init();
+    for(let i = 0 ; i < this.spinnerAmt; i ++) {
+      let x = (width / 2) + sin(Math.random()) * (i * 2);
+      const y =  height / 2 + cos(Math.random()) * (i  * 3);
+      const newOrbital = new Objects.Point(x, y, someColor());
+      newOrbital.speed = Math.random() / 3;
+      newOrbital.weight = Math.random() * 10;
+      newOrbital.index = i;
+      this.spinners.push(newOrbital);
+      
+    }
+  }
+
+  draw() {
+    stroke("grey")
+    for(let i = 0; i < this.spinnerAmt; i ++){
+      let thisSpinner = this.spinners[i];
+      thisSpinner.pos.x = width / 2 +  sin((frameCount / 10) *thisSpinner.speed) * i * 5;
+      thisSpinner.pos.y = height / 2 + cos((frameCount / 10)*+ thisSpinner.speed) * i * 3;
+      strokeWeight(thisSpinner.weight);
+      thisSpinner.draw();
+      this.explode(thisSpinner, 0.1);
+    }
+  }
+
+  explode(spinner, rate){
+    if(spinner.explode ){
+      spinner.weight += rate;
+      if(spinner.weight > 20){
+        this.spinners.splice(spinner.index, 1);
+        this.spinnerAmt--;
+      }
+    }
+   
+  }
+
 }
 
 const Objects = {
@@ -1007,15 +1156,18 @@ const Objects = {
    */
   Point: class {
     constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.color = color
+      this.pos = createVector(x, y);
+      this.color = color;
+      this.color = typeof color == "object" ? [color[0], color[1], color[2]] :
+      color || 0;
     }
 
     draw() {
       stroke(this.color);
-      point(this.x, this.y)
+      point(this.pos.x, this.pos.y)
     }
+
+
   },
   /**
    * @class ExplodingCircle
@@ -1064,25 +1216,24 @@ const Objects = {
    * @prop {int} size diameter of the circle
    */
   Circle: class {
-    constructor({
-      stroke,
-      fill,
+    constructor(
       x,
       y,
       size,
-    }) {
+      stroke,
+      fill,
+    ) {
       this.stroke = typeof stroke == "object" ? [stroke[0], stroke[1], stroke[2]] :
         stroke || 0;
       this.fill = typeof fill == "object" ? [fill[0], fill[1], fill[2]] :
         fill || 0;
-      this.x = x || 0;
-      this.y = y || 0;
+      this.pos = createVector(x, y);
       this.size = size || 10;
     }
     draw() {
       stroke(this.stroke);
       fill(this.fill);
-      ellipse(this.x, this.y, this.size);
+      ellipse(this.pos.x, this.pos.y, this.size);
     }
   },
   Plane: class {
@@ -1113,6 +1264,25 @@ const Objects = {
     getVoltage(time) {
       return this.amplitude * sin(2 * PI * this.frequency * time + this.phase);
     }
+  }
+}
+
+const Methods = {
+  connect: (point, arrayOfObjects, distance, stroke) => {
+    const length = arrayOfObjects.length
+    let thisPoint;
+    if (stroke) {
+      stroke(stroke);
+    }
+    for (let i = 0; i < length; i++) {
+      thisPoint = arrayOfObjects[i];
+      if (dist(point.x, point.y, thisPoint.x, thisPoint.y) < distance) {
+        line(point.x, point.y, thisPoint.x, thisPoint.y);
+      }
+    }
+  },
+  sin: (amp, freq, time, phase) => {
+    return amp * sin(2 * PI * freq * time + phase);
   }
 }
 

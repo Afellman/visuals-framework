@@ -34,38 +34,24 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
-    loadScene(new GoldenSpiral());
+    // loadScene(new Sun());
+    loadScene(new Orbitals());
   });
 };
 
 function draw() {
   background(glBackground);
+  text("FPS: " + frameRate().toFixed(2), 10, height - 10);
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
       scenes[i].draw();
   }
+  text("FPS:" + frameRate().toFixed(2), 10, height - 10)
 };
 
 /*************************************************
  * Other Functions
  *************************************************/
-
-// Sending the mouseClicked event to the sketches[currentSketch].
-function mouseClicked() {
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) {
-      scenes[i].mouseClicked();
-    }
-  };
-};
-
-function keyPressed(e) {
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i]) {
-      scenes[i].keyPressed(e);
-    }
-  };
-};
 
 function loadScene(scene) {
   let sceneLength = scenes.length;
@@ -74,8 +60,8 @@ function loadScene(scene) {
 }
 
 function unloadScene(index) {
-  let scene = scenes[0];
-  scene.unload();
+  // let scene = scenes[0];
+  // scene.unload();
   scenes.splice(index, 1);
 }
 
@@ -127,11 +113,19 @@ function windowResized() { // p5
   resizeCanvas(windowWidth, windowHeight);
 }
 
-document.addEventListener('keydown', function ({
-  key
-}) {
+// Sending the mouseClicked event to the sketches[currentSketch].
+function mouseClicked() {
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].mouseClicked();
+    }
+  };
+};
+
+function keyPressed(e) {
+  const key = e.key;
   if (key == " ") {
-    loadScene(new Connecter());
+    loadScene(new SpinningCircles());
   }
 
   if (key == "a") {
@@ -156,4 +150,14 @@ document.addEventListener('keydown', function ({
       glBackground[3] = 0
     }
   }
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i]) {
+      scenes[i].keyPressed(e);
+    }
+  };
+};
+document.addEventListener('keydown', function ({
+  key
+}) {
+
 });
