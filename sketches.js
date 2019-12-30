@@ -1100,6 +1100,52 @@ class FlyingDots extends Sketch {
   draw() {}
 }
 
+class Orbitals extends Sketch{
+  constructor(){
+    super();
+    this.spinnerAmt = 100;
+    this.spinners = [];
+  }
+
+  init(){
+    super.init();
+    for(let i = 0 ; i < this.spinnerAmt; i ++) {
+      let x = (width / 2) + sin(Math.random()) * (i * 2);
+      const y =  height / 2 + cos(Math.random()) * (i  * 3);
+      const newOrbital = new Objects.Point(x, y, someColor());
+      newOrbital.speed = Math.random() / 3;
+      newOrbital.weight = Math.random() * 10;
+      newOrbital.index = i;
+      this.spinners.push(newOrbital);
+      
+    }
+  }
+
+  draw() {
+    stroke("grey")
+    for(let i = 0; i < this.spinnerAmt; i ++){
+      let thisSpinner = this.spinners[i];
+      thisSpinner.pos.x = width / 2 +  sin((frameCount / 10) *thisSpinner.speed) * i * 5;
+      thisSpinner.pos.y = height / 2 + cos((frameCount / 10)*+ thisSpinner.speed) * i * 3;
+      strokeWeight(thisSpinner.weight);
+      thisSpinner.draw();
+      this.explode(thisSpinner, 0.1);
+    }
+  }
+
+  explode(spinner, rate){
+    if(spinner.explode ){
+      spinner.weight += rate;
+      if(spinner.weight > 20){
+        this.spinners.splice(spinner.index, 1);
+        this.spinnerAmt--;
+      }
+    }
+   
+  }
+
+}
+
 const Objects = {
   /**
    * @class Point
@@ -1112,12 +1158,16 @@ const Objects = {
     constructor(x, y, color) {
       this.pos = createVector(x, y);
       this.color = color;
+      this.color = typeof color == "object" ? [color[0], color[1], color[2]] :
+      color || 0;
     }
 
     draw() {
       stroke(this.color);
       point(this.pos.x, this.pos.y)
     }
+
+
   },
   /**
    * @class ExplodingCircle

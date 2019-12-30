@@ -35,7 +35,7 @@ function setup() {
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new Sun());
+    loadScene(new Orbitals());
   });
 };
 
@@ -52,8 +52,6 @@ function draw() {
 /*************************************************
  * Other Functions
  *************************************************/
-
-
 
 function loadScene(scene) {
   let sceneLength = scenes.length;
