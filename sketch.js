@@ -36,12 +36,13 @@ function setup() {
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new GoldenSpiral());
+    loadScene(new Orbitals());
   });
 };
 
 function draw() {
   background(glBackground);
+  text("FPS: " + frameRate().toFixed(2), 10, height - 10);
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
       scenes[i].draw();
@@ -53,8 +54,6 @@ function draw() {
  * Other Functions
  *************************************************/
 
-
-
 function loadScene(scene) {
   let sceneLength = scenes.length;
   scene.init(sceneLength);
@@ -62,8 +61,8 @@ function loadScene(scene) {
 }
 
 function unloadScene(index) {
-  let scene = scenes[0];
-  scene.unload();
+  // let scene = scenes[0];
+  // scene.unload();
   scenes.splice(index, 1);
 }
 
