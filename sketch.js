@@ -1,11 +1,11 @@
-let glBackground = [0, 0, 0, 100]
+let glBackground = [0, 0, 0, 0.5]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
 let numPal = 0;
 let theShader;
 let glCanvas;
-let showFPS = false;
+let showFPS = true;
 var socket = io('http://localhost:3000');
 
 socket.on('connect', function () {
@@ -34,21 +34,23 @@ function preload() {
 function setup() {
   disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  loadImage("./colorImg1.jpg", (img) => {
+  //createCanvas(innerWidth, innerHeight, WEBGL);
+  loadImage("https://images.unsplash.com/photo-1459478309853-2c33a60058e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new Starry());
+    loadScene(new Shader101())
+    loadScene(new SineWave(someColor()));
   });
 };
 
 function draw() {
-  background(glBackground);
-  text("FPS: " + frameRate().toFixed(2), 10, height - 10);
-  for (let i = 0; i < scenes.length; i++) {
+  const length = scenes.length;
+  // background(glBackground); // Moved to shader.
+  for (let i = 0; i < length; i++) {
     if (scenes[i])
       push()
       scenes[i].draw();
-      pop()
+      pop();
   }
   if(showFPS){
     push()
@@ -77,7 +79,8 @@ function unloadScene(index) {
 
 function someColor() {
   // pick some random good color
-  return goodColor[int(random(numPal))];
+  const color = goodColor[int(random(numPal))];
+  return [color[0], color[1], color[2]];
 }
 
 function getPixel(context, x, y) {
@@ -90,8 +93,8 @@ function takeColor(img) {
   let canvas = document.getElementById('defaultCanvas0');
   let context = canvas.getContext('2d');
   image(img, 0, 0);
-  for (let x = 0; x < img.width; x += 10) {
-    for (let y = 0; y < img.height; y += 10) {
+  for (let x = 0; x < img.width; x += 100) {
+    for (let y = 0; y < img.height; y += 100) {
       let c = getPixel(context, x, y);
       let exists = false;
       for (let n = 0; n < numPal; n++) {

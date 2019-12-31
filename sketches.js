@@ -1,3 +1,9 @@
+/**
+ * TODO:
+ *  1. Build saving and loading from data.
+ *  2. Record.
+ */
+
 let maze = {
   index: -1,
   t: 0,
@@ -132,7 +138,12 @@ let maze = {
 } // Refactor using Sketch as parent.
 
 class Sketch {
-  constructor() {
+  constructor(obj) {
+    if(obj){
+      for(let i in obj){
+        this[i] = obj[i];
+      }
+    }
     this.index = -1;
     this.listeners = [];
   }
@@ -421,10 +432,7 @@ class Sin extends Sketch {
       }
       vertex(x, y);
     }
-    endShape()
-    translate(width, 0)
-    scale(-1, 1)
-    image(glCanvas, 0, 0, width / 2, height)
+    endShape();
     this.time += 0.1
   }
 
@@ -563,24 +571,20 @@ class Shader101 extends Sketch {
 
   draw() {
     // background("black");
-    for (let i = 0; i < this.points.length; i++) {
-      const point = this.points[i];
-      // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
-      // the whole array at once using the p5 setUniform method, so setting them
-      // directely and individually. I made adjustments to p5.js to put gl and
-      // glShaderProgram on the window object.
-      var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
-      window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
-    }
+
+    // THIS NEEDS p5.js not p5.min.js. Used to set array of uniforms
+    // for (let i = 0; i < this.points.length; i++) {
+    //   const point = this.points[i];
+    //   // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
+    //   // the whole array at once using the p5 setUniform method, so setting them
+    //   // directely and individually. I made adjustments to p5.js to put gl and
+    //   // glShaderProgram on the window object.
+    //   var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+    //   window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
+    // }
 
     noStroke();
-    theShader.setUniform("u_spread", (1000 / this.pointsAmt) * (this.diameter)); // Get this equation correct.
-    theShader.setUniform("u_resolution", [width, height]);
-    theShader.setUniform("u_time", this.time);
-    theShader.setUniform("u_mouse", [
-      map(mouseX, width, 0, 1.0, 0.0),
-      map(mouseY, 0, height, 1.0, 0.0)
-    ]);
+    theShader.setUniform("u_color", glBackground) // Get this equation correct.
     this.shaderBox.shader(theShader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
@@ -833,16 +837,60 @@ class SpinningCircles extends Sketch {
 class Connecter extends Sketch {
   constructor() {
     super();
-    this.pointAmt = 100;
+    this.pointAmt = 50;
     this.circleDiameter = 410;
     this.curl = 280;
     this.strokeWeight = 1;
     this.multiplier = 10;
-    this.rotateRate = 0.004;
     this.circleSize = 0
     this.centerPoints = [];
+    this.color = 255;
+    this.proximity = 500;
+    this.speed = 0.01;
   }
 
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.pointAmt; i++) {
+      const orbit = sin(this.freq + i * 10) * this.curl;
+      const circle = sin(i) * this.circleDiameter;
+      const orbitY = cos(this.freq + i * this.multiplier);
+      const circleY = cos(i) * this.circleDiameter;
+      const newPoint = new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        someColor(),
+      );
+      this.centerPoints.push(newPoint);
+    }
+    this.freq = this.speed;
+  }
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
+    }
+    this.freq += this.speed;
+  }
   listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
@@ -904,52 +952,6 @@ class Connecter extends Sketch {
       }
     }
   }]
-  init() {
-    super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      let orbit = sin(this.freq + i * 10) * this.curl;
-      let circle = sin(i) * this.circleDiameter;
-      let orbitY = cos(this.freq + i * this.multiplier);
-      let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({
-        stroke: someColor(),
-        fill: "white",
-        x: width / 2 + orbit + circle,
-        y: (height / 2 + orbitY * this.curl) + circleY,
-        size: 5
-      }))
-    }
-    this.freq = 0.01;
-    glBackground = [0, 0, 0, 0];
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    let x;
-    let y;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.x = width / 2 + orbit + circle
-      thisPoint.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y) < 500) {
-          line(thisPoint.x, thisPoint.y, this.centerPoints[j].x, this.centerPoints[j].y)
-        }
-      }
-    }
-    this.freq += this.rotateRate;
-  }
-
   mouseClicked() {}
 }
 
@@ -1135,34 +1137,46 @@ class FlyingDots extends Sketch {
   draw() {}
 }
 
-<<<<<<< HEAD
 class SineWave extends Sketch {
-  constructor() {
+  constructor(color) {
     super();
+    this.color = color || 255;
   }
-  listeners = [{}]
   init() {
     super.init();
-    this.time = 0;
     this.prevX = 0;
-    this.prevY = 2;
+    this.prevY = height / 2;
+    this.speed = 0.01;
+    this.time = this.speed;
+    this.res = 1024;
+    this.maxAmpY = height / 2;
   }
   draw() {
-    stroke(255)
-    for (let i = 0; i < 720; i++) {
+    stroke(this.color);
+    strokeWeight(3)
+    for (let i = 0; i < this.res; i++) {
       let x = width / 100 * i;
-      let y = height / 2 + sin((2 * PI * 440 * x) / width) * 100;
+      let y = height / 2 + -Math.abs(sin((2 * PI  * x) / (width * 2))) * (sin(this.time) * this.maxAmpY);
       line(this.prevX, this.prevY, x, y);
       this.prevX = x;
       this.prevY = y;
-      if (i == 719) {
+      if (i == this.res-1) {
         this.prevX = 0;
-        this.prevY = 0;
+        this.prevY = height / 2;
       }
     }
-    this.time += 0.0001;
+    this.time += this.speed;
   }
-=======
+
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    method: (val) => {
+      this.maxAmpY = val.args[0] * height / 2
+    }
+  },]
+}
+
 class Orbitals extends Sketch{
   constructor(){
     super();
@@ -1216,8 +1230,25 @@ class Orbitals extends Sketch{
    
   }
 
->>>>>>> c37b3f325f644c6779558fd5b63cc9cbe7743587
 }
+
+class Mirror extends Sketch{
+  constructor() {
+    super();
+  }
+  init(){
+    super.init();
+  }
+
+  draw(){
+      translate(width, 0)
+      scale(-1, 1)
+      image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
+  }
+
+  listeners = [{}]
+}
+
 
 const Objects = {
   /**
@@ -1356,7 +1387,8 @@ const Methods = {
   },
   sin: (amp, freq, time, phase) => {
     return amp * sin(2 * PI * freq * time + phase);
-  }
+  },
+
 }
 
 const Helpers = {
