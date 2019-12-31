@@ -5,6 +5,7 @@ let maxPal = 512;
 let numPal = 0;
 let theShader;
 let glCanvas;
+let showFPS = false;
 var socket = io('http://localhost:3000');
 
 socket.on('connect', function () {
@@ -35,7 +36,7 @@ function setup() {
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new Orbitals());
+    loadScene(new Starry());
   });
 };
 
@@ -44,9 +45,17 @@ function draw() {
   text("FPS: " + frameRate().toFixed(2), 10, height - 10);
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i])
+      push()
       scenes[i].draw();
+      pop()
   }
-  text("FPS:" + frameRate().toFixed(2), 10, height - 10)
+  if(showFPS){
+    push()
+    stroke("black")
+    fill('white')
+    text("FPS:" + frameRate().toFixed(2), 10, 10)
+    pop()
+  }
 };
 
 /*************************************************

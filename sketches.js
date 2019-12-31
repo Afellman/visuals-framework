@@ -311,6 +311,7 @@ class EarthQuake extends Sketch {
       for (let i = 0; i < this.quakeData.length; i++) {
         let thisQuake = this.quakeData[i].properties;
         let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
+        stroke("white")
         text(thisQuake.title, x, height / 2 - (i * 30));
         ellipse(x, height / 2, thisQuake.mag * 25)
       }
@@ -470,19 +471,12 @@ class Rain extends Sketch {
         let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
         this
           .dots[i]
-          .push(new Objects.Circle({
-            x: x,
-            y: y,
-            size: 2,
-            fill: "#abcdef",
-            // fill: someColor(),
-            stroke: [
-              0, 0, 0, 0
-            ],
-            stroke: [
-              0, 0, 0, 0
-            ],
-          }))
+          .push(new Objects.Circle(
+            x,
+            y,
+            2,
+            "#abcdef",
+          ))
       }
     }
   }
@@ -765,13 +759,13 @@ class SpinningCircles extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle({
-        stroke: someColor(),
-        fill: "white",
-        x: width / 2 + orbit + circle,
-        y: (height / 2 + orbitY * this.curl) + circleY,
-        size: 5
-      }))
+      this.centerPoints.push(new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        "white",
+        
+      ))
     }
     this.freq = 0.01;
   }
@@ -799,8 +793,8 @@ class SpinningCircles extends Sketch {
       circle = sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
       circleY = cos(i) * this.circleDiameter;
-      this.centerPoints[i].x = width / 2 + orbit + circle
-      this.centerPoints[i].y = (height / 2 + orbitY * this.curl) + circleY;
+      this.centerPoints[i].pos.x = width / 2 + orbit + circle
+      this.centerPoints[i].pos.y = (height / 2 + orbitY * this.curl) + circleY;
       this.centerPoints[i].size = this.circleSize
       // if(i > 0) {
       //   line(x, y, prevX, prevY)
@@ -1006,6 +1000,7 @@ class Starry extends Sketch {
     this.points = [];
     super.init();
     this.starAmt = 200;
+    this.speed = 10;
 
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
@@ -1018,17 +1013,18 @@ class Starry extends Sketch {
     let x;
     let y;
     let thisPoint;
-
     for (let i = 0; i < this.starAmt; i++) {
       // if (i < 10) {
       //   // stroke("white")
       //   fill(0, 255, 0, 10)
       //   ellipse(width / 2, height / 2, 100 * i)
       // }
+      
+      
       thisPoint = this.points[i];
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) / 50;
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(100))
+      thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
       // stroke("white");
       noStroke();
       fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
@@ -1103,14 +1099,17 @@ class FlyingDots extends Sketch {
 class Orbitals extends Sketch{
   constructor(){
     super();
-    this.spinnerAmt = 100;
+    this.spinnerAmt = 1000;
     this.spinners = [];
+    this.ampX = width / 4;
+    this.ampY = height / 2;
+    this.wobble = 0;
   }
 
   init(){
     super.init();
     for(let i = 0 ; i < this.spinnerAmt; i ++) {
-      let x = (width / 2) + sin(Math.random()) * (i * 2);
+      let x = (width / 2) + sin(Math.random()) * (width / 4);
       const y =  height / 2 + cos(Math.random()) * (i  * 3);
       const newOrbital = new Objects.Point(x, y, someColor());
       newOrbital.speed = Math.random() / 3;
@@ -1125,8 +1124,14 @@ class Orbitals extends Sketch{
     stroke("grey")
     for(let i = 0; i < this.spinnerAmt; i ++){
       let thisSpinner = this.spinners[i];
-      thisSpinner.pos.x = width / 2 +  sin((frameCount / 10) *thisSpinner.speed) * i * 5;
-      thisSpinner.pos.y = height / 2 + cos((frameCount / 10)*+ thisSpinner.speed) * i * 3;
+      const changeX = frameCount / 10;
+      const changeY = (frameCount / 10); 
+      const startX = width / 2;
+      const startY = height / 2;
+      const sinX = sin(changeX * thisSpinner.speed);
+      const cosY = cos(changeY * thisSpinner.speed)
+      thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobble);
+      thisSpinner.pos.y = startY + cosY *(this.ampY - i)
       strokeWeight(thisSpinner.weight);
       thisSpinner.draw();
       this.explode(thisSpinner, 0.1);
