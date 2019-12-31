@@ -148,7 +148,7 @@ class Sketch {
     let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
       let thisListener = this.listeners[i];
-      socket.on(thisListener.socketName, thisListener.method);
+
       const node = document.querySelectorAll("#" + thisListener.nodeID);
       if (node[0]) {
         node[0].addEventListener("click", (e) => {
@@ -157,6 +157,8 @@ class Sketch {
           });
         })
       }
+
+      socket.on(thisListener.socketName, thisListener.method);
     }
   }
   detachListeners() {
@@ -1061,7 +1063,28 @@ class Sun extends Sketch {
         socketName: '/1/multifader1/2',
         nodeID: "slider2",
         method: (val) => {
-          this.amp = val.args[0] * 1000;
+          this.amp = val.args[0] * 500;
+        }
+      },
+      {
+        socketName: '/1/multifader1/2',
+        nodeID: "slider3",
+        method: (val) => {
+          this.r = val.args[0] * 255;
+        }
+      },
+      {
+        socketName: '/1/multifader1/2',
+        nodeID: "slider4",
+        method: (val) => {
+          this.g = val.args[0] * 255;
+        }
+      },
+      {
+        socketName: '/1/multifader1/2',
+        nodeID: "slider5",
+        method: (val) => {
+          this.b = val.args[0] * 255;
         }
       }
     ];
@@ -1071,17 +1094,33 @@ class Sun extends Sketch {
     super.init();
     this.freq = 10;
     this.amp = 20
+    this.r = 100;
+    this.g = 53;
+    this.b = 0;
+    this.alphaMax = 255;
+    this.ringAmt = 50;
+    this.randomInt = Math.random() * this.ringAmt;
   }
 
   draw() {
     let size;
-    for (let i = 0; i < 50; i++) {
-      noStroke();
-      size = 200 + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
-      fill(100, 53, 0, (255 / i));
+    let sizeMulti = 1
+    // noStroke();
+    stroke(0, 0);
+    // if (this.ringAmt % this.randomInt == 0) {
+    //   sizeMulti = 3
+    // }
+    for (let i = 0; i < this.ringAmt; i++) {
+
+      size = 200 * sizeMulti + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
+      fill(this.r, this.g, this.b, (this.alphaMax / i));
       ellipse(width / 2, height / 2, size);
 
     }
+  }
+
+  keyPressed(e) {
+
   }
 }
 
@@ -1096,6 +1135,34 @@ class FlyingDots extends Sketch {
     glBackground = [220, 220, 220, 100];
   }
   draw() {}
+}
+
+class SineWave extends Sketch {
+  constructor() {
+    super();
+  }
+  listeners = [{}]
+  init() {
+    super.init();
+    this.time = 0;
+    this.prevX = 0;
+    this.prevY = 2;
+  }
+  draw() {
+    stroke(255)
+    for (let i = 0; i < 720; i++) {
+      let x = width / 100 * i;
+      let y = height / 2 + sin((2 * PI * 440 * x) / width) * 100;
+      line(this.prevX, this.prevY, x, y);
+      this.prevX = x;
+      this.prevY = y;
+      if (i == 719) {
+        this.prevX = 0;
+        this.prevY = 0;
+      }
+    }
+    this.time += 0.0001;
+  }
 }
 
 const Objects = {
@@ -1234,16 +1301,18 @@ const Methods = {
   }
 }
 
-function ease(val, low, high) {
-  return easeInOutQuad(normalize(val))
-}
+const Helpers = {
+  ease: function (val, low, high) {
+    return this.easeInOutQuad(normalize(val))
+  },
 
-function normalize(val) {
-  return (val - 0) / (1 - 0);
-}
+  normalize: function (val) {
+    return (val - 0) / (1 - 0);
+  },
 
-let easeInOutQuad = function (t) {
-  return t < .5 ?
-    2 * t * t :
-    -1 + (4 - 2 * t) * t
+  easeInOutQuad: function (t) {
+    return t < .5 ?
+      2 * t * t :
+      -1 + (4 - 2 * t) * t
+  }
 }

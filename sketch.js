@@ -31,11 +31,12 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
+  disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
   loadImage("./colorImg1.jpg", (img) => {
     takeColor(img);
     // loadScene(new Sun());
-    loadScene(new Sun());
+    loadScene(new GoldenSpiral());
   });
 };
 
@@ -45,7 +46,7 @@ function draw() {
     if (scenes[i])
       scenes[i].draw();
   }
-  text("FPS:" + frameRate().toFixed(2), 10, height - 10)
+  // text("FPS:" + frameRate().toFixed(2), 10, height - 10)
 };
 
 /*************************************************
@@ -125,22 +126,15 @@ function mouseClicked() {
 
 function keyPressed(e) {
   const key = e.key;
-  if (key == " ") {
-    loadScene(new SpinningCircles());
-  }
-
-  if (key == "a") {
-    loadScene(new Shader101());
-  }
   if (key == "d") {
     unloadScene(0);
   }
 
-  if (key == "q") {
+  if (key == "f") {
     if (document.getElementById("controls").style.display == "none") {
-      document.getElementById("controls").style.display = "block"
+      document.getElementById("controls").style.display = "block";
     } else {
-      document.getElementById("controls").style.display = "none"
+      document.getElementById("controls").style.display = "none";
     }
   }
 
@@ -157,8 +151,3 @@ function keyPressed(e) {
     }
   };
 };
-document.addEventListener('keydown', function ({
-  key
-}) {
-
-});
