@@ -218,7 +218,6 @@ class Grid extends Sketch {
   init(index) {
     super.init();
     if (!this.loaded) {
-
       this.index = -1;
       this.listeners = [{}];
       this.gridPointsLength = 0;
