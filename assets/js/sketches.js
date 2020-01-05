@@ -202,7 +202,7 @@ class Sketch {
   save() {
     const ret = {};
     for (let key in this) {
-      if (typeof this[key] !== "function")
+      if (typeof this[key] !== "function" && (typeof this[key] !== "object" && !Array.isArray(this[key])))
         ret[key] = this[key];
     }
     return ret;
