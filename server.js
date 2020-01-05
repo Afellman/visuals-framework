@@ -102,9 +102,9 @@ server.listen(port, () => {
 
 
 fs.watch("./", { recursive: true }, (e, name) => {
-  console.log(name + " changed");
   if (name.indexOf('.git') == -1 && name.indexOf("node_modules") == -1) {
     try {
+      console.log(name + " changed");
       pushToGit(name);
       glClient.emit("refresh", true);
     } catch (err) {
