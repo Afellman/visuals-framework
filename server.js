@@ -119,7 +119,7 @@ function pushToGit(file) {
     simpleGit.add(file, (err) => {
       simpleGit.commit("save", (res) => {
         simpleGit.push("origin", "master", () => {
-          console.log("pushed")
+          console.log("pushed");
         })
       })
     })
