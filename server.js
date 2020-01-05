@@ -1,8 +1,9 @@
-var express = require('express');
-var path = require('path');
-var app = express();
-var port = 3000;
-var osc = require("osc");
+const express = require('express');
+const path = require('path');
+const app = express();
+const port = 3000;
+const osc = require("osc");
+const simpleGit = require("simple-git")("./");
 const server = require('http').createServer(app);
 const remoteIP = "192.168.1.16";
 const io = require('socket.io')(server);
@@ -102,9 +103,21 @@ server.listen(port, () => {
 
 fs.watch("./", { recursive: true }, (e, name) => {
   console.log(name + " changed");
-  try {
-    glClient.emit("refresh", true);
-  } catch (err) {
-    console.log(err);
+  if (name.indexOf('.git') == -1 && name.indexOf("node_modules") == -1) {
+    try {
+      pushToGit(name);
+      glClient.emit("refresh", true);
+    } catch (err) {
+      console.log(err);
+    }
   }
-})
+});
+
+function pushToGit(file) {
+  console.log(file)
+  simpleGit.add(file, (err) => {
+    simpleGit.commit("save", (res) => {
+      console.log(res, "commit")
+    })
+  })
+}
