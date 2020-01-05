@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 
 setupUDP();
 setupSocket();
-if (!process.env[2]) {
+if (!process.argv[2]) {
   setupWatcher();
 }
 
