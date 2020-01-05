@@ -115,11 +115,16 @@ fs.watch("./", { recursive: true }, (e, name) => {
 
 function pushToGit(file) {
   console.log(file)
-  simpleGit.add(file, (err) => {
-    simpleGit.commit("save", (res) => {
-      simpleGit.push("origin", "master", () => {
-        console.log("pushed")
+  try {
+
+    simpleGit.add(file, (err) => {
+      simpleGit.commit("save", (res) => {
+        simpleGit.push("origin", "master", () => {
+          console.log("pushed")
+        })
       })
     })
-  })
+  } catch (err) {
+    console.log("Git ERROR", err)
+  }
 }
