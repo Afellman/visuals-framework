@@ -201,10 +201,12 @@ function keyPressed(e) {
 
   if (key == "Control") {
     ctrlPressed = true;
+    console.log("control")
   }
   if (ctrlPressed && key == "s") {
     scenes.forEach(scene => scene.save());
     ctrlPressed = false;
+    console.log("save")
   }
 };
 
