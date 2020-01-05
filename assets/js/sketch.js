@@ -174,7 +174,6 @@ function mouseClicked() {
 
 function keyPressed(e) {
   const key = e.key;
-  console.log(key)
   if (key == "d") {
     unloadScene(0);
   }
