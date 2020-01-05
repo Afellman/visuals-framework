@@ -206,7 +206,7 @@ function keyPressed(e) {
   if (ctrlPressed && key == "s") {
     scenes.forEach(scene => {
       scene.save()
-    })));
+    });
     ctrlPressed = false;
     console.log("save")
   }
