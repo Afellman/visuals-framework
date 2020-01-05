@@ -13,6 +13,7 @@ let textureShader;
 let images = [];
 let mirror = false;
 let ctrlPressed = false;
+let save;
 
 
 socket.on('connect', function () {
