@@ -204,7 +204,9 @@ function keyPressed(e) {
     console.log("control")
   }
   if (ctrlPressed && key == "s") {
-    scenes.forEach(scene => console.log(JSON.stringify(scene.save())));
+    scenes.forEach(scene => {
+      scene.save()
+    })));
     ctrlPressed = false;
     console.log("save")
   }
