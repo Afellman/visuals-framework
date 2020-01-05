@@ -12,6 +12,7 @@ let mic;
 let textureShader;
 let images = [];
 let mirror = false;
+let ctrlPressed = false;
 
 
 socket.on('connect', function () {
@@ -203,6 +204,7 @@ function keyPressed(e) {
   }
   if (ctrlPressed && key == "s") {
     scenes.forEach(scene => scene.save());
+    ctrlPressed = false;
   }
 };
 
