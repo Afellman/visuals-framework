@@ -143,7 +143,7 @@ class Sketch {
       for (let i in obj) {
         this[i] = obj[i];
       }
-      this.load
+      this.loaded = true;
     }
     this.index = -1;
     this.listeners = [];
