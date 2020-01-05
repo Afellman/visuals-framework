@@ -144,6 +144,7 @@ class Sketch {
         this[i] = obj[i];
       }
     }
+    this.loaded = true;
     this.index = -1;
     this.listeners = [];
   }
