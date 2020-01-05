@@ -197,6 +197,13 @@ function keyPressed(e) {
       scenes[i].keyPressed(e);
     }
   };
+
+  if (key == "Control") {
+    ctrlPressed = true;
+  }
+  if (ctrlPressed && key == "s") {
+    scenes.forEach(scene => scene.save());
+  }
 };
 
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
