@@ -199,6 +199,14 @@ class Sketch {
   }
   mouseClicked() { }
   keyPressed() { }
+  save() {
+    const ret = {};
+    for (let key in this) {
+      if (typeof this[key] !== "function")
+        ret[key] = this[key];
+    }
+    return ret;
+  }
 }
 
 class Grid extends Sketch {
