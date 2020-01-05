@@ -216,22 +216,32 @@ class Grid extends Sketch {
   }
 
   init(index) {
-    super.init()
-    this.index = index;
-    this.gridPointsX = 20;
-    this.gridPointsY = 20;
-    for (let i = 0; i < this.gridPointsY; i++) {
-      let row = [];
-      let y = map(i, 0, this.gridPointsY, 0, height);
-      for (let j = 0; j < this.gridPointsX; j++) {
-        let x = map(j, 0, this.gridPointsX, 0, width);
-        row.push(createVector(x, y))
+    super.init();
+    if (!this.loaded) {
+
+      this.index = -1;
+      this.listeners = [{}];
+      this.gridPointsLength = 0;
+      this.gridPointsX = 0;
+      this.gridPointsY = 0;
+      this.gridPoints = [];
+      this.angle = 0.01;
+      this.index = index;
+      this.gridPointsX = 20;
+      this.gridPointsY = 20;
+      for (let i = 0; i < this.gridPointsY; i++) {
+        let row = [];
+        let y = map(i, 0, this.gridPointsY, 0, height);
+        for (let j = 0; j < this.gridPointsX; j++) {
+          let x = map(j, 0, this.gridPointsX, 0, width);
+          row.push(createVector(x, y))
+        }
+        this
+          .gridPoints
+          .push(row);
       }
-      this
-        .gridPoints
-        .push(row);
+      this.gridPointsLength = this.gridPoints.length;
     }
-    this.gridPointsLength = this.gridPoints.length;
   }
 
   draw() {
