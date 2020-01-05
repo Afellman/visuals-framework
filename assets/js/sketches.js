@@ -211,8 +211,8 @@ class Sketch {
 }
 
 class Grid extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
   }
 
   init(index) {
