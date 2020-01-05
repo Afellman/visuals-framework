@@ -15,7 +15,6 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-
 	"New Sketch": {
 		"scope": "javascript",
 		"prefix": "sketch",
@@ -24,13 +23,16 @@
 			"  constructor() {",
 			"    super();",
 			"  }",
-			"  listeners = [{}]",
+			" ",
 			"  init() {",
 			"    super.init()",
 			"  }",
+			" ",
 			"  draw() {",
 			"    $2",
 			"  }",
+			" ",
+			"  listeners = [{}]",
 			"}",
 		],
 		"description": "Creates a new sketch instance"
