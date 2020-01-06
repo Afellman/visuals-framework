@@ -9,6 +9,7 @@ const remoteIP = "192.168.1.16";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+let gitInterval = Date.now();
 let udpPort;
 let glClient;
 
