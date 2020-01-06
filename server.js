@@ -106,12 +106,13 @@ function setupWatcher() {
 }
 
 function pushToGit(file) {
-  console.log(file);
+  console.log(Date.now() - gitInterval)
   if(Date.now() - gitInterval > 15000){
     try {
       simpleGit.add(file, (err) => {
         simpleGit.commit("save", (res) => {
           simpleGit.push("origin", "master", () => {
+            console.log(file + " pushed");
             gitInterval = Date.now();
           })
         })
