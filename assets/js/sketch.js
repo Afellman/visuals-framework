@@ -1,4 +1,4 @@
-let glBackground = [0, 0, 0, 0.5]
+let glBackground = [0, 0, 0, 1.0]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
