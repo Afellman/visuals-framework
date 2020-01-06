@@ -212,17 +212,18 @@ class Sketch {
 
 class Grid extends Sketch {
   constructor(obj) {
-    super(obj);
-    this.index = -1;
-    this.listeners = [{}];
-    this.gridPointsLength = 0;
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-    this.gridPoints = [];
-    this.angle = 0.01;
-    this.index = index;
-    this.gridPointsX = 20;
-    this.gridPointsY = 20;
+    if(!this.loaded){
+      super(obj);
+      this.index = -1;
+      this.listeners = [{}];
+      this.gridPointsLength = 0;
+      this.gridPointsX = 0;
+      this.gridPointsY = 0;
+      this.gridPoints = [];
+      this.angle = 0.01;
+      this.gridPointsX = 20;
+      this.gridPointsY = 20;
+    }
   }
 
   init(index) {
