@@ -1462,7 +1462,7 @@ class Drops extends Sketch {
   init() {
     super.init();
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, 0, height);
+      let y = map(i, 0, this.resolution * 10, 0, height);
       this.grid[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
         let x = map(i, 0, this.resolution, 0, width);
@@ -1478,7 +1478,7 @@ class Drops extends Sketch {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-        ellipse(thisPoint.x, thisPoint.y, 1);
+        ellipse(thisPoint.x, thisPoint.y, 2);
       }
     }
   }
