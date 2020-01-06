@@ -678,17 +678,21 @@ class SpinningCircles extends Sketch {
           color: [70, 100, 97, 248]
         });
       }
-      y = height / this.pointAmt * i;
-      this.leftPoints.push({
-        x: 0,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
-      this.rightPoints.push({
-        x: width,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
+      if(this.connecters.left){
+        y = height / this.pointAmt * i;
+        this.leftPoints.push({
+          x: 0,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+      }
+      if(this.connecters.right){
+        this.rightPoints.push({
+          x: width,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+      }
       let orbit = sin(this.freq + i * 10) * this.curl;
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
