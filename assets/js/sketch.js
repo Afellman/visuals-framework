@@ -214,11 +214,13 @@ function keyPressed(e) {
 };
 
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
 function onMIDISuccess(midiAccess) {
   for (let input of midiAccess.inputs.values()) {
     input.onmidimessage = getMIDIMessage;
   }
 }
+
 function getMIDIMessage(midiMessage) {
   let command = midiMessage.data[0];
   let note = midiMessage.data[1];
@@ -236,6 +238,7 @@ function getMIDIMessage(midiMessage) {
     }
   }
 }
+
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
