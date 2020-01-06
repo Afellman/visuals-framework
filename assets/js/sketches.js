@@ -1469,6 +1469,22 @@ class FractalTree extends Sketch {
   ]
 }
 
+class Chem extends Sketch {
+  constructor() {
+    super();
+  }
+ 
+  init() {
+    super.init()
+  }
+ 
+  draw() {
+    
+  }
+ 
+  listeners = [{}]
+}
+
 const Objects = {
   /**
    * @class Point
