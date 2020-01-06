@@ -42,7 +42,7 @@ function setup() {
     loadScene(new BGShader()) // For background.
     // loadScene(new LinesShader(img));
     loadScene(new TreeFractal());
-    loadScene(new SpinningCircles())
+    // loadScene(new SpinningCircles())
   });
 
 
