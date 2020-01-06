@@ -40,9 +40,9 @@ function setup() {
     takeColor(img);
     images.push(img)
     loadScene(new BGShader()) // For background.
-    loadScene(new LinesShader(img));
+    // loadScene(new LinesShader(img));
     // loadScene(new TreeFractal());
-    // loadScene(new SpinningCircles())
+    // loadScene(new con())
   });
 
 
