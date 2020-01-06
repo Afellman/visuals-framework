@@ -22,7 +22,7 @@ setupSockets();
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
 function preload() {
-  textureShader = loadShader(
+  linesShader = loadShader(
     "./shaders/texture.vert",
     "./shaders/movingLines.frag"
   );
