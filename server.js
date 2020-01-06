@@ -114,12 +114,9 @@ function setupWatcher() {
 function pushToGit(file) {
     try {
       simpleGit.add(file, (err) => {
-        console.log("add");
         simpleGit.commit("save", (res) => {
-          console.log("commit");
           simpleGit.push("origin", "master", () => {
             console.log(file + " pushed");
-
           })
         })
       })
