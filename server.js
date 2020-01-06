@@ -110,7 +110,9 @@ function pushToGit(file) {
   if(Date.now() - gitInterval > 15000){
     try {
       simpleGit.add(file, (err) => {
+        console.log("add")
         simpleGit.commit("save", (res) => {
+          console.log("commit")
           simpleGit.push("origin", "master", () => {
             console.log(file + " pushed");
             gitInterval = Date.now();
