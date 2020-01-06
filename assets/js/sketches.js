@@ -1398,7 +1398,7 @@ class TextureShader extends Sketch {
   ]
 }
 
-class Fractal extends Sketch {
+class FractalTree extends Sketch {
   constructor() {
     super();
   }
