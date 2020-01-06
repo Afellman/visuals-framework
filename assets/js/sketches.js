@@ -650,7 +650,7 @@ class SpinningCircles extends Sketch {
       this.pointAmt = 1000;
       this.circleDiameter = 50;
       this.curl = 300;
-      this.proximity = 300;
+      this.proximity = 50;
       this.strokeWeight = 1;
       this.multiplier = 10;
       this.rotateRate = 0.001;
@@ -731,7 +731,7 @@ class SpinningCircles extends Sketch {
       //   line(x, y, prevX, prevY)
       // }
 
-      Methods.connect(this.centerPoints[i].pos, this.topPoints, this.proximity, "white")
+      Methods.connect(this.centerPoints[i].pos, this.topPoints, this.proximity, "white");
       // if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
       //   stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
       //   line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
