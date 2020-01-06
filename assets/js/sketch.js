@@ -40,7 +40,7 @@ function setup() {
     takeColor(img);
     images.push(img)
     loadScene(new BGShader()) // For background.
-    loadScene(new LinesShader(img));
+    // loadScene(new LinesShader(img));
     loadScene(new Drops());
     // loadScene(new DropsShader())
 
