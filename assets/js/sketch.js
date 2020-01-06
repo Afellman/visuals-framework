@@ -14,25 +14,10 @@ let images = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
-
-
-socket.on('connect', function () {
-  console.log("Socket Connected")
-});
-
-socket.on('disconnected', function () {
-  console.log("Socket Disconnected")
-});
-
-socket.on("refresh", (val) => {
-  if (val) {
-    window.location.reload()
-  }
-});
-
-
 const midiSubscribers = {
 }
+
+setupSockets();
 
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
@@ -92,6 +77,22 @@ function draw() {
 };
 
 // ======================================== Other Functions
+
+function setupSockets(){
+  socket.on('connect', function () {
+    console.log("Socket Connected")
+  });
+  
+  socket.on('disconnected', function () {
+    console.log("Socket Disconnected")
+  });
+  
+  socket.on("refresh", (val) => {
+    if (val) {
+      window.location.reload()
+    }
+  });
+}
 
 function loadScene(scene) {
   let sceneLength = scenes.length;
