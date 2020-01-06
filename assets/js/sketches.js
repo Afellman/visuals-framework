@@ -727,9 +727,9 @@ class SpinningCircles extends Sketch {
       this.centerPoints[i].pos.x = x;
       this.centerPoints[i].pos.y = y;
       this.centerPoints[i].size = this.circleSize;
-      if(i > 0) {
-        line(x, y, prevX, prevY)
-      }
+      // if(i > 0) {
+      //   line(x, y, prevX, prevY)
+      // }
 
       if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
