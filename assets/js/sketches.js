@@ -722,9 +722,11 @@ class SpinningCircles extends Sketch {
       circle = sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
       circleY = cos(i) * this.circleDiameter;
-      this.centerPoints[i].pos.x = width / 2 + orbit + circle
-      this.centerPoints[i].pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      this.centerPoints[i].size = this.circleSize
+      x = width / 2 + orbit + circle;
+      y = (height / 2 + orbitY * this.curl) + circleY;
+      this.centerPoints[i].pos.x = x;
+      this.centerPoints[i].pos.y = y;
+      this.centerPoints[i].size = this.circleSize;
       if(i > 0) {
         line(x, y, prevX, prevY)
       }
