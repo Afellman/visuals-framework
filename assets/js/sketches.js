@@ -1459,7 +1459,7 @@ class Drops extends Sketch {
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
     this.center.normalize();
-    this.speed = 1;
+    this.speed = 0.01;
   }
 
   init() {
