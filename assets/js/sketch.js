@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/drops.frag"
+    "./shaders/movingLines.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
@@ -40,7 +40,7 @@ function setup() {
     takeColor(img);
     images.push(img)
     loadScene(new BGShader()) // For background.
-    // loadScene(new LinesShader(img));
+    loadScene(new LinesShader(img));
     loadScene(new Drops());
     loadScene(new DropsShader())
 
