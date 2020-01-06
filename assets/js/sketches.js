@@ -1466,7 +1466,7 @@ class Drops extends Sketch {
       this.grid[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
         let x = map(j, 0, this.resolution, 0, width);
-        this.grid[i][j] = { x: x, y: y }
+        this.grid[i][j] = createVector(x, y);
       }
     }
   }
