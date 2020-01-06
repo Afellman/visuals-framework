@@ -382,10 +382,12 @@ class Rings extends Sketch {
 }
 
 class Sin extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.waves = [];
-    this.time = 0;
+    if(!this.loaded){
+      this.time = 0;
+    }
   }
 
   init() {
@@ -435,9 +437,10 @@ class Sin extends Sketch {
 }
 
 class Rain extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.dots = [];
+    if(!this.loaded){
     this.rowsAmount = 50;
     this.dotsAmount = 20;
     this.globalChange = 14
@@ -446,6 +449,7 @@ class Rain extends Sketch {
     this.speed = 0.01;
     this.rateChange = (TWO_PI / this.period) * this.xspacing;
     this.amplitude = 2.5;
+    }
   }
 
   init() {
