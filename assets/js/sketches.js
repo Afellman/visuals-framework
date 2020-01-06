@@ -3,8 +3,8 @@
  *  1. Build saving and loading from data.
  *  2. Record.
  */
-
 let maze = {
+
   index: -1,
   t: 0,
   lines: [],
@@ -212,7 +212,7 @@ class Grid extends Sketch {
   constructor(obj) {
     super(obj);
     this.gridPoints = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.gridPointsLength = 0;
       this.angle = 0.01;
       this.gridPointsX = 20;
@@ -310,7 +310,7 @@ class Rings extends Sketch {
     super(obj);
     this.colors = [];
     this.funcs = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.funcsLength = 0;
       this.ringSize = 0;
       this.currentVol = 11;
@@ -385,7 +385,7 @@ class Sin extends Sketch {
   constructor(obj) {
     super(obj);
     this.waves = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.time = 0;
     }
   }
@@ -440,7 +440,7 @@ class Rain extends Sketch {
   constructor(obj) {
     super(obj);
     this.dots = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.rowsAmount = 50;
       this.dotsAmount = 20;
       this.globalChange = 14
@@ -592,7 +592,7 @@ class Ripples extends Sketch {
   constructor(obj) {
     super(obj);
     this.circles = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.angle = 0.01
     }
   }
@@ -646,7 +646,7 @@ class SpinningCircles extends Sketch {
     this.leftPoints = [];
     this.rightPoints = [];
     this.centerPoints = [];
-    if(!this.loaded){
+    if (!this.loaded) {
       this.pointAmt = 100;
       this.circleDiameter = 50;
       this.curl = 300;
@@ -655,7 +655,7 @@ class SpinningCircles extends Sketch {
       this.multiplier = 10;
       this.rotateRate = 0.001;
       this.circleSize = 3;
-      this.connecters = {top: true, bottom: true, left: false, right: true}
+      this.connecters = { top: true, bottom: true, left: false, right: true }
     }
   }
 
@@ -664,21 +664,21 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.pointAmt; i++) {
       let x = width / this.pointAmt * i;
       let y = 0;
-      if(this.connecters.top){
+      if (this.connecters.top) {
         this.topPoints.push({
           x: x,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if(this.connecters.bottom){
+      if (this.connecters.bottom) {
         this.bottomPoints.push({
           x: width - x,
           y: height,
           color: [70, 100, 97, 248]
         });
       }
-      if(this.connecters.left){
+      if (this.connecters.left) {
         y = height / this.pointAmt * i;
         this.leftPoints.push({
           x: 0,
@@ -686,7 +686,7 @@ class SpinningCircles extends Sketch {
           color: [70, 100, 97, 248]
         });
       }
-      if(this.connecters.right){
+      if (this.connecters.right) {
         this.rightPoints.push({
           x: width,
           y: y,
@@ -736,8 +736,8 @@ class SpinningCircles extends Sketch {
       this.centerPoints[i].pos.x = x;
       this.centerPoints[i].pos.y = y;
       this.centerPoints[i].size = this.circleSize;
-      if(i > 0) {
-        stroke(255,255,255,50);
+      if (i > 0) {
+        stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
       if (this.connecters.top && dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
@@ -757,7 +757,7 @@ class SpinningCircles extends Sketch {
         stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80);
         line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       }
-  
+
       // ellipse(Math.round(x), Math.round(y), this.circleSize)
       this.centerPoints[i].draw()
       prevX = x;
@@ -765,7 +765,7 @@ class SpinningCircles extends Sketch {
     }
     this.freq += this.rotateRate;
   }
-  
+
   listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
@@ -1438,15 +1438,42 @@ class Chem extends Sketch {
   constructor() {
     super();
   }
- 
+
   init() {
     super.init();
   }
- 
+
   draw() {
-    
+
   }
- 
+
+  listeners = [{}]
+}
+
+class Drops extends Sketch {
+  constructor(obj) {
+    super(obj);
+    if (!this.loaded) {
+      this.resolution = 300;
+    }
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, 0, height);
+      this.grid[i] = new Array(2);
+      for (let j = 0; j < this.resolution; j++) {
+        let x = map(i, 0, this.resolution, 0, width);
+        this.grid[i][j] = { x: x, y: y }
+      }
+    }
+  }
+
+  draw() {
+
+  }
+
   listeners = [{}]
 }
 
