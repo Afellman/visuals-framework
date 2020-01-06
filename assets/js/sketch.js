@@ -213,6 +213,7 @@ function keyPressed(e) {
   }
 };
 
+// ======================================== Midi
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
