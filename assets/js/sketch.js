@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/meltingWaterfalls.frag"
+    "./shaders/drops.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
