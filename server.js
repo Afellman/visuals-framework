@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 setupUDP();
 setupSocket();
-if (!process.argv[2]) {
+if (!process.argv[2]) { // Pass anything into the process and it will be in "production" mode.
   setupWatcher();
 }
 
