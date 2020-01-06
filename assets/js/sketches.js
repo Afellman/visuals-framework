@@ -1025,7 +1025,7 @@ class Starry extends Sketch {
       thisPoint = this.points[i];
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
+      thisPoint.pos.add())
       // stroke("white");
       noStroke();
       fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
