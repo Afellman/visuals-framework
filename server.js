@@ -9,7 +9,7 @@ const remoteIP = "192.168.1.16";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-let gitInterval = Date.now();
+let updateInterval = Date.now();
 let udpPort;
 let glClient;
 
@@ -93,7 +93,11 @@ function setupSocket() {
 
 function setupWatcher() {
   fs.watch("./", { recursive: true }, (e, name) => {
-    if (name.indexOf('.git') == -1 && name.indexOf("node_modules") == -1) {
+    if (
+      name.indexOf('.git') == -1 
+      && name.indexOf("node_modules") == -1
+      && Date.now() - updateInterval > 15000
+      ) {
       try {
         console.log(name + " changed");
         pushToGit(name);
@@ -106,8 +110,8 @@ function setupWatcher() {
 }
 
 function pushToGit(file) {
-  console.log(Date.now() - gitInterval);
-    gitInterval = Date.now();
+  console.log(Date.now() - updateInterval);
+    updateInterval = Date.now();
     try {
       simpleGit.add(file, (err) => {
         console.log("add");
