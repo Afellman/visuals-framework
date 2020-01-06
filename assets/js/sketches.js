@@ -1473,13 +1473,11 @@ class Drops extends Sketch {
 
   draw() {
     let thisPoint = {};
-    fill(someColor())
     for (let i = 0; i < this.resolution; i++) {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-
-        ellipse(thisPoint.x, thisPoint.y, 50)
+        ellipse(thisPoint.x, thisPoint.y, 1)
       }
     }
   }
