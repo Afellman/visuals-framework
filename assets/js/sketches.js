@@ -145,11 +145,9 @@ class Sketch {
       }
       this.loaded = true;
     }
-    this.index = -1;
     this.listeners = [];
   }
   init() {
-    this.index = -1;
     this.attachListeners();
 
   }
@@ -214,7 +212,6 @@ class Grid extends Sketch {
   constructor(obj) {
     if(!this.loaded){
       super(obj);
-      this.index = -1;
       this.listeners = [{}];
       this.gridPointsLength = 0;
       this.gridPointsX = 0;
