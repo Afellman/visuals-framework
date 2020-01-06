@@ -1363,7 +1363,7 @@ class LinesShader extends Sketch {
   ]
 }
 
-class FractalTree extends Sketch {
+class TreeFractal extends Sketch {
   constructor() {
     super();
   }
@@ -1424,7 +1424,7 @@ class FractalTree extends Sketch {
     }
   },
   {
-    nodeID: "slider3",
+    nodeID: "slider4",
     midi: "1",
     midiMethod: val => this.movement = val / 10000,
     method: (val) => {
