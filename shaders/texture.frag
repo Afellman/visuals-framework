@@ -94,7 +94,7 @@ void main() {
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  vec4 tex = texture2D(tex0, vec(pattner(uv) + sin(u_time / 100.0) / 10.0, uv.t);
+  vec4 tex = texture2D(tex0, vec2(pattern(uv) + sin(u_time / 100.0) / 10.0, uv.y);
 
   gl_FragColor = vec4(tex);
 }
