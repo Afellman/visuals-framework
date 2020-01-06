@@ -107,20 +107,18 @@ function setupWatcher() {
 function pushToGit(file) {
   console.log(file);
   if(Date.now() - gitInterval > 15000){
-
-
-  try {
-    simpleGit.add(file, (err) => {
-      simpleGit.commit("save", (res) => {
-        simpleGit.push("origin", "master", () => {
-          gitInterval = Date.now();
+    try {
+      simpleGit.add(file, (err) => {
+        simpleGit.commit("save", (res) => {
+          simpleGit.push("origin", "master", () => {
+            gitInterval = Date.now();
+          })
         })
       })
-    })
-  } catch (err) {
-    console.log("Git ERROR", err);
-  }
-}
+    } catch (err) {
+      console.log("Git ERROR", err);
+    }
+  } 
 }
 
 
