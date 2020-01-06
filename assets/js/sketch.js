@@ -19,9 +19,11 @@ let save;
 socket.on('connect', function () {
   console.log("Socket Connected")
 });
+
 socket.on('disconnected', function () {
   console.log("Socket Disconnected")
 });
+
 socket.on("refresh", (val) => {
   if (val) {
     window.location.reload()
