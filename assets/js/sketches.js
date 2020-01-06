@@ -1454,12 +1454,12 @@ class Drops extends Sketch {
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 50;
+      this.resolution = 100;
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
     this.center.normalize();
-    this.speed = 0.01
+    this.speed = 0.01;
   }
 
   init() {
@@ -1483,7 +1483,7 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        thisPoint.add(acc.div(sin(frameCount / 100) * this.speed));
+        thisPoint.add(acc.mult(sin(frameCount / 100) * this.speed));
         // thisPoint.add(Math.random())
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
