@@ -266,55 +266,6 @@ class Grid extends Sketch {
   }
 }
 
-class ImageTweak {
-  iamge;
-  index = -1;
-  listeners = [{}];
-
-  init() {
-    loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
-      "=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-      img => {
-        this.img = img;
-        img.loadPixels();
-      });
-  }
-
-  unload() {
-    this.index = -1;
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-    this.detachSockets();
-  }
-  attachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.on(thisSocket.name, thisSocket.method);
-    }
-  }
-  detachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
-    }
-  }
-
-  draw() {
-    if (this.img) {
-      for (let i = 0; i < height; i++) {
-        for (let j = 0; j < width; j++) {
-          stroke(this.img.pixels[i + j])
-          point(i, j)
-        }
-      }
-    }
-  }
-}
-
 class EarthQuake extends Sketch {
   constructor() {
     super();
@@ -355,15 +306,18 @@ class EarthQuake extends Sketch {
 }
 
 class Rings extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
+    this.colors = [];
     this.funcs = [];
-    this.funcsLength = 0;
-    this.ringSize = 0;
-    this.currentVol = 11;
-    this.threshold = 10;
-    this.angle = 0.01;
-    this.circleWidth = 50;
+    if(!this.loaded){
+      this.funcsLength = 0;
+      this.ringSize = 0;
+      this.currentVol = 11;
+      this.threshold = 10;
+      this.angle = 0.01;
+      this.circleWidth = 50;
+    }
   }
   init() {
     super.init();
