@@ -1331,7 +1331,7 @@ class LinesShader extends Sketch {
     noStroke();
     linesShader.setUniform("u_loops", this.loops);
     linesShader.setUniform("u_params", this.params);
-    linesShader.setUniform("tex0", glCanvas);
+    linesShader.setUniform("tex0", this.img);
 
     linesShader.setUniform('u_time', frameCount / 1000)
     linesShader.setUniform('u_speed', this.speed);
