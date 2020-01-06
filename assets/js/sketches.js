@@ -1462,10 +1462,10 @@ class Drops extends Sketch {
   init() {
     super.init();
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution * 10, 0, height);
+      let y = map(i, 0, this.resolution, 0, height);
       this.grid[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
-        let x = map(i, 0, this.resolution, 0, width);
+        let x = map(j, 0, this.resolution, 0, width);
         this.grid[i][j] = { x: x, y: y }
       }
     }
