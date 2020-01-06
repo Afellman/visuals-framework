@@ -599,7 +599,6 @@ class Ripples extends Sketch {
 
   init() {
     super.init();
-
   }
 
   draw() {
@@ -642,11 +641,13 @@ class Ripples extends Sketch {
 class SpinningCircles extends Sketch {
   constructor() {
     super();
-    this.pointAmt = 1000;
     this.topPoints = [];
     this.bottomPoints = [];
     this.leftPoints = [];
     this.rightPoints = [];
+    this.centerPoints = [];
+    if(!this.loaded){
+    this.pointAmt = 1000;
     this.circleDiameter = 50;
     this.curl = 300;
     this.proximity = 300;
@@ -654,7 +655,7 @@ class SpinningCircles extends Sketch {
     this.multiplier = 10;
     this.rotateRate = 0.001;
     this.circleSize = 3
-    this.centerPoints = [];
+    }
   }
 
   listeners = [{
