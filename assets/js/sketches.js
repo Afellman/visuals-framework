@@ -441,14 +441,14 @@ class Rain extends Sketch {
     super(obj);
     this.dots = [];
     if(!this.loaded){
-    this.rowsAmount = 50;
-    this.dotsAmount = 20;
-    this.globalChange = 14
-    this.period = 0.04;
-    this.xspacing = 0.003;
-    this.speed = 0.01;
-    this.rateChange = (TWO_PI / this.period) * this.xspacing;
-    this.amplitude = 2.5;
+      this.rowsAmount = 50;
+      this.dotsAmount = 20;
+      this.globalChange = 14
+      this.period = 0.04;
+      this.xspacing = 0.003;
+      this.speed = 0.01;
+      this.rateChange = (TWO_PI / this.period) * this.xspacing;
+      this.amplitude = 2.5;
     }
   }
 
@@ -589,14 +589,17 @@ class BGShader extends Sketch {
 }
 
 class Ripples extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.circles = [];
+    if(!this.loaded){
+      this.angle = 0.01
+    }
   }
 
   init() {
     super.init();
-    this.angle = 0.01
+
   }
 
   draw() {
