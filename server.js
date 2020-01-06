@@ -99,6 +99,8 @@ function setupWatcher() {
       && Date.now() - updateInterval > 15000
       ) {
       try {
+        console.log(Date.now() - updateInterval);
+        updateInterval = Date.now();
         console.log(name + " changed");
         pushToGit(name);
         glClient.emit("refresh", true);
@@ -110,8 +112,6 @@ function setupWatcher() {
 }
 
 function pushToGit(file) {
-  console.log(Date.now() - updateInterval);
-    updateInterval = Date.now();
     try {
       simpleGit.add(file, (err) => {
         console.log("add");
