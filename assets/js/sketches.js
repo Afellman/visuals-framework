@@ -1476,7 +1476,7 @@ class Drops extends Sketch {
 
   draw() {
     let thisPoint = {};
-    background("red")
+
     fill("white")
     for (let i = 0; i < this.resolution; i++) {
       // ellipse(thisPoint.x, thisPoint.y, 5);
