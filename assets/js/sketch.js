@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/movingLines.frag"
+    "./shaders/texture.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
@@ -39,10 +39,10 @@ function setup() {
   loadImage("./assets/images/leaves.jpg", (img) => {
     takeColor(img);
     images.push(img)
-    loadScene(new BGShader()) // For background.
+    // loadScene(new BGShader()) // For background.
     loadScene(new LinesShader(img));
     loadScene(new Drops());
-    loadScene(new DropsShader())
+    // loadScene(new DropsShader())
 
     // loadScene(new TreeFractal());
     // loadScene(new con())
