@@ -1454,7 +1454,7 @@ class Drops extends Sketch {
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 100;
+      this.resolution = 50;
     }
     this.grid = [];
   }
@@ -1477,7 +1477,7 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         fill(someColor())
-        ellipse(thisPoint.x, thisPoint.y, 20)
+        ellipse(thisPoint.x, thisPoint.y, 5)
       }
     }
   }
