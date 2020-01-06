@@ -1428,7 +1428,7 @@ class TreeFractal extends Sketch {
     midi: "1",
     midiMethod: val => this.movement = val / 10000,
     method: (val) => {
-      this.movement = val.args[0] / 10000;
+      this.movement = val.args[0] / 100;
     }
   },
   ]
