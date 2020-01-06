@@ -1025,7 +1025,7 @@ class Starry extends Sketch {
       thisPoint = this.points[i];
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add())
+      thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
       // stroke("white");
       noStroke();
       fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
@@ -1458,7 +1458,8 @@ class Drops extends Sketch {
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
-    this.center.normalize()
+    this.center.normalize();
+    this.speed = 0.001;
   }
 
   init() {
@@ -1481,8 +1482,8 @@ class Drops extends Sketch {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-        let location = createVector(thisPoint.x, thisPoint.y);
-        thisPoint.sub(this.center)
+        let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
+        thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
     }
