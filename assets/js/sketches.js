@@ -1331,7 +1331,7 @@ class LinesShader extends Sketch {
     noStroke();
     linesShader.setUniform("u_loops", this.loops);
     linesShader.setUniform("u_params", this.params);
-    linesShader.setUniform("tex0", this.imglCanvasg);
+    linesShader.setUniform("tex0", glCanvas);
 
     linesShader.setUniform('u_time', frameCount / 1000)
     linesShader.setUniform('u_speed', this.speed);
@@ -1476,7 +1476,7 @@ class Drops extends Sketch {
 
   draw() {
     let thisPoint = {};
-
+    background("red")
     fill("white")
     for (let i = 0; i < this.resolution; i++) {
       // ellipse(thisPoint.x, thisPoint.y, 5);
