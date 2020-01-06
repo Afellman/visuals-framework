@@ -1457,6 +1457,7 @@ class Drops extends Sketch {
       this.resolution = 50;
     }
     this.grid = [];
+    this.center = createVector(width / 2, height / 2);
   }
 
   init() {
@@ -1473,7 +1474,7 @@ class Drops extends Sketch {
 
   draw() {
     let thisPoint = {};
-    let thisWave = createVector();
+
     fill("white")
     for (let i = 0; i < this.resolution; i++) {
       // ellipse(thisPoint.x, thisPoint.y, 5);
