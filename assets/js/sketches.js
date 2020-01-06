@@ -647,82 +647,19 @@ class SpinningCircles extends Sketch {
     this.rightPoints = [];
     this.centerPoints = [];
     if(!this.loaded){
-    this.pointAmt = 1000;
-    this.circleDiameter = 50;
-    this.curl = 300;
-    this.proximity = 300;
-    this.strokeWeight = 1;
-    this.multiplier = 10;
-    this.rotateRate = 0.001;
-    this.circleSize = 3
+      this.pointAmt = 1000;
+      this.circleDiameter = 50;
+      this.curl = 300;
+      this.proximity = 300;
+      this.strokeWeight = 1;
+      this.multiplier = 10;
+      this.rotateRate = 0.001;
+      this.circleSize = 3
     }
   }
 
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    method: (val) => {
-      this.circleDiameter = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/2',
-    nodeID: "slider2",
-    method: (val) => {
-      this.curl = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/3',
-    nodeID: "slider3",
-    method: (val) => {
-      this.rotateRate = val.args[0] / 10;
-    }
-  }, {
-    socketName: '/1/multifader1/4',
-    nodeID: "slider4",
-    method: (val) => {
-      this.circleSize = val.args[0] * 10;
-    }
-  }, {
-    socketName: '/1/multifader1/5',
-    nodeID: "slider5",
-    method: (val) => {
-      this.proximity = val.args[0] * 1000
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn1",
-    method: (val) => {
-      if (val) {
-        let x = width / this.pointAmt;
-        let y = 0;
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-        this.pointAmt++
-      }
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn2",
-    method: (val) => {
-      if (val) {
-        this.topPoints.pop();
-        this.bottomPoints.pop();
-        this.pointAmt--
-      }
-    }
-  }]
   init() {
     super.init();
-    let color1 = someColor();
-    let color2 = someColor();
     for (let i = 0; i < this.pointAmt; i++) {
       let x = width / this.pointAmt * i;
       let y = 0;
@@ -792,10 +729,10 @@ class SpinningCircles extends Sketch {
       //   line(x, y, prevX, prevY)
       // }
 
-      // if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
-      //   stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
-      //   line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
-      // }
+      if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
+        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
+        line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
+      }
       // if (dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
       //   stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
       //   line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
@@ -816,7 +753,68 @@ class SpinningCircles extends Sketch {
     }
     this.freq += this.rotateRate;
   }
-
+  
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    method: (val) => {
+      this.circleDiameter = val.args[0] * 500;
+    }
+  }, {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider2",
+    method: (val) => {
+      this.curl = val.args[0] * 500;
+    }
+  }, {
+    socketName: '/1/multifader1/3',
+    nodeID: "slider3",
+    method: (val) => {
+      this.rotateRate = val.args[0] / 10;
+    }
+  }, {
+    socketName: '/1/multifader1/4',
+    nodeID: "slider4",
+    method: (val) => {
+      this.circleSize = val.args[0] * 10;
+    }
+  }, {
+    socketName: '/1/multifader1/5',
+    nodeID: "slider5",
+    method: (val) => {
+      this.proximity = val.args[0] * 1000
+    }
+  }, {
+    socketName: '/1/breathe',
+    nodeID: "btn1",
+    method: (val) => {
+      if (val) {
+        let x = width / this.pointAmt;
+        let y = 0;
+        this.topPoints.push({
+          x: x,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+        this.bottomPoints.push({
+          x: width - x,
+          y: height,
+          color: [70, 100, 97, 248]
+        });
+        this.pointAmt++
+      }
+    }
+  }, {
+    socketName: '/1/breathe',
+    nodeID: "btn2",
+    method: (val) => {
+      if (val) {
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
+      }
+    }
+  }]
   mouseClicked() { }
 }
 
