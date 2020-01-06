@@ -1458,6 +1458,7 @@ class Drops extends Sketch {
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
+    this.center.normalize()
   }
 
   init() {
@@ -1480,7 +1481,6 @@ class Drops extends Sketch {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-
         thisPoint.sub(this.center)
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
