@@ -1339,10 +1339,10 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
-class TextureShader extends Sketch {
+class LinesShader extends Sketch {
   constructor(img) {
     super();
-    this.textureShader;
+    this.linesShader;
     this.img = img;
     this.speed = 1;
     this.direction = 1;
@@ -1360,16 +1360,16 @@ class TextureShader extends Sketch {
   }
 
   draw() {
-    // textureShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    textureShader.setUniform("u_loops", this.loops);
-    textureShader.setUniform("u_params", this.params);
-    textureShader.setUniform("tex0", this.img);
+    linesShader.setUniform("u_loops", this.loops);
+    linesShader.setUniform("u_params", this.params);
+    linesShader.setUniform("tex0", this.img);
 
-    textureShader.setUniform('u_time', frameCount / 1000)
-    textureShader.setUniform('u_speed', this.speed);
-    textureShader.setUniform('u_direction', this.direction);
-    this.shaderBox.shader(textureShader);
+    linesShader.setUniform('u_time', frameCount / 1000)
+    linesShader.setUniform('u_speed', this.speed);
+    linesShader.setUniform('u_direction', this.direction);
+    this.shaderBox.shader(linesShader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
