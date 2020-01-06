@@ -30,7 +30,7 @@ function preload() {
     "./shaders/shader.vert",
     "./shaders/shader.frag"
   );
-};
+}
 
 // Starting with a canvas the full window size.
 function setup() {
@@ -55,7 +55,7 @@ function setup() {
   // fft = new p5.FFT(0.8, 512);
   // fft.setInput(mic);
 
-};
+}
 
 function draw() {
   const length = scenes.length;
@@ -74,7 +74,7 @@ function draw() {
     pop()
   }
 
-};
+}
 
 // ======================================== Other Functions
 
