@@ -40,7 +40,7 @@ function setup() {
     takeColor(img);
     images.push(img)
     // loadScene(new Shader101())
-    loadScene(new TextureShader(img));
+    loadScene(new LinesShader(img));
     // loadScene(new Sun())
     // loadScene(new Fractal());
   });
