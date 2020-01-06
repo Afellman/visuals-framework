@@ -1481,7 +1481,7 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
 
-        thisPoint.add(sin(frameCount / 100))
+        thisPoint.sub(this.center)
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
     }
