@@ -39,9 +39,10 @@ function setup() {
   loadImage("./assets/images/leaves.jpg", (img) => {
     takeColor(img);
     images.push(img)
-    // loadScene(new BGShader()) // 
+    // loadScene(new BGShader()) // For background.
     // loadScene(new LinesShader(img));
     // loadScene(new TreeFractal());
+    loadScene(new Grid())
   });
 
 
