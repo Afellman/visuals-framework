@@ -1481,7 +1481,7 @@ class Drops extends Sketch {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-        let location = thisPoint;
+        let location = createVector(thisPoint.x, thisPoint.y);
         location.sub(this.center)
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
