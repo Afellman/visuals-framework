@@ -1456,6 +1456,7 @@ class Drops extends Sketch {
     if (!this.loaded) {
       this.resolution = 300;
     }
+    this.grid = [];
   }
 
   init() {
