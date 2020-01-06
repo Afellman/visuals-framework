@@ -664,16 +664,20 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.pointAmt; i++) {
       let x = width / this.pointAmt * i;
       let y = 0;
-      this.topPoints.push({
-        x: x,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
-      this.bottomPoints.push({
-        x: width - x,
-        y: height,
-        color: [70, 100, 97, 248]
-      });
+      if(this.connecters.top){
+        this.topPoints.push({
+          x: x,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+      }
+      if(this.connecters.bottom){
+        this.bottomPoints.push({
+          x: width - x,
+          y: height,
+          color: [70, 100, 97, 248]
+        });
+      }
       y = height / this.pointAmt * i;
       this.leftPoints.push({
         x: 0,
