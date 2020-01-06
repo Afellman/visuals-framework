@@ -743,7 +743,7 @@ class SpinningCircles extends Sketch {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
       }
-      if (this.connecters.top && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+      if (this.connecters.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
         stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
       }
