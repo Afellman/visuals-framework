@@ -557,7 +557,7 @@ class Rain extends Sketch {
   }
 }
 
-class Shader101 extends Sketch {
+class BGSader extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
