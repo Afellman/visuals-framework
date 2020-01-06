@@ -93,8 +93,8 @@ void main() {
   vec2 uv = vTexCoord;
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
-  float x = sin(uv.x * (u_time / 10000.0));
-  float y = cos(uv.y * (u_time / 1000.0));
+  float x = sin(uv.x);
+  float y = cos(uv.y);
   vec4 tex = texture2D(tex0, vec2(x,y));
 
   gl_FragColor = vec4(tex);
