@@ -41,6 +41,8 @@ function setup() {
     images.push(img)
     loadScene(new BGShader()) // For background.
     // loadScene(new LinesShader(img));
+    loadScene(new Drops(img));
+
     // loadScene(new TreeFractal());
     // loadScene(new con())
   });
