@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/trippyTwo.frag"
+    "./shaders/meltingWaterfalls.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
@@ -78,15 +78,15 @@ function draw() {
 
 // ======================================== Other Functions
 
-function setupSockets(){
+function setupSockets() {
   socket.on('connect', function () {
     console.log("Socket Connected")
   });
-  
+
   socket.on('disconnected', function () {
     console.log("Socket Disconnected")
   });
-  
+
   socket.on("refresh", (val) => {
     if (val) {
       window.location.reload()
