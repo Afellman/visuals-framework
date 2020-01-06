@@ -228,19 +228,19 @@ class Grid extends Sketch {
       this.index = index;
       this.gridPointsX = 20;
       this.gridPointsY = 20;
-      for (let i = 0; i < this.gridPointsY; i++) {
-        let row = [];
-        let y = map(i, 0, this.gridPointsY, 0, height);
-        for (let j = 0; j < this.gridPointsX; j++) {
-          let x = map(j, 0, this.gridPointsX, 0, width);
-          row.push(createVector(x, y))
-        }
-        this
-          .gridPoints
-          .push(row);
-      }
-      this.gridPointsLength = this.gridPoints.length;
     }
+        for (let i = 0; i < this.gridPointsY; i++) {
+          let row = [];
+          let y = map(i, 0, this.gridPointsY, 0, height);
+          for (let j = 0; j < this.gridPointsX; j++) {
+            let x = map(j, 0, this.gridPointsX, 0, width);
+            row.push(createVector(x, y))
+          }
+          this
+            .gridPoints
+            .push(row);
+        }
+        this.gridPointsLength = this.gridPoints.length;
   }
 
   draw() {
@@ -1475,7 +1475,7 @@ class Chem extends Sketch {
   }
  
   init() {
-    super.init()
+    super.init();
   }
  
   draw() {
