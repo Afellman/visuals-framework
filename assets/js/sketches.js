@@ -655,7 +655,7 @@ class SpinningCircles extends Sketch {
       this.multiplier = 10;
       this.rotateRate = 0.001;
       this.circleSize = 3;
-      this.connecters = {top: true, bottom: true}
+      this.connecters = {top: true, bottom: true, left: true, right: true}
     }
   }
 
