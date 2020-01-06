@@ -1459,7 +1459,7 @@ class Drops extends Sketch {
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
     this.center.normalize();
-    this.speed = 
+    this.speed = 0.01
   }
 
   init() {
@@ -1484,7 +1484,7 @@ class Drops extends Sketch {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
         thisPoint.add(acc.div(sin(frameCount / 100) * this.speed));
-        thisPoint.add(Math.random())
+        // thisPoint.add(Math.random())
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
     }
