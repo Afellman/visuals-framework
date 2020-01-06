@@ -212,6 +212,7 @@ class Sketch {
 
 class Grid extends Sketch {
   constructor(obj) {
+    super(obj);
     this.index = -1;
     this.listeners = [{}];
     this.gridPointsLength = 0;
@@ -222,7 +223,6 @@ class Grid extends Sketch {
     this.index = index;
     this.gridPointsX = 20;
     this.gridPointsY = 20;
-    super(obj);
   }
 
   init(index) {
@@ -557,7 +557,7 @@ class Rain extends Sketch {
   }
 }
 
-class BGSader extends Sketch {
+class BGShader extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
