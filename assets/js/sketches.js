@@ -655,7 +655,7 @@ class SpinningCircles extends Sketch {
       this.multiplier = 10;
       this.rotateRate = 0.001;
       this.circleSize = 3;
-      this.connecters = {top: true, bottom: true, left: true, right: true}
+      this.connecters = {top: true, bottom: true, left: false, right: true}
     }
   }
 
@@ -743,10 +743,10 @@ class SpinningCircles extends Sketch {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
       }
-      // if (dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
-      //   stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
-      //   line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
-      // }
+      if (dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
+        line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
+      }
       // FOR CONNECTER LINES ON SIDES
       // if (dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
       //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80)
