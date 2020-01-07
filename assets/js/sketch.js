@@ -214,6 +214,10 @@ function keyPressed(e) {
     });
     ctrlPressed = false;
   }
+
+  if (ctrlPressed && key == "p") {
+    saveCanvas(glCanvas, "canvas" + 1578367048711, "png")
+  }
 };
 
 // ======================================== Midi
