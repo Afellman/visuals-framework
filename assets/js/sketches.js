@@ -1454,7 +1454,7 @@ class Drops extends Sketch {
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 65;
+      this.resolution = 25;
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
