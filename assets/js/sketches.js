@@ -1485,7 +1485,7 @@ class Drops extends Sketch {
         thisPoint = this.grid[i][j];
         lastPoint = this.grid[i][j - 1];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
+        thisPoint.add(acc.normalize().mult(sin(frameCount / 100).mult(dist(this.center, thisPoint))));
         ellipse(thisPoint.x, thisPoint.y, 2);
         if (j > 0) {
           line(lastPoint.x, lastPoint.y, thisPoint.x, thisPoint.y);
