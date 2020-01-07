@@ -1487,7 +1487,7 @@ class Drops extends Sketch {
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
         acc.normalize();
         acc.mult(sin(frameCount / 10) / 2);
-        thisPoint.add(acc / dist(this.center.x, this.center.y, thisPoint.x, thisPoint.y))
+        thisPoint.add(acc.mult(dist(this.center.x, this.center.y, thisPoint.x, thisPoint.y)))
         ellipse(thisPoint.x, thisPoint.y, 2);
 
       }
