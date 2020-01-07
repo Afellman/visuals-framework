@@ -393,7 +393,7 @@ class Sin extends Sketch {
   init() {
     super.init();
     this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(100, 0.01))
+    this.waves.push(new Objects.SineWave(75, 0.01))
     this.waves.push(new Objects.SineWave(15, 0.01))
   }
 
@@ -1322,7 +1322,7 @@ class LinesShader extends Sketch {
     this.cam.size(innerWidth, innerHeight);
     this.cam.hide();
     this.time = 0;
-    this.params = [4.0, 1.3, 1.7, 9.2]
+    this.params = [1.0, 1.3, 1.7, 9.2]
     this.loops = 4;
   }
 
@@ -1483,7 +1483,7 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        thisPoint.div(acc.normalize().mult(sin(frameCount / 100)));
+        thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
         ellipse(thisPoint.x, thisPoint.y, 2);
       }
     }
