@@ -1483,9 +1483,8 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        thisPoint.sub(acc.normalize());
+        thisPoint.sub(acc.normalize().mult(sin(frameCount)));
         ellipse(thisPoint.x, thisPoint.y, 2);
-
       }
     }
   }
