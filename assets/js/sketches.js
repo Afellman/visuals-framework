@@ -1454,7 +1454,7 @@ class Drops extends Sketch {
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 25;
+      this.resolution = 50;
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
@@ -1485,7 +1485,7 @@ class Drops extends Sketch {
         thisPoint = this.grid[i][j];
         lastPoint = this.grid[i][j - 1];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        acc.mult(dist(this.center.x, this.center.y, thisPoint.x, thisPoint.y))
+        // acc.mult(dist(this.center.x, this.center.y, thisPoint.x, thisPoint.y))
         acc.normalize();
         thisPoint.add(acc)
         ellipse(thisPoint.x, thisPoint.y, 2);
