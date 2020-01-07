@@ -1483,9 +1483,14 @@ class Drops extends Sketch {
       // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
-        wave.mult(sin(frameCount / 100) / 20)
-        let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
+
+        let waveMovement = p5.Vector.sub(wave, createVector(width / 2, height / 2))
+        waveMovement.normalize();
+        waveMovement.mult(sin(frameCount / 100) / 20);
+
+        let acc = p5.Vector.mutl(thisPoint, waveMovement);
         acc.normalize();
+
         acc.mult(sin(frameCount / 200) / (frameCount / 10))
         thisPoint.add(acc);
         ellipse(thisPoint.x, thisPoint.y, 4);
