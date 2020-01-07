@@ -1,4 +1,4 @@
-let glBackground = [0, 0, 0, 0.5]
+let glBackground = [0, 0, 0, 1.0]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/drops.frag"
+    "./shaders/texture.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
@@ -42,7 +42,7 @@ function setup() {
     loadScene(new BGShader()) // For background.
     // loadScene(new LinesShader(img));
     loadScene(new Drops());
-    loadScene(new DropsShader())
+    // loadScene(new DropsShader())
 
     // loadScene(new TreeFractal());
     // loadScene(new con())
