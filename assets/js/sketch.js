@@ -40,8 +40,8 @@ function setup() {
     takeColor(img);
     images.push(img)
     loadScene(new BGShader()) // For background.
-    // loadScene(new LinesShader(img));
-    loadScene(new Drops());
+    loadScene(new LinesShader(img));
+    // loadScene(new Drops());
     // loadScene(new DropsShader())
 
     // loadScene(new TreeFractal());
@@ -215,7 +215,7 @@ function keyPressed(e) {
     ctrlPressed = false;
   }
 
-  if (ctrlPressed && key == "oi") {
+  if (ctrlPressed && key == "i") {
     saveCanvas(glCanvas, "canvas" + 1578367048711, "png")
   }
 };
