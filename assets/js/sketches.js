@@ -1486,9 +1486,10 @@ class Drops extends Sketch {
 
         let waveMovement = p5.Vector.sub(wave, createVector(width / 2, height / 2))
         waveMovement.normalize();
+        wave.add(waveMovement);
         waveMovement.mult(sin(frameCount / 100) / 20);
 
-        let acc = p5.Vector.mutl(thisPoint, waveMovement);
+        let acc = p5.Vector.mult(thisPoint, wave);
         acc.normalize();
 
         acc.mult(sin(frameCount / 200) / (frameCount / 10))
