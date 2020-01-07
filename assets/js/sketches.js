@@ -1476,6 +1476,8 @@ class Drops extends Sketch {
 
   draw() {
     let thisPoint = {};
+    let prevX = 0;
+    let prevY = 0;
     fill("white")
     for (let i = 0; i < this.resolution; i++) {
       // ellipse(thisPoint.x, thisPoint.y, 5);
@@ -1484,6 +1486,9 @@ class Drops extends Sketch {
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
         thisPoint.sub(acc.normalize());
         ellipse(thisPoint.x, thisPoint.y, 2);
+        line(prevX, prevY, thisPoint.x, thisPoint.y)
+        prevY = thisPoint.y;
+        prevX = thisPoint.x;
       }
     }
   }
