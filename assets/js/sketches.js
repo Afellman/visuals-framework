@@ -1488,7 +1488,7 @@ class Drops extends Sketch {
         acc.normalize();
         acc.div(frameCount / 100)
         thisPoint.add(acc)
-        ellipse(thisPoint.x, thisPoint.y, 2);
+        ellipse(thisPoint.x, thisPoint.y, 4);
 
       }
     }
