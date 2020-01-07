@@ -215,7 +215,7 @@ function keyPressed(e) {
     ctrlPressed = false;
   }
 
-  if (ctrlPressed && key == "o") {
+  if (ctrlPressed && key == "oi") {
     saveCanvas(glCanvas, "canvas" + 1578367048711, "png")
   }
 };
