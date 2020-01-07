@@ -71,8 +71,8 @@ void main() {
   vec2 center = vec2(0.5, 0.5);
 
   // float swirlz = swirl(uv.x); // Applying the swirl effect to the image.
-  float swirlz = distance(uv, vec2(0.5, 0.5));
-  uv = vec2(uv.x * swirlz, uv.y); // u_params[0] is offsetting the y to create the lines
+  float swirlz = distance(uv, vec2(0.5 + sin(u_time), 0.5 +cos(u_time));
+  uv = vec2(uv.x + swirlz, uv.y); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
 
