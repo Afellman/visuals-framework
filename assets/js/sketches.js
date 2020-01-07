@@ -1486,7 +1486,7 @@ class Drops extends Sketch {
         wave.mult(sin(frameCount / 100) / 20)
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
         acc.normalize();
-        acc.div(frameCount / 100)
+        acc.div(frameCount / 200)
         thisPoint.add(acc);
         ellipse(thisPoint.x, thisPoint.y, 4);
 
