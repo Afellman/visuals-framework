@@ -216,7 +216,7 @@ function keyPressed(e) {
   }
 
   if (ctrlPressed && key == "i") {
-    saveCanvas(glCanvas, "./canvas" + 1578367048711, "png")
+    saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
   }
 };
 
