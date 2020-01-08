@@ -1324,7 +1324,7 @@ class LinesShader extends Sketch {
     this.time = 0;
     this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
-    this.cray = true;
+    this.cray = 0.0;
   }
 
   draw() {
@@ -1413,7 +1413,7 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "36",
     midiMethod: val => {
-      this.cray = true
+      this.cray = !this.cray;
     },
     method: (val) => {
       this.angle = val.args[0];
