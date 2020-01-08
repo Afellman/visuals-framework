@@ -1334,6 +1334,8 @@ class LinesShader extends Sketch {
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
+    linesShader.setUniform('u_time', this.waveSpeed)
+    linesShader.setUniform("tex0", this.img);
     linesShader.setUniform("u_loops", this.loops);
     linesShader.setUniform("tex0", this.img);
     linesShader.setUniform("u_freq", this.img);
