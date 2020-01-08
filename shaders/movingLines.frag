@@ -47,11 +47,10 @@ void main() {
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  float ran = random(uv) * u_params[4] ; // Adds noise
-  float y = sin(PI * 2.0 * uv.x * u_freq + (u_time* 10.0) * 1.0 + ran ) * u_amp;
+  float ran = noise(uv) * u_noise; // Adds noise
+  float y = sin(PI * 2.0 * uv.x * u_freq + (u_time* 10.0) * 0.1 + ran ) * u_amp;
 
 
-  // float ran = noise(uv) * u_noise; // Adds noise
   // float y = sin(PI * 2.0 * uv.x * u_freq + u_time+ ran ) *u_amp;
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
