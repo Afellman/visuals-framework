@@ -1322,27 +1322,20 @@ class LinesShader extends Sketch {
     this.cam.size(innerWidth, innerHeight);
     this.cam.hide();
     this.time = 0;
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
-    this.freq = 5;
-    this.amp = 0.0;
-    this.noise = 0;
-    this.xOff = 0;
-    this.yOff = 0;
-    this.waveSpeed = 0.1;
   }
 
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    linesShader.setUniform('u_time', frameCount * this.waveSpeed)
-    linesShader.setUniform("tex0", this.img);
     linesShader.setUniform("u_loops", this.loops);
-    linesShader.setUniform("u_freq", this.freq);
-    linesShader.setUniform("u_noise", this.noise);
-    linesShader.setUniform("u_xOff", this.xOff);
-    linesShader.setUniform("u_yOff", this.yOff);
-    linesShader.setUniform("u_amp", this.amp);
+    linesShader.setUniform("u_params", this.params);
+    linesShader.setUniform("tex0", this.img);
 
+    linesShader.setUniform('u_time', frameCount / 1000)
+    linesShader.setUniform('u_speed', this.speed);
+    linesShader.setUniform('u_direction', this.direction);
     this.shaderBox.shader(linesShader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
@@ -1353,7 +1346,7 @@ class LinesShader extends Sketch {
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     midi: "1",
-    midiMethod: val => this.yOff = val / 100,
+    midiMethod: val => this.params[0] = val / 100,
     method: (val) => {
       this.angle = val.args[0];
     }
@@ -1362,7 +1355,7 @@ class LinesShader extends Sketch {
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     midi: "2",
-    midiMethod: val => this.xOff = val / 100,
+    midiMethod: val => this.params[1] = val / 100,
     method: (val) => {
       this.angle = val.args[0];
     }
@@ -1373,7 +1366,7 @@ class LinesShader extends Sketch {
     midi: "3",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 10);
-      this.freq = val;
+      this.params[2] = val;
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1385,7 +1378,7 @@ class LinesShader extends Sketch {
     midi: "4",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 0.5)
-      this.amp = val
+      this.params[3] = val
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1397,7 +1390,7 @@ class LinesShader extends Sketch {
     midi: "5",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 1)
-      this.noise = val
+      this.params[4] = val
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1408,7 +1401,7 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "6",
     midiMethod: val => {
-      this.waveSpeed = val / 1000
+      this.params[5] = val / 100
     },
     method: (val) => {
       this.angle = val.args[0];
