@@ -1324,7 +1324,7 @@ class LinesShader extends Sketch {
     this.time = 0;
     this.loops = 4;
     this.freq = 5;
-    this.amp = 10;
+    this.amp = 0.0;
     this.noise = 0;
     this.xOff = 0;
     this.yOff = 0;
