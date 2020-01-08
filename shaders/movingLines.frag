@@ -10,11 +10,11 @@ varying vec2 vTexCoord;
 // our texture coming from p5
 uniform sampler2D tex0;
 uniform float noise;
-uniform float waveSpeed;
-uniform float xOff;
-uniform float yOff;
-uniform float freq;
-uniform float amp;
+uniform float u_waveSpeed;
+uniform float u_xOff;
+uniform float u_yOff;
+uniform float u_freq;
+uniform float u_amp;
 
 
 float random (in vec2 st) {
@@ -46,9 +46,9 @@ void main() {
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  float ran = noise(uv) * u_params[4] ; // Adds noise
-  float y = sin(PI * 2.0 * uv.x * u_params[2] + (u_time* 10.0) * u_params[5] + ran ) *u_params[3];
-  uv = vec2((uv.x + u_params[1] + y),uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
+  float ran = noise(uv) * u_noise; // Adds noise
+  float y = sin(PI * 2.0 * uv.x * u_freq + (u_time* 10.0) * u_params[5] + ran ) *u_amp;
+  uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
 
