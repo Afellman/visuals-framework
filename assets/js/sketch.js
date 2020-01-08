@@ -36,7 +36,7 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  loadImage("./assets/images/peter.jpg", (img) => {
+  loadImage("./assets/images/leaves.jpg", (img) => {
     takeColor(img);
     images.push(img)
     // loadScene(new BGShader()) // For background.
