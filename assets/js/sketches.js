@@ -1390,7 +1390,7 @@ class LinesShader extends Sketch {
     midi: "5",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 1)
-      this.params[4] = val * 100
+      this.params[4] = val * 10
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1401,7 +1401,7 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "6",
     midiMethod: val => {
-      this.params[5] = val
+      this.params[5] = val / 1000
     },
     method: (val) => {
       this.angle = val.args[0];
