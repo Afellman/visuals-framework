@@ -1401,7 +1401,7 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "6",
     midiMethod: val => {
-      val = map(val, 0, 127, 0, 5)
+      val = map(val, 0, 127, 0, 20)
       this.params[5] = val
     },
     method: (val) => {
