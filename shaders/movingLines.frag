@@ -9,9 +9,6 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
-uniform float u_time;
-uniform float u_speed;
-uniform float u_direction;
 uniform float noise;
 uniform float waveSpeed;
 uniform float xOff;
@@ -44,41 +41,12 @@ float noise (in vec2 st) {
 }
 
 
-float fbm (in vec2 st) {
-    // Initial values
-    float value = 0.0;
-    float amplitude = .5;
-    float frequency = 0.;
-    //
-    // Loop of octaves
-    for (int i = 0; i < OCTAVES; i++) {
-        value += amplitude * noise(st);
-        st *= 2.0;
-        amplitude *= 0.5;
-    }
-    return value;
-}
-
-float pattern( in vec2 p )
-{
-    vec2 q = vec2(fbm( p + vec2(0.0,0.0)), fbm( p + vec2(5.2,1.3) ) );
-
-    vec2 r = vec2(fbm( p + 4.0*q + vec2(1.7,9.2)),fbm( p + 4.0*q + vec2(8.3,2.8)));
-
-    return fbm(p + 4.0*r);
-}
-
-float swirl(float x){
-  float r = pattern(vec2(x, x + u_direction * (u_time * 0.1 * u_speed)));
-  return r;
-}
-
 void main() {
   vec2 uv = vTexCoord;
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  float ran = random(uv) * u_params[4] ; // Adds noise
+  float ran = noise(uv) * u_params[4] ; // Adds noise
   float y = sin(PI * 2.0 * uv.x * u_params[2] + (u_time* 10.0) * u_params[5] + ran ) *u_params[3];
   uv = vec2((uv.x + u_params[1] + y),uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
 
