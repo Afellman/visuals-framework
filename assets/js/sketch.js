@@ -236,7 +236,7 @@ function getMIDIMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   console.log(note, velocity, command)
-  if (command == 148) {
+  if (command !== 132) {
 
     if (midiSubscribers[note]) {
       midiSubscribers[note].forEach(sub => sub(velocity, command));
