@@ -1411,9 +1411,9 @@ class LinesShader extends Sketch {
   {
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
-    midi: "36",
+    midi: "7",
     midiMethod: val => {
-      this.cray = !this.cray;
+      this.cray = val / 100;
     },
     method: (val) => {
       this.angle = val.args[0];
