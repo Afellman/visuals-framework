@@ -13,7 +13,7 @@ uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
 uniform float u_params[6];
-uniform bool u_cray;
+uniform float u_cray;
 
 
 float random (in vec2 st) {
@@ -66,9 +66,7 @@ void main() {
 
   uv = vec2((uv.x + u_params[1] + y),uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
 
-  if(u_cray){
-    uv *= random(uv) * 0.5;
-  }
+  uv *= (random(uv) * 0.5) * u_cray;
   vec4 tex = texture2D(tex0, uv);
 
   gl_FragColor = vec4(tex);
