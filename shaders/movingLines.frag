@@ -74,7 +74,7 @@ void main() {
   vec2 center = vec2(0.5, 0.5);
 
   // float swirlz = swirl(uv.x); // Applying the swirl effect to the image.
-  float ran = random(uv) * u_params[4]; // Adds noise
+  float ran = random(uv.x) * u_params[4] ; // Adds noise
   uv*= ran;
   float y = sin(PI * 2.0 * uv.x * u_params[2] +  u_time * 15.0 ) *u_params[3];
   // float swirlz = uv.x * distance(uv.x, 0.5 + sin(u_time)) + distance(uv.x, 0.1);
