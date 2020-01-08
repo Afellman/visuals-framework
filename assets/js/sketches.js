@@ -1364,7 +1364,10 @@ class LinesShader extends Sketch {
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     midi: "3",
-    midiMethod: val => this.params[2] = val / 10,
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 1)
+      this.params[2] = val / 10
+    },
     method: (val) => {
       this.angle = val.args[0];
     }
