@@ -1322,7 +1322,7 @@ class LinesShader extends Sketch {
     this.cam.size(innerWidth, innerHeight);
     this.cam.hide();
     this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0]
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0]
     this.loops = 4;
   }
 
@@ -1390,8 +1390,8 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "5",
     midiMethod: val => {
-      val = map(val, 0, 127, 0, 0.5)
-      this.params[3] = val
+      val = map(val, 0, 127, 0, 1)
+      this.params[4] = val
       console.log(val);
     },
     method: (val) => {
