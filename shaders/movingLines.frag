@@ -72,7 +72,7 @@ void main() {
   vec2 center = vec2(0.5, 0.5);
 
   // float swirlz = swirl(uv.x); // Applying the swirl effect to the image.
-  float y = uv.y + sin(uv.x * u_time);
+  float y = uv.y + sin(PI * 2.0 * uv.x * u_time);
   // float swirlz = uv.x * distance(uv.x, 0.5 + sin(u_time)) + distance(uv.x, 0.1);
   uv = vec2((uv.x + u_params[1]), y); // u_params[0] is offsetting the y to create the lines
 
