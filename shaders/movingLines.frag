@@ -9,7 +9,7 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
-uniform float noise;
+uniform float u_noise;
 uniform float u_waveSpeed;
 uniform float u_xOff;
 uniform float u_yOff;
