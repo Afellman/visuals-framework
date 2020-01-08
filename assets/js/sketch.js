@@ -216,7 +216,9 @@ function keyPressed(e) {
   }
 
   if (ctrlPressed && key == "i") {
+    showFPS = false;
     saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
+    showFPS = true;
   }
 };
 
