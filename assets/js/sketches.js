@@ -1322,8 +1322,13 @@ class LinesShader extends Sketch {
     this.cam.size(innerWidth, innerHeight);
     this.cam.hide();
     this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
+    this.freq = 5;
+    this.amp = 10;
+    this.noise = 0;
+    this.xOff = 0;
+    this.yOff = 0;
+    this.waveSpeed = 0.1;
   }
 
   draw() {
