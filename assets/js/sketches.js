@@ -1378,7 +1378,7 @@ class LinesShader extends Sketch {
     midi: "4",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 0.5)
-      this.params[3] = val / 100
+      this.params[3] = val
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1390,7 +1390,7 @@ class LinesShader extends Sketch {
     midi: "5",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 1)
-      this.params[4] = val
+      this.params[4] = val / 100
     },
     method: (val) => {
       this.angle = val.args[0];
