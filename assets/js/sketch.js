@@ -236,14 +236,17 @@ function getMIDIMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   console.log(note, velocity, command)
-  if (midiSubscribers[note]) {
-    midiSubscribers[note].forEach(sub => sub(velocity, command));
-  }
-  if (note == 40 && command == 148) {
-    toggleMirror(true);
-  }
-  if (note == 41 && command == 148) {
-    toggleMirror();
+  if (command == 148) {
+
+    if (midiSubscribers[note]) {
+      midiSubscribers[note].forEach(sub => sub(velocity, command));
+    }
+    if (note == 40 && command == 148) {
+      toggleMirror(true);
+    }
+    if (note == 41 && command == 148) {
+      toggleMirror();
+    }
   }
 }
 
