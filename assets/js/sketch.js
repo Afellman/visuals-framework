@@ -36,7 +36,7 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  loadImage("./assets/images/peter.jpg", (img) => {
+  loadImage("./assets/images/amazon.jpg", (img) => {
     takeColor(img);
     images.push(img)
     // loadScene(new BGShader()) // For background.
@@ -236,16 +236,14 @@ function getMIDIMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   console.log(note, velocity, command)
-  if (velocity > 0) {
-    if (midiSubscribers[note]) {
-      midiSubscribers[note].forEach(sub => sub(velocity, command));
-    }
-    if (note == 40 && command == 148) {
-      toggleMirror(true);
-    }
-    if (note == 41 && command == 148) {
-      toggleMirror();
-    }
+  if (midiSubscribers[note]) {
+    midiSubscribers[note].forEach(sub => sub(velocity, command));
+  }
+  if (note == 40 && command == 148) {
+    toggleMirror(true);
+  }
+  if (note == 41 && command == 148) {
+    toggleMirror();
   }
 }
 
