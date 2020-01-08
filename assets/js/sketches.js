@@ -1337,13 +1337,12 @@ class LinesShader extends Sketch {
     linesShader.setUniform('u_time', this.waveSpeed)
     linesShader.setUniform("tex0", this.img);
     linesShader.setUniform("u_loops", this.loops);
-    linesShader.setUniform("tex0", this.img);
-    linesShader.setUniform("u_freq", this.img);
-    linesShader.setUniform("u_noise", this.img);
-    linesShader.setUniform("u_xOff", this.img);
-    linesShader.setUniform("u_yOff", this.img);
-    linesShader.setUniform("u_amp", this.img);
-    linesShader.setUniform("u_waveSpeed", this.img);
+    linesShader.setUniform("u_freq", this.freq);
+    linesShader.setUniform("u_noise", this.noise);
+    linesShader.setUniform("u_xOff", this.xOff);
+    linesShader.setUniform("u_yOff", this.yOff);
+    linesShader.setUniform("u_amp", this.amp);
+    linesShader.setUniform("u_waveSpeed", this.waveSpeed);
 
     this.shaderBox.shader(linesShader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
