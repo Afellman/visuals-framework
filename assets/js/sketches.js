@@ -1333,7 +1333,7 @@ class LinesShader extends Sketch {
     linesShader.setUniform("u_loops", this.loops);
     linesShader.setUniform("u_params", this.params);
     linesShader.setUniform("tex0", this.img);
-
+    linesShader.setUniform('u_cray', this.cray)
     linesShader.setUniform('u_time', frameCount / 1000)
     linesShader.setUniform('u_speed', this.speed);
     linesShader.setUniform('u_direction', this.direction);
