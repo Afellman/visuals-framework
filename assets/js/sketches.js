@@ -1374,8 +1374,9 @@ class LinesShader extends Sketch {
     nodeID: "slider1",
     midi: "4",
     midiMethod: val => {
-      this.params[2] = val / 100;
-      console.log(val / 100);
+      val = map(val, 0, 127, 0, 1)
+      this.params[2] = val
+      console.log(val);
     },
     method: (val) => {
       this.angle = val.args[0];
