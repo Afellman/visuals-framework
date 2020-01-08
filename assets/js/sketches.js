@@ -1375,7 +1375,7 @@ class LinesShader extends Sketch {
     midi: "4",
     midiMethod: val => {
       val = map(val, 0, 127, 0, 1)
-      this.params[2] = val
+      this.params[3] = val
       console.log(val);
     },
     method: (val) => {
