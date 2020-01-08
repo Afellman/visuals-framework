@@ -1322,7 +1322,7 @@ class LinesShader extends Sketch {
     this.cam.size(innerWidth, innerHeight);
     this.cam.hide();
     this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0]
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
   }
 
@@ -1379,7 +1379,6 @@ class LinesShader extends Sketch {
     midiMethod: val => {
       val = map(val, 0, 127, 0, 0.5)
       this.params[3] = val
-      console.log(val);
     },
     method: (val) => {
       this.angle = val.args[0];
@@ -1392,7 +1391,18 @@ class LinesShader extends Sketch {
     midiMethod: val => {
       val = map(val, 0, 127, 0, 1)
       this.params[4] = val
-      console.log(val);
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "6",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 5)
+      this.params[5] = val
     },
     method: (val) => {
       this.angle = val.args[0];
