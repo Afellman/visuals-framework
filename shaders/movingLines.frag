@@ -12,7 +12,7 @@ uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
-uniform u_params float[5];
+uniform float[5] u_params;
 
 
 float random (in vec2 st) {
