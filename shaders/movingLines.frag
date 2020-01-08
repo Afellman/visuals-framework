@@ -2,6 +2,7 @@
 precision mediump float;
 #endif
 #define OCTAVES 6
+#define PI 3.1415926535897932384626433832795
 
 // grab texcoords from vert shader
 varying vec2 vTexCoord;
