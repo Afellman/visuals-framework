@@ -62,6 +62,10 @@ void main() {
 
   float ran = random(uv) * u_params[4] ; // Adds noise
   float y = sin(PI * 2.0 * uv.x * u_params[2] + (u_time* 10.0) * u_params[5] + ran ) *u_params[3];
+
+  if(u_cray){
+    uv *= random(uv) * 0.5;
+  }
   uv = vec2((uv.x + u_params[1] + y),uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
