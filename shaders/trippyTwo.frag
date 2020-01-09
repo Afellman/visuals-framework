@@ -92,5 +92,7 @@ void main() {
   vec4 tex = texture2D(tex0, uv * pat);
 
   // tex = colorSwirl(tex, uv);
+
+  tex.r -= 0.02;
   gl_FragColor = vec4(tex);
 }
