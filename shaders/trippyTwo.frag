@@ -93,6 +93,6 @@ void main() {
 
   // tex = colorSwirl(tex, uv);
 
-  tex.r -= 0.02;
+  tex[0] -= 0.02;
   gl_FragColor = vec4(tex);
 }
