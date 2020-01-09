@@ -24,7 +24,7 @@ setupSockets();
 function preload() {
   linesShader = loadShader(
     "./shaders/texture.vert",
-    "./shaders/movingLines.frag"
+    "./shaders/trippy2.frag"
   );
   bgShader = loadShader(
     "./shaders/shader.vert",
