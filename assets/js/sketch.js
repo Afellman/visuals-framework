@@ -36,6 +36,7 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
+  loadImages();
   loadImage("./assets/images/peter.jpg", (img) => {
     takeColor(img);
     images.push(img)
