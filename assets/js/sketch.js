@@ -260,5 +260,13 @@ function onMIDIFailure() {
 // ========================================= Async Loaders
 
 function loadImages(resolve, reject){
-  loadImage("./assets/images/peter.jpg", resolve);
+  let count = 1;
+  Promise.all([
+    loadImage("./assets/images/peter.jpg"),
+    loadImage("./assets/images/peter2.jpg"),
+    "./assets/images/leaves.jpg",
+    "./assets/images/wwaterfall.jpg"
+  ])
+  
+  
 }
