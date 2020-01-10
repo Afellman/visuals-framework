@@ -19,9 +19,13 @@ const midiSubscribers = {
 
 setupSockets();
 
+function setImages(imgs){
+  this.images = imgs;
+}
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
 function preload() {
+  loadImages(setImages);
   linesShader = loadShader(
     "./shaders/texture.vert",
     "./shaders/movingLines.frag"
@@ -37,7 +41,7 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-  const imagePromise = new Promise(loadImages);
+ 
     
   const shaderPro
 
@@ -268,7 +272,18 @@ function loadImages(resolve, reject){
     loadImage("./assets/images/waterfall.jpg")
   ])
   .then(res => resolve)
-    .catch(res => reject);
-  
-  
+  .catch(res => reject);
 }
+
+function loadImages(resolve, reject){
+  let count = 1;
+  Promise.all([
+    loadImage("./assets/images/peter.jpg"),
+    loadImage("./assets/images/peter2.jpg"),
+    loadImage("./assets/images/leaves.jpg"),
+    loadImage("./assets/images/waterfall.jpg")
+  ])
+  .then(res => resolve)
+  .catch(res => reject);
+}
+
