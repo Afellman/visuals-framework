@@ -39,6 +39,7 @@ function setup() {
 
   const imagePromise = new Promise((resolve, reject) => {
     loadImage("./assets/images/peter.jpg", (img) => {
+      resolve(img);
     }
   }
     
