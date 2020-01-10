@@ -36,8 +36,13 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  loadImages();
-  loadImage("./assets/images/peter.jpg", (img) => {
+
+  const imagePromise = new Promise((resolve, reject) => {
+    loadImage("./assets/images/peter.jpg", (img) => {
+    }
+  }
+    
+
     takeColor(img);
     images.push(img)
     // loadScene(new BGShader()) // For background.
@@ -47,7 +52,6 @@ function setup() {
 
     // loadScene(new TreeFractal());
     // loadScene(new con())
-  });
 
 
   // For Audio input
