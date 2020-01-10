@@ -37,13 +37,7 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-  const imagePromise = new Promise((resolve, reject) => {
-
-    loadImages();
-    loadImage("./assets/images/peter.jpg", (img) => {
-      resolve(img);
-    });
-  });
+  const imagePromise = new Promise(loadImages);
     
   const shaderPro
 
@@ -261,4 +255,10 @@ function getMIDIMessage(midiMessage) {
 
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
+}
+
+// ========================================= Async Loaders
+
+function loadImages(resolve, reject){
+  loadImage("./assets/images/peter.jpg", resolve);
 }
