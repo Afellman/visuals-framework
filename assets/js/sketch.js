@@ -264,9 +264,10 @@ function loadImages(resolve, reject){
   Promise.all([
     loadImage("./assets/images/peter.jpg"),
     loadImage("./assets/images/peter2.jpg"),
-    "./assets/images/leaves.jpg",
-    "./assets/images/wwaterfall.jpg"
-  ])
+    loadImage("./assets/images/leaves.jpg"),
+    loadImage("./assets/images/waterfall.jpg")
+  ]).then(res => resolve);
+  .catch(res =>reject)
   
   
 }
