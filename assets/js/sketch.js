@@ -31,14 +31,7 @@ function setShaders(sharders){
 function preload() {
   loadImages(setImages);
   loadShaders(setShaders);
-  linesShader = loadShader(
-    "./shaders/texture.vert",
-    "./shaders/movingLines.frag"
-  );
-  bgShader = loadShader(
-    "./shaders/shader.vert",
-    "./shaders/shader.frag"
-  );
+
 }
 
 // Starting with a canvas the full window size.
