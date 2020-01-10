@@ -266,8 +266,9 @@ function loadImages(resolve, reject){
     loadImage("./assets/images/peter2.jpg"),
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg")
-  ]).then(res => resolve);
-  .catch(res =>reject)
+  ])
+  .then(res => resolve)
+    .catch(res => reject);
   
   
 }
