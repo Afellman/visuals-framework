@@ -273,9 +273,14 @@ function loadImages(resolve, reject){
   .catch(res => reject);
 }
 
-function loadImages(resolve, reject){
+function loadShaders(resolve, reject){
   let count = 1;
   Promise.all([
+    loadShader("./shaders/texture.vert","./shaders/movingLines.frag").
+    bgShader = loadShader(
+      "./shaders/shader.vert",
+      "./shaders/shader.frag"
+    );
     loadImage("./assets/images/peter.jpg"),
     loadImage("./assets/images/peter2.jpg"),
     loadImage("./assets/images/leaves.jpg"),
