@@ -38,14 +38,17 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
 
   const imagePromise = new Promise((resolve, reject) => {
+
+    loadImages();
     loadImage("./assets/images/peter.jpg", (img) => {
       resolve(img);
     });
   });
     
+  const shaderPro
 
     takeColor(img);
-    images.push(img)
+    images.push(img);
     // loadScene(new BGShader()) // For background.
     loadScene(new LinesShader(img));
     // loadScene(new Drops());
