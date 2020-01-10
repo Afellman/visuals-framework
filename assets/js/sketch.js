@@ -22,10 +22,15 @@ setupSockets();
 function setImages(imgs){
   this.images = imgs;
 }
+function setShaders(sharders){
+  this.shaders = shaders;
+}
+
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
 function preload() {
   loadImages(setImages);
+  loadShaders(setShaders);
   linesShader = loadShader(
     "./shaders/texture.vert",
     "./shaders/movingLines.frag"
