@@ -278,16 +278,12 @@ function loadShaders(resolve, reject){
   Promise.all([
     loadShader(
       "./shaders/texture.vert",
-      
-      ./shaders/movingLines.frag"),
-    loadShader(
-      "./shaders/shader.vert",
-      "./shaders/shader.frag"
-    ),
-    loadShader(
-      "./shaders/shader.vert",
-      "./shaders/shader.frag"
-    ),
+      "./shaders/movingLines.frag"),
+
+    loadShader("./shaders/shader.frag"),
+    loadShader("./shaders/meltingWaterfall.frag"),
+    loadShader("./shaders/trippy.frag"),
+    loadShader("./shaders/trippytwo.frag"),
     loadImage("./assets/images/peter2.jpg"),
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg")
