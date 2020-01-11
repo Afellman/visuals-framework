@@ -1062,17 +1062,25 @@ class FlyingDots extends Sketch {
 }
 
 class SineWaves extends Sketch {
-  constructor(color = 255) {
-    super();
-    this.color = color;
+  constructor(obj) {
+    super(obj);
+    if (!this.loaded) {
+      this.color = color;
+      this.lines = [];
+      this.lineAmt = 1;
+    }
   }
   init() {
     super.init();
     this.prevX = 0;
     this.prevY = height / 2;
     this.speed = 0.01;
+
+    for (let i = 0; i < this.lineAmt; i++) {
+      this.lines.push(new Objects.Line)
+    }
     this.time = this.speed;
-    this.res = 1024;
+    this.res = 512;
     this.maxAmpY = height / 2;
     this.freq = 1;
   }
