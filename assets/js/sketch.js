@@ -11,7 +11,7 @@ let fft;
 let mic;
 let textureShader;
 let images = [];
-const shaders = []
+const shaders = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
@@ -39,7 +39,7 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-  loadScene(new BGShader()) // For background.
+  // loadScene(new BGShader()) // For background.
   // loadScene(new LinesShader(img));
   // loadScene(new Drops());
   // loadScene(new DropsShader())
