@@ -517,6 +517,7 @@ class BGShader extends Sketch {
     this.pointsAmt = 1;
     this.diameter = 200;
     this.time = 0;
+    this.shader = shaders[0];
   }
 
 
@@ -544,8 +545,8 @@ class BGShader extends Sketch {
     // }
 
     noStroke();
-    shaders[0].setUniform("u_color", glBackground) // Get this equation correct.
-    this.shaderBox.shader(shaders[0]);
+    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
+    this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
     this.time += 0.01
