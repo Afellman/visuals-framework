@@ -38,7 +38,7 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-
+  images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
 
   // For Audio input
