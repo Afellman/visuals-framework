@@ -219,7 +219,7 @@ function takeColor(img, index) {
   goodColor[index] = [];
   for (let x = 0; x < img.width; x += 100) {
     for (let y = 0; y < img.height; y += 100) {
-      let c = img.get(x, y);
+      let c = graphics.get(x, y);
       let exists = false;
       for (let n = 0; n < numPal; n++) {
         if (c == goodColor[index][n]) {
