@@ -1075,7 +1075,6 @@ class SineWaves extends Sketch {
     super.init();
     for (let i = 0; i < this.lineAmt; i++) {
       const line = { freq: 1, maxAmpY: height / 2, speed: 0.001, time: 0.01, color: "white" }
-
       this.lines.push(line);
     }
   }
@@ -1083,7 +1082,7 @@ class SineWaves extends Sketch {
     let prevX = 0;
     let prevY = height / 2;
     for (let j = 0; j < this.lineAmt; j++) {
-      thisLine = this.lines[j];
+      let thisLine = this.lines[j];
       stroke(thisLine.color);
       strokeWeight(3);
       for (let i = 0; i < this.res; i++) {
@@ -1096,8 +1095,8 @@ class SineWaves extends Sketch {
           prevX = 0;
           prevY = height / 2;
         }
+        thisLine.time += thisLine.speed;
       }
-      thisLine.time += thisLine.speed;
     }
   }
 
