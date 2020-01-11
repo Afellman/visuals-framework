@@ -29,7 +29,7 @@ const loadImages = Promise.all([
   loadImage("./assets/images/waterfall.jpg")
 ]);
 
-const loadShaders = Promise.all([
+const loadShaders = () => Promise.all([
   loadShader(
     "./shaders/texture.vert",
     "./shaders/movingLines.frag"),
