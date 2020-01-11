@@ -573,7 +573,6 @@ class SpinningCircles extends Sketch {
     this.centerPoints = [];
     if (!this.loaded) {
       this.pointAmt = 100;
-      this.opacity = 0;
       this.circleDiameter = 50;
       this.curl = 300;
       this.proximity = 250;
