@@ -770,7 +770,8 @@ class Connecter extends Sketch {
     this.proximity = 500;
     this.speed = 0.01;
     this.color = color || false;
-    thios.imgIndex = 2;
+    this.imgIndex = 2;
+    this.opacity = 0;
   }
 
 
