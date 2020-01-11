@@ -270,10 +270,10 @@ function loadShaders(resolve, reject) {
   Promise.all([
     loadShader(
       "./shaders/texture.vert",
-      "./shaders/movingLines.frag"),
+      "./shaders/shader.frag"),
     loadShader(
       "./shaders/texture.vert",
-      "./shaders/texture.frag"),
+      "./shaders/movingLines.frag"),
 
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
