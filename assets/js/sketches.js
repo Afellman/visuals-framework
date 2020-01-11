@@ -929,6 +929,7 @@ class Starry extends Sketch {
     this.starAmt = 200;
     this.speed = 10;
     this.size = 0.1;
+    this.color = [255, 255, 255]
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height)
@@ -952,7 +953,7 @@ class Starry extends Sketch {
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
       // stroke("white");
-      fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
+      fill(this.color[0], this.color[1], this.color[2], this.opactiy);
       ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
