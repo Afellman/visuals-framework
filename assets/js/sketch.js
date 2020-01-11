@@ -131,14 +131,18 @@ const controlScene = {
   "10": {
     isActive: false,
     index: -1,
-    method: function (cmd) {
-      if (this.isActive) {
-        unloadScene(this.id);
-        this.isActive = false;
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Sun();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
       } else {
-        const newScene = new Sun();
-        this.id = loadScene(newScene);
-        this.isActive = true;
+        this.scene.opacity = midiToColor(vel);
       }
     }
   },
