@@ -770,7 +770,7 @@ class Connecter extends Sketch {
     this.proximity = 500;
     this.speed = 0.01;
     this.color = color || false;
-    let imgIndex = 0;
+    let imgIndex = 2;
   }
 
 
@@ -785,7 +785,7 @@ class Connecter extends Sketch {
         width / 2 + orbit + circle,
         (height / 2 + orbitY * this.curl) + circleY,
         5,
-        this.color || someColor(0),
+        this.color || someColor(imgIndex),
       );
       this.centerPoints.push(newPoint);
     }
