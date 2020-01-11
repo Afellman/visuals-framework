@@ -139,10 +139,14 @@ const toggleScene = {
     index: -1,
     method: function () {
       if (this.isActive) {
-        unloadScene(this.index);
+        unloadScene(this.id);
         this.isActive = false;
       } else {
-        this.index = loadScene(new Sun());
+        const newScene = new Sun();
+        const id = Math.random() * 100000;
+        this.id = id
+        newScene.id = id
+        loadScene(newScene);
         this.isActive = true;
       }
     }
