@@ -11,6 +11,7 @@ let fft;
 let mic;
 let textureShader;
 let images = [];
+const shaders = []
 let mirror = false;
 let ctrlPressed = false;
 let save;
@@ -20,10 +21,10 @@ const midiSubscribers = {
 setupSockets();
 
 function setImages(imgs) {
-  this.images = imgs;
+  images = imgs;
 }
 function setShaders(sharders) {
-  this.shaders = shaders;
+  shaders = shaders;
 }
 
 // ======================================== P5 Functions
@@ -38,10 +39,8 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-  takeColor(img);
-  images.push(img);
-  // loadScene(new BGShader()) // For background.
-  loadScene(new LinesShader(img));
+  loadScene(new BGShader()) // For background.
+  // loadScene(new LinesShader(img));
   // loadScene(new Drops());
   // loadScene(new DropsShader())
 
