@@ -273,9 +273,9 @@ function loadShaders(resolve, reject) {
       "./shaders/movingLines.frag"),
 
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
-    // loadShader("./shaders/meltingWaterfall.frag"),
-    // loadShader("./shaders/trippy.frag"),
-    // loadShader("./shaders/trippytwo.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/meltingWaterfall.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
   ])
     .then(res => resolve(res))
     .catch(res => new Error(res));
