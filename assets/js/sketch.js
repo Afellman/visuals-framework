@@ -198,6 +198,24 @@ const controlScene = {
         this.scene.opacity = midiToNormal(vel);
       }
     }
+  },
+  "6": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new SpinningCircles();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
+      }
+    }
   }
 }
 
@@ -311,9 +329,10 @@ function keyPressed(e) {
   }
 
   if (ctrlPressed && key == "i") {
+    let wasFpsOn = showFPS;
     showFPS = false;
     saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
-    showFPS = true;
+    if (wasFpsOn) showFPS = true;
   }
 };
 
