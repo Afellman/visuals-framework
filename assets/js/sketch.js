@@ -100,7 +100,7 @@ function loadScene(scene) {
   let sceneLength = scenes.length;
   scene.init(sceneLength);
   scenes.push(scene);
-  return scenes.length;
+  return scenes.length - 1;
 }
 
 function unloadScene(index) {
