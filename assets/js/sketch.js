@@ -214,7 +214,7 @@ function getPixel(context, x, y) {
 }
 
 function takeColor(img, index) {
-  let graphics = createGraphics(innerWidth, innerHeight);
+  background(img)
   graphics.image(img, 0, 0);
   goodColor[index] = [];
   for (let x = 0; x < graphics.width; x += 100) {
