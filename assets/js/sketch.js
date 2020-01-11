@@ -195,7 +195,7 @@ const controlScene = {
           this.isActive = true;
         }
       } else {
-        this.scene.opacity = midiToColor(vel);
+        this.scene.opacity = midiToNormal(vel);
       }
     }
   }
