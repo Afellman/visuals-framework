@@ -106,7 +106,7 @@ function loadScene(scene) {
 function unloadScene(id) {
   // let scene = scenes[0];
   // scene.unload();
-  let index = 0;
+  let index = -1;
   for (let i = 0; i < scenes.length; i++) {
     if (scenes.id == id) {
       index = i;
