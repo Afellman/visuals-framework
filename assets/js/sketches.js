@@ -627,7 +627,7 @@ class SpinningCircles extends Sketch {
         pos: {
           x: width / 2 + orbit + circle,
           y: (height / 2 + orbitY * this.curl) + circleY,
-        }
+        },
         size: 5,
         color: [255, 255, 255],
       })
@@ -655,7 +655,7 @@ class SpinningCircles extends Sketch {
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
-      centerPoint = this.centerPoints
+      centerPoint = this.centerPoints[i];
       orbit = sin(this.freq + i * 10) * this.curl;
       circle = sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
