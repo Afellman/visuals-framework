@@ -923,6 +923,7 @@ class Starry extends Sketch {
 
   }]
   init() {
+    this.opacity = 255;
     this.points = [];
     super.init();
     this.starAmt = 200;
@@ -930,8 +931,7 @@ class Starry extends Sketch {
     this.size = 0.1;
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
-        pos: createVector(random() * width, random() * height),
-        color: 255
+        pos: createVector(random() * width, random() * height)
       });
     }
   }
@@ -952,7 +952,6 @@ class Starry extends Sketch {
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
       // stroke("white");
-      noStroke();
       fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
       ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
@@ -1074,7 +1073,7 @@ class SineWaves extends Sketch {
   init() {
     super.init();
     for (let i = 0; i < this.lineAmt; i++) {
-      const line = { freq: 1, maxAmpY: height / 2, speed: 0.001, time: 0.01, color: "white" }
+      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: "white" }
       this.lines.push(line);
     }
   }
