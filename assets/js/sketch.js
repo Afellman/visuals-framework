@@ -128,7 +128,7 @@ const controlScene = {
       }
     }
   },
-  "10": {
+  "2": {
     isActive: false,
     index: -1,
     method: function (vel, cmd) {
@@ -310,6 +310,10 @@ function onMIDIFailure() {
 
 function midiToColor(vel) {
   return Math.round(map(vel, 0, 127, 0, 255));
+}
+
+function midiToNormal(vel) {
+  return map(vel, 0, 127, 0, 1);
 }
 // ========================================= Async Loaders
 
