@@ -148,7 +148,7 @@ const controlScene = {
   },
   "3": {
     isActive: false,
-    index: -1,
+    scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
@@ -161,6 +161,24 @@ const controlScene = {
         }
       } else {
         this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "4": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Connecter();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
       }
     }
   }
