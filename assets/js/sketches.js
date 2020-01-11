@@ -983,7 +983,6 @@ class Sun extends Sketch {
     this.r = 100;
     this.g = 53;
     this.b = 0;
-    this.alphaMax = 255;
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
@@ -999,7 +998,7 @@ class Sun extends Sketch {
     // }
     for (let i = 0; i < this.ringAmt; i++) {
       size = 200 * sizeMulti + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
-      fill(this.r, this.g, this.b, (this.opacity / i));
+      fill(this.r, this.g, this.b, (this.opacity / i) || 0);
       ellipse(width / 2, height / 2, size);
     }
   }
