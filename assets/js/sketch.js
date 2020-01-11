@@ -97,10 +97,12 @@ function setupSockets() {
 }
 
 function loadScene(scene) {
-  let sceneLength = scenes.length;
-  scene.init(sceneLength);
+  const id = Math.random() * 100000;
+  scene.id = id
+  scene.init();
   scenes.push(scene);
-  return scenes.length - 1;
+
+  return id;
 }
 
 function unloadScene(id) {
@@ -126,10 +128,7 @@ const toggleScene = {
         this.isActive = false;
       } else {
         const newScene = new Starry();
-        const id = Math.random() * 100000;
-        this.id = id
-        newScene.id = id
-        loadScene(newScene);
+        this.id = loadScene(newScene);
         this.isActive = true;
       }
     }
@@ -143,10 +142,7 @@ const toggleScene = {
         this.isActive = false;
       } else {
         const newScene = new Sun();
-        const id = Math.random() * 100000;
-        this.id = id
-        newScene.id = id
-        loadScene(newScene);
+        this.id = loadScene(newScene);
         this.isActive = true;
       }
     }
