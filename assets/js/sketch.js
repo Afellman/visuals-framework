@@ -11,7 +11,7 @@ let fft;
 let mic;
 let textureShader;
 let images = [];
-const shaders = [];
+let shaders = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
