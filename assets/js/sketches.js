@@ -940,15 +940,13 @@ class Starry extends Sketch {
     let x;
     let y;
     let thisPoint;
-    fill(this.color[0], this.color[1], this.color[2], this.opactiy);
+    fill(this.color[0], this.color[1], this.color[2], this.opacity);
     for (let i = 0; i < this.starAmt; i++) {
       // if (i < 10) {
       //   // stroke("white")
       //   fill(0, 255, 0, 10)
       //   ellipse(width / 2, height / 2, 100 * i)
       // }
-
-
       thisPoint = this.points[i];
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
