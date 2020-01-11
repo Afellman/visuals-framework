@@ -122,7 +122,7 @@ const toggleScene = {
     index: -1,
     method: function () {
       if (this.isActive) {
-        unloadScene(this.index);
+        unloadScene(this.id);
         this.isActive = false;
       } else {
         const newScene = new Starry();
