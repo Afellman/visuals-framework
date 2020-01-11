@@ -624,8 +624,10 @@ class SpinningCircles extends Sketch {
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
       this.centerPoints.push({
-        x: width / 2 + orbit + circle,
-        y: (height / 2 + orbitY * this.curl) + circleY,
+        pos: {
+          x: width / 2 + orbit + circle,
+          y: (height / 2 + orbitY * this.curl) + circleY,
+        }
         size: 5,
         color: [255, 255, 255],
       })
@@ -653,16 +655,16 @@ class SpinningCircles extends Sketch {
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
-      centerPoint
+      centerPoint = this.centerPoints
       orbit = sin(this.freq + i * 10) * this.curl;
       circle = sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
       circleY = cos(i) * this.circleDiameter;
       x = width / 2 + orbit + circle;
       y = (height / 2 + orbitY * this.curl) + circleY;
-      this.centerPoints[i].pos.x = x;
-      this.centerPoints[i].pos.y = y;
-      this.centerPoints[i].size = this.circleSize;
+      centerPoint.pos.x = x;
+      centerPoint.pos.y = y;
+      centerPoint.size = this.circleSize;
       // if (i > 0) { // Connects all dots together
       //   stroke(255, 255, 255, 50);
       //   line(x, y, prevX, prevY)
