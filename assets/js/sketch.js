@@ -19,28 +19,6 @@ const midiSubscribers = {
 
 setupSockets();
 
-
-// ========================================= Async Loaders
-
-const loadImages = () => Promise.all([
-  loadImage("./assets/images/peter.jpg"),
-  loadImage("./assets/images/peter2.jpg"),
-  loadImage("./assets/images/leaves.jpg"),
-  loadImage("./assets/images/waterfall.jpg")
-]);
-
-const loadShaders = () => Promise.all([
-  loadShader(
-    "./shaders/texture.vert",
-    "./shaders/movingLines.frag"),
-  loadShader("./shaders/shader.frag"),
-  loadShader("./shaders/meltingWaterfall.frag"),
-  loadShader("./shaders/trippy.frag"),
-  loadShader("./shaders/trippytwo.frag"),
-]);
-
-
-
 function setImages(imgs) {
   this.images = imgs;
 }
@@ -59,6 +37,10 @@ function preload() {
 function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
+
+
+
+  const shaderPro
 
   takeColor(img);
   images.push(img);
@@ -275,3 +257,35 @@ function getMIDIMessage(midiMessage) {
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
+
+// ========================================= Async Loaders
+
+function loadImages(resolve, reject) {
+  Promise.all([
+    loadImage("./assets/images/peter.jpg"),
+    loadImage("./assets/images/peter2.jpg"),
+    loadImage("./assets/images/leaves.jpg"),
+    loadImage("./assets/images/waterfall.jpg")
+  ])
+    .then(res => resolve)
+    .catch(res => reject);
+}
+
+function loadShaders(resolve, reject) {
+  Promise.all([
+    loadShader(
+      "./shaders/texture.vert",
+      "./shaders/movingLines.frag"),
+
+    loadShader("./shaders/shader.frag"),
+    loadShader("./shaders/meltingWaterfall.frag"),
+    loadShader("./shaders/trippy.frag"),
+    loadShader("./shaders/trippytwo.frag"),
+    loadImage("./assets/images/peter2.jpg"),
+    loadImage("./assets/images/leaves.jpg"),
+    loadImage("./assets/images/waterfall.jpg")
+  ])
+    .then(res => resolve)
+    .catch(res => reject);
+}
+
