@@ -986,6 +986,7 @@ class Sun extends Sketch {
     this.alphaMax = 255;
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
+    this.opacity = 255;
   }
 
   draw() {
@@ -999,50 +1000,51 @@ class Sun extends Sketch {
     for (let i = 0; i < this.ringAmt; i++) {
 
       size = 200 * sizeMulti + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
-      fill(this.r, this.g, this.b, (this.alphaMax / i));
+      fill(this.r, this.g, this.b, (this.alphaMax / i), this.opacity);
       ellipse(width / 2, height / 2, size);
 
     }
   }
-  this.listeners = [{
-  socketName: '/1/multifader1/1',
-  nodeID: "slider1",
-  method: (val) => {
-    this.freq = val.args[0] * 100;
-  }
-},
-{
-  socketName: '/1/multifader1/2',
-  nodeID: "slider2",
-  method: (val) => {
-    this.amp = val.args[0] * 500;
-  }
-},
-{
-  socketName: '/1/multifader1/2',
-  nodeID: "slider3",
-  method: (val) => {
-    this.r = val.args[0] * 255;
-  }
-},
-{
-  socketName: '/1/multifader1/2',
-  nodeID: "slider4",
-  method: (val) => {
-    this.g = val.args[0] * 255;
-  }
-},
-{
-  socketName: '/1/multifader1/2',
-  nodeID: "slider5",
-  method: (val) => {
-    this.b = val.args[0] * 255;
-  }
-}
-];
-keyPressed(e) {
 
-}
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    method: (val) => {
+      this.freq = val.args[0] * 100;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider2",
+    method: (val) => {
+      this.amp = val.args[0] * 500;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider3",
+    method: (val) => {
+      this.r = val.args[0] * 255;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider4",
+    method: (val) => {
+      this.g = val.args[0] * 255;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider5",
+    method: (val) => {
+      this.b = val.args[0] * 255;
+    }
+  }
+  ];
+  keyPressed(e) {
+
+  }
 }
 
 class FlyingDots extends Sketch {
