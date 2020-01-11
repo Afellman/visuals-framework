@@ -372,13 +372,14 @@ function getMIDIMessage(midiMessage) {
 
 const genericMidi = {
   "17": {
+    scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SpinningCircles();
+          this.scene = new Mirror();
           loadScene(this.scene);
           this.isActive = true;
         }
