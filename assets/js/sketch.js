@@ -112,12 +112,13 @@ function unloadScene(index) {
 const toggleScene = {
   "9": {
     isActive: false,
+    index: -1,
     method: function () {
       if (this.isActive) {
         this.index = loadScene(new Starry());
         this.isActive = false;
       } else {
-        unloadScene(index);
+        unloadScene(this.index);
       }
     }
   }
