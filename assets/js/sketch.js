@@ -19,9 +19,9 @@ const midiSubscribers = {
 
 setupSockets();
 
-function setImages(imgs) {
+const setImages = new Promise((resolve, reject) => {
   this.images = imgs;
-}
+})
 function setShaders(sharders) {
   this.shaders = shaders;
 }
