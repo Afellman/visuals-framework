@@ -117,7 +117,7 @@ const toggleScene = {
         this.index = loadScene(new Starry());
         this.isActive = false;
       } else {
-        unloadScene(index)
+        unloadScene(index);
       }
     }
   }
@@ -252,7 +252,7 @@ function getMIDIMessage(midiMessage) {
   console.log(note, velocity, command)
   if (command !== 132) {
 
-    toggleScene[note]();
+    toggleScene[note].method();
     // if (midiSubscribers[note]) {
     //   midiSubscribers[note].forEach(sub => sub(velocity, command));
     // }
