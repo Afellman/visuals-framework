@@ -124,7 +124,7 @@ const controlScene = {
           this.isActive = true;
         }
       } else {
-        this.scene.opacity = vel
+        this.scene.opacity = midiToColor(vel);
       }
     }
   },
@@ -305,7 +305,7 @@ function onMIDIFailure() {
 }
 
 function midiToColor(vel) {
-  return map(vel, 0, 127, 0 255);
+  return Math.round(map(vel, 0, 127, 0, 255));
 }
 // ========================================= Async Loaders
 
