@@ -1061,7 +1061,7 @@ class FlyingDots extends Sketch {
   draw() { }
 }
 
-class SineWave extends Sketch {
+class SineWaves extends Sketch {
   constructor(color = 255) {
     super();
     this.color = color;
