@@ -217,6 +217,7 @@ function takeColor(img, index) {
   let canvas = document.getElementById('defaultCanvas0');
   let context = canvas.getContext('2d');
   image(img, 0, 0);
+  goodColor[index] = [];
   for (let x = 0; x < img.width; x += 100) {
     for (let y = 0; y < img.height; y += 100) {
       let c = getPixel(context, x, y);
