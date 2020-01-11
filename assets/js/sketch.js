@@ -23,8 +23,8 @@ setupSockets();
 function setImages(imgs) {
   images = imgs;
 }
-function setShaders(sharders) {
-  shaders = shaders;
+function setShaders(shaderArry) {
+  shaders = shaderArry;
 }
 
 // ======================================== P5 Functions
