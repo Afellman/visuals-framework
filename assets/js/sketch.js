@@ -130,7 +130,7 @@ const controlScene = {
   },
   "2": {
     isActive: false,
-    index: -1,
+    scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
