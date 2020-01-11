@@ -145,6 +145,20 @@ const toggleScene = {
         this.isActive = true;
       }
     }
+  },
+  "11": {
+    isActive: false,
+    index: -1,
+    method: function () {
+      if (this.isActive) {
+        unloadScene(this.id);
+        this.isActive = false;
+      } else {
+        const newScene = new SineWave();
+        this.id = loadScene(newScene);
+        this.isActive = true;
+      }
+    }
   }
 }
 
