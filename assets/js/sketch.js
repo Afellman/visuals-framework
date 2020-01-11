@@ -31,7 +31,6 @@ function setShaders(sharders) {
 function preload() {
   loadImages(setImages);
   loadShaders(setShaders);
-
 }
 
 // Starting with a canvas the full window size.
@@ -261,34 +260,24 @@ function onMIDIFailure() {
 
 // ========================================= Async Loaders
 
-function loadImages(resolve, reject) {
-  let count = 1;
-  Promise.all([
-    loadImage("./assets/images/peter.jpg"),
-    loadImage("./assets/images/peter2.jpg"),
-    loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/waterfall.jpg")
-  ])
-    .then(res => resolve)
-    .catch(res => reject);
-}
+const loadImages = Promise.all([
+  loadImage("./assets/images/peter.jpg"),
+  loadImage("./assets/images/peter2.jpg"),
+  loadImage("./assets/images/leaves.jpg"),
+  loadImage("./assets/images/waterfall.jpg")
+]);
 
-function loadShaders(resolve, reject) {
-  let count = 1;
-  Promise.all([
-    loadShader(
-      "./shaders/texture.vert",
-      "./shaders/movingLines.frag"),
+const loadShaders = Promise.all([
+  loadShader(
+    "./shaders/texture.vert",
+    "./shaders/movingLines.frag"),
 
-    loadShader("./shaders/shader.frag"),
-    loadShader("./shaders/meltingWaterfall.frag"),
-    loadShader("./shaders/trippy.frag"),
-    loadShader("./shaders/trippytwo.frag"),
-    loadImage("./assets/images/peter2.jpg"),
-    loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/waterfall.jpg")
-  ])
-    .then(res => resolve)
-    .catch(res => reject);
-}
+  loadShader("./shaders/shader.frag"),
+  loadShader("./shaders/meltingWaterfall.frag"),
+  loadShader("./shaders/trippy.frag"),
+  loadShader("./shaders/trippytwo.frag"),
+  loadImage("./assets/images/peter2.jpg"),
+  loadImage("./assets/images/leaves.jpg"),
+  loadImage("./assets/images/waterfall.jpg")
+])
 
