@@ -1068,34 +1068,34 @@ class SineWaves extends Sketch {
       this.color = color;
       this.lines = [];
       this.lineAmt = 1;
+      this.res = 512;
     }
   }
   init() {
     super.init();
-    this.prevX = 0;
-    this.prevY = height / 2;
-    this.speed = 0.01;
-
     for (let i = 0; i < this.lineAmt; i++) {
-      this.lines.push(new Objects.Line)
+      const line = { freq: 1, maxAmpY: height / 2, speed: 0.01 }
+      this.lines.push(line);
     }
     this.time = this.speed;
-    this.res = 512;
-    this.maxAmpY = height / 2;
-    this.freq = 1;
   }
   draw() {
+    this.prevX = 0;
+    this.prevY = height / 2;
     stroke(this.color);
     strokeWeight(3);
-    for (let i = 0; i < this.res; i++) {
-      let x = width / 100 * i;
-      let y = height / 2 + -Math.abs(sin((2 * PI * x * this.freq) / (width * 2))) * (sin(this.time) * this.maxAmpY);
-      line(this.prevX, this.prevY, x, y);
-      this.prevX = x;
-      this.prevY = y;
-      if (i == this.res - 1) {
-        this.prevX = 0;
-        this.prevY = height / 2;
+    for (let j = 0; j < this.lineAmt; j++) {
+
+      for (let i = 0; i < this.res; i++) {
+        let x = width / 100 * i;
+        let y = height / 2 + -Math.abs(sin((2 * PI * x * this.freq) / (width * 2))) * (sin(this.time) * this.maxAmpY);
+        line(this.prevX, this.prevY, x, y);
+        this.prevX = x;
+        this.prevY = y;
+        if (i == this.res - 1) {
+          this.prevX = 0;
+          this.prevY = height / 2;
+        }
       }
     }
     this.time += this.speed;
