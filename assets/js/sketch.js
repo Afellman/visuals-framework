@@ -38,10 +38,6 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-
-
-  const shaderPro
-
   takeColor(img);
   images.push(img);
   // loadScene(new BGShader()) // For background.
@@ -277,13 +273,10 @@ function loadShaders(resolve, reject) {
       "./shaders/texture.vert",
       "./shaders/movingLines.frag"),
 
-    loadShader("./shaders/shader.frag"),
-    loadShader("./shaders/meltingWaterfall.frag"),
-    loadShader("./shaders/trippy.frag"),
-    loadShader("./shaders/trippytwo.frag"),
-    loadImage("./assets/images/peter2.jpg"),
-    loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/waterfall.jpg")
+    // loadShader("./shaders/shader.frag"),
+    // loadShader("./shaders/meltingWaterfall.frag"),
+    // loadShader("./shaders/trippy.frag"),
+    // loadShader("./shaders/trippytwo.frag"),
   ])
     .then(res => resolve)
     .catch(res => reject);
