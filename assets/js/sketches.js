@@ -1074,31 +1074,30 @@ class SineWaves extends Sketch {
   init() {
     super.init();
     for (let i = 0; i < this.lineAmt; i++) {
-      const line = { freq: 1, maxAmpY: height / 2, speed: 0.01 }
+      const line = { freq: 1, maxAmpY: height / 2, speed: 0.001, time: 0.01 }
       this.lines.push(line);
     }
-    this.time = this.speed;
   }
   draw() {
-    this.prevX = 0;
-    this.prevY = height / 2;
+    let prevX = 0;
+    let prevY = height / 2;
     stroke(this.color);
     strokeWeight(3);
     for (let j = 0; j < this.lineAmt; j++) {
-
+      thisLine = this.lines[j];
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
-        let y = height / 2 + -Math.abs(sin((2 * PI * x * this.freq) / (width * 2))) * (sin(this.time) * this.maxAmpY);
+        let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
         line(this.prevX, this.prevY, x, y);
         this.prevX = x;
         this.prevY = y;
         if (i == this.res - 1) {
-          this.prevX = 0;
-          this.prevY = height / 2;
+          prevX = 0;
+          prevY = height / 2;
         }
       }
+      thisLine.time += thisLine.speed;
     }
-    this.time += this.speed;
   }
 
   listeners = [
