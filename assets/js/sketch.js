@@ -2,7 +2,6 @@ let glBackground = [0, 0, 0, 1.0]
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
-let numPal = 0;
 let bgShader;
 let glCanvas;
 let showFPS = true;
@@ -213,6 +212,7 @@ function getPixel(context, x, y) {
 }
 
 function takeColor(img, index) {
+  let numPal = 0;
   let canvas = document.getElementById('defaultCanvas0');
   let context = canvas.getContext('2d');
   image(img, 0, 0);
