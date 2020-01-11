@@ -347,7 +347,8 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/waterfall.jpg")
   ])
     .then(res => resolve(res))
-    .catch(res => new Error(res));
+    .catch(res => { throw new Error(res) });
+
 }
 
 function loadShaders(resolve, reject) {
@@ -365,6 +366,6 @@ function loadShaders(resolve, reject) {
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
   ])
     .then(res => resolve(res))
-    .catch(res => new Error(res));
+    .catch(res => { throw new Error(res) });
 }
 
