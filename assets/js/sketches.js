@@ -544,8 +544,8 @@ class BGShader extends Sketch {
     // }
 
     noStroke();
-    bgShader.setUniform("u_color", glBackground) // Get this equation correct.
-    this.shaderBox.shader(bgShader);
+    shaders[0].setUniform("u_color", glBackground) // Get this equation correct.
+    this.shaderBox.shader(shaders[0]);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
     this.time += 0.01
@@ -1417,11 +1417,11 @@ class TreeFractal extends Sketch {
   }
   init() {
     super.init();
-    this.angle = 1;
+    this.angle = 1.2666;
     this.startingAngle = this.angle;
-    this.divider = 0.67;
-    this.length = 300;
-    this.movement = 0.005
+    this.divider = 0.65;
+    this.length = 220;
+    this.movement = 0.0022;
   }
   draw() {
     let len = 100;
