@@ -973,42 +973,7 @@ class Starry extends Sketch {
 class Sun extends Sketch {
   constructor() {
     super();
-    this.listeners = [{
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      method: (val) => {
-        this.freq = val.args[0] * 100;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider2",
-      method: (val) => {
-        this.amp = val.args[0] * 500;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider3",
-      method: (val) => {
-        this.r = val.args[0] * 255;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider4",
-      method: (val) => {
-        this.g = val.args[0] * 255;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider5",
-      method: (val) => {
-        this.b = val.args[0] * 255;
-      }
-    }
-    ];
+
   }
 
   init() {
@@ -1039,10 +1004,45 @@ class Sun extends Sketch {
 
     }
   }
-
-  keyPressed(e) {
-
+  this.listeners = [{
+  socketName: '/1/multifader1/1',
+  nodeID: "slider1",
+  method: (val) => {
+    this.freq = val.args[0] * 100;
   }
+},
+{
+  socketName: '/1/multifader1/2',
+  nodeID: "slider2",
+  method: (val) => {
+    this.amp = val.args[0] * 500;
+  }
+},
+{
+  socketName: '/1/multifader1/2',
+  nodeID: "slider3",
+  method: (val) => {
+    this.r = val.args[0] * 255;
+  }
+},
+{
+  socketName: '/1/multifader1/2',
+  nodeID: "slider4",
+  method: (val) => {
+    this.g = val.args[0] * 255;
+  }
+},
+{
+  socketName: '/1/multifader1/2',
+  nodeID: "slider5",
+  method: (val) => {
+    this.b = val.args[0] * 255;
+  }
+}
+];
+keyPressed(e) {
+
+}
 }
 
 class FlyingDots extends Sketch {
