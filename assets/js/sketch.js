@@ -22,7 +22,7 @@ setupSockets();
 
 // ========================================= Async Loaders
 
-const loadImages = Promise.all([
+const loadImages = () => Promise.all([
   loadImage("./assets/images/peter.jpg"),
   loadImage("./assets/images/peter2.jpg"),
   loadImage("./assets/images/leaves.jpg"),
