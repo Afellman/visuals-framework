@@ -1425,9 +1425,9 @@ class TreeFractal extends Sketch {
   }
   draw() {
     let len = 100;
-    let r = 150 + sin(frameCount / 200) * 25;
-    let b = 200 + sin(frameCount / 100) * 30;
-    let g = 100 + sin(frameCount / 300) * 25;
+    let r = 150 + sin(frameCount / 200) * 50;
+    let b = 200 + sin(frameCount / 100) * 50;
+    let g = 100 + sin(frameCount / 300) * 50;
     stroke(r, g, b);
     translate(width / 1.5, height);
     this.branch(this.length);
