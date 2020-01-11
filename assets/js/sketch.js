@@ -37,9 +37,6 @@ const loadShaders = () => Promise.all([
   loadShader("./shaders/meltingWaterfall.frag"),
   loadShader("./shaders/trippy.frag"),
   loadShader("./shaders/trippytwo.frag"),
-  loadImage("./assets/images/peter2.jpg"),
-  loadImage("./assets/images/leaves.jpg"),
-  loadImage("./assets/images/waterfall.jpg")
 ]);
 
 
