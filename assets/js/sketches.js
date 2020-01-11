@@ -1069,6 +1069,7 @@ class SineWaves extends Sketch {
       this.lines = [];
       this.lineAmt = 1;
       this.res = 512;
+      this.opacity = 0'
     }
   }
   init() {
@@ -1083,7 +1084,7 @@ class SineWaves extends Sketch {
     let prevY = height / 2;
     for (let j = 0; j < this.lineAmt; j++) {
       let thisLine = this.lines[j];
-      stroke(thisLine.color);
+      stroke(thisLine.color[0], thisLine.color[1], thisLine.color[2], this.opacity);
       strokeWeight(3);
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
