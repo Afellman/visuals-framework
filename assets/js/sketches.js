@@ -923,7 +923,7 @@ class Starry extends Sketch {
 
   }]
   init() {
-    this.opacity = 255;
+    this.opacity = 0;
     this.points = [];
     super.init();
     this.starAmt = 200;
@@ -986,7 +986,7 @@ class Sun extends Sketch {
     this.alphaMax = 255;
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
-    this.opacity = 255;
+    this.opacity = 0;
   }
 
   draw() {
