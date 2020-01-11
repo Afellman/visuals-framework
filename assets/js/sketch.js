@@ -103,9 +103,16 @@ function loadScene(scene) {
   return scenes.length - 1;
 }
 
-function unloadScene(index) {
+function unloadScene(id) {
   // let scene = scenes[0];
   // scene.unload();
+  let index = 0;
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes.id == id) {
+      index = i;
+      break;
+    }
+  }
   scenes.splice(index, 1);
 }
 
@@ -115,14 +122,14 @@ const toggleScene = {
     index: -1,
     method: function () {
       if (this.isActive) {
-
         unloadScene(this.index);
         this.isActive = false;
       } else {
         const newScene = new Starry();
-        newScene.id = Math.random() * 100000;
+        const id = Math.random() * 100000;
+        this.id = id
+        newScene.id = id
         loadScene(newScene);
-
         this.isActive = true;
       }
     }
