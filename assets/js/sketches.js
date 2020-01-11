@@ -1337,7 +1337,7 @@ class LinesShader extends Sketch {
     linesShader.setUniform('u_time', frameCount / 1000)
     linesShader.setUniform('u_speed', this.speed);
     linesShader.setUniform('u_direction', this.direction);
-    this.shaderBox.shader(linesShader);
+    this.shaderBox.shader(shaders[1]);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
