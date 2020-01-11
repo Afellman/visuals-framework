@@ -39,7 +39,7 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
 
-  // loadScene(new BGShader()) // For background.
+  loadScene(new BGShader()) // For background.
   // loadScene(new LinesShader(img));
   // loadScene(new Drops());
   // loadScene(new DropsShader())
