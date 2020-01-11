@@ -304,7 +304,9 @@ function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
 
-
+function midiToColor(vel) {
+  return map(vel, 0, 127, 0 255);
+}
 // ========================================= Async Loaders
 
 function loadImages(resolve, reject) {
