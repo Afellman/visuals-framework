@@ -101,7 +101,6 @@ function loadScene(scene) {
   scene.id = id
   scene.init();
   scenes.push(scene);
-
   return id;
 }
 
@@ -110,7 +109,7 @@ function unloadScene(id) {
   // scene.unload();
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes.id == id) {
+    if (scenes.id === id) {
       index = i;
       break;
     }
