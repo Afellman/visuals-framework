@@ -44,7 +44,7 @@ function setup() {
   // loadScene(new Drops());
   // loadScene(new DropsShader())
 
-  // loadScene(new TreeFractal());
+  loadScene(new TreeFractal());
   // loadScene(new con())
 
 
@@ -273,7 +273,7 @@ function loadShaders(resolve, reject) {
       "./shaders/movingLines.frag"),
 
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/meltingWaterfall.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
   ])
