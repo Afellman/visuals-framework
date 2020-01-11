@@ -119,7 +119,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-
+          this.scene.opacity = vel;
         }
       } else {
         this.scene = new Starry();
