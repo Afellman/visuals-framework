@@ -22,7 +22,7 @@ setupSockets();
 
 function setImages(imgs) {
   images = imgs;
-  imgs.forEach((img, i) => takeColor(img, index))
+  imgs.forEach((img, i) => takeColor(img, i))
 }
 function setShaders(shaderArry) {
   shaders = shaderArry;
