@@ -348,8 +348,8 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg")
   ])
-    .then(res => resolve)
-    .catch(res => reject);
+    .then(res => resolve(res))
+    .catch(res => new Error(res));
 }
 
 function loadShaders(resolve, reject) {
