@@ -19,6 +19,31 @@ const midiSubscribers = {
 
 setupSockets();
 
+
+// ========================================= Async Loaders
+
+const loadImages = Promise.all([
+  loadImage("./assets/images/peter.jpg"),
+  loadImage("./assets/images/peter2.jpg"),
+  loadImage("./assets/images/leaves.jpg"),
+  loadImage("./assets/images/waterfall.jpg")
+]);
+
+const loadShaders = Promise.all([
+  loadShader(
+    "./shaders/texture.vert",
+    "./shaders/movingLines.frag"),
+  loadShader("./shaders/shader.frag"),
+  loadShader("./shaders/meltingWaterfall.frag"),
+  loadShader("./shaders/trippy.frag"),
+  loadShader("./shaders/trippytwo.frag"),
+  loadImage("./assets/images/peter2.jpg"),
+  loadImage("./assets/images/leaves.jpg"),
+  loadImage("./assets/images/waterfall.jpg")
+]);
+
+
+
 function setImages(imgs) {
   this.images = imgs;
 }
@@ -253,26 +278,3 @@ function getMIDIMessage(midiMessage) {
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
-
-// ========================================= Async Loaders
-
-const loadImages = Promise.all([
-  loadImage("./assets/images/peter.jpg"),
-  loadImage("./assets/images/peter2.jpg"),
-  loadImage("./assets/images/leaves.jpg"),
-  loadImage("./assets/images/waterfall.jpg")
-]);
-
-const loadShaders = Promise.all([
-  loadShader(
-    "./shaders/texture.vert",
-    "./shaders/movingLines.frag"),
-  loadShader("./shaders/shader.frag"),
-  loadShader("./shaders/meltingWaterfall.frag"),
-  loadShader("./shaders/trippy.frag"),
-  loadShader("./shaders/trippytwo.frag"),
-  loadImage("./assets/images/peter2.jpg"),
-  loadImage("./assets/images/leaves.jpg"),
-  loadImage("./assets/images/waterfall.jpg")
-]);
-
