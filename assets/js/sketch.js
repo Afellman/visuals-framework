@@ -278,6 +278,6 @@ function loadShaders(resolve, reject) {
     // loadShader("./shaders/trippytwo.frag"),
   ])
     .then(res => resolve())
-    .catch(res => reject());
+    .catch(res => new Error("res"));
 }
 
