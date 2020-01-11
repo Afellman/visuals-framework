@@ -1054,19 +1054,6 @@ class Sun extends Sketch {
   }
 }
 
-class FlyingDots extends Sketch {
-  constructor() {
-    super();
-    this.listeners = [{}];
-  }
-
-  init() {
-    super.init();
-    glBackground = [220, 220, 220, 100];
-  }
-  draw() { }
-}
-
 class SineWaves extends Sketch {
   constructor(obj) {
     super(obj);
