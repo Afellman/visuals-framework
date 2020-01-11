@@ -114,64 +114,61 @@ const controlScene = {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
-      if (this.isActive) {
-        if (cmd == 148) {  // 148 == Pad
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene.opacity = vel;
+          this.scene = new Starry();
+          loadScene(this.scene);
+          this.isActive = true;
         }
-      } else {
-        this.scene = new Starry();
-        loadScene(this.scene);
-        this.isActive = true;
       }
-    }
-  },
-  "10": {
-    isActive: false,
-    index: -1,
-    method: function (cmd) {
-      if (this.isActive) {
-        unloadScene(this.id);
-        this.isActive = false;
-      } else {
-        const newScene = new Sun();
-        this.id = loadScene(newScene);
-        this.isActive = true;
+    },
+    "10": {
+      isActive: false,
+      index: -1,
+      method: function (cmd) {
+        if (this.isActive) {
+          unloadScene(this.id);
+          this.isActive = false;
+        } else {
+          const newScene = new Sun();
+          this.id = loadScene(newScene);
+          this.isActive = true;
+        }
       }
-    }
-  },
-  "11": {
-    isActive: false,
-    index: -1,
-    method: function () {
-      if (this.isActive) {
-        unloadScene(this.id);
-        this.isActive = false;
-      } else {
-        const newScene = new SineWaves();
-        this.id = loadScene(newScene);
-        this.isActive = true;
+    },
+    "11": {
+      isActive: false,
+      index: -1,
+      method: function () {
+        if (this.isActive) {
+          unloadScene(this.id);
+          this.isActive = false;
+        } else {
+          const newScene = new SineWaves();
+          this.id = loadScene(newScene);
+          this.isActive = true;
+        }
       }
     }
   }
-}
 
 function toggleMirror(vert) {
-  if (!mirror) {
-    loadScene(new Mirror(vert));
-    mirror = true;
-  } else {
-    let mirrorIndex;
-    scenes.forEach((scene, i) => {
-      if (scene instanceof Mirror) {
-        mirrorIndex = i;
-      }
-    });
-    unloadScene(mirrorIndex);
-    mirror = false;
-  }
+    if (!mirror) {
+  loadScene(new Mirror(vert));
+  mirror = true;
+} else {
+  let mirrorIndex;
+  scenes.forEach((scene, i) => {
+    if (scene instanceof Mirror) {
+      mirrorIndex = i;
+    }
+  });
+  unloadScene(mirrorIndex);
+  mirror = false;
+}
 }
 
 function someColor() {
