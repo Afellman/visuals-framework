@@ -581,6 +581,7 @@ class SpinningCircles extends Sketch {
       this.multiplier = 10;
       this.rotateRate = 0.001;
       this.circleSize = 3;
+      this.opacity = 0;
       this.connecters = { top: true, bottom: true, left: false, right: true }
     }
   }
@@ -687,8 +688,8 @@ class SpinningCircles extends Sketch {
         line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       }
 
-      stroke(255, 255, 255, this.opacity)
-      ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint..posy), this.circleSize)
+      stroke(255, 255, 255, this.opacity);
+      ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.circleSize)
       prevX = x;
       prevY = y;
     }
