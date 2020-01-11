@@ -623,13 +623,13 @@ class SpinningCircles extends Sketch {
       let circle = sin(i) * this.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        "white",
+      this.centerPoints.push({
+        x: width / 2 + orbit + circle,
+        y: (height / 2 + orbitY * this.curl) + circleY,
+        size: 5,
+        color: [255, 255, 255],
 
-      ))
+      })
     }
     this.freq = 0.01;
   }
