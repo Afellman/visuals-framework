@@ -271,6 +271,9 @@ function loadShaders(resolve, reject) {
     loadShader(
       "./shaders/texture.vert",
       "./shaders/movingLines.frag"),
+    loadShader(
+      "./shaders/texture.vert",
+      "./shaders/texture.frag"),
 
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
