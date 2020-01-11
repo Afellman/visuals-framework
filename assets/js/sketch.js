@@ -120,8 +120,9 @@ const toggleScene = {
         this.isActive = false;
       } else {
         const newScene = new Starry();
+        newScene.id = Math.random() * 100000;
         loadScene(newScene);
-        this.index = loadScene(new Starry());
+
         this.isActive = true;
       }
     }
