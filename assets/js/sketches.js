@@ -1425,7 +1425,7 @@ class TreeFractal extends Sketch {
   }
   draw() {
     let len = 100;
-    stroke(255);
+    stroke(sin(frameCount / 10000));
     translate(width / 1.5, height);
     this.branch(this.length);
     // this.angle = this.startingAngle * frameCount / 500;
