@@ -215,10 +215,9 @@ function getPixel(context, x, y) {
 
 function takeColor(img, index) {
   background(img)
-  graphics.image(img, 0, 0);
   goodColor[index] = [];
-  for (let x = 0; x < graphics.width; x += 100) {
-    for (let y = 0; y < graphics.height; y += 100) {
+  for (let x = 0; x < innerWidth; x += 100) {
+    for (let y = 0; y < innerHeight; y += 100) {
       let c = img.get(x, y);
       let exists = false;
       for (let n = 0; n < numPal; n++) {
