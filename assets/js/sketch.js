@@ -201,7 +201,8 @@ function toggleMirror(vert) {
 
 function someColor(index) {
   // pick some random good color
-  const color = goodColor[index][int(random(numPal))];
+  let palette = goodColor[index];
+  const color = palette[int(random(palette.length))];
   return [color[0], color[1], color[2]];
 }
 
