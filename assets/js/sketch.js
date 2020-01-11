@@ -100,12 +100,27 @@ function loadScene(scene) {
   let sceneLength = scenes.length;
   scene.init(sceneLength);
   scenes.push(scene);
+  return scenes.length;
 }
 
 function unloadScene(index) {
   // let scene = scenes[0];
   // scene.unload();
   scenes.splice(index, 1);
+}
+
+const toggleScene = {
+  "9": {
+    isActive: false,
+    method: function () {
+      if (this.isActive) {
+        this.index = loadScene(new Starry());
+        this.isActive = false;
+      } else {
+        unloadScene(index)
+      }
+    }
+  }
 }
 
 function toggleMirror(vert) {
@@ -237,21 +252,23 @@ function getMIDIMessage(midiMessage) {
   console.log(note, velocity, command)
   if (command !== 132) {
 
-    if (midiSubscribers[note]) {
-      midiSubscribers[note].forEach(sub => sub(velocity, command));
-    }
-    if (note == 40 && command == 148) {
-      toggleMirror(true);
-    }
-    if (note == 41 && command == 148) {
-      toggleMirror();
-    }
+    toggleScene[note]();
+    // if (midiSubscribers[note]) {
+    //   midiSubscribers[note].forEach(sub => sub(velocity, command));
+    // }
+    // if (note == 40 && command == 148) {
+    //   toggleMirror(true);
+    // }
+    // if (note == 41 && command == 148) {
+    //   toggleMirror();
+    // }
   }
 }
 
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
+
 
 // ========================================= Async Loaders
 
