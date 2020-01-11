@@ -352,7 +352,12 @@ function getMIDIMessage(midiMessage) {
   console.log(note, velocity, command)
   if (command !== 132) {
 
-    controlScene[note].method(velocity, command);
+    if (note < 17) {
+
+      controlScene[note].method(velocity, command);
+    } else {
+      genericMidi[note].method(velocity, command);
+    }
     // if (midiSubscribers[note]) {
     //   midiSubscribers[note].forEach(sub => sub(velocity, command));
     // }
@@ -362,6 +367,25 @@ function getMIDIMessage(midiMessage) {
     // if (note == 41 && command == 148) {
     //   toggleMirror();
     // }
+  }
+}
+
+const genericMidi = {
+  "17": {
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new SpinningCircles();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
+      }
+    }
   }
 }
 
