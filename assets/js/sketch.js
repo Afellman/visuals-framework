@@ -155,7 +155,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Sun();
+          this.scene = new SineWaves();
           loadScene(this.scene);
           this.isActive = true;
         }
