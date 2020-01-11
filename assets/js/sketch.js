@@ -94,7 +94,6 @@ function loadScene(scene) {
   scene.id = id
   scene.init();
   scenes.push(scene);
-  return id;
 }
 
 function unloadScene(id) {
@@ -124,7 +123,7 @@ const controlScene = {
         }
       } else {
         this.scene = new Starry();
-        loadScene(newScene);
+        loadScene(this.scene);
         this.isActive = true;
       }
     }
