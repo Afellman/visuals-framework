@@ -122,6 +122,19 @@ const toggleScene = {
         this.isActive = true;
       }
     }
+  },
+  "10": {
+    isActive: false,
+    index: -1,
+    method: function () {
+      if (this.isActive) {
+        unloadScene(this.index);
+        this.isActive = false;
+      } else {
+        this.index = loadScene(new Starry());
+        this.isActive = true;
+      }
+    }
   }
 }
 
