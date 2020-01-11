@@ -785,7 +785,7 @@ class Connecter extends Sketch {
         width / 2 + orbit + circle,
         (height / 2 + orbitY * this.curl) + circleY,
         5,
-        this.color || someColor(imgIndex),
+        this.color || someColor(this.imgIndex),
       );
       this.centerPoints.push(newPoint);
     }
