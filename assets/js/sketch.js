@@ -212,7 +212,7 @@ function getPixel(context, x, y) {
     .data;
 }
 
-function takeColor(img) {
+function takeColor(img, index) {
   let canvas = document.getElementById('defaultCanvas0');
   let context = canvas.getContext('2d');
   image(img, 0, 0);
@@ -221,7 +221,7 @@ function takeColor(img) {
       let c = getPixel(context, x, y);
       let exists = false;
       for (let n = 0; n < numPal; n++) {
-        if (c == goodColor[n]) {
+        if (c == goodColor[index][n]) {
           exists = true;
           break;
         }
@@ -229,7 +229,7 @@ function takeColor(img) {
       if (!exists) {
         // add color to pal
         if (numPal < maxPal) {
-          goodColor[numPal] = c;
+          goodColor[index][numPal] = c;
           numPal++;
         } else {
           break;
