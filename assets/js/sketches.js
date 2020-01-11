@@ -1065,17 +1065,16 @@ class SineWaves extends Sketch {
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.color = color;
       this.lines = [];
       this.lineAmt = 1;
       this.res = 512;
-      this.opacity = 0'
+      this.opacity = 0;
     }
   }
   init() {
     super.init();
     for (let i = 0; i < this.lineAmt; i++) {
-      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: "white" }
+      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
       this.lines.push(line);
     }
   }
