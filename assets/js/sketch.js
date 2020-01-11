@@ -131,7 +131,7 @@ const toggleScene = {
         unloadScene(this.index);
         this.isActive = false;
       } else {
-        this.index = loadScene(new Starry());
+        this.index = loadScene(new Sun());
         this.isActive = true;
       }
     }
