@@ -628,7 +628,6 @@ class SpinningCircles extends Sketch {
         y: (height / 2 + orbitY * this.curl) + circleY,
         size: 5,
         color: [255, 255, 255],
-
       })
     }
     this.freq = 0.01;
@@ -636,10 +635,11 @@ class SpinningCircles extends Sketch {
 
   draw() {
     strokeWeight(this.strokeWeight);
-    let bottomPoint;
-    let topPoint;
-    let rightPoint;
-    let leftPoint;
+    let bottomPoint = {};
+    let topPoint = {};
+    let rightPoint = {};
+    let leftPoint = {};
+    let centerPoint = {}
     let orbit;
     let circle;
     let orbitY;
@@ -653,6 +653,7 @@ class SpinningCircles extends Sketch {
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
+      centerPoint
       orbit = sin(this.freq + i * 10) * this.curl;
       circle = sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
@@ -684,8 +685,7 @@ class SpinningCircles extends Sketch {
         line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       }
 
-      // ellipse(Math.round(x), Math.round(y), this.circleSize)
-      this.centerPoints[i].draw()
+      ellipse(Math.round(centerPoint.x), Math.round(centerPoint.y), this.circleSize)
       prevX = x;
       prevY = y;
     }
