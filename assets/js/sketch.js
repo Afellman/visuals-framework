@@ -110,17 +110,21 @@ function unloadScene(id) {
   scenes.splice(index, 1);
 }
 
-const toggleScene = {
-  "9": {
+const controlScene = {
+  "1": {
     isActive: false,
-    index: -1,
-    method: function () {
+    scene: {},
+    method: function (vel, cmd) {
       if (this.isActive) {
-        unloadScene(this.id);
-        this.isActive = false;
+        if (cmd == 148) {  // 148 == Pad
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+
+        }
       } else {
-        const newScene = new Starry();
-        this.id = loadScene(newScene);
+        this.scene = new Starry();
+        loadScene(newScene);
         this.isActive = true;
       }
     }
@@ -128,7 +132,7 @@ const toggleScene = {
   "10": {
     isActive: false,
     index: -1,
-    method: function () {
+    method: function (cmd) {
       if (this.isActive) {
         unloadScene(this.id);
         this.isActive = false;
@@ -147,7 +151,7 @@ const toggleScene = {
         unloadScene(this.id);
         this.isActive = false;
       } else {
-        const newScene = new SineWave();
+        const newScene = new SineWaves();
         this.id = loadScene(newScene);
         this.isActive = true;
       }
@@ -284,7 +288,7 @@ function getMIDIMessage(midiMessage) {
   console.log(note, velocity, command)
   if (command !== 132) {
 
-    toggleScene[note].method();
+    controlScene[note].method(velocity, command);
     // if (midiSubscribers[note]) {
     //   midiSubscribers[note].forEach(sub => sub(velocity, command));
     // }
