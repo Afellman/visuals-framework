@@ -688,7 +688,7 @@ class SpinningCircles extends Sketch {
       }
 
       stroke(255, 255, 255, this.opacity);
-      fill(255, 255, 255, this.opacity);
+      // fill(255, 255, 255, this.opacity);
       ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.circleSize)
       prevX = x;
       prevY = y;
