@@ -1007,12 +1007,14 @@ class Sun extends Sketch {
   updateOSC() {
     socket.emit("updateOsc", {
       scene: "2",
-      speed: this.speed,
-      opacity: this.opacity,
-      ringAmt: this.ringAmt,
-      red: this.r,
-      green: this.g,
-      blue: this.b
+      params: {
+        speed: this.speed,
+        opacity: this.opacity,
+        ringAmt: this.ringAmt,
+        red: this.r,
+        green: this.g,
+        blue: this.b
+      }
     });
   }
 
