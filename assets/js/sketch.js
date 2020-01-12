@@ -379,7 +379,7 @@ const genericMidi = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror();
+          this.scene = new Mirror(true);
           loadScene(this.scene);
           this.isActive = true;
         }
