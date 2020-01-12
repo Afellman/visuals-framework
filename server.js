@@ -97,6 +97,12 @@ function registerIncoming() {
   glClient.on("sceneOff", (val) => {
     udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   });
+
+  glClient.on("updateOsc", (val) => {
+    for (let i in val.params) {
+      udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
+    }
+  });
 }
 
 function setupWatcher() {
