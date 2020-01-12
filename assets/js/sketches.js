@@ -1344,6 +1344,7 @@ class FlowShader extends Sketch {
     this.img = images[2];
     this.speed = 1;
     this.direction = 1;
+    this.opacity = 0;
   }
 
   init(index) {
@@ -1442,7 +1443,6 @@ class FlowShader extends Sketch {
   },
   ]
 }
-
 
 class TreeFractal extends Sketch {
   constructor() {
