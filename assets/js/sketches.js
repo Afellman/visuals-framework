@@ -1300,7 +1300,7 @@ class LinesShader extends Sketch {
         this.params[2] = val;
       },
       method: (val) => {
-        this.amp = val.args[0] * 10;
+        this.amp = val.args[0];
       }
     },
     {
