@@ -1265,6 +1265,7 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_amp', this.amp);
     this.shader.setUniform('u_noise', this.noise);
     this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_q', this.q);
 
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
@@ -1318,7 +1319,6 @@ class LinesShader extends Sketch {
       },
       method: (val) => {
         this.freq = val.args[0];
-
       }
     },
     {
@@ -1341,7 +1341,7 @@ class LinesShader extends Sketch {
         this.params[5] = val / 100
       },
       method: (val) => {
-        this.params[5] = val.args[0];
+        this.q = val.args[0];
       }
     },
   ]
