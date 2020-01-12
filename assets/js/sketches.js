@@ -1374,7 +1374,7 @@ class FlowShader extends Sketch {
 
   unload() {
     super.unload();
-    shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+    shaders[5] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
   listeners = [{
