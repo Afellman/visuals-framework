@@ -105,7 +105,7 @@ function unloadScene(id) {
       break;
     }
   }
-  scenes[i].unload();
+  scenes[index].unload();
   scenes.splice(index, 1);
 }
 
