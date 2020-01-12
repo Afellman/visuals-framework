@@ -1259,7 +1259,6 @@ class LinesShader extends Sketch {
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_speed', this.speed);
     this.shader.setUniform('u_direction', this.direction);
     this.shader.setUniform('u_xOff', this.xOff);
     this.shader.setUniform('u_yOff', this.yOff);
@@ -1342,7 +1341,7 @@ class LinesShader extends Sketch {
         this.params[5] = val / 100
       },
       method: (val) => {
-        this.speed = val.args[0];
+        this.speed = val.args[0] * 2;
       }
     },
   ]
