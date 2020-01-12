@@ -83,6 +83,7 @@ function setupSocket() {
     client.on('disconnect', () => { /* … */ });
     // On socket message, send OSC message to device
     glClient.on("sceneOn", (val) => {
+      console.log('sceneOn')
       udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
     });
     glClient.on("sceneOff", (val) => {
