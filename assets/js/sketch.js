@@ -105,6 +105,7 @@ function unloadScene(id) {
       break;
     }
   }
+  scenes[i].unload();
   scenes.splice(index, 1);
 }
 
@@ -263,6 +264,24 @@ const controlScene = {
           this.isActive = false;
         } else {
           this.scene = new LinesShader();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "10": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new FlowShader();
           loadScene(this.scene);
           this.isActive = true;
         }
