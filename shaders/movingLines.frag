@@ -19,7 +19,7 @@ uniform float u_yOff;
 uniform float u_amp;
 uniform float u_noise;
 uniform float u_freq;
-unifrom float u_phase;
+uniform float u_phase;
 
 
 float random (in vec2 st) {
