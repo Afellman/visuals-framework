@@ -1353,7 +1353,7 @@ class FlowShader extends Sketch {
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[5];
-    this.shaderPath = "./shaders/trippytwo"
+    this.shaderPath = "./shaders/trippytwo.frag"
   }
 
   draw() {
