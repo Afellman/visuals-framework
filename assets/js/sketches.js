@@ -390,20 +390,14 @@ class Rain extends Sketch {
             pos: {
               x: x,
               y: y,
-            }
+            },
             size: 2,
-            "#abcdef",
+            color: "#abcdef",
           })
       }
     }
   }
 
-  controls = {
-    changeSpeed: (val) => this.speed = sin(val),
-    changePeriod: (val) => this.period = val,
-    changeSpacing: (val) => this.xspacing = val,
-    changeAmp: (val) => this.amplitude = val
-  }
 
   draw() {
     // this.controls().changeSpacing(mouseX / 1000)
@@ -421,6 +415,14 @@ class Rain extends Sketch {
       }
     }
   }
+
+  controls = {
+    changeSpeed: (val) => this.speed = sin(val),
+    changePeriod: (val) => this.period = val,
+    changeSpacing: (val) => this.xspacing = val,
+    changeAmp: (val) => this.amplitude = val
+  }
+
 }
 
 class BGShader extends Sketch {
