@@ -799,10 +799,10 @@ class Connecter extends Sketch {
       thisPoint.pos.x = width / 2 + orbit + circle
       thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
       stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      noFill();
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, 2)
-      if (i > 0 && dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y) < this.proximity) {
-        line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y)
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
       }
     }
     this.freq += this.speed;
@@ -1005,7 +1005,7 @@ class Sun extends Sketch {
   }
 
   listeners = [{
-    socketName: '/1/multifader1/1',
+    socketName: '/2/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
       this.freq = val.args[0] * 100;
