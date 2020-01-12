@@ -1261,7 +1261,12 @@ class LinesShader extends Sketch {
   unload() {
     super.unload();
     this.shader.uniforms = {};
-    this.shader._renderer = {}''
+    this.shader._renderer = {};
+    this.shader.samplers = [];
+    this.shader.attibutes = {};
+    this.shader._loadedAttributes = false;
+    this.shader._loadedUniforms = false;
+    this.shader._bound = fasle;
   }
 
   listeners = [{
