@@ -1230,6 +1230,7 @@ class LinesShader extends Sketch {
     this.opacity = 0;
     this.xOff = 0;
     this.yOff = 0;
+    this.amp = 1;
   }
 
   init(index) {
@@ -1298,7 +1299,7 @@ class LinesShader extends Sketch {
         this.params[2] = val;
       },
       method: (val) => {
-        this.params[2] = val.args[0] * 10;
+        this.amp = val.args[0] * 10;
       }
     },
     {
