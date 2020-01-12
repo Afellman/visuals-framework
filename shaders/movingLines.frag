@@ -18,6 +18,7 @@ uniform float u_yOff;
 uniform float u_amp;
 uniform float u_noise;
 uniform float u_freq;
+uniform sampler2D u_tex1;
 
 
 float random (in vec2 st) {
@@ -71,6 +72,8 @@ void main() {
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
+  vec4 tex2 = texture2D(u_tex1, uv);
 
+  tex.r+= tex2.r;
   gl_FragColor = vec4(tex.rgb, u_opacity);
 }
