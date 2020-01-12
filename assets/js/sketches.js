@@ -1228,6 +1228,7 @@ class LinesShader extends Sketch {
     this.speed = 1;
     this.direction = 1;
     this.opacity = 0;
+    this.xOff = 0;
   }
 
   init(index) {
@@ -1255,6 +1256,7 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_speed', this.speed);
     this.shader.setUniform('u_direction', this.direction);
+    this.shader.setUniform('u_xOff', this.xOff);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
@@ -1282,7 +1284,7 @@ class LinesShader extends Sketch {
       midi: "2",
       midiMethod: val => this.params[1] = val / 100,
       method: (val) => {
-        this.params[1] = val.args[0];
+        this.xOff = val.args[0] / 2;
       }
     },
     {
