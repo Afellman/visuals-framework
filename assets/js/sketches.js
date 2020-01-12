@@ -398,19 +398,16 @@ class Rain extends Sketch {
     }
   }
 
-
   draw() {
-    // this.controls().changeSpacing(mouseX / 1000)
-    // this.controls().changePeriod(mouseY / 1000)
     this.rateChange = (PI / this.period) * this.xspacing;
     this.globalChange += this.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        // thisDot.variant = Math.random(10);
         thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
-        thisDot.draw();
+        stroke("#abcdef", this.opacity)
+        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
         change += this.rateChange;
       }
     }
