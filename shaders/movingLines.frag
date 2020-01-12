@@ -17,6 +17,7 @@ uniform float u_opacity;
 uniform float u_xOff;
 uniform float u_yOff;
 uniform float u_amp;
+uniform float u_noise;
 
 
 float random (in vec2 st) {
@@ -64,7 +65,7 @@ void main() {
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  float ran = random(uv) * u_params[4] ; // Adds noise
+  float ran = random(uv) * u_noise ; // Adds noise
   float y = sin(PI * 2.0 * uv.x * u_params[2] + (u_time* 10.0) * u_params[5] + ran ) * u_amp;
 
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
