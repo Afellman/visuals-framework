@@ -11,6 +11,7 @@ uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
 uniform vec4 params;
+uniform float u_opacity;
 
 
 vec3 colorize(vec4 tex){
