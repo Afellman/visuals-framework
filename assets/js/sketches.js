@@ -373,6 +373,7 @@ class Rain extends Sketch {
       this.speed = 0.01;
       this.rateChange = (TWO_PI / this.period) * this.xspacing;
       this.amplitude = 2.5;
+      this.opacity = 0;
     }
   }
 
@@ -395,13 +396,11 @@ class Rain extends Sketch {
     }
   }
 
-  controls() {
-    return {
-      changeSpeed: (val) => this.speed = sin(val),
-      changePeriod: (val) => this.period = val,
-      changeSpacing: (val) => this.xspacing = val,
-      changeAmp: (val) => this.amplitude = val
-    }
+  controls = {
+    changeSpeed: (val) => this.speed = sin(val),
+    changePeriod: (val) => this.period = val,
+    changeSpacing: (val) => this.xspacing = val,
+    changeAmp: (val) => this.amplitude = val
   }
 
   draw() {
