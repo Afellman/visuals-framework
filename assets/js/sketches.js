@@ -1367,8 +1367,8 @@ class FlowShader extends Sketch {
     this.shader.setUniform('u_speed', this.speed);
     this.shader.setUniform('u_direction', this.direction);
     this.shaderBox.shader(this.shader);
+    this.shaderBox.tint(255, 150)
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    tint(255, 150)
     this.shaderBox.rect(0, 0, width, height);
 
   }
