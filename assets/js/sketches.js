@@ -1260,6 +1260,7 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_direction', this.direction);
     this.shader.setUniform('u_xOff', this.xOff);
     this.shader.setUniform('u_yOff', this.yOff);
+    this.shader.setUniform('u_amp', this.amp)
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
