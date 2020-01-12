@@ -1046,7 +1046,7 @@ class Sun extends Sketch {
     socketName: '/2/multifader1/6',
     nodeID: "slider5",
     method: (val) => {
-      this.speed = val.args[0];
+      this.speed = val.args[0] / 100;
     }
   }
   ];
