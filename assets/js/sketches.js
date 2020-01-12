@@ -1286,7 +1286,7 @@ class LinesShader extends Sketch {
       }
     },
     {
-      socketName: '/1/multifader1/1',
+      socketName: '/1/multifader1/3',
       nodeID: "slider1",
       midi: "3",
       midiMethod: val => {
@@ -1298,7 +1298,7 @@ class LinesShader extends Sketch {
       }
     },
     {
-      socketName: '/1/multifader1/1',
+      socketName: '/1/multifader1/4',
       nodeID: "slider1",
       midi: "4",
       midiMethod: val => {
