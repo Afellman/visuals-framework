@@ -386,12 +386,14 @@ class Rain extends Sketch {
         let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
         this
           .dots[i]
-          .push(new Objects.Circle(
-            x,
-            y,
-            2,
+          .push({
+            pos: {
+              x: x,
+              y: y,
+            }
+            size: 2,
             "#abcdef",
-          ))
+          })
       }
     }
   }
@@ -417,18 +419,6 @@ class Rain extends Sketch {
         thisDot.draw();
         change += this.rateChange;
       }
-    }
-  }
-  mouseClicked() {
-    this
-      .controls()
-      .changeAmp(this.amplitude + 1)
-  }
-  keyPressed(e) {
-    if (e.key == "g") {
-      this
-        .controls()
-        .changeAmp(this.amplitude - 1)
     }
   }
 }
