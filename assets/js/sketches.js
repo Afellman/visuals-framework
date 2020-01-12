@@ -1258,6 +1258,12 @@ class LinesShader extends Sketch {
 
   }
 
+  unload() {
+    super.unload();
+    this.shader.uniforms = {};
+    this.shader._renderer = {}''
+  }
+
   listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
