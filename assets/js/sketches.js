@@ -1267,7 +1267,7 @@ class LinesShader extends Sketch {
   }
 
   listeners = [{
-    socketName: '/1/multifader1/1',
+    socketName: '/1/multifader/1',
     nodeID: "slider1",
     midi: "1",
     midiMethod: val => this.params[0] = val / 100,
