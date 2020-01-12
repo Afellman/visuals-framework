@@ -159,24 +159,24 @@ class Sketch {
     for (let i = 0; i < length; i++) {
       let thisListener = this.listeners[i];
 
-      const nodes = document.querySelectorAll("#" + thisListener.nodeID);
-      const node = nodes[0];
-      if (node) {
-        if (node.tagName == "BUTTON") {
+      // const nodes = document.querySelectorAll("#" + thisListener.nodeID);
+      // const node = nodes[0];
+      // if (node) {
+      //   if (node.tagName == "BUTTON") {
 
-          node.addEventListener("click", (e) => {
-            thisListener.method({
-              args: [e.target.value / 100]
-            });
-          })
-        } else {
-          node.addEventListener("change", (e) => {
-            thisListener.method({
-              args: [e.target.value / 100]
-            });
-          })
-        }
-      }
+      //     node.addEventListener("click", (e) => {
+      //       thisListener.method({
+      //         args: [e.target.value / 100]
+      //       });
+      //     })
+      //   } else {
+      //     node.addEventListener("change", (e) => {
+      //       thisListener.method({
+      //         args: [e.target.value / 100]
+      //       });
+      //     })
+      //   }
+      // }
 
       socket.on(thisListener.socketName, thisListener.method);
 
