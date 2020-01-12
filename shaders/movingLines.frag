@@ -16,6 +16,7 @@ uniform float u_params[6];
 uniform float u_opacity;
 uniform float u_xOff;
 uniform float u_yOff;
+uniform float u_amp;
 
 
 float random (in vec2 st) {
