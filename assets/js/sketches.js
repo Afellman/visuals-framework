@@ -1342,6 +1342,7 @@ class LinesShader extends Sketch {
       },
       method: (val) => {
         this.speed = val.args[0] * 2;
+        this.phase = val.args[0] * 2;
       }
     },
   ]
