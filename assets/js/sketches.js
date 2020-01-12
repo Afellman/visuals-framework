@@ -799,10 +799,8 @@ class Connecter extends Sketch {
       thisPoint.pos.x = width / 2 + orbit + circle
       thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
       stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        }
+      if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y) < this.proximity) {
+        line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y)
       }
     }
     this.freq += this.speed;
