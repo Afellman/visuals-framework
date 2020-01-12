@@ -1227,6 +1227,7 @@ class LinesShader extends Sketch {
     this.img = images[0];
     this.speed = 1;
     this.direction = 1;
+    this.opacity = 0;
   }
 
   init(index) {
@@ -1246,6 +1247,7 @@ class LinesShader extends Sketch {
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("u_params", this.params);
     this.shader.setUniform("tex0", this.img);
