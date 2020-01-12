@@ -1356,7 +1356,7 @@ class FlowShader extends Sketch {
     this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = shaders[3];
+    this.shader = shaders[5];
   }
 
   draw() {
