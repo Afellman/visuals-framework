@@ -983,7 +983,7 @@ class Sun extends Sketch {
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
-    this.speed = 0.001;
+    this.speed = 0.01;
     this.time = this.speed;
   }
 
@@ -1040,6 +1040,13 @@ class Sun extends Sketch {
     nodeID: "slider5",
     method: (val) => {
       this.b = val.args[0] * 255;
+    }
+  },
+  {
+    socketName: '/2/multifader1/6',
+    nodeID: "slider5",
+    method: (val) => {
+      this.speed = val.args[0];
     }
   }
   ];
