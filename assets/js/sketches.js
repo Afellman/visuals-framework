@@ -1012,6 +1012,7 @@ class Sun extends Sketch {
     nodeID: "slider1",
     method: (val) => {
       this.freq = val.args[0] * 100;
+      this.amp = val.args[0] * 500;
     }
   },
   {
