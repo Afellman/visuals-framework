@@ -392,7 +392,6 @@ class Rain extends Sketch {
               y: y,
             },
             size: 2,
-            color: "#abcdef",
           })
       }
     }
@@ -406,7 +405,7 @@ class Rain extends Sketch {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
-        stroke("#abcdef", this.opacity)
+        stroke("#eee", this.opacity)
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
         change += this.rateChange;
       }
