@@ -1337,6 +1337,113 @@ class LinesShader extends Sketch {
   ]
 }
 
+class FlowShader extends Sketch {
+  constructor(img) {
+    super();
+    this.linesShader;
+    this.img = images[2];
+    this.speed = 1;
+    this.direction = 1;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.cam = createCapture(VIDEO);
+    this.cam.size(innerWidth, innerHeight);
+    this.cam.hide();
+    this.time = 0;
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = shaders[3];
+  }
+
+  draw() {
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    noStroke();
+    this.shader.setUniform("u_loops", this.loops);
+    this.shader.setUniform("u_params", this.params);
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_cray', this.cray)
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_speed', this.speed);
+    this.shader.setUniform('u_direction', this.direction);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+
+  }
+
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "1",
+    midiMethod: val => this.params[0] = val / 100,
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "2",
+    midiMethod: val => this.params[1] = val / 100,
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "3",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 10);
+      this.params[2] = val;
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "4",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 0.5)
+      this.params[3] = val
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "5",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 1)
+      this.params[4] = val
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "6",
+    midiMethod: val => {
+      this.params[5] = val / 100
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  ]
+}
+
+
 class TreeFractal extends Sketch {
   constructor() {
     super();
