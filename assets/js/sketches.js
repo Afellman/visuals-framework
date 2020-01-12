@@ -1012,7 +1012,7 @@ class Sun extends Sketch {
     }
   },
   {
-    socketName: '/1/multifader1/2',
+    socketName: '/2/multifader1/2',
     nodeID: "slider2",
     method: (val) => {
       this.amp = val.args[0] * 500;
