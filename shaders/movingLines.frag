@@ -12,7 +12,6 @@ uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
-uniform float u_params[6];
 uniform float u_opacity;
 uniform float u_xOff;
 uniform float u_yOff;
