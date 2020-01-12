@@ -68,11 +68,11 @@ void main() {
 
   float ran = random(uv) * u_noise ; // Adds noise
   float y = sin(PI * 2.0 * uv.x * u_freq + (u_time* 10.0) * u_speed + ran ) * u_amp;
+  vec4 tex2 = texture2D(u_tex1, uv);
 
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
-  vec4 tex2 = texture2D(u_tex1, uv);
 
   tex.r+= tex2.r;
   gl_FragColor = vec4(tex.rgb, u_opacity);
