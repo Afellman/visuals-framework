@@ -213,7 +213,7 @@ const controlScene = {
           this.isActive = true;
         }
       } else {
-        this.scene.opacity = midiToNormal(vel);
+        this.scene.opacity = midiToColor(vel);
       }
     }
   },
