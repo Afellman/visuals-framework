@@ -1306,7 +1306,7 @@ class LinesShader extends Sketch {
         this.params[3] = val
       },
       method: (val) => {
-        this.angle = val.args[0];
+        this.params[3] = val.args[0];
       }
     },
     {
@@ -1318,7 +1318,7 @@ class LinesShader extends Sketch {
         this.params[4] = val
       },
       method: (val) => {
-        this.angle = val.args[0];
+        this.params[4] = val.args[0];
       }
     },
     {
