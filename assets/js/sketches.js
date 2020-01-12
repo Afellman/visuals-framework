@@ -992,9 +992,9 @@ class Sun extends Sketch {
     let sizeMulti = 1
     // noStroke();
     stroke(0, 0);
-    // if (this.ringAmt % this.randomInt == 0) {
-    //   sizeMulti = 3
-    // }
+    if (this.ringAmt % this.randomInt == 0) {
+      sizeMulti = 3
+    }
     for (let i = 0; i < this.ringAmt; i++) {
       let opacVariance = i;
       size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
