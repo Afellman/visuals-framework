@@ -970,7 +970,6 @@ class Starry extends Sketch {
 class Sun extends Sketch {
   constructor() {
     super();
-
   }
 
   init() {
@@ -985,6 +984,7 @@ class Sun extends Sketch {
     this.opacity = 0;
     this.speed = 0.01;
     this.time = this.speed;
+    this.updateOSC();
   }
 
   draw() {
@@ -1002,6 +1002,17 @@ class Sun extends Sketch {
       ellipse(width / 2, height / 2, size);
     }
     this.time += this.speed;
+  }
+
+  updateOSC() {
+    socket.emit("updateOsc", {
+      speed: this.speed,
+      opacity: this.opacity,
+      ringAmt: this.ringAmt,
+      red: this.r,
+      green: this.g,
+      blue: this.b
+    });
   }
 
   listeners = [{
