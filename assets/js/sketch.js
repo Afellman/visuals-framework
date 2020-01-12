@@ -252,6 +252,24 @@ const controlScene = {
         this.scene.opacity = midiToColor(vel);
       }
     }
+  },
+  "9": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new LinesShader();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
   }
 }
 
