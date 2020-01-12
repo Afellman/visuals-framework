@@ -1262,7 +1262,7 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_noise', this.noise);
     this.shader.setUniform('u_freq', this.freq);
     this.shader.setUniform('u_speed', this.speed);
-    this.shader.setUniform("u_tex1", imagse[1])
+    this.shader.setUniform("u_tex1", images[2])
 
 
     this.shaderBox.shader(this.shader);
