@@ -1235,7 +1235,7 @@ class LinesShader extends Sketch {
   constructor(img) {
     super();
     this.linesShader;
-    this.img = img;
+    this.img = images[0];
     this.speed = 1;
     this.direction = 1;
   }
