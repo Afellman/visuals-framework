@@ -406,7 +406,7 @@ class Rain extends Sketch {
         let thisDot = this.dots[i][j];
         thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
         stroke(230, 230, 230, this.opacity);
-        fill(230, 230, 230, this.opacity)
+        fill(230, 230, 230, this.opacity);
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
         change += this.rateChange;
       }
@@ -1247,7 +1247,7 @@ class LinesShader extends Sketch {
     noStroke();
     this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("u_params", this.params);
-    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform("tex0", glCanvas);
     this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_speed', this.speed);
