@@ -932,6 +932,7 @@ class Starry extends Sketch {
     let x;
     let y;
     let thisPoint;
+    noStroke();
     fill(this.color[0], this.color[1], this.color[2], this.opacity);
     for (let i = 0; i < this.starAmt; i++) {
       // if (i < 10) {
