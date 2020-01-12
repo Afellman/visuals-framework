@@ -1262,7 +1262,6 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_noise', this.noise);
     this.shader.setUniform('u_freq', this.freq);
     this.shader.setUniform('u_speed', this.speed);
-    this.shader.setUniform("u_tex1", images[2])
 
 
     this.shaderBox.shader(this.shader);
@@ -1332,7 +1331,7 @@ class LinesShader extends Sketch {
       }
     },
     {
-      socketName: '/1/multifader2/1',
+      socketName: '/1/multifader1/6',
       nodeID: "slider1",
       midi: "6",
       midiMethod: val => {
