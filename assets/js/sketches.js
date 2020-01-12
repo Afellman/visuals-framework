@@ -1233,6 +1233,7 @@ class LinesShader extends Sketch {
     this.amp = 0;
     this.noise = 0;
     this.freq = 0;
+    this.speed = 0;
   }
 
   init(index) {
@@ -1341,7 +1342,7 @@ class LinesShader extends Sketch {
         this.params[5] = val / 100
       },
       method: (val) => {
-        this.speed = val.args[0] * 2;
+        this.speed = val.args[0];
       }
     },
   ]
