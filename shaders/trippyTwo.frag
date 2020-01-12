@@ -94,5 +94,5 @@ void main() {
   tex = colorSwirl(tex, uv);
 
   // tex.b += 0.2 + sin(u_time * 12.0);
-  gl_FragColor = vec4(tex);
+  gl_FragColor = vec4(tex.rgb, u_opacity);
 }
