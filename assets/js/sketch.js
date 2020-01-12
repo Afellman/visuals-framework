@@ -208,7 +208,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SpinningCircles();
+          this.scene = new TreeFractal();
           loadScene(this.scene);
           this.isActive = true;
         }
