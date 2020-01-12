@@ -894,6 +894,7 @@ class GoldenSpiral extends Sketch {
     this.opacity = 20;
     this.animate = true;
     this.time = 0;
+    this.opacity = 0;
   }
   listeners = [{
 
@@ -905,7 +906,7 @@ class GoldenSpiral extends Sketch {
   draw() {
     // background(0);
     fill(255, 10);
-    stroke(255, 255, 255, 75)
+    stroke(255, 255, 255, this.opacity)
     translate(width / 2, height / 2)
     // this.number = frameCount;
     for (var i = 0; i < this.number; i++) {
