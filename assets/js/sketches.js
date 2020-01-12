@@ -1048,7 +1048,7 @@ class Sun extends Sketch {
     }
   },
   {
-    socketName: '/2/push/1',
+    socketName: '/2/push1',
     method: (val) => {
       if (val.args[0] == 1) {
         this.ringAmt++;
@@ -1056,7 +1056,7 @@ class Sun extends Sketch {
     }
   },
   {
-    socketName: '/2/push/2',
+    socketName: '/2/push2',
     method: (val) => {
       if (val.args[0] == 1) {
         this.ringAmt--
