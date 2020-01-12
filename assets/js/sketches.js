@@ -983,6 +983,8 @@ class Sun extends Sketch {
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
+    this.speed = 0.001;
+    this.time = this.speed;
   }
 
   draw() {
@@ -995,13 +997,14 @@ class Sun extends Sketch {
     // }
     for (let i = 0; i < this.ringAmt; i++) {
       let opacVariance = i;
-      size = 200 * sizeMulti + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
+      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
       if (i == 0) {
         opacVariance = 1;
       }
       fill(this.r, this.g, this.b, (this.opacity / opacVariance));
       ellipse(width / 2, height / 2, size);
     }
+    this.time += this.speed;
   }
 
   listeners = [{
