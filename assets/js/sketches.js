@@ -1019,21 +1019,21 @@ class Sun extends Sketch {
     }
   },
   {
-    socketName: '/1/multifader1/2',
+    socketName: '/2/multifader1/3',
     nodeID: "slider3",
     method: (val) => {
       this.r = val.args[0] * 255;
     }
   },
   {
-    socketName: '/1/multifader1/2',
+    socketName: '/2/multifader1/4',
     nodeID: "slider4",
     method: (val) => {
       this.g = val.args[0] * 255;
     }
   },
   {
-    socketName: '/1/multifader1/2',
+    socketName: '/2/multifader1/5',
     nodeID: "slider5",
     method: (val) => {
       this.b = val.args[0] * 255;
