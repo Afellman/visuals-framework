@@ -1013,7 +1013,7 @@ class Sun extends Sketch {
     method: (val) => {
       this.freq = val.args[0] * 100;
       this.amp = val.args[0] * 500;
-      this.speed = 0.1 - val.args[0] / 10000;
+      this.speed = 0.1 - val.args[0] / 10;
     }
   },
   {
