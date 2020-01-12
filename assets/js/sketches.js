@@ -1262,7 +1262,6 @@ class LinesShader extends Sketch {
   unload() {
     super.unload();
     shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
-
   }
 
   listeners = [{
@@ -1354,6 +1353,7 @@ class FlowShader extends Sketch {
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[5];
+    this.shaderPath = "./shaders/trippytwo"
   }
 
   draw() {
@@ -1370,6 +1370,11 @@ class FlowShader extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
+  }
+
+  unload() {
+    super.unload();
+    shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
   listeners = [{
