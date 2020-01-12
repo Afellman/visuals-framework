@@ -994,7 +994,7 @@ class Sun extends Sketch {
     stroke(0, 0);
     for (let i = 0; i < this.ringAmt; i++) {
       let opacVariance = i;
-      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp + sin(i + this.time * this.freq / 2);
+      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
@@ -1045,6 +1045,18 @@ class Sun extends Sketch {
     nodeID: "slider5",
     method: (val) => {
       this.speed = val.args[0] / 200;
+    }
+  },
+  {
+    socketName: '/2/push/1',
+    method: (val) => {
+      this.ringAmt++;
+    }
+  },
+  {
+    socketName: '/2/push/2',
+    method: (val) => {
+      this.ringAmt--;
     }
   }
   ];
