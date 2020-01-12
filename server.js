@@ -82,16 +82,20 @@ function setupSocket() {
     console.log('Web socket connected')
     client.on('disconnect', () => { /* … */ });
     // On socket message, send OSC message to device
-    glClient.on("sceneOn", (val) => {
-      console.log('sceneOn')
-      udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
-    });
-    glClient.on("sceneOff", (val) => {
-      udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
-    });
+    registerIncoming();
   });
   server.listen(port, () => {
     console.log("Server listening on port: " + port);
+  });
+}
+
+function registerIncoming() {
+  glClient.on("sceneOn", (val) => {
+    console.log('sceneOn')
+    udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
+  });
+  glClient.on("sceneOff", (val) => {
+    udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   });
 }
 
