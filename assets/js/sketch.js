@@ -231,11 +231,11 @@ const controlScene = {
           this.isActive = true;
         }
       } else {
-        this.scene.opacity = midiToNormal(vel);
+        this.scene.opacity = midiToColor(vel);
       }
     }
   },
-  "": {
+  "8": {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
@@ -244,7 +244,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SpinningCircles();
+          this.scene = new Rain();
           loadScene(this.scene);
           this.isActive = true;
         }
