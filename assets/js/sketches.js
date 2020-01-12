@@ -914,9 +914,6 @@ class Starry extends Sketch {
   constructor() {
     super();
   }
-  listeners = [{
-
-  }]
   init() {
     this.opacity = 0;
     this.points = [];
@@ -963,6 +960,10 @@ class Starry extends Sketch {
     })
     this.starAmt++;
   }
+
+  listeners = [{
+
+  }]
 }
 
 class Sun extends Sketch {
@@ -1327,7 +1328,6 @@ class LinesShader extends Sketch {
         this.params[4] = val
       },
       method: (val) => {
-
         this.speed = val.args[0] * 2;
       }
     },
