@@ -13,6 +13,7 @@ uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
 uniform float u_params[6];
+uniform float u_opacity;
 
 
 float random (in vec2 st) {
@@ -67,5 +68,5 @@ void main() {
 
   vec4 tex = texture2D(tex0, uv);
 
-  gl_FragColor = vec4(tex);
+  gl_FragColor = vec4(tex.rgb, u_opacity);
 }
