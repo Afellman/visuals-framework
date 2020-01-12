@@ -1240,6 +1240,7 @@ class LinesShader extends Sketch {
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[1];
+    this.shaderPath = "./shaders/movingLines.frag";
   }
 
   draw() {
@@ -1260,13 +1261,8 @@ class LinesShader extends Sketch {
 
   unload() {
     super.unload();
-    this.shader.uniforms = {};
-    this.shader._renderer = {};
-    this.shader.samplers = [];
-    this.shader.attibutes = {};
-    this.shader._loadedAttributes = false;
-    this.shader._loadedUniforms = false;
-    this.shader._bound = fasle;
+    shader[1] = loadShader()
+    loadShader("./shaders/texture.vert", this.shaderPath)
   }
 
   listeners = [{
