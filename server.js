@@ -5,7 +5,7 @@ const simpleGit = require("simple-git")("./");
 const fs = require('fs');
 const port = 3000;
 const app = express();
-const remoteIP = "192.168.1.16";
+const remoteIP = "192.168.1.3";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -82,9 +82,12 @@ function setupSocket() {
     console.log('Web socket connected')
     client.on('disconnect', () => { /* … */ });
     // On socket message, send OSC message to device
-    // glClient.on("rowChange", (val) => {
-    //   udpPort.send({ address: '/1/rowAmtLabel', args: [{ type: "f", value: val }] }, remoteIP, 9000)
-    // });
+    glClient.on("sceneOn", (val) => {
+      udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
+    });
+    glClient.on("sceneOff", (val) => {
+      udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+    });
   });
   server.listen(port, () => {
     console.log("Server listening on port: " + port);
@@ -94,10 +97,10 @@ function setupSocket() {
 function setupWatcher() {
   fs.watch("./", { recursive: true }, (e, name) => {
     if (
-      name.indexOf('.git') == -1 
+      name.indexOf('.git') == -1
       && name.indexOf("node_modules") == -1
       && Date.now() - updateInterval > 15000
-      ) {
+    ) {
       try {
         console.log(Date.now() - updateInterval);
         updateInterval = Date.now();
@@ -112,17 +115,17 @@ function setupWatcher() {
 }
 
 function pushToGit(file) {
-    try {
-      simpleGit.add(file, (err) => {
-        simpleGit.commit("save", (res) => {
-          simpleGit.push("origin", "master", () => {
-            console.log(file + " pushed");
-          })
+  try {
+    simpleGit.add(file, (err) => {
+      simpleGit.commit("save", (res) => {
+        simpleGit.push("origin", "master", () => {
+          console.log(file + " pushed");
         })
       })
-    } catch (err) {
-      console.log("Git ERROR", err);
-    }
+    })
+  } catch (err) {
+    console.log("Git ERROR", err);
+  }
 }
 
 
