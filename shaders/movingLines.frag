@@ -15,6 +15,7 @@ uniform float u_direction;
 uniform float u_params[6];
 uniform float u_opacity;
 uniform float u_xOff;
+uniform float u_yOff;
 
 
 float random (in vec2 st) {
@@ -65,7 +66,7 @@ void main() {
   float ran = random(uv) * u_params[4] ; // Adds noise
   float y = sin(PI * 2.0 * uv.x * u_params[2] + (u_time* 10.0) * u_params[5] + ran ) *u_params[3];
 
-  uv = vec2((uv.x + u_xOff + y),uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
+  uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
 
