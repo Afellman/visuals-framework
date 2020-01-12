@@ -799,6 +799,7 @@ class Connecter extends Sketch {
       thisPoint.pos.x = width / 2 + orbit + circle
       thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
       stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      noFill();
       ellipse(thisPoint.pos.x, thisPoint.pos.y, 2)
       if (i > 0 && dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y) < this.proximity) {
         line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[i - 1].pos.x, this.centerPoints[i - 1].pos.y)
