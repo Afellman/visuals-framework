@@ -1230,7 +1230,7 @@ class LinesShader extends Sketch {
     this.opacity = 0;
     this.xOff = 0;
     this.yOff = 0;
-    this.amp = 0;;
+    this.amp = 0;
   }
 
   init(index) {
