@@ -1050,13 +1050,17 @@ class Sun extends Sketch {
   {
     socketName: '/2/push/1',
     method: (val) => {
-      this.ringAmt++;
+      if (val.args[0] == 1) {
+        this.ringAmt++;
+      }
     }
   },
   {
     socketName: '/2/push/2',
     method: (val) => {
-      this.ringAmt--;
+      if (val.args[0] == 1) {
+        this.ringAmt--
+      }
     }
   }
   ];
