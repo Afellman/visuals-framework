@@ -999,7 +999,7 @@ class Sun extends Sketch {
       let opacVariance = i;
       size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
       if (i == 0) {
-        opacVariance = 1;
+        opacVariance = 0.9;
       }
       fill(this.r, this.g, this.b, (this.opacity / opacVariance));
       ellipse(width / 2, height / 2, size);
