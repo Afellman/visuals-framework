@@ -1359,6 +1359,7 @@ class FlowShader extends Sketch {
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("u_params", this.params);
     this.shader.setUniform("tex0", this.img);
@@ -1367,7 +1368,6 @@ class FlowShader extends Sketch {
     this.shader.setUniform('u_speed', this.speed);
     this.shader.setUniform('u_direction', this.direction);
     this.shaderBox.shader(this.shader);
-    this.shaderBox.tint(255, 150)
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
