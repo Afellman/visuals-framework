@@ -136,12 +136,10 @@ const controlScene = {
         if (this.isActive) {
           unloadScene(this.scene.id);
           this.isActive = false;
-          socket.emit("sceneOff", 2);
         } else {
           this.scene = new Sun();
           loadScene(this.scene);
           this.isActive = true;
-          socket.emit("sceneOn", 2);
         }
       } else {
         this.scene.opacity = midiToColor(vel);
