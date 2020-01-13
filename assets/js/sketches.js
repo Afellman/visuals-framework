@@ -967,13 +967,14 @@ class Starry extends Sketch {
   }]
 }
 
-class Sun extends Sketch {
+class Sun extends Sketch { // Scene 2
   constructor() {
     super();
+    this.sceneNum = 2;
   }
 
   init() {
-    super.init();
+    super.init({ scene: 2 });
     this.params = {
       amp: 20,
       ringAmt: 1,
@@ -1004,12 +1005,6 @@ class Sun extends Sketch {
     this.time += this.params.speed / 1000;
   }
 
-  updateOSC() {
-    socket.emit("updateOsc", {
-      scene: "2",
-      params: this.params
-    });
-  }
 
   listeners = [{
     socketName: '/2/amp',
