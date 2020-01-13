@@ -217,6 +217,169 @@ class Sketch {
   }
 }
 
+class Starry extends Sketch {
+  constructor() {
+    super();
+    this.params = {
+      starAmt: 200,
+      speed: 10,
+      size: 1,
+      color: 1
+    }
+    this.sceneNum = 1;
+  }
+  init() {
+    super.init();
+    this.opacity = 0;
+    this.points = [];
+    for (let i = 0; i < this.params.starAmt; i++) {
+      this.points.push({
+        pos: createVector(random() * width, random() * height),
+        color: 200 + Math.floor(Math.random() * 55) + 1,
+      });
+    }
+  }
+  draw() {
+    let thisPoint = {};
+    noStroke();
+
+    for (let i = 0; i < this.params.starAmt; i++) {
+      thisPoint = this.points[i];
+      if (thisPoint == undefined) {
+        thisPoint = this.addPoint();
+      }
+      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 100);
+      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
+      thisPoint.pos.add(acc.div(400 - this.params.speed))
+      fill(this.params.color * thisPoint.color, this.params.color * thisPoint.color, this.params.color * thisPoint.color, this.opacity);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
+      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
+        this.points.splice(i, 1);
+        this.starAmt--;
+        this.addPoint();
+      }
+    }
+  }
+  addPoint() {
+    let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
+    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
+    let vec = createVector(x, y);
+    let newPoint = {
+      pos: vec,
+      color: 200 + Math.floor(Math.random() * 55) + 1,
+    };
+    this.points.push(newPoint)
+    this.starAmt++;
+    return newPoint;
+  }
+
+  listeners = [{
+
+  }]
+}
+
+class Sun extends Sketch { // Scene 2
+  constructor() {
+    super();
+    this.sceneNum = 2;
+    this.params = {
+      amp: 20,
+      ringAmt: 1,
+      speed: 0,
+      r: 100,
+      g: 53,
+      b: 0
+    }
+  }
+
+  init() {
+    super.init();
+    this.freq = 21;
+    this.opacity = 0;
+    this.time = this.params.speed;
+  }
+
+  draw() {
+    let size;
+    // noStroke();
+    stroke(0, 0);
+    for (let i = 0; i < this.params.ringAmt; i++) {
+      let opacVariance = i;
+      size = 200 + (i * 10) + sin(i + this.time * this.freq) * this.params.amp;
+      if (i == 0) {
+        opacVariance = 0.9;
+      }
+      fill(this.params.r, this.params.g, this.params.b, (this.opacity / opacVariance));
+      ellipse(width / 2, height / 2, size);
+    }
+    this.time += this.params.speed / 1000;
+  }
+
+
+  listeners = [{
+    socketName: '/2/amp',
+    nodeID: "slider1",
+    method: (val) => {
+      this.amp = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/speed',
+    nodeID: "slider2",
+    method: (val) => {
+      this.speed = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/r',
+    nodeID: "slider3",
+    method: (val) => {
+      this.r = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/g',
+    nodeID: "slider4",
+    method: (val) => {
+      this.g = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/b',
+    nodeID: "slider5",
+    method: (val) => {
+      this.b = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/ringAmt',
+    nodeID: "slider5",
+    method: (val) => {
+      this.ringAmt = val.args[0];
+    }
+  },
+  {
+    socketName: '/2/push1',
+    method: (val) => {
+      if (val.args[0] == 1) {
+        this.ringAmt++;
+      }
+    }
+  },
+  {
+    socketName: '/2/push2',
+    method: (val) => {
+      if (val.args[0] == 1) {
+        this.ringAmt--
+      }
+    }
+  }
+  ];
+  keyPressed(e) {
+
+  }
+}
+
 class Grid extends Sketch {
   constructor(obj) {
     super(obj);
@@ -919,168 +1082,7 @@ class GoldenSpiral extends Sketch {
   }
 }
 
-class Starry extends Sketch {
-  constructor() {
-    super();
-    this.params = {
-      starAmt: 200,
-      speed: 10,
-      size: 1,
-      color: 1
-    }
-    this.sceneNum = 1;
-  }
-  init() {
-    super.init();
-    this.opacity = 0;
-    this.points = [];
-    for (let i = 0; i < this.params.starAmt; i++) {
-      this.points.push({
-        pos: createVector(random() * width, random() * height),
-        color: 200 + Math.floor(Math.random() * 55) + 1,
-      });
-    }
-  }
-  draw() {
-    let thisPoint = {};
-    noStroke();
 
-    for (let i = 0; i < this.params.starAmt; i++) {
-      thisPoint = this.points[i];
-      if (thisPoint == undefined) {
-        thisPoint = this.addPoint();
-      }
-      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 100);
-      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(400 - this.params.speed))
-      fill(this.params.color * thisPoint.color, this.params.color * thisPoint.color, this.params.color * thisPoint.color, this.opacity);
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
-      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
-        this.points.splice(i, 1);
-        this.starAmt--;
-        this.addPoint();
-      }
-    }
-  }
-  addPoint() {
-    let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
-    let vec = createVector(x, y);
-    let newPoint = {
-      pos: vec,
-      color: 200 + Math.floor(Math.random() * 55) + 1,
-    };
-    this.points.push(newPoint)
-    this.starAmt++;
-    return newPoint;
-  }
-
-  listeners = [{
-
-  }]
-}
-
-class Sun extends Sketch { // Scene 2
-  constructor() {
-    super();
-    this.sceneNum = 2;
-    this.params = {
-      amp: 20,
-      ringAmt: 1,
-      speed: 0,
-      r: 100,
-      g: 53,
-      b: 0
-    }
-  }
-
-  init() {
-    super.init();
-    this.freq = 21;
-    this.opacity = 0;
-    this.time = this.params.speed;
-  }
-
-  draw() {
-    let size;
-    // noStroke();
-    stroke(0, 0);
-    for (let i = 0; i < this.params.ringAmt; i++) {
-      let opacVariance = i;
-      size = 200 + (i * 10) + sin(i + this.time * this.freq) * this.params.amp;
-      if (i == 0) {
-        opacVariance = 0.9;
-      }
-      fill(this.params.r, this.params.g, this.params.b, (this.opacity / opacVariance));
-      ellipse(width / 2, height / 2, size);
-    }
-    this.time += this.params.speed / 1000;
-  }
-
-
-  listeners = [{
-    socketName: '/2/amp',
-    nodeID: "slider1",
-    method: (val) => {
-      this.amp = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/speed',
-    nodeID: "slider2",
-    method: (val) => {
-      this.speed = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/r',
-    nodeID: "slider3",
-    method: (val) => {
-      this.r = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/g',
-    nodeID: "slider4",
-    method: (val) => {
-      this.g = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/b',
-    nodeID: "slider5",
-    method: (val) => {
-      this.b = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/ringAmt',
-    nodeID: "slider5",
-    method: (val) => {
-      this.ringAmt = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/push1',
-    method: (val) => {
-      if (val.args[0] == 1) {
-        this.ringAmt++;
-      }
-    }
-  },
-  {
-    socketName: '/2/push2',
-    method: (val) => {
-      if (val.args[0] == 1) {
-        this.ringAmt--
-      }
-    }
-  }
-  ];
-  keyPressed(e) {
-
-  }
-}
 
 class SineWaves extends Sketch {
   constructor(obj) {
