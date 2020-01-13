@@ -974,16 +974,17 @@ class Sun extends Sketch {
 
   init() {
     super.init();
+    this.params = {
+      amp: 20,
+      ringAmt: 1,
+      speed: 0,
+      r: 100,
+      g: 53,
+      b: 0
+    }
     this.freq = 21;
-    this.amp = 20
-    this.r = 100;
-    this.g = 53;
-    this.b = 0;
-    this.ringAmt = 1;
-    this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
-    this.speed = 0;
-    this.time = this.speed;
+    this.time = this.params.speed;
     this.updateOSC();
   }
 
@@ -991,30 +992,22 @@ class Sun extends Sketch {
     let size;
     // noStroke();
     stroke(0, 0);
-    for (let i = 0; i < this.ringAmt; i++) {
+    for (let i = 0; i < this.params.ringAmt; i++) {
       let opacVariance = i;
-      size = 200 + (i * 10) + sin(i + this.time * this.freq) * this.amp;
+      size = 200 + (i * 10) + sin(i + this.time * this.freq) * this.params.amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
-      fill(this.r, this.g, this.b, (this.opacity / opacVariance));
+      fill(this.params.r, this.params.g, this.params.b, (this.opacity / opacVariance));
       ellipse(width / 2, height / 2, size);
     }
-    this.time += this.speed / 1000;
+    this.time += this.params.speed / 1000;
   }
 
   updateOSC() {
     socket.emit("updateOsc", {
       scene: "2",
-      params: {
-        amp: this.amp,
-        speed: this.speed,
-        opacity: this.opacity,
-        ringAmt: this.ringAmt,
-        r: this.r,
-        g: this.g,
-        b: this.b
-      }
+      params: this.params
     });
   }
 
