@@ -931,6 +931,7 @@ class Starry extends Sketch {
   }
   init() {
     this.opacity = 0;
+    this.sceneNum = 1;
     this.points = [];
     super.init();
     for (let i = 0; i < this.params.starAmt; i++) {
