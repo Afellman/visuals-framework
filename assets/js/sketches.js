@@ -178,7 +178,6 @@ class Sketch {
       //   }
       // }
 
-
       // if (thisListener.midi) {
       //   if (midiSubscribers[thisListener.midi]) {
       //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
@@ -186,8 +185,9 @@ class Sketch {
       //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
       //   }
       // }
-      socket.on(thisListener.socketName, thisListener.method);
     }
+
+    socket.on(thisListener.socketName, thisListener.method);
   }
   detachListeners() {
     let length = this.listeners.length;
@@ -971,10 +971,6 @@ class Sun extends Sketch { // Scene 2
   constructor() {
     super();
     this.sceneNum = 2;
-  }
-
-  init() {
-    super.init();
     this.params = {
       amp: 20,
       ringAmt: 1,
@@ -983,6 +979,10 @@ class Sun extends Sketch { // Scene 2
       g: 53,
       b: 0
     }
+  }
+
+  init() {
+    super.init();
     this.freq = 21;
     this.opacity = 0;
     this.time = this.params.speed;
