@@ -1001,7 +1001,7 @@ class Sun extends Sketch {
       fill(this.r, this.g, this.b, (this.opacity / opacVariance));
       ellipse(width / 2, height / 2, size);
     }
-    this.time += this.speed / 10;
+    this.time += this.speed / 1000;
   }
 
   updateOSC() {
