@@ -188,12 +188,12 @@ class Sketch {
     // }
     for (let i in this.params) {
       console.log(this.params)
-      socket.on(`/${this.sceneNum}/${i}`, (val, foo) => {
+      socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
         this.params[param] = val.args[0];
       });
     }
-    socket.emit("updateOsc", {
+    socket.emit("updateOsc", { // Syncs iPad with scenes starting values
       scene: this.sceneNum,
       params: this.params
     });
@@ -423,7 +423,7 @@ class SineWaves extends Sketch { // Scene 3
   }
 
   addLine() {
-    const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
+    const line = { freq: 1, maxAmpY: height / 2, speed: 0.01, time: 0.01, color: [255, 255, 255] }
     this.lines.push(line);
   }
 
