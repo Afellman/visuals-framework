@@ -222,7 +222,7 @@ class Starry extends Sketch { // Scene 1. Maped
   constructor() {
     super();
     this.params = {
-      fader: {
+      faders: {
         starAmt: 200,
         speed: 10,
         size: 1,
