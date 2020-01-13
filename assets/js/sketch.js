@@ -105,6 +105,7 @@ function unloadScene(id) {
       break;
     }
   }
+  socket.emit("sceneOff", scenes[index].sceneNum);
   scenes[index].unload();
   scenes.splice(index, 1);
 }
