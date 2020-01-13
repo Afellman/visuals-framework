@@ -939,7 +939,7 @@ class Starry extends Sketch {
   }
   draw() {
     let thisPoint = {};
-    let prevOpacity = 0;
+    let prevOpacity = this.opacity;
     noStroke();
     for (let i = 0; i < this.params.starAmt; i++) {
       thisPoint = this.points[i];
