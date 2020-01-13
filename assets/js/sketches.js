@@ -196,7 +196,7 @@ class Sketch {
     }
     socket.emit("updateOsc", { // Syncs iPad with scenes starting values
       scene: this.sceneNum,
-      params: this.params
+      params: this.params.faders
     });
   }
   detachListeners() {
