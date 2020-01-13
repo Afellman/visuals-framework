@@ -146,6 +146,7 @@ class Sketch {
       this.loaded = true;
     }
     this.listeners = [];
+    this.params = { faders:}
   }
   init() {
     this.attachListeners();
@@ -186,7 +187,7 @@ class Sketch {
     //   }
     // }
     // }
-    for (let i in this.params) {
+    for (let i in this.params.faders) {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
@@ -264,7 +265,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   addPoint() {
-    const { starAmt } = this.params.fader;
+    let { starAmt } = this.params.fader;
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
     let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
