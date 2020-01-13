@@ -922,7 +922,7 @@ class Starry extends Sketch {
     this.params = {
       starAmt: 200,
       speed: 10,
-      size: 1,
+      size: 0.00,
       color: 1
     }
   }
