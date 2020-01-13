@@ -242,22 +242,23 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   draw() {
+    const { color, size, starAmt } = this.params.fader;
     let thisPoint = {};
     noStroke();
 
-    for (let i = 0; i < this.params.fader.starAmt; i++) {
+    for (let i = 0; i < starAmt; i++) {
       thisPoint = this.points[i];
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.fader.size / 100);
+      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(400 - this.params.fader.speed))
-      fill(this.params.fader.color * thisPoint.color, this.params.fader.color * thisPoint.color, this.params.fader.color * thisPoint.color, this.opacity);
+      thisPoint.pos.add(acc.div(400 - speed))
+      fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
       ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
-        this.starAmt--;
+        starAmt--;
         this.addPoint();
       }
     }
