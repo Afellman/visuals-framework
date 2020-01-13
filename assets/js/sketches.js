@@ -982,7 +982,7 @@ class Sun extends Sketch {
     this.ringAmt = 50;
     this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
-    this.speed = 0.01;
+    this.speed = 0;
     this.time = this.speed;
     this.updateOSC();
   }
