@@ -189,6 +189,7 @@ class Sketch {
     for (let i in this.params) {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
+        console.log(this[i])
         this[i] = val;
       });
     }
