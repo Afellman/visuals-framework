@@ -242,7 +242,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   draw() {
-    const { color, size, starAmt } = this.params.fader;
+    let { color, size, starAmt, speed } = this.params.fader;
     let thisPoint = {};
     noStroke();
 
