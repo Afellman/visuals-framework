@@ -217,7 +217,7 @@ class Sketch {
   }
 }
 
-class Starry extends Sketch {
+class Starry extends Sketch { // Scene 1
   constructor() {
     super();
     this.params = {
@@ -380,63 +380,7 @@ class Sun extends Sketch { // Scene 2
   }
 }
 
-class Grid extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.gridPoints = [];
-    if (!this.loaded) {
-      this.gridPointsLength = 0;
-      this.angle = 0.01;
-      this.gridPointsX = 20;
-      this.gridPointsY = 20;
-    }
-  }
 
-  init(index) {
-    super.init();
-    for (let i = 0; i < this.gridPointsY; i++) {
-      let row = [];
-      let y = map(i, 0, this.gridPointsY, 0, height);
-      for (let j = 0; j < this.gridPointsX; j++) {
-        let x = map(j, 0, this.gridPointsX, 0, width);
-        row.push(createVector(x, y))
-      }
-      this
-        .gridPoints
-        .push(row);
-    }
-    this.gridPointsLength = this.gridPoints.length;
-  }
-
-  draw() {
-    strokeWeight(3);
-    stroke(80, 0, 0);
-    for (let i = 1; i < this.gridPointsLength; i++) {
-      for (let j = 0; j < this.gridPointsX - 1; j++) {
-        if (i < this.gridPointsLength - 1) {
-          line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
-          this.move(this.gridPoints[i][j], i)
-        }
-        line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
-      }
-    }
-    // this.angle += 0.01;
-  }
-
-  move(point, i) {
-
-    let amp = mouseX / 1000;
-    let mouse = createVector(mouseX, mouseY);
-    let acc = p5
-      .Vector
-      .sub(point, mouse);
-    acc.normalize();
-
-    // acc.mult(5)
-    // point.x += sin(this.angle) * acc.x;
-    // point.y += cos(this.angle) * acc.y;
-  }
-}
 
 class EarthQuake extends Sketch {
   constructor() {
@@ -1630,6 +1574,64 @@ class Drops extends Sketch {
   }
 
   listeners = [{}]
+}
+
+class Grid extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.gridPoints = [];
+    if (!this.loaded) {
+      this.gridPointsLength = 0;
+      this.angle = 0.01;
+      this.gridPointsX = 20;
+      this.gridPointsY = 20;
+    }
+  }
+
+  init(index) {
+    super.init();
+    for (let i = 0; i < this.gridPointsY; i++) {
+      let row = [];
+      let y = map(i, 0, this.gridPointsY, 0, height);
+      for (let j = 0; j < this.gridPointsX; j++) {
+        let x = map(j, 0, this.gridPointsX, 0, width);
+        row.push(createVector(x, y))
+      }
+      this
+        .gridPoints
+        .push(row);
+    }
+    this.gridPointsLength = this.gridPoints.length;
+  }
+
+  draw() {
+    strokeWeight(3);
+    stroke(80, 0, 0);
+    for (let i = 1; i < this.gridPointsLength; i++) {
+      for (let j = 0; j < this.gridPointsX - 1; j++) {
+        if (i < this.gridPointsLength - 1) {
+          line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
+          this.move(this.gridPoints[i][j], i)
+        }
+        line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
+      }
+    }
+    // this.angle += 0.01;
+  }
+
+  move(point, i) {
+
+    let amp = mouseX / 1000;
+    let mouse = createVector(mouseX, mouseY);
+    let acc = p5
+      .Vector
+      .sub(point, mouse);
+    acc.normalize();
+
+    // acc.mult(5)
+    // point.x += sin(this.angle) * acc.x;
+    // point.y += cos(this.angle) * acc.y;
+  }
 }
 
 const Objects = {
