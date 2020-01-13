@@ -429,7 +429,7 @@ class SineWaves extends Sketch { // Scene 3
   }
   init() {
     super.init();
-    for (let i = 0; i < this.params.lineAmt; i++) {
+    for (let i = 0; i < this.params.buttons.lineAmt; i++) {
       this.addLine();
     }
   }
