@@ -251,11 +251,11 @@ class Starry extends Sketch { // Scene 1. Maped
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
+      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - speed))
       fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, pointSize);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
         starAmt--;
