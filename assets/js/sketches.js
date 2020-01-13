@@ -979,7 +979,7 @@ class Sun extends Sketch {
     this.r = 100;
     this.g = 53;
     this.b = 0;
-    this.ringAmt = 50;
+    this.ringAmt = 1;
     this.randomInt = Math.random() * this.ringAmt;
     this.opacity = 0;
     this.speed = 0;
@@ -994,7 +994,7 @@ class Sun extends Sketch {
     stroke(0, 0);
     for (let i = 0; i < this.ringAmt; i++) {
       let opacVariance = i;
-      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
+      size = 200 * sizeMulti + (i * 10) + sin(i + noise(this.time) * this.freq) * this.amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
