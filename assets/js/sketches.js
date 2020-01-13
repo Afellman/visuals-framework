@@ -187,6 +187,8 @@ class Sketch {
     //   }
     // }
     // }
+
+
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
       console.log(this.params)
@@ -195,7 +197,21 @@ class Sketch {
         this.params.faders[param] = val.args[0];
       });
     }
-    socket.emit("updateOsc", { // Syncs iPad with scenes starting values
+
+    // Attaching sockets to all button params
+    for (let i in this.params.buttons) {
+      console.log(this.params)
+      socket.on(`/${this.sceneNum}/${i}`, (val) => {
+        const param = val.address.split("/")[2];
+        if (val.args[0] > 0) {
+          this.params.faders[param] += val.args[0];
+        } else if (val.args[0] < 0) {
+          this.params.faders[param] -= val.args[0];
+        }
+      });
+    }
+    // Syncs iPad with scenes starting values
+    socket.emit("updateOsc", {
       scene: this.sceneNum,
       params: this.params.faders
     });
