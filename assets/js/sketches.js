@@ -436,7 +436,7 @@ class SineWaves extends Sketch { // Scene 3
   draw() {
     let prevX = 0;
     let prevY = height / 2;
-    for (let j = 0; j < this.params.lineAmt; j++) {
+    for (let j = 0; j < this.params.buttons.lineAmt; j++) {
       let thisLine = this.lines[j];
       const red = this.params.faders[`line${i + 1}R`];
       const green = this.params.faders[`line${i + 1}G`];
