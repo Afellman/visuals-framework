@@ -923,7 +923,7 @@ class Starry extends Sketch {
       starAmt: 200,
       speed: 10,
       size: 1,
-      color: 255
+      color: 1
     }
   }
   init() {
@@ -933,14 +933,13 @@ class Starry extends Sketch {
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height),
-        size: this.params.size * Math.random()
+        color: 200 + Math.floor(Math.random() * 55) + 1,
       });
     }
   }
   draw() {
     let thisPoint;
     noStroke();
-    fill(this.color, this.color, this.color, this.opacity);
     for (let i = 0; i < this.params.starAmt; i++) {
       thisPoint = this.points[i];
       if (thisPoint == undefined) {
@@ -949,6 +948,7 @@ class Starry extends Sketch {
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.params.speed * 10)))
+      fill(this.color * thisPoint.color, this.color * thisPoint.color, this.color * thisPoint.color, this.opacity);
       ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
@@ -963,6 +963,7 @@ class Starry extends Sketch {
     let vec = createVector(x, y);
     this.points.push({
       pos: vec,
+      color: 200 + Math.floor(Math.random() * 55) + 1,
     })
     this.starAmt++;
     return vec;
