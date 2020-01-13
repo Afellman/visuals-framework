@@ -303,7 +303,7 @@ class Sun extends Sketch { // Scene 2. Maped
     super.init();
     this.freq = 21;
     this.opacity = 0;
-    this.time = this.params.speed;
+    this.time = this.params.faders.speed;
   }
 
   draw() {
