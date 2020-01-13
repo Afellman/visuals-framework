@@ -938,7 +938,8 @@ class Starry extends Sketch {
     }
   }
   draw() {
-    let thisPoint;
+    let thisPoint = {};
+    let prevOpacity = 0;
     noStroke();
     for (let i = 0; i < this.params.starAmt; i++) {
       thisPoint = this.points[i];
@@ -946,6 +947,7 @@ class Starry extends Sketch {
         thisPoint = this.addPoint();
       }
       if (frameCount % 60 == 0) {
+        prevOpacity = this.opacity;
         this.opacity = 100
       }
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 100);
@@ -958,6 +960,7 @@ class Starry extends Sketch {
         this.starAmt--;
         this.addPoint();
       }
+      this.opacity = prevOpacity;
     }
   }
   addPoint() {
