@@ -1012,43 +1012,43 @@ class Sun extends Sketch {
         speed: this.speed,
         opacity: this.opacity,
         ringAmt: this.ringAmt,
-        red: this.r,
-        green: this.g,
-        blue: this.b
+        r: this.r,
+        g: this.g,
+        b: this.b
       }
     });
   }
 
   listeners = [{
-    socketName: '/2/multifader1/1',
+    socketName: '/2/amp',
     nodeID: "slider1",
     method: (val) => {
       this.amp = val.args[0] * 500;
     }
   },
   {
-    socketName: '/2/multifader1/2',
+    socketName: '/2/speed',
     nodeID: "slider2",
     method: (val) => {
       this.speed = val.args[0] / 800;
     }
   },
   {
-    socketName: '/2/multifader1/3',
+    socketName: '/2/r',
     nodeID: "slider3",
     method: (val) => {
       this.r = val.args[0] * 255;
     }
   },
   {
-    socketName: '/2/multifader1/4',
+    socketName: '/2/g',
     nodeID: "slider4",
     method: (val) => {
       this.g = val.args[0] * 255;
     }
   },
   {
-    socketName: '/2/multifader1/5',
+    socketName: '/2/b',
     nodeID: "slider5",
     method: (val) => {
       this.b = val.args[0] * 255;
@@ -1058,7 +1058,7 @@ class Sun extends Sketch {
     socketName: '/2/multifader1/6',
     nodeID: "slider5",
     method: (val) => {
-      this.speed = val.args[0] / 200;
+      this.ringAmt = val.args[0];
     }
   },
   {
