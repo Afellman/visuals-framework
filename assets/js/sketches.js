@@ -919,6 +919,12 @@ class GoldenSpiral extends Sketch {
 class Starry extends Sketch {
   constructor() {
     super();
+    this.params = {
+      starAmt: 200,
+      speed: 10,
+      size: 0.1,
+      color: 255
+    }
   }
   init() {
     this.opacity = 0;
@@ -927,7 +933,6 @@ class Starry extends Sketch {
     this.starAmt = 200;
     this.speed = 10;
     this.size = 0.1;
-    this.color = [255, 255, 255]
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height)
@@ -947,6 +952,9 @@ class Starry extends Sketch {
       //   ellipse(width / 2, height / 2, 100 * i)
       // }
       thisPoint = this.points[i];
+      if (thisPoint == undefined) {
+        thisPoint = this.addPoint();
+      }
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
@@ -961,11 +969,13 @@ class Starry extends Sketch {
   }
   addPoint() {
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
+    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100)); \
+    let vec = createVector(x, y);
     this.points.push({
-      pos: createVector(x, y),
+      pos: vec,
     })
     this.starAmt++;
+    return vec;
   }
 
   listeners = [{
