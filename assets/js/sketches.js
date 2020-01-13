@@ -385,8 +385,8 @@ class SineWaves extends Sketch { // Scene 3
     super(obj);
     this.params = {};
     if (!this.loaded) {
+      this.lines = [];
       this.params = {
-        lines: [],
         lineAmt: 1,
         res: 512,
         opacity: 0
