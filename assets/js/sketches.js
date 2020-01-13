@@ -288,12 +288,14 @@ class Sun extends Sketch { // Scene 2. Maped
     super();
     this.sceneNum = 2;
     this.params = {
-      amp: 20,
-      ringAmt: 1,
-      speed: 0,
-      r: 100,
-      g: 53,
-      b: 0
+      faders: {
+        amp: 20,
+        ringAmt: 1,
+        speed: 0,
+        r: 100,
+        g: 53,
+        b: 0
+      }
     }
   }
 
@@ -305,19 +307,20 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   draw() {
+    let { ringAmt, amp, speed, r, g, b } = this.params.faders;
     let size;
     // noStroke();
     stroke(0, 0);
-    for (let i = 0; i < this.params.ringAmt; i++) {
+    for (let i = 0; i < ringAmt; i++) {
       let opacVariance = i;
-      size = 200 + (i * 10) + sin(i + this.time * this.freq) * this.params.amp;
+      size = 200 + (i * 10) + sin(i + this.time * this.freq) * amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
-      fill(this.params.r, this.params.g, this.params.b, (this.opacity / opacVariance));
+      fill(r, g, b, (this.opacity / opacVariance));
       ellipse(width / 2, height / 2, size);
     }
-    this.time += this.params.speed / 1000;
+    this.time += speed / 1000;
   }
 
 
