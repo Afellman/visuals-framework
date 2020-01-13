@@ -966,10 +966,11 @@ class Starry extends Sketch {
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
     let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
-    this.points.push({
+    let newPoint = {
       pos: vec,
       color: 200 + Math.floor(Math.random() * 55) + 1,
-    })
+    }
+    this.points.push()
     this.starAmt++;
     return vec;
   }
