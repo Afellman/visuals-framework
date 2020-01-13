@@ -930,7 +930,7 @@ class Starry extends Sketch {
     this.opacity = 0;
     this.points = [];
     super.init();
-    for (let i = 0; i < this.starAmt; i++) {
+    for (let i = 0; i < this.params.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height),
         color: 200 + Math.floor(Math.random() * 55) + 1,
