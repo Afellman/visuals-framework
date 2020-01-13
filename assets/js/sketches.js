@@ -922,7 +922,7 @@ class Starry extends Sketch {
     this.params = {
       starAmt: 200,
       speed: 10,
-      size: 0.1,
+      size: 1,
       color: 255
     }
   }
@@ -930,27 +930,18 @@ class Starry extends Sketch {
     this.opacity = 0;
     this.points = [];
     super.init();
-    this.starAmt = 200;
-    this.speed = 10;
-    this.size = 0.1;
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
-        pos: createVector(random() * width, random() * height)
+        pos: createVector(random() * width, random() * height),
+        size: this.size * Math.random()
       });
     }
   }
   draw() {
-    let x;
-    let y;
     let thisPoint;
     noStroke();
-    fill(this.color[0], this.color[1], this.color[2], this.opacity);
+    fill(this.color, this.color, this.color, this.opacity);
     for (let i = 0; i < this.starAmt; i++) {
-      // if (i < 10) {
-      //   // stroke("white")
-      //   fill(0, 255, 0, 10)
-      //   ellipse(width / 2, height / 2, 100 * i)
-      // }
       thisPoint = this.points[i];
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
@@ -958,8 +949,7 @@ class Starry extends Sketch {
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
-      // stroke("white");
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, thisPoint.size * this.size * size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
         this.starAmt--;
