@@ -155,39 +155,42 @@ class Sketch {
     this.detachListeners();
   }
   attachListeners() {
-    let length = this.listeners.length;
-    for (let i = 0; i < length; i++) {
-      let thisListener = this.listeners[i];
+    // let length = this.listeners.length;
+    // for (let i = 0; i < length; i++) {
+    //   let thisListener = this.listeners[i];
 
-      // const nodes = document.querySelectorAll("#" + thisListener.nodeID);
-      // const node = nodes[0];
-      // if (node) {
-      //   if (node.tagName == "BUTTON") {
+    // const nodes = document.querySelectorAll("#" + thisListener.nodeID);
+    // const node = nodes[0];
+    // if (node) {
+    //   if (node.tagName == "BUTTON") {
 
-      //     node.addEventListener("click", (e) => {
-      //       thisListener.method({
-      //         args: [e.target.value / 100]
-      //       });
-      //     })
-      //   } else {
-      //     node.addEventListener("change", (e) => {
-      //       thisListener.method({
-      //         args: [e.target.value / 100]
-      //       });
-      //     })
-      //   }
-      // }
+    //     node.addEventListener("click", (e) => {
+    //       thisListener.method({
+    //         args: [e.target.value / 100]
+    //       });
+    //     })
+    //   } else {
+    //     node.addEventListener("change", (e) => {
+    //       thisListener.method({
+    //         args: [e.target.value / 100]
+    //       });
+    //     })
+    //   }
+    // }
 
-      // if (thisListener.midi) {
-      //   if (midiSubscribers[thisListener.midi]) {
-      //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
-      //   } else {
-      //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
-      //   }
-      // }
+    // if (thisListener.midi) {
+    //   if (midiSubscribers[thisListener.midi]) {
+    //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
+    //   } else {
+    //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
+    //   }
+    // }
+    // }
+    for (let i in this.params) {
+      socket.on(`/${this.sceneNum}/${i}`, (val) => {
+        this[i] = val;
+      });
     }
-
-    socket.on(thisListener.socketName, thisListener.method);
   }
   detachListeners() {
     let length = this.listeners.length;
