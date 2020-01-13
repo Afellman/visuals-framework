@@ -969,10 +969,10 @@ class Starry extends Sketch {
     let newPoint = {
       pos: vec,
       color: 200 + Math.floor(Math.random() * 55) + 1,
-    }
-    this.points.push()
+    };
+    this.points.push(newPoint)
     this.starAmt++;
-    return vec;
+    return newPoint;
   }
 
   listeners = [{
