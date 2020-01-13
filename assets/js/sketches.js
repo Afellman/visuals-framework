@@ -933,7 +933,7 @@ class Starry extends Sketch {
     for (let i = 0; i < this.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height),
-        size: this.size * Math.random()
+        size: this.params.size * Math.random()
       });
     }
   }
@@ -941,15 +941,15 @@ class Starry extends Sketch {
     let thisPoint;
     noStroke();
     fill(this.color, this.color, this.color, this.opacity);
-    for (let i = 0; i < this.starAmt; i++) {
+    for (let i = 0; i < this.params.starAmt; i++) {
       thisPoint = this.points[i];
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
+      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, thisPoint.size * this.size * size);
+      thisPoint.pos.add(acc.div(400 - (this.params.speed * 10)))
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, thisPoint.size * size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
         this.starAmt--;
@@ -959,7 +959,7 @@ class Starry extends Sketch {
   }
   addPoint() {
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100)); \
+    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
     this.points.push({
       pos: vec,
