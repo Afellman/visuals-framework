@@ -948,7 +948,7 @@ class Starry extends Sketch {
       }
       if (frameCount + i % 60 == 0) {
         prevOpacity = this.opacity;
-        this.opacity = 100
+        this.opacity = 50
       }
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 100);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
@@ -960,8 +960,8 @@ class Starry extends Sketch {
         this.starAmt--;
         this.addPoint();
       }
-      this.opacity = prevOpacity;
     }
+    this.opacity = prevOpacity;
   }
   addPoint() {
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
