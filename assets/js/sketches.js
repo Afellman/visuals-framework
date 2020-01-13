@@ -412,8 +412,16 @@ class SineWaves extends Sketch { // Scene 3
     if (!this.loaded) {
       this.lines = [];
       this.params = {
-        lineAmt: 1,
-        speed: 0.0001
+        faders: { // Initializing with one line.
+          line1R: 255,
+          line1G: 255,
+          line1B: 255,
+          line1Speed: 0.01,
+          weight: 3
+        },
+        buttons: {
+          lineAmt: 1,
+        }
       }
       this.res = 512;
       this.opacity = 0;
@@ -430,8 +438,13 @@ class SineWaves extends Sketch { // Scene 3
     let prevY = height / 2;
     for (let j = 0; j < this.params.lineAmt; j++) {
       let thisLine = this.lines[j];
-      stroke(thisLine.color[0], thisLine.color[1], thisLine.color[2], this.opacity);
-      strokeWeight(3);
+      const red = this.params.faders[`line${i + 1}R`];
+      const green = this.params.faders[`line${i + 1}G`];
+      const blue = this.params.faders[`line${i + 1}B`];
+      const speed = this.params.faders.weight;
+
+      stroke(red, green, blue, this.opacity);
+      strokeWeight(this.params.faders.weight);
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
         let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
