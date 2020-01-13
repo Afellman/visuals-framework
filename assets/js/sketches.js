@@ -396,15 +396,14 @@ class SineWaves extends Sketch { // Scene 3
   }
   init() {
     super.init();
-    for (let i = 0; i < this.lineAmt; i++) {
-      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
-      this.lines.push(line);
+    for (let i = 0; i < this.params.lineAmt; i++) {
+      this.addLine();
     }
   }
   draw() {
     let prevX = 0;
     let prevY = height / 2;
-    for (let j = 0; j < this.lineAmt; j++) {
+    for (let j = 0; j < this.params.lineAmt; j++) {
       let thisLine = this.lines[j];
       stroke(thisLine.color[0], thisLine.color[1], thisLine.color[2], this.opacity);
       strokeWeight(3);
@@ -418,9 +417,14 @@ class SineWaves extends Sketch { // Scene 3
           prevX = 0;
           prevY = height / 2;
         }
-        thisLine.time += this.speed;
       }
+      thisLine.time += thisLine.speed;
     }
+  }
+
+  addLine() {
+    const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
+    this.lines.push(line);
   }
 
   listeners = [
