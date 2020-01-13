@@ -442,10 +442,10 @@ class SineWaves extends Sketch { // Scene 3
       const red = this.params.faders[`line${j + 1}R`];
       const green = this.params.faders[`line${j + 1}G`];
       const blue = this.params.faders[`line${j + 1}B`];
-      const speed = this.params.faders.weight;
+      const weight = this.params.faders.weight;
 
       stroke(red, green, blue, this.opacity);
-      strokeWeight(this.params.faders.weight);
+      strokeWeight(weight);
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
         let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
