@@ -146,7 +146,7 @@ class Sketch {
       this.loaded = true;
     }
     this.listeners = [];
-    this.params = { faders:}
+    this.params = { faders: {}, buttons: {} }
   }
   init() {
     this.attachListeners();
@@ -191,7 +191,7 @@ class Sketch {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
-        this.params[param] = val.args[0];
+        this.params.faders[param] = val.args[0];
       });
     }
     socket.emit("updateOsc", { // Syncs iPad with scenes starting values
