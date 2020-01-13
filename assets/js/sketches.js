@@ -960,8 +960,8 @@ class Starry extends Sketch {
         this.starAmt--;
         this.addPoint();
       }
+      this.opacity = prevOpacity;
     }
-    this.opacity = prevOpacity;
   }
   addPoint() {
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
