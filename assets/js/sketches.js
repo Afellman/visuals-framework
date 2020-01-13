@@ -949,7 +949,7 @@ class Starry extends Sketch {
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 10);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.params.speed * 10)))
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, thisPoint.size * size);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
         this.starAmt--;
