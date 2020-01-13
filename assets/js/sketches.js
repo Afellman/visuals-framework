@@ -989,7 +989,6 @@ class Sun extends Sketch { // Scene 2
     this.freq = 21;
     this.opacity = 0;
     this.time = this.params.speed;
-    this.updateOSC();
   }
 
   draw() {
