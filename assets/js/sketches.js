@@ -1023,35 +1023,35 @@ class Sun extends Sketch {
     socketName: '/2/amp',
     nodeID: "slider1",
     method: (val) => {
-      this.amp = val.args[0] * 500;
+      this.amp = val.args[0];
     }
   },
   {
     socketName: '/2/speed',
     nodeID: "slider2",
     method: (val) => {
-      this.speed = val.args[0] / 800;
+      this.speed = val.args[0];
     }
   },
   {
     socketName: '/2/r',
     nodeID: "slider3",
     method: (val) => {
-      this.r = val.args[0] * 255;
+      this.r = val.args[0];
     }
   },
   {
     socketName: '/2/g',
     nodeID: "slider4",
     method: (val) => {
-      this.g = val.args[0] * 255;
+      this.g = val.args[0];
     }
   },
   {
     socketName: '/2/b',
     nodeID: "slider5",
     method: (val) => {
-      this.b = val.args[0] * 255;
+      this.b = val.args[0];
     }
   },
   {
