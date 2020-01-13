@@ -974,7 +974,7 @@ class Sun extends Sketch {
 
   init() {
     super.init();
-    this.freq = 10;
+    this.freq = 21;
     this.amp = 20
     this.r = 100;
     this.g = 53;
@@ -1022,7 +1022,6 @@ class Sun extends Sketch {
     socketName: '/2/multifader1/1',
     nodeID: "slider1",
     method: (val) => {
-      this.freq = val.args[0] * 100;
       this.amp = val.args[0] * 500;
     }
   },
@@ -1030,7 +1029,7 @@ class Sun extends Sketch {
     socketName: '/2/multifader1/2',
     nodeID: "slider2",
     method: (val) => {
-      this.amp = val.args[0] * 500;
+      this.speed = val.args[0] / 200;
     }
   },
   {
