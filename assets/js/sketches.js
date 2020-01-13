@@ -380,6 +380,77 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 }
 
+class SineWaves extends Sketch { // Scene 3
+  constructor(obj) {
+    super(obj);
+    this.params = {};
+    if (!this.loaded) {
+      this.params = {
+        lines: [],
+        lineAmt: 1,
+        res: 512,
+        opacity: 0
+      }
+    }
+  }
+  init() {
+    super.init();
+    for (let i = 0; i < this.lineAmt; i++) {
+      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
+      this.lines.push(line);
+    }
+  }
+  draw() {
+    let prevX = 0;
+    let prevY = height / 2;
+    for (let j = 0; j < this.lineAmt; j++) {
+      let thisLine = this.lines[j];
+      stroke(thisLine.color[0], thisLine.color[1], thisLine.color[2], this.opacity);
+      strokeWeight(3);
+      for (let i = 0; i < this.res; i++) {
+        let x = width / 100 * i;
+        let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
+        line(prevX, prevY, x, y);
+        prevX = x;
+        prevY = y;
+        if (i == this.res - 1) {
+          prevX = 0;
+          prevY = height / 2;
+        }
+        thisLine.time += thisLine.speed;
+      }
+    }
+  }
+
+  listeners = [
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider1",
+      method: (val) => {
+        this.maxAmpY = val.args[0] * height / 2
+      }
+    },
+    {
+      socketName: '/1/multifader1/2',
+      nodeID: "slider2",
+      method: (val) => {
+        let value = val.args[0] / 10;
+        if (value < 0.01) {
+          value = 0.01
+        }
+        this.speed = value;
+      }
+    },
+    {
+      socketName: '/1/multifader1/3',
+      nodeID: "slider2",
+      method: (val) => {
+        let value = val.args[0] * 10;
+        this.freq = value;
+      }
+    },
+  ]
+}
 
 class Sin extends Sketch {
   constructor(obj) {
@@ -984,76 +1055,6 @@ class GoldenSpiral extends Sketch {
     }
     this.time += 0.00001;
   }
-}
-
-
-class SineWaves extends Sketch {
-  constructor(obj) {
-    super(obj);
-    if (!this.loaded) {
-      this.lines = [];
-      this.lineAmt = 1;
-      this.res = 512;
-      this.opacity = 0;
-    }
-  }
-  init() {
-    super.init();
-    for (let i = 0; i < this.lineAmt; i++) {
-      const line = { freq: 1, maxAmpY: height / 2, speed: 0.00001, time: 0.01, color: [255, 255, 255] }
-      this.lines.push(line);
-    }
-  }
-  draw() {
-    let prevX = 0;
-    let prevY = height / 2;
-    for (let j = 0; j < this.lineAmt; j++) {
-      let thisLine = this.lines[j];
-      stroke(thisLine.color[0], thisLine.color[1], thisLine.color[2], this.opacity);
-      strokeWeight(3);
-      for (let i = 0; i < this.res; i++) {
-        let x = width / 100 * i;
-        let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
-        line(prevX, prevY, x, y);
-        prevX = x;
-        prevY = y;
-        if (i == this.res - 1) {
-          prevX = 0;
-          prevY = height / 2;
-        }
-        thisLine.time += thisLine.speed;
-      }
-    }
-  }
-
-  listeners = [
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      method: (val) => {
-        this.maxAmpY = val.args[0] * height / 2
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] / 10;
-        if (value < 0.01) {
-          value = 0.01
-        }
-        this.speed = value;
-      }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] * 10;
-        this.freq = value;
-      }
-    },
-  ]
 }
 
 class Orbitals extends Sketch {
