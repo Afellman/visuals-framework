@@ -190,6 +190,7 @@ class Sketch {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val, foo) => {
         const param = val.address.split("/")[1];
+        console.log(param)
         this[param] = val.args[0];
       });
     }
