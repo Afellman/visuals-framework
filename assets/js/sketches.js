@@ -235,7 +235,7 @@ class Starry extends Sketch { // Scene 1. Maped
     super.init();
     this.opacity = 0;
     this.points = [];
-    for (let i = 0; i < this.params.fader.starAmt; i++) {
+    for (let i = 0; i < this.params.faders.starAmt; i++) {
       this.points.push({
         pos: createVector(random() * width, random() * height),
         color: 200 + Math.floor(Math.random() * 55) + 1,
@@ -243,7 +243,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   draw() {
-    let { color, size, starAmt, speed } = this.params.fader;
+    let { color, size, starAmt, speed } = this.params.faders;
     let thisPoint = {};
     noStroke();
 
@@ -265,7 +265,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   addPoint() {
-    let { starAmt } = this.params.fader;
+    let { starAmt } = this.params.faders;
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
     let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
