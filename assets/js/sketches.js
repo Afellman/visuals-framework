@@ -1008,6 +1008,7 @@ class Sun extends Sketch {
     socket.emit("updateOsc", {
       scene: "2",
       params: {
+        amp: this.amp,
         speed: this.speed,
         opacity: this.opacity,
         ringAmt: this.ringAmt,
@@ -1029,7 +1030,7 @@ class Sun extends Sketch {
     socketName: '/2/multifader1/2',
     nodeID: "slider2",
     method: (val) => {
-      this.speed = val.args[0] / 400;
+      this.speed = val.args[0] / 800;
     }
   },
   {
