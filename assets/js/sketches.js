@@ -975,7 +975,6 @@ class Sun extends Sketch {
   init() {
     super.init();
     this.freq = 10;
-    this.amp = 20
     this.r = 100;
     this.g = 53;
     this.b = 0;
@@ -994,7 +993,7 @@ class Sun extends Sketch {
     stroke(0, 0);
     for (let i = 0; i < this.ringAmt; i++) {
       let opacVariance = i;
-      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * this.amp;
+      size = 200 * sizeMulti + (i * 10) + sin(i + this.time * this.freq) * 20;
       if (i == 0) {
         opacVariance = 0.9;
       }
