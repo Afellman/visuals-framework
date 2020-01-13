@@ -178,15 +178,15 @@ class Sketch {
       //   }
       // }
 
-      socket.on(thisListener.socketName, thisListener.method);
 
-      if (thisListener.midi) {
-        if (midiSubscribers[thisListener.midi]) {
-          midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
-        } else {
-          midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
-        }
-      }
+      // if (thisListener.midi) {
+      //   if (midiSubscribers[thisListener.midi]) {
+      //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
+      //   } else {
+      //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
+      //   }
+      // }
+      socket.on(thisListener.socketName, thisListener.method);
     }
   }
   detachListeners() {
@@ -974,7 +974,7 @@ class Sun extends Sketch { // Scene 2
   }
 
   init() {
-    super.init({ scene: 2 });
+    super.init();
     this.params = {
       amp: 20,
       ringAmt: 1,
