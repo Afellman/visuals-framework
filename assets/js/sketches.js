@@ -1055,7 +1055,7 @@ class Sun extends Sketch {
     }
   },
   {
-    socketName: '/2/multifader1/6',
+    socketName: '/2/ringAmt',
     nodeID: "slider5",
     method: (val) => {
       this.ringAmt = val.args[0];
