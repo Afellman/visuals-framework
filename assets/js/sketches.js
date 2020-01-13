@@ -388,9 +388,10 @@ class SineWaves extends Sketch { // Scene 3
       this.lines = [];
       this.params = {
         lineAmt: 1,
-        res: 512,
-        opacity: 0
+        speed: 0.0001
       }
+      this.res = 512;
+      this.opacity = 0;
     }
   }
   init() {
@@ -417,7 +418,7 @@ class SineWaves extends Sketch { // Scene 3
           prevX = 0;
           prevY = height / 2;
         }
-        thisLine.time += thisLine.speed;
+        thisLine.time += this.speed;
       }
     }
   }
