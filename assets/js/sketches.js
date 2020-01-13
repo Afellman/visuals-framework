@@ -187,6 +187,7 @@ class Sketch {
     //   }
     // }
     // }
+    // Attaching sockets to all fader params
     for (let i in this.params.faders) {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
