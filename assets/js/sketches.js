@@ -189,8 +189,8 @@ class Sketch {
     for (let i in this.params) {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val, foo) => {
-        console.log(val, foo)
-        this[i] = val;
+        const param = val.address.split("/")[1];
+        this[param] = val.args[0];
       });
     }
   }
