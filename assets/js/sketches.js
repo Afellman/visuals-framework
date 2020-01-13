@@ -217,7 +217,7 @@ class Sketch {
   }
 }
 
-class Starry extends Sketch { // Scene 1
+class Starry extends Sketch { // Scene 1. Maped
   constructor() {
     super();
     this.params = {
@@ -278,7 +278,7 @@ class Starry extends Sketch { // Scene 1
   }]
 }
 
-class Sun extends Sketch { // Scene 2
+class Sun extends Sketch { // Scene 2. Maped
   constructor() {
     super();
     this.sceneNum = 2;
@@ -380,46 +380,6 @@ class Sun extends Sketch { // Scene 2
   }
 }
 
-
-
-class EarthQuake extends Sketch {
-  constructor() {
-    super();
-  }
-
-  unload() {
-    super.unload();
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-  }
-
-  init() {
-    super.init();
-    this.time = new Date().getTime();
-    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then((res) => res.json()).then(data => {
-      this.quakeData = data.features;
-      this.firstQuake = this
-        .quakeData
-        .reduce((min, obj) => obj.properties.time < min ?
-          obj.properties.time :
-          min, this.quakeData[0].properties.time)
-    }).catch(err => console.log(err));
-  }
-
-  draw() {
-    if (this.quakeData) {
-      for (let i = 0; i < this.quakeData.length; i++) {
-        let thisQuake = this.quakeData[i].properties;
-        let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
-        stroke("white")
-        text(thisQuake.title, x, height / 2 - (i * 30));
-        ellipse(x, height / 2, thisQuake.mag * 25)
-      }
-    }
-  }
-}
 
 class Sin extends Sketch {
   constructor(obj) {
@@ -1027,7 +987,6 @@ class GoldenSpiral extends Sketch {
 }
 
 
-
 class SineWaves extends Sketch {
   constructor(obj) {
     super(obj);
@@ -1518,22 +1477,6 @@ class TreeFractal extends Sketch {
   ]
 }
 
-class Chem extends Sketch {
-  constructor() {
-    super();
-  }
-
-  init() {
-    super.init();
-  }
-
-  draw() {
-
-  }
-
-  listeners = [{}]
-}
-
 class Drops extends Sketch {
   constructor(obj) {
     super(obj);
@@ -1631,6 +1574,45 @@ class Grid extends Sketch {
     // acc.mult(5)
     // point.x += sin(this.angle) * acc.x;
     // point.y += cos(this.angle) * acc.y;
+  }
+}
+
+class EarthQuake extends Sketch {
+  constructor() {
+    super();
+  }
+
+  unload() {
+    super.unload();
+    this.gridPoints = [];
+    this.gridPointsLength = 0
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+  }
+
+  init() {
+    super.init();
+    this.time = new Date().getTime();
+    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then((res) => res.json()).then(data => {
+      this.quakeData = data.features;
+      this.firstQuake = this
+        .quakeData
+        .reduce((min, obj) => obj.properties.time < min ?
+          obj.properties.time :
+          min, this.quakeData[0].properties.time)
+    }).catch(err => console.log(err));
+  }
+
+  draw() {
+    if (this.quakeData) {
+      for (let i = 0; i < this.quakeData.length; i++) {
+        let thisQuake = this.quakeData[i].properties;
+        let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
+        stroke("white")
+        text(thisQuake.title, x, height / 2 - (i * 30));
+        ellipse(x, height / 2, thisQuake.mag * 25)
+      }
+    }
   }
 }
 
