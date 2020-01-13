@@ -190,10 +190,13 @@ class Sketch {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val, foo) => {
         const param = val.address.split("/")[2];
-        console.log(param);
         this.params[param] = val.args[0];
       });
     }
+    socket.emit("updateOsc", {
+      scene: this.sceneNum,
+      params: this.params
+    });
   }
   detachListeners() {
     let length = this.listeners.length;
