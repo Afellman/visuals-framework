@@ -945,6 +945,9 @@ class Starry extends Sketch {
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
+      if (frameCount % 60 == 0) {
+        this.opacity = 100
+      }
       let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.params.size / 100);
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - (this.params.speed * 10)))
