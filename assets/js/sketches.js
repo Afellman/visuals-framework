@@ -946,7 +946,7 @@ class Starry extends Sketch {
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      if (frameCount + i % 60 == 0) {
+      if ((frameCount + i) % 60 == 0) {
         prevOpacity = this.opacity;
         this.opacity = 50
       }
