@@ -504,7 +504,7 @@ class SpinningCircles extends Sketch {
       , centerPoints
       , freq
       , freq
-      , multiplier }
+      , multiplier } = this;
     stroke(255, 255, 255, 50);
     fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
