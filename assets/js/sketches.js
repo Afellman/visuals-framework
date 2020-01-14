@@ -497,67 +497,7 @@ class Connecter extends Sketch {// Scene 4.
     }
     this.freq += this.speed;
   }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    method: (val) => {
-      this.circleDiameter = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/2',
-    nodeID: "slider2",
-    method: (val) => {
-      this.curl = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/3',
-    nodeID: "slider3",
-    method: (val) => {
-      this.rotateRate = val.args[0] / 10;
-    }
-  }, {
-    socketName: '/1/multifader1/4',
-    nodeID: "slider4",
-    method: (val) => {
-      this.circleSize = val.args[0] * 10;
-    }
-  }, {
-    socketName: '/1/multifader1/5',
-    nodeID: "slider5",
-    method: (val) => {
-      this.proximity = val.args[0] * 1000
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn1",
-    method: (val) => {
-      if (val) {
-        let x = width / this.pointAmt;
-        let y = 0;
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-        this.pointAmt++
-      }
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn2",
-    method: (val) => {
-      if (val) {
-        this.topPoints.pop();
-        this.bottomPoints.pop();
-        this.pointAmt--
-      }
-    }
-  }]
+  listeners = []
   mouseClicked() { }
 }
 
