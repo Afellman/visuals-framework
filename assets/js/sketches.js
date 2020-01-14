@@ -818,7 +818,7 @@ class SpinningCircles extends Sketch {
     if (!this.loaded) {
       this.params = {
         faders: {
-          pointAmt: 300,
+          pointAmt: 100,
           circleDiameter: 50,
           curl: 300,
           proximity: 250,
