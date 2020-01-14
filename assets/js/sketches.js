@@ -441,8 +441,6 @@ class SineWaves extends Sketch { // Scene 3
       let thisLine = this.lines[j];
       if (thisLine == undefined) {
         thisLine = this.addLine();
-      } else if (this.params.buttons.lineAmt !== this.lines.length - 1) {
-        this.lines.splice(this.lines.length - 1, 1)
       }
       const red = this.params.faders[`line${j + 1}R`];
       const green = this.params.faders[`line${j + 1}G`];
