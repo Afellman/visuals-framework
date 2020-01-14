@@ -210,13 +210,15 @@ class Sketch {
         }
       });
     }
+    this.updateOsc();
+
   }
 
   updateOsc() {
     // Syncs iPad with scenes starting values
     socket.emit("updateOsc", {
       scene: this.sceneNum,
-      params: this.params.faders
+      params: { ...this.params.faders, ...this.params.buttons }
     });
   }
   detachListeners() {
