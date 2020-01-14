@@ -826,12 +826,13 @@ class SpinningCircles extends Sketch {
           multiplier: 10,
           rotateRate: 0.00,
           circleSize: 3,
+          speed: 0.01
         },
         buttons: {
           center: false,
-          top: false,
+          top: true,
           right: false,
-          bottom: false
+          bottom: true
         }
       }
       this.opacity = 0;
