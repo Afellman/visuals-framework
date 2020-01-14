@@ -202,7 +202,6 @@ class Sketch {
         this.params.faders[param] = val.args[0];
       });
     }
-
     this.updateOsc();
   }
 
@@ -213,6 +212,7 @@ class Sketch {
       params: this.params.faders
     });
   }
+
   detachListeners() {
     let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
@@ -220,6 +220,7 @@ class Sketch {
       socket.removeListener(thisSocket.socketName, thisSocket.method);
     }
   }
+
   mouseClicked() { }
   keyPressed() { }
   save() {
@@ -291,7 +292,6 @@ class Starry extends Sketch { // Scene 1. Maped
     starAmt++;
     return newPoint;
   }
-
 }
 
 class Sun extends Sketch { // Scene 2. Maped
