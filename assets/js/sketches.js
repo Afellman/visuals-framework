@@ -188,9 +188,11 @@ class Sketch {
     // }
     // }
 
-
     for (let i = 0; i < this.listeners.length; i++) {
-      socket.on(this.listeners.socketName, this.listeners.method);
+      const socket = this.listeners[i];
+      if (socket.socketName && socket.socketMethod) {
+        socket.on(this.listeners.socketName, this.listeners.method);
+      }
     }
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
@@ -331,67 +333,6 @@ class Sun extends Sketch { // Scene 2. Maped
     }
     this.time += speed / 1000;
   }
-
-
-  listeners = [{
-    socketName: '/2/amp',
-    nodeID: "slider1",
-    method: (val) => {
-      this.amp = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/speed',
-    nodeID: "slider2",
-    method: (val) => {
-      this.speed = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/r',
-    nodeID: "slider3",
-    method: (val) => {
-      this.r = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/g',
-    nodeID: "slider4",
-    method: (val) => {
-      this.g = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/b',
-    nodeID: "slider5",
-    method: (val) => {
-      this.b = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/ringAmt',
-    nodeID: "slider5",
-    method: (val) => {
-      this.ringAmt = val.args[0];
-    }
-  },
-  {
-    socketName: '/2/push1',
-    method: (val) => {
-      if (val.args[0] == 1) {
-        this.ringAmt++;
-      }
-    }
-  },
-  {
-    socketName: '/2/push2',
-    method: (val) => {
-      if (val.args[0] == 1) {
-        this.ringAmt--
-      }
-    }
-  }
-  ];
   keyPressed(e) {
 
   }
