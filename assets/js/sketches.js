@@ -545,30 +545,15 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.params.faders.circleSize;
-      if (i > 0 && dist(x, y, prevX, prevY) < this.params.faders.proximityIn) { // Connects all dots together
-        stroke(255, 255, 255, 50);
-        line(x, y, prevX, prevY);
-      }
-      if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximityOut) {
-        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
-        line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
-      }
-      if (this.params.buttons.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximityOut) {
-        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
-        line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
-      }
-      // FOR CONNECTER LINES ON SIDES
-      if (this.params.buttons.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximityOut) {
-        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
-        line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
-      }
-      if (this.params.buttons.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximityOut) {
-        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
-        line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
-      }
 
       fill(255, 255, 255, 255 * this.opacity);
-      ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.params.faders.circleSize);
+      ellipse(Math.round(x), Math.round(y), this.params.faders.circleSize);
+      for (let j = 0; j < this.params.faders.pointAmt; j++) {
+        if (i > 0 && dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.params.faders.proximityIn) { // Connects all dots together
+          stroke(255, 255, 255, 50);
+          line(x, y, prevX, prevY);
+        }
+      }
       prevX = x;
       prevY = y;
     }
