@@ -495,16 +495,13 @@ class SpinningCircles extends Sketch {
     let circleY;
     let x;
     let y;
-    const { speed, curl, circleDiameter, circleSize, pointAmt } = this.params.faders;
-    const { opacity
-      , bottomPoints
-      , topPoints
-      , rightPoints
-      , leftPoints
-      , centerPoints
-      , freq
-      , freq
-      , multiplier } = this;
+    const { speed,
+      curl,
+      circleDiameter,
+      circleSize,
+      pointAmt } = this.params.faders;
+    const { opacity,
+      bottomPoints, topPoints, rightPoints, leftPoints, centerPoints, freq, freq, multiplier } = this;
     stroke(255, 255, 255, 50);
     fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
