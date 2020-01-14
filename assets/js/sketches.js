@@ -405,9 +405,15 @@ class SineWaves extends Sketch { // Scene 3
     this.params.faders[`line${index}G`] = line.color[1];
     this.params.faders[`line${index}B`] = line.color[2];
     this.params.faders[`line${index}Speed`] = line.speed;
+    this.lineAmt++;
     this.lines.push(line);
     this.updateOsc();
     return line;
+  }
+
+  removeLine() {
+    this.lines.splice(this.lineAmt, 1);
+    this.lineAmt--;
   }
 
   listeners = [
