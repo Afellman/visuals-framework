@@ -189,8 +189,8 @@ class Sketch {
     // }
 
     for (let i = 0; i < this.listeners.length; i++) {
-      const socket = this.listeners[i];
-      if (socket.socketName && socket.socketMethod) {
+      const thisSocket = this.listeners[i];
+      if (thisSocket.socketName && thisSocket.socketMethod) {
         socket.on(this.listeners.socketName, this.listeners.method);
       }
     }
