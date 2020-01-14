@@ -499,7 +499,7 @@ class SpinningCircles extends Sketch {
       circleDiameter,
       circleSize,
       pointAmt,
-      proximityIn } = this.params.faders;
+      proximity } = this.params.faders;
     const { opacity,
       centerPoints,
       freq,
