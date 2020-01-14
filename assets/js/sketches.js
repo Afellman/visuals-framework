@@ -908,9 +908,9 @@ class SpinningCircles extends Sketch {
       leftPoint = this.leftPoints[i];
       centerPoint = this.centerPoints[i];
       orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
+      circle = sin(i) * this.params.faders;
       orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
+      circleY = cos(i) * this.params.faders;
       x = width / 2 + orbit + circle;
       y = (height / 2 + orbitY * this.curl) + circleY;
       centerPoint.pos.x = x;
