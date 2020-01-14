@@ -455,6 +455,7 @@ class SpinningCircles extends Sketch {
         }
       }
 
+      this.pointMax = 200;
       this.multiplier = 10;
       this.opacity = 0;
       this.freq = 0.01;
@@ -463,9 +464,7 @@ class SpinningCircles extends Sketch {
 
   init() {
     super.init();
-    for (let i = 0; i < this.params.faders.pointAmt; i++) {
-      let x = width / this.params.faders.pointAmt * i;
-      let y = 0;
+    for (let i = 0; i < this.pointMax; i++) {
       let orbit = sin(this.freq + i * 10) * this.params.faders.circleDiameter;
       let circle = sin(i) * this.params.faders.curl;
       let orbitY = cos(this.freq + i * this.multiplier);
