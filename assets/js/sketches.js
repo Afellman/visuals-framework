@@ -148,16 +148,13 @@ class Sketch {
     this.listeners = [];
     this.params = { faders: {}, buttons: {} }
   }
-
   init() {
     this.attachListeners();
 
   }
-
   unload() {
     this.detachListeners();
   }
-
   attachListeners() {
     // let length = this.listeners.length;
     // for (let i = 0; i < length; i++) {
@@ -199,6 +196,7 @@ class Sketch {
     }
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
+      console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
         this.params.faders[param] = val.args[0];
@@ -340,7 +338,7 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 }
 
-class SineWaves extends Sketch { // Scene 3. Maped 
+class SineWaves extends Sketch { // Scene 3
   constructor(obj) {
     super(obj);
     this.params = {};
@@ -353,18 +351,6 @@ class SineWaves extends Sketch { // Scene 3. Maped
           line1G: 255,
           line1B: 255,
           line1Speed: 0.01,
-          line2R: 255,
-          line2G: 255,
-          line2B: 255,
-          line2Speed: 0.01,
-          line3R: 255,
-          line3G: 255,
-          line3B: 255,
-          line3Speed: 0.01,
-          line4R: 255,
-          line4G: 255,
-          line4B: 255,
-          line4Speed: 0.01,
           weight: 3
         },
         buttons: {
@@ -411,10 +397,21 @@ class SineWaves extends Sketch { // Scene 3. Maped
 
   addLine() {
     const line = { freq: 1, maxAmpY: height / 2, speed: 0.01, time: 0.01, color: [255, 255, 255] }
+    const index = this.lines.length + 1;
+    this.params.faders[`line${index}R`] = line.color[0];
+    this.params.faders[`line${index}G`] = line.color[1];
+    this.params.faders[`line${index}B`] = line.color[2];
+    this.params.faders[`line${index}Speed`] = line.speed;
+    this.lineAmt++;
     this.lines.push(line);
+    this.updateOsc();
     return line;
   }
 
+  removeLine() {
+    this.lines.splice(this.lineAmt, 1);
+    this.prlineAmt--;
+  }
 
   listeners = [
     {
@@ -422,143 +419,12 @@ class SineWaves extends Sketch { // Scene 3. Maped
       socketMethod: (val) => {
         if (val.args[0] == 1) {
           this.addLine();
-          this.params.buttons.lineAmt++;
         } else if (val.args[0] == -1) {
-          this.lines.splice(this.lineAmt, 1);
-          this.params.buttons.lineAmt--;
+          this.removeLine();
         }
       }
     }
   ]
-}
-
-class Connecter extends Sketch {// Scene 4.
-  constructor(color) {
-    super();
-    this.params = {
-      faders: {
-        // pointAmt: 50,
-        // this.circleDiameter = 410;
-        // this.curl = 280;
-        // this.strokeWeight = 1;
-        // this.multiplier = 10;
-
-
-      }
-    }
-    this.centerPoints = [];
-    this.color = 255;
-    this.proximity = 500;
-    this.speed = 0.01;
-    this.color = color || false;
-    this.imgIndex = 2;
-    this.opacity = 0;
-  }
-
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      const orbit = sin(this.freq + i * 10) * this.curl;
-      const circle = sin(i) * this.circleDiameter;
-      const orbitY = cos(this.freq + i * this.multiplier);
-      const circleY = cos(i) * this.circleDiameter;
-      const newPoint = new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        this.color || someColor(this.imgIndex),
-      );
-      this.centerPoints.push(newPoint);
-    }
-    this.freq = this.speed;
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.pos.x = width / 2 + orbit + circle
-      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        }
-      }
-    }
-    this.freq += this.speed;
-  }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    method: (val) => {
-      this.circleDiameter = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/2',
-    nodeID: "slider2",
-    method: (val) => {
-      this.curl = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/3',
-    nodeID: "slider3",
-    method: (val) => {
-      this.rotateRate = val.args[0] / 10;
-    }
-  }, {
-    socketName: '/1/multifader1/4',
-    nodeID: "slider4",
-    method: (val) => {
-      this.circleSize = val.args[0] * 10;
-    }
-  }, {
-    socketName: '/1/multifader1/5',
-    nodeID: "slider5",
-    method: (val) => {
-      this.proximity = val.args[0] * 1000
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn1",
-    method: (val) => {
-      if (val) {
-        let x = width / this.pointAmt;
-        let y = 0;
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-        this.pointAmt++
-      }
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn2",
-    method: (val) => {
-      if (val) {
-        this.topPoints.pop();
-        this.bottomPoints.pop();
-        this.pointAmt--
-      }
-    }
-  }]
-  mouseClicked() { }
 }
 
 class Sin extends Sketch {
@@ -816,77 +682,67 @@ class SpinningCircles extends Sketch {
     this.rightPoints = [];
     this.centerPoints = [];
     if (!this.loaded) {
-      this.params = {
-        faders: {
-          pointAmt: 100,
-          circleDiameter: 50,
-          curl: 300,
-          proximity: 1000,
-          strokeWeight: 1,
-          multiplier: 10,
-          rotateRate: 0.00,
-          speed: 0.01
-        },
-        buttons: {
-          center: false,
-          top: true,
-          right: false,
-          bottom: true
-        }
-      }
+      this.pointAmt = 100;
+      this.circleDiameter = 50;
+      this.curl = 300;
+      this.proximity = 250;
+      this.strokeWeight = 1;
+      this.multiplier = 10;
+      this.rotateRate = 0.001;
       this.circleSize = 3;
       this.opacity = 0;
-      this.freq = 0.01;
+      this.connecters = { top: true, bottom: true, left: false, right: true }
     }
   }
 
   init() {
     super.init();
-    for (let i = 0; i < this.params.faders.pointAmt; i++) {
-      let x = width / this.params.faders.pointAmt * i;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let x = width / this.pointAmt * i;
       let y = 0;
-      if (this.params.buttons.top) {
+      if (this.connecters.top) {
         this.topPoints.push({
           x: x,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.params.buttons.bottom) {
+      if (this.connecters.bottom) {
         this.bottomPoints.push({
           x: width - x,
           y: height,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.params.buttons.left) {
-        y = height / this.params.faders.pointAmt * i;
+      if (this.connecters.left) {
+        y = height / this.pointAmt * i;
         this.leftPoints.push({
           x: 0,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.params.buttons.right) {
+      if (this.connecters.right) {
         this.rightPoints.push({
           x: width,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
-      let circle = sin(i) * this.params.faders.circleDiameter;
-      let orbitY = cos(this.freq + i * this.params.faders.multiplier);
-      let circleY = cos(i) * this.params.faders.circleDiameter;
+      let orbit = sin(this.freq + i * 10) * this.curl;
+      let circle = sin(i) * this.circleDiameter;
+      let orbitY = cos(this.freq + i * this.multiplier);
+      let circleY = cos(i) * this.circleDiameter;
       this.centerPoints.push({
         pos: {
           x: width / 2 + orbit + circle,
-          y: (height / 2 + orbitY * this.params.faders.curl) + circleY,
+          y: (height / 2 + orbitY * this.curl) + circleY,
         },
         size: 5,
         color: [255, 255, 255],
       })
     }
+    this.freq = 0.01;
   }
 
   draw() {
@@ -904,40 +760,40 @@ class SpinningCircles extends Sketch {
     let y;
     let prevX;
     let prevY;
-    for (let i = 0; i < this.params.faders.pointAmt; i++) {
+    for (let i = 0; i < this.pointAmt; i++) {
       bottomPoint = this.bottomPoints[i];
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
       centerPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.params.faders.curl;
-      circle = sin(i) * this.params.faders.circleDiameter;
-      orbitY = cos(this.freq + i * this.params.faders.multiplier);
-      circleY = cos(i) * this.params.faders.circleDiameter;
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
       x = width / 2 + orbit + circle;
-      y = (height / 2 + orbitY * this.params.faders.curl) + circleY;
+      y = (height / 2 + orbitY * this.curl) + circleY;
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.circleSize;
-      if (this.params.buttons.center && i > 0) { // Connects all dots together
-        stroke(255, 255, 255, 50);
-        line(x, y, prevX, prevY);
-      }
-      if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
-        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], this.opacity);
+      // if (i > 0) { // Connects all dots together
+      //   stroke(255, 255, 255, 50);
+      //   line(x, y, prevX, prevY)
+      // }
+      if (this.connecters.top && dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
+        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
-      if (this.params.buttons.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
-        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], this.opacity);
+      if (this.connecters.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
       }
       // FOR CONNECTER LINES ON SIDES
-      if (this.params.buttons.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximity) {
-        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], this.opacity);
+      if (this.connecters.left && dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
+        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
         line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
       }
-      if (this.params.buttons.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximity) {
-        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], this.opacity);
+      if (this.connecters.right && dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
+        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
         line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       }
 
@@ -946,7 +802,7 @@ class SpinningCircles extends Sketch {
       prevX = x;
       prevY = y;
     }
-    this.freq += this.params.faders.speed;
+    this.freq += this.rotateRate;
   }
 
   listeners = [{
@@ -959,13 +815,13 @@ class SpinningCircles extends Sketch {
     socketName: '/1/multifader1/2',
     nodeID: "slider2",
     method: (val) => {
-      this.params.faders.curl = val.args[0] * 500;
+      this.curl = val.args[0] * 500;
     }
   }, {
     socketName: '/1/multifader1/3',
     nodeID: "slider3",
     method: (val) => {
-      this.params.faders.speed = val.args[0] / 10;
+      this.rotateRate = val.args[0] / 10;
     }
   }, {
     socketName: '/1/multifader1/4',
@@ -977,7 +833,131 @@ class SpinningCircles extends Sketch {
     socketName: '/1/multifader1/5',
     nodeID: "slider5",
     method: (val) => {
-      this.params.faders.proximity = val.args[0] * 1000
+      this.proximity = val.args[0] * 1000
+    }
+  }, {
+    socketName: '/1/breathe',
+    nodeID: "btn1",
+    method: (val) => {
+      if (val) {
+        let x = width / this.pointAmt;
+        let y = 0;
+        this.topPoints.push({
+          x: x,
+          y: y,
+          color: [70, 100, 97, 248]
+        });
+        this.bottomPoints.push({
+          x: width - x,
+          y: height,
+          color: [70, 100, 97, 248]
+        });
+        this.pointAmt++
+      }
+    }
+  }, {
+    socketName: '/1/breathe',
+    nodeID: "btn2",
+    method: (val) => {
+      if (val) {
+        this.topPoints.pop();
+        this.bottomPoints.pop();
+        this.pointAmt--
+      }
+    }
+  }]
+  mouseClicked() { }
+}
+
+class Connecter extends Sketch {
+  constructor(color) {
+    super();
+    this.pointAmt = 50;
+    this.circleDiameter = 410;
+    this.curl = 280;
+    this.strokeWeight = 1;
+    this.multiplier = 10;
+    this.circleSize = 0
+    this.centerPoints = [];
+    this.color = 255;
+    this.proximity = 500;
+    this.speed = 0.01;
+    this.color = color || false;
+    this.imgIndex = 2;
+    this.opacity = 0;
+  }
+
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.pointAmt; i++) {
+      const orbit = sin(this.freq + i * 10) * this.curl;
+      const circle = sin(i) * this.circleDiameter;
+      const orbitY = cos(this.freq + i * this.multiplier);
+      const circleY = cos(i) * this.circleDiameter;
+      const newPoint = new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        this.color || someColor(this.imgIndex),
+      );
+      this.centerPoints.push(newPoint);
+    }
+    this.freq = this.speed;
+  }
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
+    }
+    this.freq += this.speed;
+  }
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    method: (val) => {
+      this.circleDiameter = val.args[0] * 500;
+    }
+  }, {
+    socketName: '/1/multifader1/2',
+    nodeID: "slider2",
+    method: (val) => {
+      this.curl = val.args[0] * 500;
+    }
+  }, {
+    socketName: '/1/multifader1/3',
+    nodeID: "slider3",
+    method: (val) => {
+      this.rotateRate = val.args[0] / 10;
+    }
+  }, {
+    socketName: '/1/multifader1/4',
+    nodeID: "slider4",
+    method: (val) => {
+      this.circleSize = val.args[0] * 10;
+    }
+  }, {
+    socketName: '/1/multifader1/5',
+    nodeID: "slider5",
+    method: (val) => {
+      this.proximity = val.args[0] * 1000
     }
   }, {
     socketName: '/1/breathe',
