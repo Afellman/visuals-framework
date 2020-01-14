@@ -402,15 +402,13 @@ class SineWaves extends Sketch { // Scene 3
     this.params.faders[`line${index}G`] = line.color[1];
     this.params.faders[`line${index}B`] = line.color[2];
     this.params.faders[`line${index}Speed`] = line.speed;
-    this.params.buttons.lineAmt++;
     this.lines.push(line);
     this.updateOsc();
     return line;
   }
 
   removeLine() {
-    this.lines.splice(this.lineAmt, 1);
-    this.params.buttons.lineAmt--;
+
   }
 
   listeners = [
@@ -419,8 +417,10 @@ class SineWaves extends Sketch { // Scene 3
       socketMethod: (val) => {
         if (val.args[0] == 1) {
           this.addLine();
+          this.params.buttons.lineAmt++;
         } else if (val.args[0] == -1) {
-          this.removeLine();
+          this.lines.splice(this.lineAmt, 1);
+          this.params.buttons.lineAmt--;
         }
       }
     }
