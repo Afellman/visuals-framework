@@ -545,7 +545,7 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.params.faders.circleSize;
-      if (i > 0 && dist(x, y, prevX, prevY) < this.params.faders.proximityOut) { // Connects all dots together
+      if (i > 0 && dist(x, y, prevX, prevY) < this.params.faders.proximityIn) { // Connects all dots together
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY);
       }
