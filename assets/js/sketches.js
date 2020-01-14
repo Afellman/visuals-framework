@@ -923,24 +923,24 @@ class SpinningCircles extends Sketch {
         line(x, y, prevX, prevY);
       }
       if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
-        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], this.opacity);
+        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
       if (this.params.buttons.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
-        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], this.opacity);
+        stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
       }
       // FOR CONNECTER LINES ON SIDES
       if (this.params.buttons.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximity) {
-        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], this.opacity);
+        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
         line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
       }
       if (this.params.buttons.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximity) {
-        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], this.opacity);
+        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
         line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       }
 
-      fill(255, 255, 255, this.opacity);
+      fill(255, 255, 255, 255 * this.opacity);
       ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.circleSize);
       prevX = x;
       prevY = y;
