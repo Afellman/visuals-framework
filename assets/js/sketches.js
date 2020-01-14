@@ -449,8 +449,7 @@ class SineWaves extends Sketch { // Scene 3
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
         let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
-        ellipse(x, y, 3)
-        line(prevX, prevY, x, y);
+        line(prevX + 1 * this.weight, prevY + 1 * this.weight, x, y);
         prevX = x;
         prevY = y;
         if (i == this.res - 1) {
