@@ -410,7 +410,7 @@ class SineWaves extends Sketch { // Scene 3
 
   removeLine() {
     this.lines.splice(this.lineAmt, 1);
-    this.lineAmt--;
+    this.params.buttons.lineAmt--;
   }
 
   listeners = [
