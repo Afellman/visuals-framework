@@ -340,7 +340,7 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 }
 
-class SineWaves extends Sketch { // Scene 3
+class SineWaves extends Sketch { // Scene 3. Maped 
   constructor(obj) {
     super(obj);
     this.params = {};
