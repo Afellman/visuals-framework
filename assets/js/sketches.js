@@ -210,6 +210,9 @@ class Sketch {
         }
       });
     }
+  }
+
+  updateOsc() {
     // Syncs iPad with scenes starting values
     socket.emit("updateOsc", {
       scene: this.sceneNum,
@@ -473,6 +476,7 @@ class SineWaves extends Sketch { // Scene 3
     this.params.faders[`line${index}B`] = line.color[2];
     this.params.faders[`line${index}Speed`] = line.speed;
     this.lines.push(line);
+    this.updateOsc()
   }
 
   listeners = [
