@@ -412,31 +412,15 @@ class SineWaves extends Sketch { // Scene 3
 
   listeners = [
     {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      method: (val) => {
-        this.maxAmpY = val.args[0] * height / 2
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] / 10;
-        if (value < 0.01) {
-          value = 0.01
+      socketName: 'lineAmt',
+      socketMethod: (val) => {
+        if (val.args[0] == 1) {
+          this.addLine();
+        } else if (val.args[0] == -1) {
+          this.removeLine();
         }
-        this.speed = value;
       }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] * 10;
-        this.freq = value;
-      }
-    },
+    }
   ]
 }
 
