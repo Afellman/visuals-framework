@@ -844,21 +844,21 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.params.faders.pointAmt; i++) {
       let x = width / this.params.faders.pointAmt * i;
       let y = 0;
-      if (this.params.buttontop) {
+      if (this.params.buttons.top) {
         this.topPoints.push({
           x: x,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.bottom) {
+      if (this.params.buttons.bottom) {
         this.bottomPoints.push({
           x: width - x,
           y: height,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.left) {
+      if (this.params.buttons.left) {
         y = height / this.params.faders.pointAmt * i;
         this.leftPoints.push({
           x: 0,
@@ -866,7 +866,7 @@ class SpinningCircles extends Sketch {
           color: [70, 100, 97, 248]
         });
       }
-      if (this.right) {
+      if (this.params.buttons.right) {
         this.rightPoints.push({
           x: width,
           y: y,
@@ -923,23 +923,23 @@ class SpinningCircles extends Sketch {
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
-      if (this.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
+      if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
-      if (this.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
+      if (this.params.buttons.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
         stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
       }
       // FOR CONNECTER LINES ON SIDES
-      // if (this.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximity) {
-      //   stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
-      //   line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
-      // }
-      // if (this.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximity) {
-      //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
-      //   line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
-      // }
+      if (this.params.buttons.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximity) {
+        stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
+        line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
+      }
+      if (this.params.buttons.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximity) {
+        stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
+        line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
+      }
 
       fill(255, 255, 255, 255 * this.opacity);
       ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.circleSize);
