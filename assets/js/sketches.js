@@ -437,11 +437,11 @@ class Connecter extends Sketch {// Scene 4.
     super();
     this.params = {
       faders: {
-        pointAmt: 50,
-        this.circleDiameter = 410;
-        this.curl = 280;
-        this.strokeWeight = 1;
-        this.multiplier = 10;
+        // pointAmt: 50,
+        // this.circleDiameter = 410;
+        // this.curl = 280;
+        // this.strokeWeight = 1;
+        // this.multiplier = 10;
 
 
       }
