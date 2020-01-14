@@ -821,7 +821,7 @@ class SpinningCircles extends Sketch {
           pointAmt: 100,
           circleDiameter: 50,
           curl: 300,
-          proximity: 250,
+          proximity: 500,
           strokeWeight: 1,
           multiplier: 10,
           rotateRate: 0.00,
