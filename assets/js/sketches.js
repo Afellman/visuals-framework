@@ -488,10 +488,6 @@ class SpinningCircles extends Sketch {
 
   draw() {
     strokeWeight(1);
-    let bottomPoint = {};
-    let topPoint = {};
-    let rightPoint = {};
-    let leftPoint = {};
     let centerPoint = {}
     let orbit;
     let circle;
@@ -499,38 +495,56 @@ class SpinningCircles extends Sketch {
     let circleY;
     let x;
     let y;
-    let prevX;
-    let prevY;
+    const { speed, curl, circleDiameter, circleSize, pointAmt } = this.params.faders;
     stroke(255, 255, 255, 50);
     fill(255, 255, 255, 255 * this.opacity);
-    for (let i = 0; i < this.params.faders.pointAmt; i++) {
+    for (let i = 0; i < pointAmt; i++) {
       bottomPoint = this.bottomPoints[i];
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
       centerPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.params.faders.curl;
-      circle = sin(i) * this.params.faders.circleDiameter;
+      orbit = sin(this.freq + i * 10) * curl;
+      circle = sin(i) * circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.params.faders.circleDiameter;
+      circleY = cos(i) * circleDiameter;
       x = width / 2 + orbit + circle;
-      y = (height / 2 + orbitY * this.params.faders.curl) + circleY;
+      y = (height / 2 + orbitY * curl) + circleY;
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
-      centerPoint.size = this.params.faders.circleSize;
+      centerPoint.size = circleSize;
 
 
-      ellipse(Math.round(x), Math.round(y), this.params.faders.circleSize);
-      for (let j = 0; j < this.params.faders.pointAmt; j++) {
-        if (i > 0 && dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.params.faders.proximityIn) { // Connects all dots together
-
+      ellipse(Math.round(x), Math.round(y), circleSize);
+      for (let j = 0; j < pointAmt; j++) {
+        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximityIn) { // Connects all dots together
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
-      prevX = x;
-      prevY = y;
     }
-    this.freq += this.params.faders.speed;
+    this.freq += speed;
+
+
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
+    }
+    this.freq += this.speed;
   }
 
   listeners = [{
