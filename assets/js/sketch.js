@@ -174,7 +174,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Connecter();
+          this.scene = new SpinningCircles();
           loadScene(this.scene);
           this.isActive = true;
         }
