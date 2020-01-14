@@ -836,6 +836,7 @@ class SpinningCircles extends Sketch {
       }
       this.circleSize = 3;
       this.opacity = 0;
+      this.freq = 0.01;
     }
   }
 
@@ -886,7 +887,6 @@ class SpinningCircles extends Sketch {
         color: [255, 255, 255],
       })
     }
-    this.freq = 0.01;
   }
 
   draw() {
@@ -921,7 +921,7 @@ class SpinningCircles extends Sketch {
       centerPoint.size = this.circleSize;
       if (this.params.buttons.center && i > 0) { // Connects all dots together
         stroke(255, 255, 255, 50);
-        line(x, y, prevX, prevY)
+        line(x, y, prevX, prevY);
       }
       if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
