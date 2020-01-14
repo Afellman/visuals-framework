@@ -825,7 +825,6 @@ class SpinningCircles extends Sketch {
           strokeWeight: 1,
           multiplier: 10,
           rotateRate: 0.00,
-          circleSize: 3,
           speed: 0.01
         },
         buttons: {
@@ -835,7 +834,8 @@ class SpinningCircles extends Sketch {
           bottom: true
         }
       }
-      this.opacity = 0;
+      this.circleSize = 3,
+        this.opacity = 0;
     }
   }
 
