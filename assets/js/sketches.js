@@ -203,11 +203,7 @@ class Sketch {
       console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
-        if (val.args[0] > 0) {
-          this.params.buttons[param] += val.args[0];
-        } else if (val.args[0] < 0) {
-          this.params.buttons[param] -= val.args[0];
-        }
+        this.params.buttons[param] += val.args[0];
       });
     }
     this.updateOsc();
