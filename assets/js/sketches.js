@@ -148,13 +148,16 @@ class Sketch {
     this.listeners = [];
     this.params = { faders: {}, buttons: {} }
   }
+
   init() {
     this.attachListeners();
 
   }
+
   unload() {
     this.detachListeners();
   }
+
   attachListeners() {
     // let length = this.listeners.length;
     // for (let i = 0; i < length; i++) {
@@ -196,7 +199,6 @@ class Sketch {
     }
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
-      console.log(this.params)
       socket.on(`/${this.sceneNum}/${i}`, (val) => {
         const param = val.address.split("/")[2];
         this.params.faders[param] = val.args[0];
@@ -351,6 +353,18 @@ class SineWaves extends Sketch { // Scene 3
           line1G: 255,
           line1B: 255,
           line1Speed: 0.01,
+          line2R: 255,
+          line2G: 255,
+          line2B: 255,
+          line2Speed: 0.01,
+          line3R: 255,
+          line3G: 255,
+          line3B: 255,
+          line3Speed: 0.01,
+          line4R: 255,
+          line4G: 255,
+          line4B: 255,
+          line4Speed: 0.01,
           weight: 3
         },
         buttons: {
@@ -397,13 +411,7 @@ class SineWaves extends Sketch { // Scene 3
 
   addLine() {
     const line = { freq: 1, maxAmpY: height / 2, speed: 0.01, time: 0.01, color: [255, 255, 255] }
-    const index = this.lines.length + 1;
-    this.params.faders[`line${index}R`] = line.color[0];
-    this.params.faders[`line${index}G`] = line.color[1];
-    this.params.faders[`line${index}B`] = line.color[2];
-    this.params.faders[`line${index}Speed`] = line.speed;
     this.lines.push(line);
-    this.updateOsc();
     return line;
   }
 
