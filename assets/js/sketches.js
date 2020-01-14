@@ -448,8 +448,7 @@ class SpinningCircles extends Sketch {
           pointAmt: 200,
           circleDiameter: 50,
           curl: 300,
-          proximityOut: 250,
-          proximityIn: 1000,
+          proximity: 0,
           speed: 0.01,
           circleSize: 3
         },
@@ -522,7 +521,7 @@ class SpinningCircles extends Sketch {
 
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
-        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximityIn) { // Connects all dots together
+        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
