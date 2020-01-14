@@ -496,17 +496,26 @@ class SpinningCircles extends Sketch {
     let x;
     let y;
     const { speed, curl, circleDiameter, circleSize, pointAmt } = this.params.faders;
+    const { opacity
+      , bottomPoints
+      , topPoints
+      , rightPoints
+      , leftPoints
+      , centerPoints
+      , freq
+      , freq
+      , multiplier }
     stroke(255, 255, 255, 50);
-    fill(255, 255, 255, 255 * this.opacity);
+    fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
-      bottomPoint = this.bottomPoints[i];
-      topPoint = this.topPoints[i];
-      rightPoint = this.rightPoints[i];
-      leftPoint = this.leftPoints[i];
-      centerPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * curl;
+      bottomPoint = bottomPoints[i];
+      topPoint = topPoints[i];
+      rightPoint = rightPoints[i];
+      leftPoint = leftPoints[i];
+      centerPoint = centerPoints[i];
+      orbit = sin(freq + i * 10) * curl;
       circle = sin(i) * circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
+      orbitY = cos(freq + i * multiplier);
       circleY = cos(i) * circleDiameter;
       x = width / 2 + orbit + circle;
       y = (height / 2 + orbitY * curl) + circleY;
