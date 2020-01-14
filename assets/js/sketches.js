@@ -436,18 +436,14 @@ class SineWaves extends Sketch { // Scene 3. Maped
 class SpinningCircles extends Sketch {
   constructor() {
     super();
-    this.topPoints = [];
-    this.bottomPoints = [];
-    this.leftPoints = [];
-    this.rightPoints = [];
     this.centerPoints = [];
     this.sceneNum = 4;
     if (!this.loaded) {
       this.params = {
         faders: {
-          pointAmt: 200,
-          circleDiameter: 50,
-          curl: 300,
+          pointAmt: 3,
+          circleDiameter: 300,
+          curl: 0,
           proximity: 0,
           speed: 0.01,
           circleSize: 3
@@ -470,14 +466,14 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.params.faders.pointAmt; i++) {
       let x = width / this.params.faders.pointAmt * i;
       let y = 0;
-      let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
-      let circle = sin(i) * this.params.faders.circleDiameter;
+      let orbit = sin(this.freq + i * 10) * this.params.faders.circleDiameter;
+      let circle = sin(i) * this.params.faders.curl;
       let orbitY = cos(this.freq + i * this.multiplier);
-      let circleY = cos(i) * this.params.faders.circleDiameter;
+      let circleY = cos(i) * this.params.faders.curl;
       this.centerPoints.push({
         pos: {
           x: width / 2 + orbit + circle,
-          y: (height / 2 + orbitY * this.params.faders.curl) + circleY,
+          y: (height / 2 + orbitY * this.params.faders.circleDiameter) + circleY,
         },
         size: 5,
         color: [255, 255, 255],
