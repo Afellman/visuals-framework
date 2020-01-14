@@ -407,9 +407,6 @@ class SineWaves extends Sketch { // Scene 3
     return line;
   }
 
-  removeLine() {
-
-  }
 
   listeners = [
     {
