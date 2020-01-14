@@ -924,7 +924,7 @@ class SpinningCircles extends Sketch {
         line(x, y, prevX, prevY);
       }
       if (this.params.buttons.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
-        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
+        stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
       if (this.params.buttons.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
