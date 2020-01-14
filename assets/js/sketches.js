@@ -826,6 +826,8 @@ class SpinningCircles extends Sketch {
           multiplier: 10,
           rotateRate: 0.00,
           circleSize: 3,
+        },
+        buttons: {
           center: false,
           top: false,
           right: false,
@@ -870,14 +872,14 @@ class SpinningCircles extends Sketch {
           color: [70, 100, 97, 248]
         });
       }
-      let orbit = sin(this.freq + i * 10) * this.curl;
+      let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
       let circle = sin(i) * this.circleDiameter;
-      let orbitY = cos(this.freq + i * this.multiplier);
+      let orbitY = cos(this.freq + i * this.params.faders.multiplier);
       let circleY = cos(i) * this.circleDiameter;
       this.centerPoints.push({
         pos: {
           x: width / 2 + orbit + circle,
-          y: (height / 2 + orbitY * this.curl) + circleY,
+          y: (height / 2 + orbitY * this.params.faders.curl) + circleY,
         },
         size: 5,
         color: [255, 255, 255],
@@ -907,12 +909,12 @@ class SpinningCircles extends Sketch {
       rightPoint = this.rightPoints[i];
       leftPoint = this.leftPoints[i];
       centerPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
+      orbit = sin(this.freq + i * 10) * this.params.faders.curl;
       circle = sin(i) * this.params.faders;
-      orbitY = cos(this.freq + i * this.multiplier);
+      orbitY = cos(this.freq + i * this.params.faders.multiplier);
       circleY = cos(i) * this.params.faders;
       x = width / 2 + orbit + circle;
-      y = (height / 2 + orbitY * this.curl) + circleY;
+      y = (height / 2 + orbitY * this.params.faders.curl) + circleY;
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.circleSize;
@@ -920,20 +922,20 @@ class SpinningCircles extends Sketch {
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
-      if (this.top && dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
+      if (this.top && dist(x, y, topPoint.x, topPoint.y) < this.params.faders.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
-      if (this.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+      if (this.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.params.faders.proximity) {
         stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
       }
       // FOR CONNECTER LINES ON SIDES
-      // if (this.left && dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
+      // if (this.left && dist(x, y, leftPoint.x, leftPoint.y) < this.params.faders.proximity) {
       //   stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
       //   line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
       // }
-      // if (this.right && dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
+      // if (this.right && dist(x, y, rightPoint.x, rightPoint.y) < this.params.faders.proximity) {
       //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
       //   line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       // }
@@ -943,7 +945,7 @@ class SpinningCircles extends Sketch {
       prevX = x;
       prevY = y;
     }
-    this.freq += this.rotateRate;
+    this.freq += this.params.faders.speed;
   }
 
   listeners = [{
@@ -956,13 +958,13 @@ class SpinningCircles extends Sketch {
     socketName: '/1/multifader1/2',
     nodeID: "slider2",
     method: (val) => {
-      this.curl = val.args[0] * 500;
+      this.params.faders.curl = val.args[0] * 500;
     }
   }, {
     socketName: '/1/multifader1/3',
     nodeID: "slider3",
     method: (val) => {
-      this.rotateRate = val.args[0] / 10;
+      this.params.faders.speed = val.args[0] / 10;
     }
   }, {
     socketName: '/1/multifader1/4',
@@ -974,7 +976,7 @@ class SpinningCircles extends Sketch {
     socketName: '/1/multifader1/5',
     nodeID: "slider5",
     method: (val) => {
-      this.proximity = val.args[0] * 1000
+      this.params.faders.proximity = val.args[0] * 1000
     }
   }, {
     socketName: '/1/breathe',
