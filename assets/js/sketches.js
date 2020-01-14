@@ -816,14 +816,20 @@ class SpinningCircles extends Sketch {
     this.rightPoints = [];
     this.centerPoints = [];
     if (!this.loaded) {
-      this.pointAmt = 100;
-      this.circleDiameter = 50;
-      this.curl = 300;
-      this.proximity = 250;
-      this.strokeWeight = 1;
-      this.multiplier = 10;
-      this.rotateRate = 0.001;
-      this.circleSize = 3;
+      this.params = {
+        faders: {
+          pointAmt: 100,
+          circleDiameter: 50,
+          curl: 300,
+          proximity: 250,
+          strokeWeight: 1,
+          multiplier: 10,
+          rotateRate: 0.00,;
+          circleSize: 3,
+          showConnects: false
+
+        }
+      }
       this.opacity = 0;
       this.connecters = { top: true, bottom: true, left: false, right: true }
     }
@@ -909,7 +915,7 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.circleSize;
-      if (i > 0) { // Connects all dots together
+      if (this.showConnecters && i > 0) { // Connects all dots together
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
