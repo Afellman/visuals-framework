@@ -443,6 +443,7 @@ class SineWaves extends Sketch { // Scene 3
       const green = this.params.faders[`line${j + 1}G`];
       const blue = this.params.faders[`line${j + 1}B`];
       const weight = this.params.faders.weight;
+      const speed = this.params.faders[`line${j + 1}Speed`]
 
       stroke(red, green, blue, this.opacity);
       strokeWeight(weight);
