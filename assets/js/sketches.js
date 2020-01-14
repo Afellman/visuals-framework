@@ -471,35 +471,6 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.params.faders.pointAmt; i++) {
       let x = width / this.params.faders.pointAmt * i;
       let y = 0;
-      if (this.params.buttons.top) {
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-      }
-      if (this.params.buttons.bottom) {
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-      }
-      if (this.params.buttons.left) {
-        y = height / this.params.faders.pointAmt * i;
-        this.leftPoints.push({
-          x: 0,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-      }
-      if (this.params.buttons.right) {
-        this.rightPoints.push({
-          x: width,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-      }
       let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
       let circle = sin(i) * this.params.faders.circleDiameter;
       let orbitY = cos(this.freq + i * this.multiplier);
@@ -530,6 +501,8 @@ class SpinningCircles extends Sketch {
     let y;
     let prevX;
     let prevY;
+    stroke(255, 255, 255, 50);
+    fill(255, 255, 255, 255 * this.opacity);
     for (let i = 0; i < this.params.faders.pointAmt; i++) {
       bottomPoint = this.bottomPoints[i];
       topPoint = this.topPoints[i];
@@ -546,11 +519,11 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.y = y;
       centerPoint.size = this.params.faders.circleSize;
 
-      fill(255, 255, 255, 255 * this.opacity);
+
       ellipse(Math.round(x), Math.round(y), this.params.faders.circleSize);
       for (let j = 0; j < this.params.faders.pointAmt; j++) {
         if (i > 0 && dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.params.faders.proximityIn) { // Connects all dots together
-          stroke(255, 255, 255, 50);
+
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
