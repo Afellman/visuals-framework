@@ -441,6 +441,7 @@ class SpinningCircles extends Sketch {
     this.leftPoints = [];
     this.rightPoints = [];
     this.centerPoints = [];
+    this.sceneNum = 4;
     if (!this.loaded) {
       this.params = {
         faders: {
@@ -450,7 +451,6 @@ class SpinningCircles extends Sketch {
           proximityOut: 250,
           proximityIn: 1000,
           multiplier: 10,
-          rotateRate: 0.00,
           speed: 0.01,
           circleSize: 3
         },
@@ -579,7 +579,6 @@ class SpinningCircles extends Sketch {
   listeners = [{
     socketName: "multiplier",
     socketMethod: (val) => this.params.faders.multiplier += val.args[0]
-
   }]
   mouseClicked() { }
 }
