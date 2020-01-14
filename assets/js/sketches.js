@@ -875,9 +875,9 @@ class SpinningCircles extends Sketch {
         });
       }
       let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
-      let circle = sin(i) * this.circleDiameter;
+      let circle = sin(i) * this.params.faders.circleDiameter;
       let orbitY = cos(this.freq + i * this.params.faders.multiplier);
-      let circleY = cos(i) * this.circleDiameter;
+      let circleY = cos(i) * this.params.faders.circleDiameter;
       this.centerPoints.push({
         pos: {
           x: width / 2 + orbit + circle,
