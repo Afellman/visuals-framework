@@ -190,7 +190,7 @@ class Sketch {
 
 
     for (let i = 0; i < this.listeners.length; i++) {
-      socket.on(`/${this.listeners.socketName}`, this.listeners.method);
+      socket.on(this.listeners.socketName, this.listeners.method);
     }
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
@@ -290,9 +290,6 @@ class Starry extends Sketch { // Scene 1. Maped
     return newPoint;
   }
 
-  listeners = [{
-
-  }]
 }
 
 class Sun extends Sketch { // Scene 2. Maped
