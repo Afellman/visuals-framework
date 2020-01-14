@@ -527,28 +527,6 @@ class SpinningCircles extends Sketch {
       }
     }
     this.freq += speed;
-
-
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.pos.x = width / 2 + orbit + circle
-      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        }
-      }
-    }
-    this.freq += this.speed;
   }
 
   listeners = [{
