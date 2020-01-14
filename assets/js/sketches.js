@@ -818,13 +818,14 @@ class SpinningCircles extends Sketch {
     if (!this.loaded) {
       this.params = {
         faders: {
-          pointAmt: 200,
+          pointAmt: 300,
           circleDiameter: 50,
           curl: 300,
           proximity: 250,
           multiplier: 10,
           rotateRate: 0.00,
-          speed: 0.01
+          speed: 0.01,
+          circleSize: 3
         },
         buttons: {
           center: false,
@@ -833,7 +834,7 @@ class SpinningCircles extends Sketch {
           bottom: true
         }
       }
-      this.circleSize = 3;
+
       this.opacity = 0;
       this.freq = 0.01;
     }
@@ -917,7 +918,7 @@ class SpinningCircles extends Sketch {
       y = (height / 2 + orbitY * this.params.faders.curl) + circleY;
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
-      centerPoint.size = this.circleSize;
+      centerPoint.size = this.params.faders.circleSize;
       if (this.params.buttons.center && i > 0) { // Connects all dots together
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY);
@@ -941,7 +942,7 @@ class SpinningCircles extends Sketch {
       }
 
       fill(255, 255, 255, 255 * this.opacity);
-      ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.circleSize);
+      ellipse(Math.round(centerPoint.pos.x), Math.round(centerPoint.pos.y), this.params.faders.circleSize);
       prevX = x;
       prevY = y;
     }
