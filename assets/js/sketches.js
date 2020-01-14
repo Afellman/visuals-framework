@@ -189,6 +189,9 @@ class Sketch {
     // }
 
 
+    for (let i = 0; i < this.listeners.length; i++) {
+
+    }
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
       console.log(this.params)
@@ -198,14 +201,6 @@ class Sketch {
       });
     }
 
-    // Attaching sockets to all button params
-    for (let i in this.params.buttons) {
-      console.log(this.params)
-      socket.on(`/${this.sceneNum}/${i}`, (val) => {
-        const param = val.address.split("/")[2];
-        this.params.buttons[param] += val.args[0];
-      });
-    }
     this.updateOsc();
   }
 
