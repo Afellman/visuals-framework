@@ -449,7 +449,7 @@ class SineWaves extends Sketch { // Scene 3
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
         let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
-        line(prevX + 1, prevY + 1, x, y);
+        line(prevX + this.weight, prevY, x, y);
         prevX = x;
         prevY = y;
         if (i == this.res - 1) {
