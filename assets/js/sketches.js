@@ -450,7 +450,6 @@ class SpinningCircles extends Sketch {
           curl: 300,
           proximityOut: 250,
           proximityIn: 1000,
-          multiplier: 10,
           speed: 0.01,
           circleSize: 3
         },
@@ -462,6 +461,7 @@ class SpinningCircles extends Sketch {
         }
       }
 
+      this.multiplier = 10;
       this.opacity = 0;
       this.freq = 0.01;
     }
@@ -503,7 +503,7 @@ class SpinningCircles extends Sketch {
       }
       let orbit = sin(this.freq + i * 10) * this.params.faders.curl;
       let circle = sin(i) * this.params.faders.circleDiameter;
-      let orbitY = cos(this.freq + i * this.params.faders.multiplier);
+      let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.params.faders.circleDiameter;
       this.centerPoints.push({
         pos: {
@@ -539,7 +539,7 @@ class SpinningCircles extends Sketch {
       centerPoint = this.centerPoints[i];
       orbit = sin(this.freq + i * 10) * this.params.faders.curl;
       circle = sin(i) * this.params.faders.circleDiameter;
-      orbitY = cos(this.freq + i * this.params.faders.multiplier);
+      orbitY = cos(this.freq + i * this.multiplier);
       circleY = cos(i) * this.params.faders.circleDiameter;
       x = width / 2 + orbit + circle;
       y = (height / 2 + orbitY * this.params.faders.curl) + circleY;
@@ -578,7 +578,7 @@ class SpinningCircles extends Sketch {
 
   listeners = [{
     socketName: "multiplier",
-    socketMethod: (val) => this.params.faders.multiplier += val.args[0]
+    socketMethod: (val) => this.multiplier += val.args[0]
   }]
   mouseClicked() { }
 }
