@@ -191,7 +191,7 @@ class Sketch {
     for (let i = 0; i < this.listeners.length; i++) {
       const thisSocket = this.listeners[i];
       if (thisSocket.socketName && thisSocket.socketMethod) {
-        socket.on(thisSocket.socketName, thisSocket.method);
+        socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.method);
       }
     }
     // Attaching sockets to all fader params
