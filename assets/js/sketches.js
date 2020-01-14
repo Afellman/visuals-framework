@@ -824,45 +824,46 @@ class SpinningCircles extends Sketch {
           proximity: 250,
           strokeWeight: 1,
           multiplier: 10,
-          rotateRate: 0.00,;
+          rotateRate: 0.00,
           circleSize: 3,
-          showConnects: false
-
+          center: false,
+          top: false,
+          right: false,
+          bottom: false
         }
       }
       this.opacity = 0;
-      this.connecters = { top: true, bottom: true, left: false, right: true }
     }
   }
 
   init() {
     super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      let x = width / this.pointAmt * i;
+    for (let i = 0; i < this.params.faders.pointAmt; i++) {
+      let x = width / this.params.faders.pointAmt * i;
       let y = 0;
-      if (this.connecters.top) {
+      if (this.top) {
         this.topPoints.push({
           x: x,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.connecters.bottom) {
+      if (this.bottom) {
         this.bottomPoints.push({
           x: width - x,
           y: height,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.connecters.left) {
-        y = height / this.pointAmt * i;
+      if (this.left) {
+        y = height / this.params.faders.pointAmt * i;
         this.leftPoints.push({
           x: 0,
           y: y,
           color: [70, 100, 97, 248]
         });
       }
-      if (this.connecters.right) {
+      if (this.right) {
         this.rightPoints.push({
           x: width,
           y: y,
@@ -900,7 +901,7 @@ class SpinningCircles extends Sketch {
     let y;
     let prevX;
     let prevY;
-    for (let i = 0; i < this.pointAmt; i++) {
+    for (let i = 0; i < this.params.faders.pointAmt; i++) {
       bottomPoint = this.bottomPoints[i];
       topPoint = this.topPoints[i];
       rightPoint = this.rightPoints[i];
@@ -915,24 +916,24 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.circleSize;
-      if (this.showConnecters && i > 0) { // Connects all dots together
+      if (this.center && i > 0) { // Connects all dots together
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
-      if (this.connecters.top && dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
+      if (this.top && dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
         stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80 * this.opacity);
         line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y));
       }
-      if (this.connecters.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
+      if (this.bottom && dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
         stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80 * this.opacity);
         line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y));
       }
       // FOR CONNECTER LINES ON SIDES
-      // if (this.connecters.left && dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
+      // if (this.left && dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
       //   stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80 * this.opacity);
       //   line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y));
       // }
-      // if (this.connecters.right && dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
+      // if (this.right && dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
       //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80 * this.opacity);
       //   line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y));
       // }
