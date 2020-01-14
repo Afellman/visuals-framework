@@ -834,8 +834,8 @@ class SpinningCircles extends Sketch {
           bottom: true
         }
       }
-      this.circleSize = 3,
-        this.opacity = 0;
+      this.circleSize = 3;
+      this.opacity = 0;
     }
   }
 
@@ -844,7 +844,7 @@ class SpinningCircles extends Sketch {
     for (let i = 0; i < this.params.faders.pointAmt; i++) {
       let x = width / this.params.faders.pointAmt * i;
       let y = 0;
-      if (this.top) {
+      if (this.params.buttontop) {
         this.topPoints.push({
           x: x,
           y: y,
