@@ -919,7 +919,7 @@ class SpinningCircles extends Sketch {
       centerPoint.pos.x = x;
       centerPoint.pos.y = y;
       centerPoint.size = this.circleSize;
-      if (this.center && i > 0) { // Connects all dots together
+      if (this.params.buttons.center && i > 0) { // Connects all dots together
         stroke(255, 255, 255, 50);
         line(x, y, prevX, prevY)
       }
