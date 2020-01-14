@@ -458,7 +458,7 @@ class SineWaves extends Sketch { // Scene 3
           prevY = height / 2;
         }
       }
-      thisLine.time += thisLine.speed;
+      thisLine.time += speed;
     }
   }
 
