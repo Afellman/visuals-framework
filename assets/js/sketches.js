@@ -822,7 +822,6 @@ class SpinningCircles extends Sketch {
           circleDiameter: 50,
           curl: 300,
           proximity: 1000,
-          strokeWeight: 1,
           multiplier: 10,
           rotateRate: 0.00,
           speed: 0.01
@@ -890,7 +889,7 @@ class SpinningCircles extends Sketch {
   }
 
   draw() {
-    strokeWeight(this.strokeWeight);
+    strokeWeight(1);
     let bottomPoint = {};
     let topPoint = {};
     let rightPoint = {};
