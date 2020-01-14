@@ -454,7 +454,6 @@ class SpinningCircles extends Sketch {
           circleSize: 3
         },
         buttons: {
-          center: false,
           top: true,
           right: false,
           bottom: true
