@@ -537,7 +537,7 @@ class Connecter extends Sketch {// Scene 4.
 
       }
     }
-    this.pointAmt = 50,
+    this.pointAmt = 200,
       this.circleDiameter = 410;
     this.curl = 280;
     this.strokeWeight = 1;
