@@ -445,11 +445,12 @@ class SpinningCircles extends Sketch {
           circleDiameter: 0,
           curl: 0,
           proximity: 0,
-          speed: 0.00,
+          // speed: 0.00,
           circleSize: 3
         },
       }
 
+      this.speed = 0;
       this.pointMax = 200;
       this.multiplier = 10;
       this.opacity = 0;
@@ -484,7 +485,7 @@ class SpinningCircles extends Sketch {
     let circleY;
     let x;
     let y;
-    const { speed,
+    const {
       curl,
       circleDiameter,
       circleSize,
@@ -517,10 +518,14 @@ class SpinningCircles extends Sketch {
         }
       }
     }
-    this.freq += speed;
+    this.freq += this.speed;
   }
 
   listeners = [{
+    socketName: "multiplier",
+    socketMethod: (val) => this.multiplier += val.args[0]
+  },
+  {
     socketName: "multiplier",
     socketMethod: (val) => this.multiplier += val.args[0]
   }]
