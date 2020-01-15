@@ -526,8 +526,8 @@ class SpinningCircles extends Sketch {
     socketMethod: (val) => this.multiplier += val.args[0]
   },
   {
-    socketName: "multiplier",
-    socketMethod: (val) => this.multiplier += val.args[0]
+    socketName: "speed",
+    socketMethod: (val) => this.speed = Math.pow(val.args[0], 2)
   }]
   mouseClicked() { }
 }
