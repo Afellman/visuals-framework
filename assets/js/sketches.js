@@ -445,7 +445,7 @@ class SpinningCircles extends Sketch {
           circleDiameter: 0,
           curl: 0,
           proximity: 0,
-          speed: 0.01,
+          speed: 0.00,
           circleSize: 3
         },
         buttons: {
