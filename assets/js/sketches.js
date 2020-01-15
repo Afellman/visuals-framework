@@ -499,7 +499,7 @@ class SpinningCircles extends Sketch {
       centerPoints,
       freq,
       multiplier } = this;
-    stroke(255, 255, 255, 50);
+    noStroke();
     fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
       centerPoint = centerPoints[i];
@@ -517,6 +517,7 @@ class SpinningCircles extends Sketch {
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
         if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
+          stroke(255, 255, 255, 50);
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
