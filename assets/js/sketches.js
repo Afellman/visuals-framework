@@ -448,11 +448,6 @@ class SpinningCircles extends Sketch {
           speed: 0.00,
           circleSize: 3
         },
-        buttons: {
-          top: true,
-          right: false,
-          bottom: true
-        }
       }
 
       this.pointMax = 200;
