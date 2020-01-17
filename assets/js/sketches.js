@@ -721,7 +721,7 @@ class BGShader extends Sketch {
     this.pointsAmt = 1;
     this.diameter = 200;
     this.time = 0;
-    this.shader = _main.default.Shader(JSON.parse(shaders[0]));
+    this.shader = shaders[0];
   }
 
 
