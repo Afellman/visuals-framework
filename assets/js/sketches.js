@@ -536,7 +536,8 @@ class GoldenSpiral extends Sketch {
           speed: 0.00001,
           size: 200,
           stepSize: 2,
-          angle: PI * (3.0 - sqrt(5))
+          angle: PI * (3.0 - sqrt(5)),
+          number: 200
         }
       }
     }
