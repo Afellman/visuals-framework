@@ -4,7 +4,7 @@ let goodColor = [];
 let maxPal = 512;
 let bgShader;
 let glCanvas;
-let showFPS = false;
+let showFPS = true;
 var socket = io('http://localhost:3000');
 let fft;
 let mic;
