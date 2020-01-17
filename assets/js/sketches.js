@@ -1005,7 +1005,7 @@ class LinesShader extends Sketch {
 
   unload() {
     super.unload();
-    shaders[1] = glCanvas.loadShader("./shaders/texture.vert", this.shaderPath);
+    shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
   listeners = [
