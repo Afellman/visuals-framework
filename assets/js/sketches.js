@@ -527,7 +527,47 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
   mouseClicked() { }
 }
 
-class TreeFractal extends Sketch {
+class GoldenSpiral extends Sketch {
+  constructor(color = 255) {
+    super();
+    this.goldenAngle = PI * (3.0 - sqrt(5));
+    this.time = 0;
+    this.number = 500;
+    this.size = 200;
+    this.stepSize = 2;
+    this.opacity = 20;
+    this.animate = true;
+    this.time = 0;
+    this.opacity = 0;
+  }
+  listeners = [{
+
+  }]
+  init() {
+    super.init();
+  }
+
+  draw() {
+    // background(0);
+    fill(255, 10);
+    stroke(255, 255, 255, this.opacity)
+    translate(width / 2, height / 2)
+    // this.number = frameCount;
+    for (var i = 0; i < this.number; i++) {
+      rotate(this.time);
+      translate(0, i * this.stepSize);
+      rotate(this.goldenAngle);
+      line(0, 0, -this.size, this.size);
+      // triangle(-this.size, 0, 0, this.size, this.size, 0)
+      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
+      // rect(0, 0, this.size, this.size); 					// draw a rectangle
+    }
+    this.time += 0.00001;
+  }
+}
+
+
+class TreeFractal extends Sketch { // Scene 5. Maped.
   constructor() {
     super();
     if (!this.loaded) {
@@ -888,45 +928,6 @@ class Ripples extends Sketch {
         this.clicked = false
       }, 500)
     }
-  }
-}
-
-class GoldenSpiral extends Sketch {
-  constructor(color = 255) {
-    super();
-    this.goldenAngle = PI * (3.0 - sqrt(5));
-    this.time = 0;
-    this.number = 500;
-    this.size = 200;
-    this.stepSize = 2;
-    this.opacity = 20;
-    this.animate = true;
-    this.time = 0;
-    this.opacity = 0;
-  }
-  listeners = [{
-
-  }]
-  init() {
-    super.init();
-  }
-
-  draw() {
-    // background(0);
-    fill(255, 10);
-    stroke(255, 255, 255, this.opacity)
-    translate(width / 2, height / 2)
-    // this.number = frameCount;
-    for (var i = 0; i < this.number; i++) {
-      rotate(this.time);
-      translate(0, i * this.stepSize);
-      rotate(this.goldenAngle);
-      line(0, 0, -this.size, this.size);
-      // triangle(-this.size, 0, 0, this.size, this.size, 0)
-      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
-      // rect(0, 0, this.size, this.size); 					// draw a rectangle
-    }
-    this.time += 0.00001;
   }
 }
 
