@@ -23,7 +23,7 @@ function setImages(imgs) {
   images = imgs;
 }
 function setShaders(shaderArry) {
-  shaders = shaderArry;
+  shaders = shaderArry.map(shad => JSON.stringify(shad));
 }
 
 // ======================================== P5 Functions
