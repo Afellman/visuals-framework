@@ -433,7 +433,7 @@ class SineWaves extends Sketch { // Scene 3. Maped
 }
 
 
-class SpinningCircles extends Sketch {
+class SpinningCircles extends Sketch { // Scene 4. Maped
   constructor() {
     super();
     this.centerPoints = [];
@@ -527,8 +527,87 @@ class SpinningCircles extends Sketch {
   mouseClicked() { }
 }
 
+class TreeFractal extends Sketch {
+  constructor() {
+    super();
+    if (!this.loaded) {
+      this.params = {
+        angle: 1.2666,
+        startingAngle: this.angle,
+        divider: 0.65,
+        length: 220,
+        movement: 0.0022,
+        opacity: 0,
+      }
+    }
+  }
+  init() {
+    super.init();
 
-class Connecter extends Sketch {// Scene 4.
+  }
+  draw() {
+    let len = 100;
+    let r = 150 + sin(frameCount / 200) * 50;
+    let b = 200 + sin(frameCount / 100) * 50;
+    let g = 100 + sin(frameCount / 300) * 50;
+    stroke(r, g, b, this.opacity);
+    translate(width / 1.5, height);
+    this.branch(this.length);
+    // this.angle = this.startingAngle * frameCount / 500;
+  }
+  branch(len) {
+    line(0, 0, 0, -len);
+    translate(0, -len);
+    if (len > 4) {
+      push();
+      rotate(this.angle);
+      this.branch(len * this.divider);
+      pop();
+      push();
+      rotate(noise(frameCount * this.movement, -len) - this.angle);
+      this.branch(len * this.divider);
+      pop();
+    }
+  }
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "2",
+    midiMethod: val => this.angle = val / 30,
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider2",
+    midi: "3",
+    midiMethod: val => this.divider = val / 100,
+    method: (val) => {
+      this.divider = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider3",
+    midi: "4",
+    midiMethod: val => this.length = val * 10,
+    method: (val) => {
+      this.length = val.args[0] * 300;
+    }
+  },
+  {
+    nodeID: "slider4",
+    midi: "1",
+    midiMethod: val => this.movement = val / 10000,
+    method: (val) => {
+      this.movement = val.args[0] / 100;
+    }
+  },
+  ]
+}
+
+class Connecter extends Sketch {// replaced by spinning circles
   constructor(color) {
     super();
     this.params = {
@@ -1119,7 +1198,6 @@ class FlowShader extends Sketch {
 
   unload() {
     super.unload();
-    shaders[5] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
   listeners = [{
@@ -1190,80 +1268,6 @@ class FlowShader extends Sketch {
   ]
 }
 
-class TreeFractal extends Sketch {
-  constructor() {
-    super();
-  }
-  init() {
-    super.init();
-    this.angle = 1.2666;
-    this.startingAngle = this.angle;
-    this.divider = 0.65;
-    this.length = 220;
-    this.movement = 0.0022;
-    this.opacity = 0;
-  }
-  draw() {
-    let len = 100;
-    let r = 150 + sin(frameCount / 200) * 50;
-    let b = 200 + sin(frameCount / 100) * 50;
-    let g = 100 + sin(frameCount / 300) * 50;
-    stroke(r, g, b, this.opacity);
-    translate(width / 1.5, height);
-    this.branch(this.length);
-    // this.angle = this.startingAngle * frameCount / 500;
-  }
-  branch(len) {
-    line(0, 0, 0, -len);
-    translate(0, -len);
-    if (len > 4) {
-      push();
-      rotate(this.angle);
-      this.branch(len * this.divider);
-      pop();
-      push();
-      rotate(noise(frameCount * this.movement, -len) - this.angle);
-      this.branch(len * this.divider);
-      pop();
-    }
-  }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "2",
-    midiMethod: val => this.angle = val / 30,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider2",
-    midi: "3",
-    midiMethod: val => this.divider = val / 100,
-    method: (val) => {
-      this.divider = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider3",
-    midi: "4",
-    midiMethod: val => this.length = val * 10,
-    method: (val) => {
-      this.length = val.args[0] * 300;
-    }
-  },
-  {
-    nodeID: "slider4",
-    midi: "1",
-    midiMethod: val => this.movement = val / 10000,
-    method: (val) => {
-      this.movement = val.args[0] / 100;
-    }
-  },
-  ]
-}
 
 class Drops extends Sketch {
   constructor(obj) {
