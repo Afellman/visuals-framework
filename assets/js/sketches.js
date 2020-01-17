@@ -750,7 +750,7 @@ class BGShader extends Sketch {
 
     noStroke();
     this.shader.setUniform("u_color", glBackground) // Get this equation correct.
-    this.shaderBox.shader(this.shader);
+    this.shaderBox.shader(this.shaderBox.createShader(shaders[0]._vertShader, shaders[0]._fragShader));
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
     this.time += 0.01
