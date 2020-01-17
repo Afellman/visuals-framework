@@ -532,14 +532,17 @@ class TreeFractal extends Sketch {
     super();
     if (!this.loaded) {
       this.params = {
-        angle: 1.2666,
-        startingAngle: this.angle,
-        divider: 0.65,
-        length: 220,
-        movement: 0.0022,
+        faders: {
+          angle: 1.2666,
+
+          divider: 0.65,
+          length: 220,
+          movement: 0.0022,
+        }
       }
     }
-    this.opacity = 0
+    this.startingAngle = this.angle;
+    this.opacity = 0;
   }
   init() {
     super.init();
