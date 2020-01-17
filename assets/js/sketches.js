@@ -530,14 +530,18 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
 class GoldenSpiral extends Sketch {
   constructor(color = 255) {
     super();
-    this.goldenAngle = PI * (3.0 - sqrt(5));
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          speed: 0.00001,
+          size: 200,
+          stepSize: 2,
+          angle: PI * (3.0 - sqrt(5))
+        }
+      }
+    }
     this.time = 0;
-    this.number = 500;
-    this.size = 200;
-    this.stepSize = 2;
     this.opacity = 20;
-    this.animate = true;
-    this.time = 0;
     this.opacity = 0;
   }
   listeners = [{
@@ -553,16 +557,16 @@ class GoldenSpiral extends Sketch {
     stroke(255, 255, 255, this.opacity)
     translate(width / 2, height / 2)
     // this.number = frameCount;
-    for (var i = 0; i < this.number; i++) {
+    for (var i = 0; i < this.params.faders.number; i++) {
       rotate(this.time);
-      translate(0, i * this.stepSize);
-      rotate(this.goldenAngle);
-      line(0, 0, -this.size, this.size);
+      translate(0, i * this.params.faders.stepSize);
+      rotate(this.params.faders.angle);
+      line(0, 0, -this.params.faders.size, this.params.faders.size);
       // triangle(-this.size, 0, 0, this.size, this.size, 0)
       // ellipse(0, 0, this.size);						// draw an ellipse (circle)
       // rect(0, 0, this.size, this.size); 					// draw a rectangle
     }
-    this.time += 0.00001;
+    this.time += this.params.faders.speed;
   }
 }
 
