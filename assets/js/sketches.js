@@ -540,6 +540,7 @@ class TreeFractal extends Sketch {
         }
       }
     }
+    this.sceneNum = 5;
     this.startingAngle = this.angle;
     this.opacity = 0;
   }
@@ -566,7 +567,7 @@ class TreeFractal extends Sketch {
       this.branch(len * this.params.faders.divider);
       pop();
       push();
-      rotate(noise(frameCount * this.params.faders.movement, -len) - this.angle);
+      rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
       this.branch(len * this.params.faders.divider);
       pop();
     }
