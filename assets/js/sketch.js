@@ -14,6 +14,7 @@ let shaders = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
+let alreadySetup = false;
 const midiSubscribers = {
 }
 
@@ -53,6 +54,7 @@ function setup() {
   // fft = new p5.FFT(0.8, 512);
   // fft.setInput(mic);
 
+  alreadySetup = true;
 }
 
 function draw() {
