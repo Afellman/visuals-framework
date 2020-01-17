@@ -35,6 +35,7 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
+  console.log("setup")
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
