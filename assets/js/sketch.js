@@ -14,7 +14,6 @@ let shaders = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
-let alreadySetup = false;
 const midiSubscribers = {
 }
 
@@ -36,9 +35,6 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
-  if (alreadySetup) {
-    return false;
-  }
   console.log("setup")
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
@@ -54,7 +50,6 @@ function setup() {
   // fft = new p5.FFT(0.8, 512);
   // fft.setInput(mic);
 
-  alreadySetup = true;
 }
 
 function draw() {
