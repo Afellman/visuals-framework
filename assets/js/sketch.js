@@ -96,8 +96,6 @@ function loadScene(scene) {
 }
 
 function unloadScene(id) {
-  // let scene = scenes[0];
-  // scene.unload();
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i].id === id) {
@@ -174,7 +172,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Connecter();
+          this.scene = new SpinningCircles();
           loadScene(this.scene);
           this.isActive = true;
         }
