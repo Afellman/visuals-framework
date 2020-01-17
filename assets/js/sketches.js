@@ -721,7 +721,7 @@ class BGShader extends Sketch {
     this.pointsAmt = 1;
     this.diameter = 200;
     this.time = 0;
-    this.shader = shaders[0];
+    this.shader = JSON.parse(shaders[0]);
   }
 
 
@@ -1124,9 +1124,6 @@ class FlowShader extends Sketch {
   init(index) {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    this.cam = createCapture(VIDEO);
-    this.cam.size(innerWidth, innerHeight);
-    this.cam.hide();
     this.time = 0;
     this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
