@@ -533,11 +533,11 @@ class GoldenSpiral extends Sketch {
     if (!this.loaded) {
       this.params = {
         faders: {
-          speed: 0.00001,
+          speed: 0.01,
           size: 200,
           stepSize: 2,
           angle: PI * (3.0 - sqrt(5)),
-          number: 200
+          number: 500
         }
       }
     }
@@ -567,7 +567,7 @@ class GoldenSpiral extends Sketch {
       // ellipse(0, 0, this.size);						// draw an ellipse (circle)
       // rect(0, 0, this.size, this.size); 					// draw a rectangle
     }
-    this.time += this.params.faders.speed;
+    this.time += this.params.faders.speed / 1000;
   }
 }
 
