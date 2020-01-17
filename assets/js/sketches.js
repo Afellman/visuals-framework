@@ -979,7 +979,7 @@ class LinesShader extends Sketch {
     this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = shaders[1];
+    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
     this.shaderPath = "./shaders/movingLines.frag";
   }
 
