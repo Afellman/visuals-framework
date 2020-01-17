@@ -537,9 +537,9 @@ class TreeFractal extends Sketch {
         divider: 0.65,
         length: 220,
         movement: 0.0022,
-        opacity: 0,
       }
     }
+    this.opacity = 0
   }
   init() {
     super.init();
