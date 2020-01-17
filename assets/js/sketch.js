@@ -23,7 +23,7 @@ function setImages(imgs) {
   images = imgs;
 }
 function setShaders(shaderArry) {
-  shaders = shaderArry.map(shad => JSON.stringify(shad));
+  shaders = shaderArry;
 }
 
 // ======================================== P5 Functions
@@ -35,6 +35,9 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
+  if (alreadySetup) {
+    return false;
+  }
   console.log("setup")
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
