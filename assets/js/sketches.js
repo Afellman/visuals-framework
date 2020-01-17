@@ -974,7 +974,7 @@ class LinesShader extends Sketch {
 
   init(index) {
     super.init();
-    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.shaderBox = createGraphics(width, height, WEBGL);
     this.time = 0;
     this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
