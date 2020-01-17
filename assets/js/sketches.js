@@ -756,41 +756,7 @@ class BGShader extends Sketch {
     this.time += 0.01
   }
 
-  listeners = [{
-    socketName: '/1/xy1',
-    method: (val) => {
-      this.points[0] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/1',
-    method: (val) => {
-      this.points[0] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/2',
-    method: (val) => {
-      this.points[1] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/3',
-    method: (val) => {
-      this.points[2] = [val.args[1], val.args[0]]
-    }
-  }]
-
-  makePoints() {
-    let pointsArray = [];
-    for (let i = 0; i < this.pointsAmt; i++) {
-      let x = width / 2 + sin(i * HALF_PI) * 100;
-      let y = height / 2 + cos(i * HALF_PI) * 50;
-      pointsArray.push([x, y])
-    }
-    return pointsArray;
-  }
-
-  plot(arr) {
-    return new Array(arr[0] / width, arr[1] / height);
-  }
+  listeners = []
 }
 
 class Ripples extends Sketch {
