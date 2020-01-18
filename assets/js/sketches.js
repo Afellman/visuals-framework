@@ -553,7 +553,7 @@ class GoldenSpiral extends Sketch {
         }
       }
     }
-    this.color = [255, 255, 255]
+    this.color = [255, 255, 255];
     this.sceneNum = 6
     this.time = 0;
     this.opacity = 0;
@@ -587,7 +587,7 @@ class GoldenSpiral extends Sketch {
     {
       socketName: "colorToggle",
       socketMethod: (val) => {
-        if (val) {
+        if (val.args[0]) {
           this.color = [58, 19, 6];
         } else {
           this.color = [255, 255, 255];
