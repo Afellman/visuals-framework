@@ -687,6 +687,7 @@ class Sin extends Sketch { // Scene 7
     if (!this.loaded) {
       this.time = 0;
     }
+    this.sceneNum = 7;
     this.opacity = 0;
   }
 
@@ -700,7 +701,7 @@ class Sin extends Sketch { // Scene 7
   draw() {
     let howManyWaves = this.waves.length;
     fill(255, 255, 255, this.opacity)
-    str(255, 255, 255, this.opacity)
+    stroke(255, 255, 255, this.opacity)
 
     beginShape()
     for (let i = 0; i < 360; i++) {
