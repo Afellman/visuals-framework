@@ -79,7 +79,6 @@ function draw() {
 
 function setupSockets() {
   socket.on('connect', function (sock) {
-    console.log(sock)
     console.log("Socket Connected")
   });
 
