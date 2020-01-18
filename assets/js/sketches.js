@@ -699,7 +699,7 @@ class Sin extends Sketch { // Scene 7
 
   draw() {
     let howManyWaves = this.waves.length;
-    stroke("white")
+    stroke(255, this.opacity)
     beginShape()
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
