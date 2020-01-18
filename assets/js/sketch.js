@@ -42,7 +42,7 @@ function setup() {
   loadScene(new BGShader()) // For background.
   loadScene(new FlowShader())
   loadScene(new TreeFractal())
-  scenes[1].opacity = 255
+  scenes[1].opacity = 150
   scenes[2].opacity = 255
 
   // For Audio input
