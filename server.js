@@ -82,6 +82,7 @@ function setupUDP() {
 function setupSocket() {
   io.on('connection', client => {
     glClient = client
+    client.emit("debug", debug);
     console.log('Web socket connected')
     client.on('disconnect', () => { /* … */ });
     // On socket message, send OSC message to device
