@@ -5,7 +5,7 @@ const simpleGit = require("simple-git")("./");
 const fs = require('fs');
 const port = 3000;
 const app = express();
-const remoteIP = "192.168.1.16";
+const remoteIP = "192.168.1.234";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -21,6 +21,7 @@ app.get('/', function (req, res) {
 
 setupUDP();
 setupSocket();
+
 if (!process.argv[2]) {
   setupWatcher();
 }
