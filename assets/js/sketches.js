@@ -519,7 +519,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
       }
     }
 
-    this.multiplier += sin(frameCount * this.params.faders.multiSpeed / 10) / 100;
+    this.multiplier += sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
     this.freq += speed;
   }
 
