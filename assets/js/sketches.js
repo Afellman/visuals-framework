@@ -693,6 +693,7 @@ class Rain extends Sketch { // Scene 7.
           freq: 2
         }
       }
+      this.sceneNum = 7;
       this.rowsAmount = 50;
       this.dotsAmount = 20;
       this.globalChange = 14
