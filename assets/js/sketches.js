@@ -568,7 +568,7 @@ class GoldenSpiral extends Sketch {
   draw() {
     // background(0);
     fill(255, 10);
-    stroke(96.2975082397461, 38.19624328613281, 24.20889663696289, this.opacity)
+    stroke(58, 19, 6, this.opacity)
     translate(width / 2, height / 2)
     // this.number = frameCount;
     for (var i = 0; i < this.params.faders.number; i++) {
