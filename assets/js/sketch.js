@@ -224,7 +224,7 @@ const controlScene = {
       }
     }
   },
-  "8": {
+  "7": {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
@@ -233,7 +233,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new LinesShader();
+          this.scene = new Sin();
           loadScene(this.scene);
           this.isActive = true;
         }
