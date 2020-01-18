@@ -680,7 +680,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-class Rain extends Sketch { // Scene 7.
+class Rain extends Sketch {
   constructor(obj) {
     super(obj);
     this.dots = [];
