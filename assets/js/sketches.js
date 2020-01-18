@@ -723,15 +723,15 @@ class Rain extends Sketch { // Scene 7.
   }
 
   draw() {
-    this.rateChange = (PI / this.params.faders.freq / 100) * this.params.faders.freq2 * 100;
+    stroke(230, 230, 230, this.opacity);
+    fill(230, 230, 230, this.opacity);
+    this.rateChange = (this.params.faders.freq / 100) * this.params.faders.freq2 * 100;
     this.globalChange += this.params.faders.speed / 10000;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
         thisDot.size = Math.round(sin(change * i) * this.params.faders.amplitude) * 5;
-        stroke(230, 230, 230, this.opacity);
-        fill(230, 230, 230, this.opacity);
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
         change += this.rateChange;
       }
