@@ -688,7 +688,7 @@ class Rain extends Sketch { // Scene 7.
       this.params = {
         faders: {
           amplitude: 2.5,
-          speed: 0.01,
+          speed: 0.1,
           freq: 0.01,
           freq2: 2
         }
