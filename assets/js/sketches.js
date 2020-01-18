@@ -680,6 +680,61 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
+class Sin extends Sketch { // Scene 7
+  constructor(obj) {
+    super(obj);
+    this.waves = [];
+    if (!this.loaded) {
+      this.time = 0;
+    }
+  }
+
+  init() {
+    super.init();
+    this.waves.push(new Objects.SineWave(50, 0.004))
+    this.waves.push(new Objects.SineWave(75, 0.01))
+    this.waves.push(new Objects.SineWave(15, 0.01))
+  }
+
+  draw() {
+    let howManyWaves = this.waves.length;
+    stroke("white")
+    beginShape()
+    for (let i = 0; i < 360; i++) {
+      let x = map(i, 0, 360, 0, width);
+      let y = height / 2;
+      let n = i * 0.005
+      for (let j = 0; j < howManyWaves; j++) {
+        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
+      }
+      vertex(x, y);
+    }
+    endShape();
+    this.time += 0.1
+  }
+
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    method: (val) => {
+      this.amplitude = val.args[0] * 200;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    method: (val) => {
+      this.frequency = val.args[0] / 100
+    }
+  },
+  {
+    socketName: '/1/multifader1/3',
+    method: (val) => {
+      this.speed = val.args[0]
+    }
+  },
+  ]
+
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
@@ -735,60 +790,7 @@ class Rain extends Sketch {
   }
 }
 
-class Sin extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.waves = [];
-    if (!this.loaded) {
-      this.time = 0;
-    }
-  }
 
-  init() {
-    super.init();
-    this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(75, 0.01))
-    this.waves.push(new Objects.SineWave(15, 0.01))
-  }
-
-  draw() {
-    let howManyWaves = this.waves.length;
-    stroke("white")
-    beginShape()
-    for (let i = 0; i < 360; i++) {
-      let x = map(i, 0, 360, 0, width);
-      let y = height / 2;
-      let n = i * 0.005
-      for (let j = 0; j < howManyWaves; j++) {
-        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
-      }
-      vertex(x, y);
-    }
-    endShape();
-    this.time += 0.1
-  }
-
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    method: (val) => {
-      this.amplitude = val.args[0] * 200;
-    }
-  },
-  {
-    socketName: '/1/multifader1/2',
-    method: (val) => {
-      this.frequency = val.args[0] / 100
-    }
-  },
-  {
-    socketName: '/1/multifader1/3',
-    method: (val) => {
-      this.speed = val.args[0]
-    }
-  },
-  ]
-
-}
 
 
 class LinesShader extends Sketch {
