@@ -534,6 +534,8 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
     socketMethod: (val) => {
       if (!val) {
         this.multiplier = 1;
+      } else {
+        this.multiplier = 0
       }
     }
   },]
