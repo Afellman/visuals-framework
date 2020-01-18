@@ -508,11 +508,11 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
       centerPoint.pos.y = y;
       centerPoint.size = circleSize;
 
-
+      stroke(255, 255, 255, 50);
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
         if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
-          stroke(255, 255, 255, 50);
+
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
@@ -522,7 +522,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
 
   listeners = [{
     socketName: "multiplier",
-    socketMethod: (val) => this.multiplier += val.args[0]
+    socketMethod: (val) => this.multiplier += val.args[0] / 100
   }]
   mouseClicked() { }
 }
@@ -543,7 +543,6 @@ class GoldenSpiral extends Sketch {
     }
     this.sceneNum = 6
     this.time = 0;
-    this.opacity = 20;
     this.opacity = 0;
   }
   listeners = [{
@@ -571,7 +570,6 @@ class GoldenSpiral extends Sketch {
     this.time += this.params.faders.speed / 1000;
   }
 }
-
 
 class TreeFractal extends Sketch { // Scene 5. Maped.
   constructor() {
