@@ -432,7 +432,6 @@ class SineWaves extends Sketch { // Scene 3. Maped
   ]
 }
 
-
 class SpinningCircles extends Sketch { // Scene 4. Maped
   constructor() {
     super();
@@ -582,6 +581,15 @@ class GoldenSpiral extends Sketch {
     }
     this.time += this.params.faders.speed / 1000;
   }
+
+  listeners = [
+    {
+      socketName: "resetMulti",
+      socketMethod: (val) => {
+        this.multiplier = 10;
+      }
+    }
+  ]
 }
 
 class TreeFractal extends Sketch { // Scene 5. Maped.
