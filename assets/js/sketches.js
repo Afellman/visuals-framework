@@ -539,64 +539,6 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
   mouseClicked() { }
 }
 
-class GoldenSpiral extends Sketch {
-  constructor(color = 255) {
-    super();
-    if (!this.loaded) {
-      this.params = {
-        faders: {
-          speed: 0.01,
-          size: 200,
-          stepSize: 2,
-          angle: PI * (3.0 - sqrt(5)),
-          number: 500
-        }
-      }
-    }
-    this.color = [255, 255, 255];
-    this.sceneNum = 6
-    this.time = 0;
-    this.opacity = 0;
-  }
-  listeners = [{
-
-  }]
-  init() {
-    super.init();
-  }
-
-  draw() {
-    // background(0);
-    fill(255, 10);
-    stroke(this.color[0], this.color[1], this.color[2], this.opacity)
-    translate(width / 2, height / 2)
-    // this.number = frameCount;
-    for (var i = 0; i < this.params.faders.number; i++) {
-      rotate(this.time);
-      translate(0, i * this.params.faders.stepSize);
-      rotate(this.params.faders.angle);
-      line(0, 0, -this.params.faders.size, this.params.faders.size);
-      // triangle(-this.size, 0, 0, this.size, this.size, 0)
-      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
-      // rect(0, 0, this.size, this.size); 					// draw a rectangle
-    }
-    this.time += this.params.faders.speed / 1000;
-  }
-
-  listeners = [
-    {
-      socketName: "colorToggle",
-      socketMethod: (val) => {
-        if (val.args[0]) {
-          this.color = [58, 19, 6];
-        } else {
-          this.color = [255, 255, 255];
-        }
-      }
-    }
-  ]
-}
-
 class TreeFractal extends Sketch { // Scene 5. Maped.
   constructor() {
     super();
@@ -679,6 +621,65 @@ class TreeFractal extends Sketch { // Scene 5. Maped.
   },
   ]
 }
+
+class GoldenSpiral extends Sketch { // Scene 6. Maped
+  constructor(color = 255) {
+    super();
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          speed: 0.01,
+          size: 200,
+          stepSize: 2,
+          angle: PI * (3.0 - sqrt(5)),
+          number: 500
+        }
+      }
+    }
+    this.color = [255, 255, 255];
+    this.sceneNum = 6
+    this.time = 0;
+    this.opacity = 0;
+  }
+  listeners = [{
+
+  }]
+  init() {
+    super.init();
+  }
+
+  draw() {
+    // background(0);
+    fill(255, 10);
+    stroke(this.color[0], this.color[1], this.color[2], this.opacity)
+    translate(width / 2, height / 2)
+    // this.number = frameCount;
+    for (var i = 0; i < this.params.faders.number; i++) {
+      rotate(this.time);
+      translate(0, i * this.params.faders.stepSize);
+      rotate(this.params.faders.angle);
+      line(0, 0, -this.params.faders.size, this.params.faders.size);
+      // triangle(-this.size, 0, 0, this.size, this.size, 0)
+      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
+      // rect(0, 0, this.size, this.size); 					// draw a rectangle
+    }
+    this.time += this.params.faders.speed / 1000;
+  }
+
+  listeners = [
+    {
+      socketName: "colorToggle",
+      socketMethod: (val) => {
+        if (val.args[0]) {
+          this.color = [58, 19, 6];
+        } else {
+          this.color = [255, 255, 255];
+        }
+      }
+    }
+  ]
+}
+
 
 class Connecter extends Sketch {// replaced by spinning circles
   constructor(color) {
