@@ -40,8 +40,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
-  loadScene(new FlowShader())
-  loadScene(new TreeFractal())
+  loadScene(new Starry())
   scenes[1].opacity = 150
   scenes[2].opacity = 255
 
@@ -78,7 +77,8 @@ function draw() {
 // ======================================== Other Functions
 
 function setupSockets() {
-  socket.on('connect', function (sock) {
+  socket.on('connect', function () {
+    console.log(socket)
     console.log("Socket Connected")
   });
 
