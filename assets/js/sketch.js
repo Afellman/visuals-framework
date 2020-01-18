@@ -14,6 +14,7 @@ let shaders = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
+let debug = false;
 const midiSubscribers = {
 }
 
@@ -40,11 +41,6 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
-  loadScene(new Starry())
-  loadScene(new SineWaves())
-  scenes[1].opacity = 255
-  scenes[2].opacity = 255
-
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
@@ -201,24 +197,6 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SpinningCircles();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else {
-        this.scene.opacity = midiToNormal(vel);
-      }
-    }
-  },
-  "6": {
-    isActive: false,
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
           this.scene = new TreeFractal();
           loadScene(this.scene);
           this.isActive = true;
@@ -228,7 +206,7 @@ const controlScene = {
       }
     }
   },
-  "7": {
+  "6": {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
@@ -247,24 +225,6 @@ const controlScene = {
     }
   },
   "8": {
-    isActive: false,
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
-          this.scene = new Rain();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else {
-        this.scene.opacity = midiToColor(vel);
-      }
-    }
-  },
-  "9": {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
@@ -432,24 +392,14 @@ function getMIDIMessage(midiMessage) {
   let command = midiMessage.data[0];
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
-  console.log(note, velocity, command)
+  if (debug) console.log(note, velocity, command)
   if (command !== 132) {
 
     if (note < 17) {
-
       controlScene[note].method(velocity, command);
     } else {
       genericMidi[note].method(velocity, command);
     }
-    // if (midiSubscribers[note]) {
-    //   midiSubscribers[note].forEach(sub => sub(velocity, command));
-    // }
-    // if (note == 40 && command == 148) {
-    //   toggleMirror(true);
-    // }
-    // if (note == 41 && command == 148) {
-    //   toggleMirror();
-    // }
   }
 }
 
