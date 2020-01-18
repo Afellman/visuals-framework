@@ -525,8 +525,8 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
     socketMethod: (val) => this.multiplier += val.args[0] / 10
   },
   {
-    socketName: "multiplier",
-    socketMethod: (val) => this.multiplier += val.args[0] / 10
+    socketName: "multiSin",
+    socketMethod: (val) => this.multiSin = !this.multiSin
   },]
   mouseClicked() { }
 }
