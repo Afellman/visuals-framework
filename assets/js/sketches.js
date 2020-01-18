@@ -525,20 +525,16 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
     this.freq += speed;
   }
 
-  listeners = [{
-    socketName: "multiplier",
-    socketMethod: (val) => this.multiplier += val.args[0] / 10
-  },
-  {
-    socketName: "multiSin",
-    socketMethod: (val) => {
-      if (!val) {
-        this.multiplier = 1;
-      } else {
-        this.multiplier = 0
+  listeners = [
+    {
+      socketName: "multiSin",
+      socketMethod: (val) => {
+        if (!val) {
+          this.multiplier = 10;
+        } else {
+        }
       }
-    }
-  },]
+    },]
   mouseClicked() { }
 }
 
