@@ -690,7 +690,7 @@ class Rain extends Sketch { // Scene 7.
           amplitude: 2.5,
           speed: 0.01,
           freq: 0.01,
-          freq: 2
+          freq2: 2
         }
       }
       this.sceneNum = 7;
