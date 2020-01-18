@@ -728,7 +728,7 @@ class Rain extends Sketch { // Scene 7.
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
+        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
       }
     }
