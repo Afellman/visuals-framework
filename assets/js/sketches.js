@@ -541,7 +541,7 @@ class GoldenSpiral extends Sketch {
         }
       }
     }
-    this.sceneNum = 6'
+    this.sceneNum = 6;
     this.time = 0;
     this.opacity = 20;
     this.opacity = 0;
