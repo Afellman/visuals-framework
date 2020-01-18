@@ -529,11 +529,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
     {
       socketName: "multiSin",
       socketMethod: (val) => {
-        if (!val) {
-          this.multiplier = 1;
-        } else {
-          this.multiplier = 0
-        }
+        this.multiplier = 10;
       }
     },]
   mouseClicked() { }
