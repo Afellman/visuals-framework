@@ -553,6 +553,7 @@ class GoldenSpiral extends Sketch {
         }
       }
     }
+    this.color = [255, 255, 255]
     this.sceneNum = 6
     this.time = 0;
     this.opacity = 0;
@@ -567,7 +568,7 @@ class GoldenSpiral extends Sketch {
   draw() {
     // background(0);
     fill(255, 10);
-    stroke(58, 19, 6, this.opacity)
+    stroke(this.color[0], this.color[1], this.color[2], this.opacity)
     translate(width / 2, height / 2)
     // this.number = frameCount;
     for (var i = 0; i < this.params.faders.number; i++) {
@@ -584,9 +585,13 @@ class GoldenSpiral extends Sketch {
 
   listeners = [
     {
-      socketName: "resetMulti",
+      socketName: "colorToggle",
       socketMethod: (val) => {
-        this.multiplier = 10;
+        if (val) {
+          this.color = [58, 19, 6];
+        } else {
+          this.color = [255, 255, 255];
+        }
       }
     }
   ]
