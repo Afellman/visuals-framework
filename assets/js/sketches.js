@@ -723,7 +723,7 @@ class Rain extends Sketch { // Scene 7.
   }
 
   draw() {
-    this.rateChange = (PI / this.params.faders.freq / 100) * this.params.faders.freq2;
+    this.rateChange = (PI / this.params.faders.freq / 100) * this.params.faders.freq2 * 100;
     this.globalChange += this.params.faders.speed / 10000;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
