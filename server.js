@@ -25,8 +25,9 @@ setupUDP();
 setupSocket();
 
 if (!process.argv[2]) {
-  setupWatcher();
   debug = false;
+} else {
+  setupWatcher();
 }
 
 
