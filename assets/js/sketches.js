@@ -687,6 +687,7 @@ class Sin extends Sketch { // Scene 7
     if (!this.loaded) {
       this.time = 0;
     }
+    this.opacity = 0;
   }
 
   init() {
