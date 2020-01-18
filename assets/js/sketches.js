@@ -680,131 +680,6 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-
-class Connecter extends Sketch {// replaced by spinning circles
-  constructor(color) {
-    super();
-    this.params = {
-      faders: {
-
-
-      }
-    }
-    this.pointAmt = 200,
-      this.circleDiameter = 410;
-    this.curl = 280;
-    this.strokeWeight = 1;
-    this.multiplier = 10;
-    this.centerPoints = [];
-    this.color = 255;
-    this.proximity = 500;
-    this.speed = 0.01;
-    this.color = color || false;
-    this.imgIndex = 2;
-    this.opacity = 0;
-  }
-
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      const orbit = sin(this.freq + i * 10) * this.curl;
-      const circle = sin(i) * this.circleDiameter;
-      const orbitY = cos(this.freq + i * this.multiplier);
-      const circleY = cos(i) * this.circleDiameter;
-      const newPoint = new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        this.color || someColor(this.imgIndex),
-      );
-      this.centerPoints.push(newPoint);
-    }
-    this.freq = this.speed;
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.pos.x = width / 2 + orbit + circle
-      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        }
-      }
-    }
-    this.freq += this.speed;
-  }
-  listeners = []
-  mouseClicked() { }
-}
-
-class Sin extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.waves = [];
-    if (!this.loaded) {
-      this.time = 0;
-    }
-  }
-
-  init() {
-    super.init();
-    this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(75, 0.01))
-    this.waves.push(new Objects.SineWave(15, 0.01))
-  }
-
-  draw() {
-    let howManyWaves = this.waves.length;
-    stroke("white")
-    beginShape()
-    for (let i = 0; i < 360; i++) {
-      let x = map(i, 0, 360, 0, width);
-      let y = height / 2;
-      let n = i * 0.005
-      for (let j = 0; j < howManyWaves; j++) {
-        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
-      }
-      vertex(x, y);
-    }
-    endShape();
-    this.time += 0.1
-  }
-
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    method: (val) => {
-      this.amplitude = val.args[0] * 200;
-    }
-  },
-  {
-    socketName: '/1/multifader1/2',
-    method: (val) => {
-      this.frequency = val.args[0] / 100
-    }
-  },
-  {
-    socketName: '/1/multifader1/3',
-    method: (val) => {
-      this.speed = val.args[0]
-    }
-  },
-  ]
-
-}
-
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
@@ -867,6 +742,183 @@ class Rain extends Sketch {
 
 }
 
+class Sin extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.waves = [];
+    if (!this.loaded) {
+      this.time = 0;
+    }
+  }
+
+  init() {
+    super.init();
+    this.waves.push(new Objects.SineWave(50, 0.004))
+    this.waves.push(new Objects.SineWave(75, 0.01))
+    this.waves.push(new Objects.SineWave(15, 0.01))
+  }
+
+  draw() {
+    let howManyWaves = this.waves.length;
+    stroke("white")
+    beginShape()
+    for (let i = 0; i < 360; i++) {
+      let x = map(i, 0, 360, 0, width);
+      let y = height / 2;
+      let n = i * 0.005
+      for (let j = 0; j < howManyWaves; j++) {
+        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
+      }
+      vertex(x, y);
+    }
+    endShape();
+    this.time += 0.1
+  }
+
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    method: (val) => {
+      this.amplitude = val.args[0] * 200;
+    }
+  },
+  {
+    socketName: '/1/multifader1/2',
+    method: (val) => {
+      this.frequency = val.args[0] / 100
+    }
+  },
+  {
+    socketName: '/1/multifader1/3',
+    method: (val) => {
+      this.speed = val.args[0]
+    }
+  },
+  ]
+
+}
+
+
+class LinesShader extends Sketch {
+  A
+  constructor(img) {
+    super();
+    this.linesShader;
+    this.img = images[0];
+    this.speed = 1;
+    this.direction = 1;
+    this.opacity = 0;
+    this.xOff = 0;
+    this.yOff = 0;
+    this.amp = 0;
+    this.noise = 0;
+    this.freq = 0;
+    this.speed = 0;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.time = 0;
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
+    this.shaderPath = "./shaders/movingLines.frag";
+  }
+
+  draw() {
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_xOff', this.xOff);
+    this.shader.setUniform('u_yOff', this.yOff);
+    this.shader.setUniform('u_amp', this.amp);
+    this.shader.setUniform('u_noise', this.noise);
+    this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_speed', this.speed);
+
+
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+
+  }
+
+  unload() {
+    super.unload();
+    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+  }
+
+  listeners = [
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider1",
+      midi: "1",
+      midiMethod: val => this.params[0] = val / 100,
+      method: (val) => {
+        this.yOff = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/2',
+      nodeID: "slider1",
+      midi: "2",
+      midiMethod: val => this.params[1] = val / 100,
+      method: (val) => {
+        this.xOff = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/3',
+      nodeID: "slider1",
+      midi: "3",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 10);
+        this.params[2] = val;
+      },
+      method: (val) => {
+        this.amp = val.args[0] / 10;
+      }
+    },
+    {
+      socketName: '/1/multifader1/4',
+      nodeID: "slider1",
+      midi: "4",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 0.5)
+        this.params[3] = val
+      },
+      method: (val) => {
+        this.freq = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/5',
+      nodeID: "slider1",
+      midi: "5",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 1)
+        this.params[4] = val
+      },
+      method: (val) => {
+        this.speed = val.args[0] * 2;
+      }
+    },
+    {
+      socketName: '/1/multifader1/6',
+      nodeID: "slider1",
+      midi: "6",
+      midiMethod: val => {
+        this.params[5] = val / 100
+      },
+      method: (val) => {
+        this.noise = val.args[0];
+      }
+    },
+  ]
+}
 class BGShader extends Sketch {
   constructor() {
     super();
@@ -1070,127 +1122,6 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
-class LinesShader extends Sketch {
-  A
-  constructor(img) {
-    super();
-    this.linesShader;
-    this.img = images[0];
-    this.speed = 1;
-    this.direction = 1;
-    this.opacity = 0;
-    this.xOff = 0;
-    this.yOff = 0;
-    this.amp = 0;
-    this.noise = 0;
-    this.freq = 0;
-    this.speed = 0;
-  }
-
-  init(index) {
-    super.init();
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
-    this.loops = 4;
-    this.cray = 0.0;
-    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
-    this.shaderPath = "./shaders/movingLines.frag";
-  }
-
-  draw() {
-    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
-    noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.img);
-    this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_xOff', this.xOff);
-    this.shader.setUniform('u_yOff', this.yOff);
-    this.shader.setUniform('u_amp', this.amp);
-    this.shader.setUniform('u_noise', this.noise);
-    this.shader.setUniform('u_freq', this.freq);
-    this.shader.setUniform('u_speed', this.speed);
-
-
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
-
-  }
-
-  unload() {
-    super.unload();
-    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
-  }
-
-  listeners = [
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      midi: "1",
-      midiMethod: val => this.params[0] = val / 100,
-      method: (val) => {
-        this.yOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider1",
-      midi: "2",
-      midiMethod: val => this.params[1] = val / 100,
-      method: (val) => {
-        this.xOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider1",
-      midi: "3",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 10);
-        this.params[2] = val;
-      },
-      method: (val) => {
-        this.amp = val.args[0] / 10;
-      }
-    },
-    {
-      socketName: '/1/multifader1/4',
-      nodeID: "slider1",
-      midi: "4",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 0.5)
-        this.params[3] = val
-      },
-      method: (val) => {
-        this.freq = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/5',
-      nodeID: "slider1",
-      midi: "5",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 1)
-        this.params[4] = val
-      },
-      method: (val) => {
-        this.speed = val.args[0] * 2;
-      }
-    },
-    {
-      socketName: '/1/multifader1/6',
-      nodeID: "slider1",
-      midi: "6",
-      midiMethod: val => {
-        this.params[5] = val / 100
-      },
-      method: (val) => {
-        this.noise = val.args[0];
-      }
-    },
-  ]
-}
 
 class FlowShader extends Sketch {
   constructor(img) {
@@ -1302,7 +1233,6 @@ class FlowShader extends Sketch {
   },
   ]
 }
-
 
 class Drops extends Sketch {
   constructor(obj) {
@@ -1442,6 +1372,76 @@ class EarthQuake extends Sketch {
     }
   }
 }
+
+class Connecter extends Sketch {// replaced by spinning circles
+  constructor(color) {
+    super();
+    this.params = {
+      faders: {
+
+
+      }
+    }
+    this.pointAmt = 200,
+      this.circleDiameter = 410;
+    this.curl = 280;
+    this.strokeWeight = 1;
+    this.multiplier = 10;
+    this.centerPoints = [];
+    this.color = 255;
+    this.proximity = 500;
+    this.speed = 0.01;
+    this.color = color || false;
+    this.imgIndex = 2;
+    this.opacity = 0;
+  }
+
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.pointAmt; i++) {
+      const orbit = sin(this.freq + i * 10) * this.curl;
+      const circle = sin(i) * this.circleDiameter;
+      const orbitY = cos(this.freq + i * this.multiplier);
+      const circleY = cos(i) * this.circleDiameter;
+      const newPoint = new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        this.color || someColor(this.imgIndex),
+      );
+      this.centerPoints.push(newPoint);
+    }
+    this.freq = this.speed;
+  }
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
+    }
+    this.freq += this.speed;
+  }
+  listeners = []
+  mouseClicked() { }
+}
+
 
 const Objects = {
   /**
