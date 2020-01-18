@@ -95,8 +95,7 @@ function setupSockets() {
 
   socket.on("debug", (val) => {
     debug = val;
-    showFPS = false;
-
+    showFPS = val;
   });
 }
 
