@@ -680,19 +680,23 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-class Rain extends Sketch {
+class Rain extends Sketch { // Scene 7.
   constructor(obj) {
     super(obj);
     this.dots = [];
     if (!this.loaded) {
+      this.params = {
+        faders: {
+          amplitude: 2.5,
+          speed: 0.01,
+          freq: 0.01,
+          freq: 2
+        }
+      }
       this.rowsAmount = 50;
       this.dotsAmount = 20;
       this.globalChange = 14
-      this.period = 0.04;
-      this.xspacing = 0.003;
-      this.speed = 0.01;
-      this.rateChange = (TWO_PI / this.period) * this.xspacing;
-      this.amplitude = 2.5;
+      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
       this.opacity = 0;
     }
   }
@@ -718,13 +722,13 @@ class Rain extends Sketch {
   }
 
   draw() {
-    this.rateChange = (PI / this.period) * this.xspacing;
-    this.globalChange += this.speed;
+    this.rateChange = (PI / this.params.faders.freq) * this.params.faders.freq2;
+    this.globalChange += this.params.faders.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
+        thisDot.size = Math.round(sin(change * i) * this.params.faders.amplitude) * 5;
         stroke(230, 230, 230, this.opacity);
         fill(230, 230, 230, this.opacity);
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
@@ -734,10 +738,10 @@ class Rain extends Sketch {
   }
 
   controls = {
-    changeSpeed: (val) => this.speed = sin(val),
-    changePeriod: (val) => this.period = val,
-    changeSpacing: (val) => this.xspacing = val,
-    changeAmp: (val) => this.amplitude = val
+    changeSpeed: (val) => this.params.faders.speed = sin(val),
+    changePeriod: (val) => this.params.faders.freq = val,
+    changeSpacing: (val) => this.params.faders.freq2 = val,
+    changeAmp: (val) => this.params.faders.amplitude = val
   }
 
 }
