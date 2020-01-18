@@ -40,7 +40,8 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
-  loadScene(new FlowShader())
+  // loadScene(new FlowShader())
+  loadScene(new TreeFractal())
   scenes[1].opacity = 255
   // For Audio input
   // mic = new p5.AudioIn();
