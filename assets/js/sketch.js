@@ -43,6 +43,8 @@ function setup() {
   loadScene(new FlowShader())
   loadScene(new TreeFractal())
   scenes[1].opacity = 255
+  scenes[2].opacity = 255
+
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
