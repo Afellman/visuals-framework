@@ -41,7 +41,9 @@ function setup() {
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
   loadScene(new Starry())
+  loadScene(new SineWaves())
   scenes[1].opacity = 255
+  scenes[2].opacity = 255
 
   // For Audio input
   // mic = new p5.AudioIn();
