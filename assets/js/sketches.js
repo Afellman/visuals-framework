@@ -700,7 +700,7 @@ class Sin extends Sketch { // Scene 7
 
   draw() {
     let howManyWaves = this.waves.length;
-    fill(255, 255, 255, this.opacity)
+    // fill(255, 255, 255, this.opacity)
     stroke(255, 255, 255, this.opacity)
 
     beginShape()
