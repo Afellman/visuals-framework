@@ -523,7 +523,11 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
   listeners = [{
     socketName: "multiplier",
     socketMethod: (val) => this.multiplier += val.args[0] / 10
-  }]
+  },
+  {
+    socketName: "multiplier",
+    socketMethod: (val) => this.multiplier += val.args[0] / 10
+  },]
   mouseClicked() { }
 }
 
