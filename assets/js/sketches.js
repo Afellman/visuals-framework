@@ -724,7 +724,7 @@ class Rain extends Sketch { // Scene 7.
 
   draw() {
     this.rateChange = (PI / this.params.faders.freq) * this.params.faders.freq2;
-    this.globalChange += this.params.faders.speed;
+    this.globalChange += this.params.faders.speed / 100;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
@@ -737,14 +737,6 @@ class Rain extends Sketch { // Scene 7.
       }
     }
   }
-
-  controls = {
-    changeSpeed: (val) => this.params.faders.speed = sin(val),
-    changePeriod: (val) => this.params.faders.freq = val,
-    changeSpacing: (val) => this.params.faders.freq2 = val,
-    changeAmp: (val) => this.params.faders.amplitude = val
-  }
-
 }
 
 class Sin extends Sketch {
