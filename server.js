@@ -5,9 +5,10 @@ const simpleGit = require("simple-git")("./");
 const fs = require('fs');
 const port = 3000;
 const app = express();
-const remoteIP = "192.168.1.234";
+const remoteIP = "192.168.1.3";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+let debug = true;
 
 let updateInterval = Date.now();
 let udpPort;
@@ -25,6 +26,7 @@ setupSocket();
 
 if (!process.argv[2]) {
   setupWatcher();
+  debug = false;
 }
 
 
@@ -48,7 +50,7 @@ function setupUDP() {
   });
 
   udpPort.on("message", function (oscMessage) {
-    console.log(oscMessage);
+    if (debug) console.log(oscMessage);
     // Relay OSC message to client via websocket
     glClient.emit(oscMessage.address, oscMessage);
   });
