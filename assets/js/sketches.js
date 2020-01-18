@@ -529,6 +529,12 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
       socketMethod: (val) => {
         this.multiplier = 10;
       }
+    },
+    {
+      socketName: "stopMulti",
+      socketMethod: (val) => {
+        this.params.faders.multiSpeed = 0;
+      }
     },]
   mouseClicked() { }
 }
