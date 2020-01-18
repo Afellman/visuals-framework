@@ -446,7 +446,8 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
           curl: 0,
           proximity: 0,
           speed: 0.00,
-          circleSize: 3
+          circleSize: 3,
+          multiSpeed: 0
         },
       }
       this.multiSin = false;
@@ -519,7 +520,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
     }
 
     if (this.multiSin) {
-      this.multiplier += sin(frameCount / 10000) / 100
+      this.multiplier += sin(frameCount / 10000) / 100;
     }
     this.freq += speed;
   }
