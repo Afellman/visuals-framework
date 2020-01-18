@@ -449,7 +449,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
           circleSize: 3
         },
       }
-
+      this.multiSin = false;
       this.pointMax = 200;
       this.multiplier = 10;
       this.opacity = 0;
@@ -516,6 +516,10 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
+    }
+
+    if (this.multiSin) {
+      this.multiplier += sin(frameCount / 100)
     }
     this.freq += speed;
   }
