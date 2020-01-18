@@ -4,7 +4,7 @@ let goodColor = [];
 let maxPal = 512;
 let bgShader;
 let glCanvas;
-let showFPS = true;
+let showFPS = false;
 var socket = io('http://localhost:3000');
 let fft;
 let mic;
@@ -42,7 +42,6 @@ function setup() {
   loadScene(new BGShader()) // For background.
   loadScene(new Starry())
   scenes[1].opacity = 150
-  scenes[2].opacity = 255
 
   // For Audio input
   // mic = new p5.AudioIn();
