@@ -11,6 +11,7 @@ uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
 uniform vec4 params;
+uniform float u_opacity;
 
 
 vec3 colorize(vec4 tex){
@@ -91,6 +92,8 @@ void main() {
   float pat = pattern(vec2(uv.x + sin(u_time), uv.y + cos(u_time)));
   vec4 tex = texture2D(tex0, uv * pat);
 
-  // tex = colorSwirl(tex, uv);
-  gl_FragColor = vec4(tex);
+  tex = colorSwirl(tex, uv);
+
+  // tex.b += 0.2 + sin(u_time * 12.0);
+  gl_FragColor = vec4(tex.rgb, u_opacity);
 }

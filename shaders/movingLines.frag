@@ -2,6 +2,7 @@
 precision mediump float;
 #endif
 #define OCTAVES 6
+#define PI 3.1415926535897932384626433832795
 
 // grab texcoords from vert shader
 varying vec2 vTexCoord;
@@ -11,13 +12,20 @@ uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_speed;
 uniform float u_direction;
-uniform vec4 u_params;
+uniform float u_opacity;
+uniform float u_xOff;
+uniform float u_yOff;
+uniform float u_amp;
+uniform float u_noise;
+uniform float u_freq;
 
 
 float random (in vec2 st) {
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+float random(in float x){
+  return fract(sin(dot(x, 78.233)) * 43758.5453123);
 }
 
 float noise (in vec2 st) {
@@ -51,29 +59,19 @@ float fbm (in vec2 st) {
     return value;
 }
 
-float pattern( in vec2 p )
-{
-    vec2 q = vec2(fbm( p + vec2(0.0,0.0)), fbm( p + vec2(5.2,1.3) ) );
-
-    vec2 r = vec2(fbm( p + 4.0*q + vec2(1.7,9.2)),fbm( p + 4.0*q + vec2(8.3,2.8)));
-
-    return fbm(p + 4.0*r);
-}
-
-float swirl(float x){
-  float r = pattern(vec2(x, x + u_direction * (u_time * 0.1 * u_speed)));
-  return r;
-}
 
 void main() {
   vec2 uv = vTexCoord;
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
 
-  float swirlz = swirl(uv.x); // Applying the swirl effect to the image.
-  uv = vec2(uv.x * swirlz, uv.y + u_params[0]); // u_params[0] is offsetting the y to create the lines
+  float ran = random(uv) * u_noise ; // Adds noise
+  float y = sin(PI * 2.0 * uv.x * u_freq + (u_time* 10.0) * u_speed + ran ) * u_amp;
+
+  uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   vec4 tex = texture2D(tex0, uv);
 
-  gl_FragColor = vec4(tex);
+  
+  gl_FragColor = vec4(tex.rgb, u_opacity);
 }

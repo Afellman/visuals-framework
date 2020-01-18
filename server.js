@@ -9,6 +9,7 @@ const remoteIP = "192.168.1.234";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+let updateInterval = Date.now();
 let udpPort;
 let glClient;
 
@@ -82,19 +83,37 @@ function setupSocket() {
     console.log('Web socket connected')
     client.on('disconnect', () => { /* … */ });
     // On socket message, send OSC message to device
-    // glClient.on("rowChange", (val) => {
-    //   udpPort.send({ address: '/1/rowAmtLabel', args: [{ type: "f", value: val }] }, remoteIP, 9000)
-    // });
+    registerIncoming();
   });
   server.listen(port, () => {
     console.log("Server listening on port: " + port);
   });
 }
 
+function registerIncoming() {
+  glClient.on("sceneOff", (val) => {
+    udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+  });
+
+  glClient.on("updateOsc", (val) => {
+    for (let i in val.params) {
+      udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
+    }
+    udpPort.send({ address: `/${val.scene}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
+
+  });
+}
+
 function setupWatcher() {
   fs.watch("./", { recursive: true }, (e, name) => {
-    if (name.indexOf('.git') == -1 && name.indexOf("node_modules") == -1) {
+    if (
+      name.indexOf('.git') == -1
+      && name.indexOf("node_modules") == -1
+      && Date.now() - updateInterval > 15000
+    ) {
       try {
+        console.log(Date.now() - updateInterval);
+        updateInterval = Date.now();
         console.log(name + " changed");
         pushToGit(name);
         glClient.emit("refresh", true);
@@ -106,12 +125,11 @@ function setupWatcher() {
 }
 
 function pushToGit(file) {
-  console.log(file)
   try {
     simpleGit.add(file, (err) => {
       simpleGit.commit("save", (res) => {
         simpleGit.push("origin", "master", () => {
-          console.log("pushed");
+          console.log(file + " pushed");
         })
       })
     })

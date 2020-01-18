@@ -3,8 +3,8 @@
  *  1. Build saving and loading from data.
  *  2. Record.
  */
-
 let maze = {
+
   index: -1,
   t: 0,
   lines: [],
@@ -145,52 +145,76 @@ class Sketch {
       }
       this.loaded = true;
     }
-    this.index = -1;
     this.listeners = [];
+    this.params = { faders: {}, buttons: {} }
   }
+
   init() {
-    this.index = -1;
     this.attachListeners();
 
   }
+
   unload() {
     this.detachListeners();
   }
+
   attachListeners() {
-    let length = this.listeners.length;
-    for (let i = 0; i < length; i++) {
-      let thisListener = this.listeners[i];
+    // let length = this.listeners.length;
+    // for (let i = 0; i < length; i++) {
+    //   let thisListener = this.listeners[i];
 
-      const nodes = document.querySelectorAll("#" + thisListener.nodeID);
-      const node = nodes[0];
-      if (node) {
-        if (node.tagName == "BUTTON") {
+    // const nodes = document.querySelectorAll("#" + thisListener.nodeID);
+    // const node = nodes[0];
+    // if (node) {
+    //   if (node.tagName == "BUTTON") {
 
-          node.addEventListener("click", (e) => {
-            thisListener.method({
-              args: [e.target.value / 100]
-            });
-          })
-        } else {
-          node.addEventListener("change", (e) => {
-            thisListener.method({
-              args: [e.target.value / 100]
-            });
-          })
-        }
-      }
+    //     node.addEventListener("click", (e) => {
+    //       thisListener.method({
+    //         args: [e.target.value / 100]
+    //       });
+    //     })
+    //   } else {
+    //     node.addEventListener("change", (e) => {
+    //       thisListener.method({
+    //         args: [e.target.value / 100]
+    //       });
+    //     })
+    //   }
+    // }
 
-      socket.on(thisListener.socketName, thisListener.method);
+    // if (thisListener.midi) {
+    //   if (midiSubscribers[thisListener.midi]) {
+    //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
+    //   } else {
+    //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
+    //   }
+    // }
+    // }
 
-      if (thisListener.midi) {
-        if (midiSubscribers[thisListener.midi]) {
-          midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
-        } else {
-          midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
-        }
+    for (let i = 0; i < this.listeners.length; i++) {
+      const thisSocket = this.listeners[i];
+      if (thisSocket.socketName && thisSocket.socketMethod) {
+        socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
+    // Attaching sockets to all fader params
+    for (let i in this.params.faders) {
+      socket.on(`/${this.sceneNum}/${i}`, (val) => {
+        const param = val.address.split("/")[2];
+        this.params.faders[param] = val.args[0];
+      });
+    }
+    this.updateOsc();
   }
+
+  updateOsc() {
+    // Syncs iPad with scenes starting values
+    socket.emit("updateOsc", {
+      scene: this.sceneNum,
+      params: this.params.faders
+    });
+  }
+
   detachListeners() {
     let length = this.listeners.length;
     for (let i = 0; i < length; i++) {
@@ -198,6 +222,7 @@ class Sketch {
       socket.removeListener(thisSocket.socketName, thisSocket.method);
     }
   }
+
   mouseClicked() { }
   keyPressed() { }
   save() {
@@ -210,241 +235,509 @@ class Sketch {
   }
 }
 
-class Grid extends Sketch {
+class Starry extends Sketch { // Scene 1. Maped
+  constructor() {
+    super();
+    this.params = {
+      faders: {
+        starAmt: 200,
+        speed: 10,
+        size: 1,
+        color: 1
+      },
+    }
+    this.sceneNum = 1;
+  }
+  init() {
+    super.init();
+    this.opacity = 0;
+    this.points = [];
+    for (let i = 0; i < this.params.faders.starAmt; i++) {
+      this.points.push({
+        pos: createVector(random() * width, random() * height),
+        color: 200 + Math.floor(Math.random() * 55) + 1,
+      });
+    }
+  }
+  draw() {
+    let { color, size, starAmt, speed } = this.params.faders;
+    let thisPoint = {};
+    noStroke();
+
+    for (let i = 0; i < starAmt; i++) {
+      thisPoint = this.points[i];
+      if (thisPoint == undefined) {
+        thisPoint = this.addPoint();
+      }
+      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
+      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
+      thisPoint.pos.add(acc.div(400 - speed))
+      fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
+      ellipse(thisPoint.pos.x, thisPoint.pos.y, pointSize);
+      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
+        this.points.splice(i, 1);
+        starAmt--;
+        this.addPoint();
+      }
+    }
+  }
+  addPoint() {
+    let { starAmt } = this.params.faders;
+    let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
+    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
+    let vec = createVector(x, y);
+    let newPoint = {
+      pos: vec,
+      color: 200 + Math.floor(Math.random() * 55) + 1,
+    };
+    this.points.push(newPoint)
+    starAmt++;
+    return newPoint;
+  }
+}
+
+class Sun extends Sketch { // Scene 2. Maped
+  constructor() {
+    super();
+    this.sceneNum = 2;
+    this.params = {
+      faders: {
+        amp: 20,
+        ringAmt: 1,
+        speed: 0,
+        r: 100,
+        g: 53,
+        b: 0
+      }
+    }
+  }
+
+  init() {
+    super.init();
+    this.freq = 21;
+    this.opacity = 0;
+    this.time = this.params.faders.speed;
+  }
+
+  draw() {
+    let { ringAmt, amp, speed, r, g, b } = this.params.faders;
+    let size;
+    // noStroke();
+    stroke(0, 0);
+    for (let i = 0; i < ringAmt; i++) {
+      let opacVariance = i;
+      size = 200 + (i * 10) + sin(i + this.time * this.freq) * amp;
+      if (i == 0) {
+        opacVariance = 0.9;
+      }
+      fill(r, g, b, (this.opacity / opacVariance));
+      ellipse(width / 2, height / 2, size);
+    }
+    this.time += speed / 1000;
+  }
+  keyPressed(e) {
+
+  }
+}
+
+class SineWaves extends Sketch { // Scene 3. Maped 
   constructor(obj) {
     super(obj);
-  }
-
-  init(index) {
-    super.init();
+    this.params = {};
+    this.sceneNum = 3;
     if (!this.loaded) {
-      this.index = -1;
-      this.listeners = [{}];
-      this.gridPointsLength = 0;
-      this.gridPointsX = 0;
-      this.gridPointsY = 0;
-      this.gridPoints = [];
-      this.angle = 0.01;
-      this.index = index;
-      this.gridPointsX = 20;
-      this.gridPointsY = 20;
-      for (let i = 0; i < this.gridPointsY; i++) {
-        let row = [];
-        let y = map(i, 0, this.gridPointsY, 0, height);
-        for (let j = 0; j < this.gridPointsX; j++) {
-          let x = map(j, 0, this.gridPointsX, 0, width);
-          row.push(createVector(x, y))
+      this.lines = [];
+      this.params = {
+        faders: { // Initializing with one line.
+          line1R: 255,
+          line1G: 255,
+          line1B: 255,
+          line1Speed: 0.01,
+          line2R: 255,
+          line2G: 255,
+          line2B: 255,
+          line2Speed: 0.01,
+          line3R: 255,
+          line3G: 255,
+          line3B: 255,
+          line3Speed: 0.01,
+          line4R: 255,
+          line4G: 255,
+          line4B: 255,
+          line4Speed: 0.01,
+          weight: 3
+        },
+        buttons: {
+          lineAmt: 1,
         }
-        this
-          .gridPoints
-          .push(row);
       }
-      this.gridPointsLength = this.gridPoints.length;
+      this.res = 512;
+      this.opacity = 0;
     }
   }
-
-  draw() {
-    strokeWeight(3);
-    stroke(80, 0, 0);
-    for (let i = 1; i < this.gridPointsLength; i++) {
-      for (let j = 0; j < this.gridPointsX - 1; j++) {
-        if (i < this.gridPointsLength - 1) {
-          line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
-          this.move(this.gridPoints[i][j], i)
-        }
-        line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
-      }
-    }
-    // this.angle += 0.01;
-  }
-
-  move(point, i) {
-
-    let amp = mouseX / 1000;
-    let mouse = createVector(mouseX, mouseY);
-    let acc = p5
-      .Vector
-      .sub(point, mouse);
-    acc.normalize();
-
-    // acc.mult(5)
-    // point.x += sin(this.angle) * acc.x;
-    // point.y += cos(this.angle) * acc.y;
-  }
-}
-
-class ImageTweak {
-  iamge;
-  index = -1;
-  listeners = [{}];
-
   init() {
-    loadImage("https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid" +
-      "=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-      img => {
-        this.img = img;
-        img.loadPixels();
-      });
-  }
-
-  unload() {
-    this.index = -1;
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
-    this.detachSockets();
-  }
-  attachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.on(thisSocket.name, thisSocket.method);
+    super.init();
+    for (let i = 0; i < this.params.buttons.lineAmt; i++) {
+      this.addLine();
     }
   }
-  detachSockets() {
-    let length = this.sockets.length;
-    for (let i = 0; i < length; i++) {
-      let thisSocket = this.sockets[i];
-      socket.removeListener(thisSocket.name, thisSocket.method);
-    }
-  }
-
   draw() {
-    if (this.img) {
-      for (let i = 0; i < height; i++) {
-        for (let j = 0; j < width; j++) {
-          stroke(this.img.pixels[i + j])
-          point(i, j)
+    let prevX = 0;
+    let prevY = height / 2;
+    for (let j = 0; j < this.params.buttons.lineAmt; j++) {
+      let thisLine = this.lines[j];
+      const red = this.params.faders[`line${j + 1}R`];
+      const green = this.params.faders[`line${j + 1}G`];
+      const blue = this.params.faders[`line${j + 1}B`];
+      const weight = this.params.faders.weight;
+      const speed = this.params.faders[`line${j + 1}Speed`]
+
+      stroke(red, green, blue, this.opacity);
+      strokeWeight(weight);
+      for (let i = 0; i < this.res; i++) {
+        let x = width / 100 * i;
+        let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
+        line(prevX, prevY, x, y);
+        prevX = x;
+        prevY = y;
+        if (i == this.res - 1) {
+          prevX = 0;
+          prevY = height / 2;
+        }
+      }
+      thisLine.time += speed;
+    }
+  }
+
+  addLine() {
+    const line = { freq: 1, maxAmpY: height / 2, speed: 0.01, time: 0.01, color: [255, 255, 255] }
+    this.lines.push(line);
+    return line;
+  }
+
+
+  listeners = [
+    {
+      socketName: 'lineAmt',
+      socketMethod: (val) => {
+        if (val.args[0] == 1) {
+          this.addLine();
+          this.params.buttons.lineAmt++;
+        } else if (val.args[0] == -1) {
+          this.lines.splice(this.lineAmt, 1);
+          this.params.buttons.lineAmt--;
         }
       }
     }
-  }
+  ]
 }
 
-class EarthQuake extends Sketch {
+
+class SpinningCircles extends Sketch { // Scene 4. Maped
   constructor() {
     super();
-  }
+    this.centerPoints = [];
+    this.sceneNum = 4;
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          pointAmt: 100,
+          circleDiameter: 0,
+          curl: 0,
+          proximity: 0,
+          speed: 0.00,
+          circleSize: 3
+        },
+      }
 
-  unload() {
-    super.unload();
-    this.gridPoints = [];
-    this.gridPointsLength = 0
-    this.gridPointsX = 0;
-    this.gridPointsY = 0;
+      this.pointMax = 200;
+      this.multiplier = 10;
+      this.opacity = 0;
+      this.freq = 0.01;
+    }
   }
 
   init() {
     super.init();
-    this.time = new Date().getTime();
-    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then((res) => res.json()).then(data => {
-      this.quakeData = data.features;
-      this.firstQuake = this
-        .quakeData
-        .reduce((min, obj) => obj.properties.time < min ?
-          obj.properties.time :
-          min, this.quakeData[0].properties.time)
-    }).catch(err => console.log(err));
+    for (let i = 0; i < this.pointMax; i++) {
+      let orbit = sin(this.freq + i * 10) * this.params.faders.circleDiameter;
+      let circle = sin(i) * this.params.faders.curl;
+      let orbitY = cos(this.freq + i * this.multiplier);
+      let circleY = cos(i) * this.params.faders.curl;
+      this.centerPoints.push({
+        pos: {
+          x: width / 2 + orbit + circle,
+          y: (height / 2 + orbitY * this.params.faders.circleDiameter) + circleY,
+        },
+        size: 5,
+        color: [255, 255, 255],
+      })
+    }
   }
 
   draw() {
-    if (this.quakeData) {
-      for (let i = 0; i < this.quakeData.length; i++) {
-        let thisQuake = this.quakeData[i].properties;
-        let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
-        stroke("white")
-        text(thisQuake.title, x, height / 2 - (i * 30));
-        ellipse(x, height / 2, thisQuake.mag * 25)
+    strokeWeight(1);
+    let centerPoint = {}
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    let x;
+    let y;
+    const { speed,
+      curl,
+      circleDiameter,
+      circleSize,
+      pointAmt,
+      proximity } = this.params.faders;
+    const { opacity,
+      centerPoints,
+      freq,
+      multiplier } = this;
+    noStroke();
+    fill(255, 255, 255, 255 * opacity);
+    for (let i = 0; i < pointAmt; i++) {
+      centerPoint = centerPoints[i];
+      orbit = sin(freq + i * 10) * curl;
+      circle = sin(i) * circleDiameter;
+      orbitY = cos(freq + i * multiplier);
+      circleY = cos(i) * circleDiameter;
+      x = width / 2 + orbit + circle;
+      y = (height / 2 + orbitY * curl) + circleY;
+      centerPoint.pos.x = x;
+      centerPoint.pos.y = y;
+      centerPoint.size = circleSize;
+
+
+      ellipse(Math.round(x), Math.round(y), circleSize);
+      for (let j = 0; j < pointAmt; j++) {
+        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
+          stroke(255, 255, 255, 50);
+          line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
+        }
       }
     }
+    this.freq += speed;
+  }
+
+  listeners = [{
+    socketName: "multiplier",
+    socketMethod: (val) => this.multiplier += val.args[0]
+  }]
+  mouseClicked() { }
+}
+
+class GoldenSpiral extends Sketch {
+  constructor(color = 255) {
+    super();
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          speed: 0.01,
+          size: 200,
+          stepSize: 2,
+          angle: PI * (3.0 - sqrt(5)),
+          number: 500
+        }
+      }
+    }
+    this.sceneNum = 6'
+    this.time = 0;
+    this.opacity = 20;
+    this.opacity = 0;
+  }
+  listeners = [{
+
+  }]
+  init() {
+    super.init();
+  }
+
+  draw() {
+    // background(0);
+    fill(255, 10);
+    stroke(255, 255, 255, this.opacity)
+    translate(width / 2, height / 2)
+    // this.number = frameCount;
+    for (var i = 0; i < this.params.faders.number; i++) {
+      rotate(this.time);
+      translate(0, i * this.params.faders.stepSize);
+      rotate(this.params.faders.angle);
+      line(0, 0, -this.params.faders.size, this.params.faders.size);
+      // triangle(-this.size, 0, 0, this.size, this.size, 0)
+      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
+      // rect(0, 0, this.size, this.size); 					// draw a rectangle
+    }
+    this.time += this.params.faders.speed / 1000;
   }
 }
 
-class Rings extends Sketch {
+
+class TreeFractal extends Sketch { // Scene 5. Maped.
   constructor() {
     super();
-    this.funcs = [];
-    this.funcsLength = 0;
-    this.ringSize = 0;
-    this.currentVol = 11;
-    this.threshold = 10;
-    this.angle = 0.01;
-    this.circleWidth = 50;
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          angle: 1.2666,
+          divider: 0.65,
+          length: 220,
+          movement: 0.0022,
+        }
+      }
+    }
+    this.sceneNum = 5;
+    this.startingAngle = this.angle;
+    this.opacity = 0;
   }
   init() {
     super.init();
-    this.colors = [
-      someColor(),
-      someColor(),
-      someColor(),
-      someColor(),
-      someColor(),
-      someColor(),
-      someColor()
-    ];
+
   }
   draw() {
-    stroke("blue");
-    this.checkVol();
-    this.checkDraw();
+    let len = 100;
+    let r = 150 + sin(frameCount / 200) * 50;
+    let b = 200 + sin(frameCount / 100) * 50;
+    let g = 100 + sin(frameCount / 300) * 50;
+    stroke(r, g, b, this.opacity);
+    translate(width / 1.5, height);
+    this.branch(this.params.faders.length);
+    // this.angle = this.startingAngle * frameCount / 500;
   }
-  checkVol() {
-    if (this.currentVol > this.threshold && !this.animationActive) {
-      this.centerX = Math.floor(Math.random() * width);
-      this.centerY = Math.floor(Math.random() * height);
-      this.funcsLength++;
-      this.animationActive = true;
+  branch(len) {
+    line(0, 0, 0, -len);
+    translate(0, -len);
+    if (len > 4) {
+      push();
+      rotate(this.params.faders.angle);
+      this.branch(len * this.params.faders.divider);
+      pop();
+      push();
+      rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
+      this.branch(len * this.params.faders.divider);
+      pop();
     }
+  }
+  listeners = [{
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "2",
+    midiMethod: val => this.angle = val / 30,
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider2",
+    midi: "3",
+    midiMethod: val => this.divider = val / 100,
+    method: (val) => {
+      this.divider = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider3",
+    midi: "4",
+    midiMethod: val => this.length = val * 10,
+    method: (val) => {
+      this.length = val.args[0] * 300;
+    }
+  },
+  {
+    nodeID: "slider4",
+    midi: "1",
+    midiMethod: val => this.movement = val / 10000,
+    method: (val) => {
+      this.movement = val.args[0] / 100;
+    }
+  },
+  ]
+}
+
+class Connecter extends Sketch {// replaced by spinning circles
+  constructor(color) {
+    super();
+    this.params = {
+      faders: {
+
+
+      }
+    }
+    this.pointAmt = 200,
+      this.circleDiameter = 410;
+    this.curl = 280;
+    this.strokeWeight = 1;
+    this.multiplier = 10;
+    this.centerPoints = [];
+    this.color = 255;
+    this.proximity = 500;
+    this.speed = 0.01;
+    this.color = color || false;
+    this.imgIndex = 2;
+    this.opacity = 0;
   }
 
-  checkDraw() {
-    if (this.animationActive) {
-      this.drawRings();
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.pointAmt; i++) {
+      const orbit = sin(this.freq + i * 10) * this.curl;
+      const circle = sin(i) * this.circleDiameter;
+      const orbitY = cos(this.freq + i * this.multiplier);
+      const circleY = cos(i) * this.circleDiameter;
+      const newPoint = new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        this.color || someColor(this.imgIndex),
+      );
+      this.centerPoints.push(newPoint);
     }
+    this.freq = this.speed;
   }
-  drawRings() {
-    fill(this.colors[0][0], this.colors[0][1], this.colors[0][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 6));
-    fill(this.colors[1][0], this.colors[1][1], this.colors[1][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 5));
-    fill(this.colors[2][0], this.colors[2][1], this.colors[2][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 4));
-    fill(this.colors[3][0], this.colors[3][1], this.colors[3][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 3));
-    fill(this.colors[4][0], this.colors[4][1], this.colors[4][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth * 2));
-    fill(this.colors[5][0], this.colors[5][1], this.colors[5][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize + (this.circleWidth));
-    fill(this.colors[6][0], this.colors[6][1], this.colors[6][2]);
-    ellipse(this.centerX, this.centerY, this.ringSize);
-    this.ringSize += sin(this.angle * 15) * 20
-    this.colors[0][0] += sin(this.angle)
-    this.colors[1][0] += sin(this.angle)
-    this.colors[3][0] += sin(this.angle)
-    this.colors[4][0] += sin(this.angle)
-    this.colors[5][0] += sin(this.angle)
-    this.colors[6][0] += sin(this.angle)
-    this.angle += 0.01
-    if (this.ringSize > height) {
-      this.ringSize = 0;
-      this.angle = 0.01;
-      this.animationActive = false;
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
     }
+    this.freq += this.speed;
   }
+  listeners = []
+  mouseClicked() { }
 }
 
 class Sin extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.waves = [];
-    this.time = 0;
+    if (!this.loaded) {
+      this.time = 0;
+    }
   }
 
   init() {
     super.init();
     this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(100, 0.01))
+    this.waves.push(new Objects.SineWave(75, 0.01))
     this.waves.push(new Objects.SineWave(15, 0.01))
   }
 
@@ -488,17 +781,20 @@ class Sin extends Sketch {
 }
 
 class Rain extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.dots = [];
-    this.rowsAmount = 50;
-    this.dotsAmount = 20;
-    this.globalChange = 14
-    this.period = 0.04;
-    this.xspacing = 0.003;
-    this.speed = 0.01;
-    this.rateChange = (TWO_PI / this.period) * this.xspacing;
-    this.amplitude = 2.5;
+    if (!this.loaded) {
+      this.rowsAmount = 50;
+      this.dotsAmount = 20;
+      this.globalChange = 14
+      this.period = 0.04;
+      this.xspacing = 0.003;
+      this.speed = 0.01;
+      this.rateChange = (TWO_PI / this.period) * this.xspacing;
+      this.amplitude = 2.5;
+      this.opacity = 0;
+    }
   }
 
   init() {
@@ -510,62 +806,50 @@ class Rain extends Sketch {
         let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
         this
           .dots[i]
-          .push(new Objects.Circle(
-            x,
-            y,
-            2,
-            "#abcdef",
-          ))
+          .push({
+            pos: {
+              x: x,
+              y: y,
+            },
+            size: 2,
+          })
       }
     }
   }
 
-  controls() {
-    return {
-      changeSpeed: (val) => this.speed = sin(val),
-      changePeriod: (val) => this.period = val,
-      changeSpacing: (val) => this.xspacing = val,
-      changeAmp: (val) => this.amplitude = val
-    }
-  }
-
   draw() {
-    // this.controls().changeSpacing(mouseX / 1000)
-    // this.controls().changePeriod(mouseY / 1000)
     this.rateChange = (PI / this.period) * this.xspacing;
     this.globalChange += this.speed;
     let change = this.globalChange;
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        // thisDot.variant = Math.random(10);
         thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
-        thisDot.draw();
+        stroke(230, 230, 230, this.opacity);
+        fill(230, 230, 230, this.opacity);
+        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
         change += this.rateChange;
       }
     }
   }
-  mouseClicked() {
-    this
-      .controls()
-      .changeAmp(this.amplitude + 1)
+
+  controls = {
+    changeSpeed: (val) => this.speed = sin(val),
+    changePeriod: (val) => this.period = val,
+    changeSpacing: (val) => this.xspacing = val,
+    changeAmp: (val) => this.amplitude = val
   }
-  keyPressed(e) {
-    if (e.key == "g") {
-      this
-        .controls()
-        .changeAmp(this.amplitude - 1)
-    }
-  }
+
 }
 
-class Shader101 extends Sketch {
+class BGShader extends Sketch {
   constructor() {
     super();
     this.lightSpeed = 0.01;
     this.pointsAmt = 1;
     this.diameter = 200;
     this.time = 0;
+    this.shader = shaders[0];
   }
 
 
@@ -593,59 +877,27 @@ class Shader101 extends Sketch {
     // }
 
     noStroke();
-    bgShader.setUniform("u_color", glBackground) // Get this equation correct.
-    this.shaderBox.shader(bgShader);
+    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
+    this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
     this.time += 0.01
   }
 
-  listeners = [{
-    socketName: '/1/xy1',
-    method: (val) => {
-      this.points[0] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/1',
-    method: (val) => {
-      this.points[0] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/2',
-    method: (val) => {
-      this.points[1] = [val.args[1], val.args[0]]
-    }
-  }, {
-    socketName: '/1/multixy1/3',
-    method: (val) => {
-      this.points[2] = [val.args[1], val.args[0]]
-    }
-  }]
-
-  makePoints() {
-    let pointsArray = [];
-    for (let i = 0; i < this.pointsAmt; i++) {
-      let x = width / 2 + sin(i * HALF_PI) * 100;
-      let y = height / 2 + cos(i * HALF_PI) * 50;
-      pointsArray.push([x, y])
-    }
-    return pointsArray;
-  }
-
-  plot(arr) {
-    return new Array(arr[0] / width, arr[1] / height);
-  }
+  listeners = []
 }
 
 class Ripples extends Sketch {
-  constructor() {
-    super();
+  constructor(obj) {
+    super(obj);
     this.circles = [];
+    if (!this.loaded) {
+      this.angle = 0.01
+    }
   }
 
   init() {
     super.init();
-    this.angle = 0.01
   }
 
   draw() {
@@ -683,554 +935,6 @@ class Ripples extends Sketch {
       }, 500)
     }
   }
-}
-
-class SpinningCircles extends Sketch {
-  constructor() {
-    super();
-    this.pointAmt = 1000;
-    this.topPoints = [];
-    this.bottomPoints = [];
-    this.leftPoints = [];
-    this.rightPoints = [];
-    this.circleDiameter = 50;
-    this.curl = 300;
-    this.proximity = 300;
-    this.strokeWeight = 1;
-    this.multiplier = 10;
-    this.rotateRate = 0.001;
-    this.circleSize = 3
-    this.centerPoints = [];
-  }
-
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    method: (val) => {
-      this.circleDiameter = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/2',
-    nodeID: "slider2",
-    method: (val) => {
-      this.curl = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/3',
-    nodeID: "slider3",
-    method: (val) => {
-      this.rotateRate = val.args[0] / 10;
-    }
-  }, {
-    socketName: '/1/multifader1/4',
-    nodeID: "slider4",
-    method: (val) => {
-      this.circleSize = val.args[0] * 10;
-    }
-  }, {
-    socketName: '/1/multifader1/5',
-    nodeID: "slider5",
-    method: (val) => {
-      this.proximity = val.args[0] * 1000
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn1",
-    method: (val) => {
-      if (val) {
-        let x = width / this.pointAmt;
-        let y = 0;
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-        this.pointAmt++
-      }
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn2",
-    method: (val) => {
-      if (val) {
-        this.topPoints.pop();
-        this.bottomPoints.pop();
-        this.pointAmt--
-      }
-    }
-  }]
-  init() {
-    super.init();
-    let color1 = someColor();
-    let color2 = someColor();
-    for (let i = 0; i < this.pointAmt; i++) {
-      let x = width / this.pointAmt * i;
-      let y = 0;
-      this.topPoints.push({
-        x: x,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
-      this.bottomPoints.push({
-        x: width - x,
-        y: height,
-        color: [70, 100, 97, 248]
-      });
-      y = height / this.pointAmt * i;
-      this.leftPoints.push({
-        x: 0,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
-      this.rightPoints.push({
-        x: width,
-        y: y,
-        color: [70, 100, 97, 248]
-      });
-      let orbit = sin(this.freq + i * 10) * this.curl;
-      let circle = sin(i) * this.circleDiameter;
-      let orbitY = cos(this.freq + i * this.multiplier);
-      let circleY = cos(i) * this.circleDiameter;
-      this.centerPoints.push(new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        "white",
-
-      ))
-    }
-    this.freq = 0.01;
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-    let bottomPoint;
-    let topPoint;
-    let rightPoint;
-    let leftPoint;
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    let x;
-    let y;
-    let prevX;
-    let prevY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      bottomPoint = this.bottomPoints[i];
-      topPoint = this.topPoints[i];
-      rightPoint = this.rightPoints[i];
-      leftPoint = this.leftPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      this.centerPoints[i].pos.x = width / 2 + orbit + circle
-      this.centerPoints[i].pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      this.centerPoints[i].size = this.circleSize
-      // if(i > 0) {
-      //   line(x, y, prevX, prevY)
-      // }
-
-      // if (dist(x, y, topPoint.x, topPoint.y) < this.proximity) {
-      //   stroke(topPoint.color[0], topPoint.color[1], topPoint.color[2], 80)
-      //   line(Math.round(topPoint.x), Math.round(topPoint.y), Math.round(x), Math.round(y))
-      // }
-      // if (dist(x, y, bottomPoint.x, bottomPoint.y) < this.proximity) {
-      //   stroke(bottomPoint.color[0], bottomPoint.color[1], bottomPoint.color[2], 80)
-      //   line(Math.round(bottomPoint.x), Math.round(bottomPoint.y), Math.round(x), Math.round(y))
-      // }
-      // FOR CONNECTER LINES ON SIDES
-      // if (dist(x, y, rightPoint.x, rightPoint.y) < this.proximity) {
-      //   stroke(rightPoint.color[0], rightPoint.color[1], rightPoint.color[2], 80)
-      //   line(Math.round(rightPoint.x), Math.round(rightPoint.y), Math.round(x), Math.round(y))
-      // }
-      // if (dist(x, y, leftPoint.x, leftPoint.y) < this.proximity) {
-      //   stroke(leftPoint.color[0], leftPoint.color[1], leftPoint.color[2], 80)
-      //   line(Math.round(leftPoint.x), Math.round(leftPoint.y), Math.round(x), Math.round(y))
-      // }
-      // ellipse(Math.round(x), Math.round(y), this.circleSize)
-      this.centerPoints[i].draw()
-      prevX = x;
-      prevY = y;
-    }
-    this.freq += this.rotateRate;
-  }
-
-  mouseClicked() { }
-}
-
-class Connecter extends Sketch {
-  constructor(color) {
-    super();
-    this.pointAmt = 50;
-    this.circleDiameter = 410;
-    this.curl = 280;
-    this.strokeWeight = 1;
-    this.multiplier = 10;
-    this.circleSize = 0
-    this.centerPoints = [];
-    this.color = 255;
-    this.proximity = 500;
-    this.speed = 0.01;
-    this.color = color || false;
-  }
-
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      const orbit = sin(this.freq + i * 10) * this.curl;
-      const circle = sin(i) * this.circleDiameter;
-      const orbitY = cos(this.freq + i * this.multiplier);
-      const circleY = cos(i) * this.circleDiameter;
-      const newPoint = new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        this.color || someColor(),
-      );
-      this.centerPoints.push(newPoint);
-    }
-    this.freq = this.speed;
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.pos.x = width / 2 + orbit + circle
-      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        }
-      }
-    }
-    this.freq += this.speed;
-  }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    method: (val) => {
-      this.circleDiameter = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/2',
-    nodeID: "slider2",
-    method: (val) => {
-      this.curl = val.args[0] * 500;
-    }
-  }, {
-    socketName: '/1/multifader1/3',
-    nodeID: "slider3",
-    method: (val) => {
-      this.rotateRate = val.args[0] / 10;
-    }
-  }, {
-    socketName: '/1/multifader1/4',
-    nodeID: "slider4",
-    method: (val) => {
-      this.circleSize = val.args[0] * 10;
-    }
-  }, {
-    socketName: '/1/multifader1/5',
-    nodeID: "slider5",
-    method: (val) => {
-      this.proximity = val.args[0] * 1000
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn1",
-    method: (val) => {
-      if (val) {
-        let x = width / this.pointAmt;
-        let y = 0;
-        this.topPoints.push({
-          x: x,
-          y: y,
-          color: [70, 100, 97, 248]
-        });
-        this.bottomPoints.push({
-          x: width - x,
-          y: height,
-          color: [70, 100, 97, 248]
-        });
-        this.pointAmt++
-      }
-    }
-  }, {
-    socketName: '/1/breathe',
-    nodeID: "btn2",
-    method: (val) => {
-      if (val) {
-        this.topPoints.pop();
-        this.bottomPoints.pop();
-        this.pointAmt--
-      }
-    }
-  }]
-  mouseClicked() { }
-}
-
-class GoldenSpiral extends Sketch {
-  constructor(color = 255) {
-    super();
-    this.goldenAngle = PI * (3.0 - sqrt(5));
-    this.time = 0;
-    this.number = 500;
-    this.size = 200;
-    this.stepSize = 2;
-    this.opacity = 20;
-    this.animate = true;
-    this.time = 0;
-  }
-  listeners = [{
-
-  }]
-  init() {
-    super.init();
-  }
-
-  draw() {
-    // background(0);
-    fill(255, 10);
-    stroke(255, 255, 255, 75)
-    translate(width / 2, height / 2)
-    // this.number = frameCount;
-    for (var i = 0; i < this.number; i++) {
-      rotate(this.time);
-      translate(0, i * this.stepSize);
-      rotate(this.goldenAngle);
-      line(0, 0, -this.size, this.size);
-      // triangle(-this.size, 0, 0, this.size, this.size, 0)
-      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
-      // rect(0, 0, this.size, this.size); 					// draw a rectangle
-    }
-    this.time += 0.00001;
-  }
-}
-
-class Starry extends Sketch {
-  constructor() {
-    super();
-  }
-  listeners = [{
-
-  }]
-  init() {
-    this.points = [];
-    super.init();
-    this.starAmt = 200;
-    this.speed = 10;
-    this.size = 0.01;
-    for (let i = 0; i < this.starAmt; i++) {
-      this.points.push({
-        pos: createVector(random() * width, random() * height),
-        color: 255
-      });
-    }
-  }
-  draw() {
-    let x;
-    let y;
-    let thisPoint;
-    for (let i = 0; i < this.starAmt; i++) {
-      // if (i < 10) {
-      //   // stroke("white")
-      //   fill(0, 255, 0, 10)
-      //   ellipse(width / 2, height / 2, 100 * i)
-      // }
-
-
-      thisPoint = this.points[i];
-      let size = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (this.size / 10);
-      let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
-      thisPoint.pos.add(acc.div(400 - (this.speed * 10)))
-      // stroke("white");
-      noStroke();
-      fill(thisPoint.color[0], thisPoint.color[1], thisPoint.color[2]);
-      ellipse(thisPoint.pos.x, thisPoint.pos.y, size);
-      if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
-        this.points.splice(i, 1);
-        this.starAmt--;
-        this.addPoint();
-      }
-    }
-  }
-  addPoint() {
-    let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
-    this.points.push({
-      pos: createVector(x, y),
-      color: 255
-    })
-    this.starAmt++;
-  }
-}
-
-class Sun extends Sketch {
-  constructor() {
-    super();
-    this.listeners = [{
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      method: (val) => {
-        this.freq = val.args[0] * 100;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider2",
-      method: (val) => {
-        this.amp = val.args[0] * 500;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider3",
-      method: (val) => {
-        this.r = val.args[0] * 255;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider4",
-      method: (val) => {
-        this.g = val.args[0] * 255;
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider5",
-      method: (val) => {
-        this.b = val.args[0] * 255;
-      }
-    }
-    ];
-  }
-
-  init() {
-    super.init();
-    this.freq = 10;
-    this.amp = 20
-    this.r = 100;
-    this.g = 53;
-    this.b = 0;
-    this.alphaMax = 255;
-    this.ringAmt = 50;
-    this.randomInt = Math.random() * this.ringAmt;
-  }
-
-  draw() {
-    let size;
-    let sizeMulti = 1
-    // noStroke();
-    stroke(0, 0);
-    // if (this.ringAmt % this.randomInt == 0) {
-    //   sizeMulti = 3
-    // }
-    for (let i = 0; i < this.ringAmt; i++) {
-
-      size = 200 * sizeMulti + (i * 10) + sin(i + frameCount / this.freq) * this.amp;
-      fill(this.r, this.g, this.b, (this.alphaMax / i));
-      ellipse(width / 2, height / 2, size);
-
-    }
-  }
-
-  keyPressed(e) {
-
-  }
-}
-
-class FlyingDots extends Sketch {
-  constructor() {
-    super();
-    this.listeners = [{}];
-  }
-
-  init() {
-    super.init();
-    glBackground = [220, 220, 220, 100];
-  }
-  draw() { }
-}
-
-class SineWave extends Sketch {
-  constructor(color = 255) {
-    super();
-    this.color = color;
-  }
-  init() {
-    super.init();
-    this.prevX = 0;
-    this.prevY = height / 2;
-    this.speed = 0.01;
-    this.time = this.speed;
-    this.res = 1024;
-    this.maxAmpY = height / 2;
-    this.freq = 1;
-  }
-  draw() {
-    stroke(this.color);
-    strokeWeight(3);
-    for (let i = 0; i < this.res; i++) {
-      let x = width / 100 * i;
-      let y = height / 2 + -Math.abs(sin((2 * PI * x * this.freq) / (width * 2))) * (sin(this.time) * this.maxAmpY);
-      line(this.prevX, this.prevY, x, y);
-      this.prevX = x;
-      this.prevY = y;
-      if (i == this.res - 1) {
-        this.prevX = 0;
-        this.prevY = height / 2;
-      }
-    }
-    this.time += this.speed;
-  }
-
-  listeners = [
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      method: (val) => {
-        this.maxAmpY = val.args[0] * height / 2
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] / 10;
-        if (value < 0.01) {
-          value = 0.01
-        }
-        this.speed = value;
-      }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider2",
-      method: (val) => {
-        let value = val.args[0] * 10;
-        this.freq = value;
-      }
-    },
-  ]
 }
 
 class Orbitals extends Sketch {
@@ -1341,47 +1045,176 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
-class TextureShader extends Sketch {
+class LinesShader extends Sketch {
+  A
   constructor(img) {
     super();
-    this.textureShader;
-    this.img = img;
+    this.linesShader;
+    this.img = images[0];
     this.speed = 1;
     this.direction = 1;
+    this.opacity = 0;
+    this.xOff = 0;
+    this.yOff = 0;
+    this.amp = 0;
+    this.noise = 0;
+    this.freq = 0;
+    this.speed = 0;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.time = 0;
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
+    this.shaderPath = "./shaders/movingLines.frag";
+  }
+
+  draw() {
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_xOff', this.xOff);
+    this.shader.setUniform('u_yOff', this.yOff);
+    this.shader.setUniform('u_amp', this.amp);
+    this.shader.setUniform('u_noise', this.noise);
+    this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_speed', this.speed);
+
+
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+
+  }
+
+  unload() {
+    super.unload();
+    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+  }
+
+  listeners = [
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider1",
+      midi: "1",
+      midiMethod: val => this.params[0] = val / 100,
+      method: (val) => {
+        this.yOff = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/2',
+      nodeID: "slider1",
+      midi: "2",
+      midiMethod: val => this.params[1] = val / 100,
+      method: (val) => {
+        this.xOff = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/3',
+      nodeID: "slider1",
+      midi: "3",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 10);
+        this.params[2] = val;
+      },
+      method: (val) => {
+        this.amp = val.args[0] / 10;
+      }
+    },
+    {
+      socketName: '/1/multifader1/4',
+      nodeID: "slider1",
+      midi: "4",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 0.5)
+        this.params[3] = val
+      },
+      method: (val) => {
+        this.freq = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/5',
+      nodeID: "slider1",
+      midi: "5",
+      midiMethod: val => {
+        val = map(val, 0, 127, 0, 1)
+        this.params[4] = val
+      },
+      method: (val) => {
+        this.speed = val.args[0] * 2;
+      }
+    },
+    {
+      socketName: '/1/multifader1/6',
+      nodeID: "slider1",
+      midi: "6",
+      midiMethod: val => {
+        this.params[5] = val / 100
+      },
+      method: (val) => {
+        this.noise = val.args[0];
+      }
+    },
+  ]
+}
+
+class FlowShader extends Sketch {
+  constructor(img) {
+    super();
+    this.linesShader;
+    this.img = images[2];
+    this.speed = 1;
+    this.direction = 1;
+    this.opacity = 0;
   }
 
   init(index) {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    this.cam = createCapture(VIDEO);
-    this.cam.size(innerWidth, innerHeight);
-    this.cam.hide();
     this.time = 0;
-    this.params = [4.0, 1.3, 1.7, 9.2]
+    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
+    this.cray = 0.0;
+    this.shader = shaders[5];
+    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
+    this.shaderPath = "./shaders/trippytwo.frag"
   }
 
   draw() {
-    // textureShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    textureShader.setUniform("u_loops", this.loops);
-    textureShader.setUniform("u_params", this.params);
-    textureShader.setUniform("tex0", this.img);
-
-    textureShader.setUniform('u_time', frameCount / 1000)
-    textureShader.setUniform('u_speed', this.speed);
-    textureShader.setUniform('u_direction', this.direction);
-    this.shaderBox.shader(textureShader);
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_loops", this.loops);
+    this.shader.setUniform("u_params", this.params);
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_cray', this.cray)
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_speed', this.speed);
+    this.shader.setUniform('u_direction', this.direction);
+    this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
+  }
+
+  unload() {
+    super.unload();
   }
 
   listeners = [{
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     midi: "1",
-    midiMethod: val => this.speed = val / 10,
+    midiMethod: val => this.params[0] = val / 100,
     method: (val) => {
       this.angle = val.args[0];
     }
@@ -1390,7 +1223,54 @@ class TextureShader extends Sketch {
     socketName: '/1/multifader1/1',
     nodeID: "slider1",
     midi: "2",
-    midiMethod: val => this.params[0] = val / 100,
+    midiMethod: val => this.params[1] = val / 100,
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "3",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 10);
+      this.params[2] = val;
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "4",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 0.5)
+      this.params[3] = val
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "5",
+    midiMethod: val => {
+      val = map(val, 0, 127, 0, 1)
+      this.params[4] = val
+    },
+    method: (val) => {
+      this.angle = val.args[0];
+    }
+  },
+  {
+    socketName: '/1/multifader1/1',
+    nodeID: "slider1",
+    midi: "6",
+    midiMethod: val => {
+      this.params[5] = val / 100
+    },
     method: (val) => {
       this.angle = val.args[0];
     }
@@ -1398,75 +1278,144 @@ class TextureShader extends Sketch {
   ]
 }
 
-class Fractal extends Sketch {
+
+class Drops extends Sketch {
+  constructor(obj) {
+    super(obj);
+    if (!this.loaded) {
+      this.resolution = 25;
+    }
+    this.grid = [];
+    this.center = createVector(width / 2, height / 2);
+    this.center.normalize();
+    this.speed = 0.01;
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, 0, height);
+      this.grid[i] = new Array(2);
+      for (let j = 0; j < this.resolution; j++) {
+        let x = map(j, 0, this.resolution, 0, width);
+        this.grid[i][j] = createVector(x, y);
+      }
+    }
+  }
+
+  draw() {
+    let thisPoint = {};
+    stroke("white")
+    fill("white")
+    for (let i = 0; i < this.resolution; i++) {
+      // ellipse(thisPoint.x, thisPoint.y, 5);
+      for (let j = 0; j < this.resolution; j++) {
+        thisPoint = this.grid[i][j];
+        let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
+        thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
+        ellipse(thisPoint.x, thisPoint.y, 2);
+      }
+    }
+  }
+
+  listeners = [{}]
+}
+
+class Grid extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.gridPoints = [];
+    if (!this.loaded) {
+      this.gridPointsLength = 0;
+      this.angle = 0.01;
+      this.gridPointsX = 20;
+      this.gridPointsY = 20;
+    }
+  }
+
+  init(index) {
+    super.init();
+    for (let i = 0; i < this.gridPointsY; i++) {
+      let row = [];
+      let y = map(i, 0, this.gridPointsY, 0, height);
+      for (let j = 0; j < this.gridPointsX; j++) {
+        let x = map(j, 0, this.gridPointsX, 0, width);
+        row.push(createVector(x, y))
+      }
+      this
+        .gridPoints
+        .push(row);
+    }
+    this.gridPointsLength = this.gridPoints.length;
+  }
+
+  draw() {
+    strokeWeight(3);
+    stroke(80, 0, 0);
+    for (let i = 1; i < this.gridPointsLength; i++) {
+      for (let j = 0; j < this.gridPointsX - 1; j++) {
+        if (i < this.gridPointsLength - 1) {
+          line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i + 1][j].x, this.gridPoints[i + 1][j].y)
+          this.move(this.gridPoints[i][j], i)
+        }
+        line(this.gridPoints[i][j].x, this.gridPoints[i][j].y, this.gridPoints[i][j + 1].x, this.gridPoints[i][j + 1].y);
+      }
+    }
+    // this.angle += 0.01;
+  }
+
+  move(point, i) {
+
+    let amp = mouseX / 1000;
+    let mouse = createVector(mouseX, mouseY);
+    let acc = p5
+      .Vector
+      .sub(point, mouse);
+    acc.normalize();
+
+    // acc.mult(5)
+    // point.x += sin(this.angle) * acc.x;
+    // point.y += cos(this.angle) * acc.y;
+  }
+}
+
+class EarthQuake extends Sketch {
   constructor() {
     super();
   }
+
+  unload() {
+    super.unload();
+    this.gridPoints = [];
+    this.gridPointsLength = 0
+    this.gridPointsX = 0;
+    this.gridPointsY = 0;
+  }
+
   init() {
     super.init();
-    this.angle = 1;
-    this.startingAngle = this.angle;
-    this.divider = 0.67;
-    this.length = 300;
-    this.movement = 0.005
+    this.time = new Date().getTime();
+    fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then((res) => res.json()).then(data => {
+      this.quakeData = data.features;
+      this.firstQuake = this
+        .quakeData
+        .reduce((min, obj) => obj.properties.time < min ?
+          obj.properties.time :
+          min, this.quakeData[0].properties.time)
+    }).catch(err => console.log(err));
   }
+
   draw() {
-    let len = 100;
-    stroke(255);
-    translate(width / 1.5, height);
-    this.branch(this.length);
-    // this.angle = this.startingAngle * frameCount / 500;
-  }
-  branch(len) {
-    line(0, 0, 0, -len);
-    translate(0, -len);
-    if (len > 4) {
-      push();
-      rotate(this.angle);
-      this.branch(len * this.divider);
-      pop();
-      push();
-      rotate(noise(frameCount * this.movement, -len) - this.angle);
-      this.branch(len * this.divider);
-      pop();
+    if (this.quakeData) {
+      for (let i = 0; i < this.quakeData.length; i++) {
+        let thisQuake = this.quakeData[i].properties;
+        let x = map(thisQuake.time, this.firstQuake, this.time, 200, width);
+        stroke("white")
+        text(thisQuake.title, x, height / 2 - (i * 30));
+        ellipse(x, height / 2, thisQuake.mag * 25)
+      }
     }
   }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "2",
-    midiMethod: val => this.angle = val / 30,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider2",
-    midi: "3",
-    midiMethod: val => this.divider = val / 100,
-    method: (val) => {
-      this.divider = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider3",
-    midi: "4",
-    midiMethod: val => this.length = val * 10,
-    method: (val) => {
-      this.length = val.args[0] * 300;
-    }
-  },
-  {
-    nodeID: "slider3",
-    midi: "1",
-    midiMethod: val => this.movement = val / 10000,
-    method: (val) => {
-      this.movement = val.args[0] / 10000;
-    }
-  },
-  ]
 }
 
 const Objects = {
@@ -1592,11 +1541,11 @@ const Objects = {
 }
 
 const Methods = {
-  connect: (point, arrayOfObjects, distance, stroke) => {
+  connect: (point, arrayOfObjects, distance, str) => {
     const length = arrayOfObjects.length
     let thisPoint;
-    if (stroke) {
-      stroke(stroke);
+    if (str) {
+      stroke(str);
     }
     for (let i = 0; i < length; i++) {
       thisPoint = arrayOfObjects[i];
