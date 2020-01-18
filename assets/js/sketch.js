@@ -4,7 +4,7 @@ let goodColor = [];
 let maxPal = 512;
 let bgShader;
 let glCanvas;
-let showFPS = false;
+let showFPS = true;
 var socket = io('http://localhost:3000');
 let fft;
 let mic;
@@ -91,6 +91,12 @@ function setupSockets() {
     if (val) {
       window.location.reload()
     }
+  });
+
+  socket.on("debug", (val) => {
+    debug = val;
+    showFPS = false;
+
   });
 }
 
