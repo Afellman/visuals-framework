@@ -534,6 +534,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
       socketName: "stopMulti",
       socketMethod: (val) => {
         this.params.faders.multiSpeed = 0;
+        this.updateOsc();
       }
     },]
   mouseClicked() { }
