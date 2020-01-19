@@ -794,7 +794,7 @@ class Orbitals extends Sketch {// Scene 8
       const startX = width / 2;
       const startY = height / 2;
       const sinX = sin(changeX);
-      const cosY = cos(changeY)
+      const cosY = cos(changeY);
       thisSpinner.pos.x = startX + sinX * this.params.faders.ampX - (i * this.params.faders.wobbleX);
       thisSpinner.pos.y = startY + cosY * (this.params.faders.ampY - (i * this.params.faders.wobbleY))
       strokeWeight(thisSpinner.weight);
