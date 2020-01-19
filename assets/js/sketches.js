@@ -762,7 +762,8 @@ class Orbitals extends Sketch {// Scene 8
         ampY: height / 2,
         wobbleX: 0,
         wobbleY: 1,
-        speed: 1
+        freqX: 1,
+        freqY: 1
       }
     }
     this.spinners = [];
@@ -788,12 +789,12 @@ class Orbitals extends Sketch {// Scene 8
     stroke("grey")
     for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
       let thisSpinner = this.spinners[i];
-      const changeX = frameCount / 10 * this.params.faders.speed;
-      const changeY = (frameCount / 10);
+      const changeX = frameCount / 10 * this.params.faders.freqX;
+      const changeY = (frameCount / 10 * this.params.faders.freqY);
       const startX = width / 2;
       const startY = height / 2;
-      const sinX = sin(changeX * thisSpinner.speed);
-      const cosY = cos(changeY * thisSpinner.speed)
+      const sinX = sin(changeX);
+      const cosY = cos(changeY)
       thisSpinner.pos.x = startX + sinX * this.params.faders.ampX - (i * this.params.faders.wobbleX);
       thisSpinner.pos.y = startY + cosY * (this.params.faders.ampY - (i * this.params.faders.wobbleY))
       strokeWeight(thisSpinner.weight);
