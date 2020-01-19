@@ -752,7 +752,7 @@ class Sin extends Sketch { // Scene 7. Maped
 
 }
 
-class Orbitals extends Sketch {
+class Orbitals extends Sketch {// Scene 8
   constructor() {
     super();
     this.spinnerAmt = 1000;
@@ -760,7 +760,8 @@ class Orbitals extends Sketch {
     this.ampX = width / 4;
     this.ampY = height / 2;
     this.wobble = 0;
-    this.speed = 1
+    this.speed = 1;
+    this.sceneNum = 9
   }
 
   init() {
@@ -768,7 +769,7 @@ class Orbitals extends Sketch {
     for (let i = 0; i < this.spinnerAmt; i++) {
       let x = (width / 2) + sin(Math.random()) * (width / 4);
       const y = height / 2 + cos(Math.random()) * (i * 3);
-      const newOrbital = new Objects.Point(x, y, someColor());
+      const newOrbital = new Objects.Point(x, y, someColor(2));
       newOrbital.speed = Math.random() / 3;
       newOrbital.weight = Math.random() * 10;
       newOrbital.index = i;
