@@ -715,7 +715,7 @@ class Sin extends Sketch { // Scene 7
       for (let j = 1; j < 4; j++) {
         const thisFreq = this.params.faders["freq" + i];
         const thisAmp = this.params.faders["amplitude" + i];
-        y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp * (1 + noise(n, n));
+        y += sin(2 * PI * thisFreq * (i + this.time) + 1) * thisAmp * (1 + noise(n, n));
       }
       vertex(x, y);
     }
