@@ -920,8 +920,9 @@ class LinesShader extends Sketch {
     {
       socketName: "speed",
       socketMethod: (val) => {
-        if (this.speed > 0) {
-          this.speed += val.args[0];
+        this.speed += val.args[0];
+        if (this.speed < 0) {
+          this.speed = 0
         }
       }
     },
@@ -930,7 +931,7 @@ class LinesShader extends Sketch {
       socketMethod: (val) => {
         this.freq += val.args[0];
         if (this.freq < 0) {
-
+          this.freq = 0;
         }
       }
     },
