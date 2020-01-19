@@ -711,6 +711,7 @@ class Sin extends Sketch { // Scene 7
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let r = map(i, 0, 360, 0, 255)
+      console.log(r)
       fill(r, 255, 255, this.opacity);
       let y = height / 2;
       let n = i * 0.005;
