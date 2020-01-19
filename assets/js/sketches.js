@@ -917,6 +917,18 @@ class LinesShader extends Sketch {
   }
 
   listeners = [
+    {
+      socketName: "speed",
+      socketMethod: (val) => {
+        this.speed += val.args[0];
+      }
+    },
+    {
+      socketName: "freq",
+      socketMethod: (val) => {
+        this.speed += val.args[0];
+      }
+    },
   ]
 }
 
