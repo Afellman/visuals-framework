@@ -789,8 +789,8 @@ class Orbitals extends Sketch {// Scene 8
     stroke("grey")
     for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
       let thisSpinner = this.spinners[i];
-      const changeX = frameCount / 10 * this.params.faders.freqX;
-      const changeY = (frameCount / 10 * this.params.faders.freqY);
+      const changeX = frameCount * this.params.faders.speed * this.params.faders.freqX;
+      const changeY = (frameCount * this.params.faders.speed * this.params.faders.freqY);
       const startX = width / 2;
       const startY = height / 2;
       const sinX = sin(changeX * thisSpinner.speed);
