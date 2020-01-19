@@ -699,7 +699,7 @@ class Sin extends Sketch { // Scene 7
     this.color1
     this.sceneNum = 7;
     this.opacity = 0;
-    this.colorSpeed = 0.001;
+    this.colorSpeed = 0.01;
   }
 
   init() {
