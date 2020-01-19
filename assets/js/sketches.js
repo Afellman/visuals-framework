@@ -690,7 +690,6 @@ class Sin extends Sketch { // Scene 7
         faders: {
           freq1: 0.004,
           amplitude1: 50,
-
         }
       }
     }
@@ -715,8 +714,10 @@ class Sin extends Sketch { // Scene 7
       let y = height / 2;
       let n = i * 0.005;
       for (let j = 0; j < howManyWaves; j++) {
-        y += this.params.faders["freq" + i];
-        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
+        const thisFreq = this.params.faders["freq" + i];
+        const thisAmp = this.params.faders["amplitude" + i];
+        y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp;
+        // y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
       }
       vertex(x, y);
     }
