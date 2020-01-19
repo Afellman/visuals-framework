@@ -763,7 +763,8 @@ class Orbitals extends Sketch {// Scene 8
         wobbleX: 0,
         wobbleY: 1,
         freqX: 1,
-        freqY: 1
+        freqY: 1,
+        speed: 0.01
       }
     }
     this.spinners = [];
