@@ -693,13 +693,13 @@ class Sin extends Sketch { // Scene 7
           amplitude2: 75,
           freq3: 0.01,
           amplitude3: 15,
+          colorSpeed: 0.01
         }
       }
     }
     this.color1
     this.sceneNum = 7;
     this.opacity = 0;
-    this.colorSpeed = 0.01;
     this.color = someColor(2)
   }
 
@@ -711,7 +711,7 @@ class Sin extends Sketch { // Scene 7
 
 
     beginShape()
-    fill(this.color[0] + sin(frameCount * this.colorSpeed / 2) * 50, this.color[1] + sin(frameCount * this.colorSpeed / 3) * 50, this.color[2] + sin(frameCount * this.colorSpeed / 4) * 50, this.opacity);
+    fill(this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50, this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50, this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
