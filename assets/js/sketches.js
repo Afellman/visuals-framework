@@ -683,7 +683,6 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
 class Sin extends Sketch { // Scene 7
   constructor(obj) {
     super(obj);
-    this.waves = [];
     if (!this.loaded) {
       this.time = 0;
       this.params = {
@@ -717,7 +716,7 @@ class Sin extends Sketch { // Scene 7
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
       let n = i * 0.005;
-      for (let j = 0; j < howManyWaves; j++) {
+      for (let j = 0; j < 3; j++) {
         const thisFreq = this.params.faders["freq" + i];
         const thisAmp = this.params.faders["amplitude" + i];
         y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp;
