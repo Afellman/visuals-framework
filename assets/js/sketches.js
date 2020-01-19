@@ -705,7 +705,7 @@ class Sin extends Sketch { // Scene 7
   }
 
   draw() {
-    fill(255, 255, 255, this.opacity)
+    fill(255, 255, 255, this.opacity);
 
     beginShape()
     for (let i = 0; i < 360; i++) {
