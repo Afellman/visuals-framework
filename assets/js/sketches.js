@@ -696,8 +696,10 @@ class Sin extends Sketch { // Scene 7
         }
       }
     }
+    this.color1
     this.sceneNum = 7;
     this.opacity = 0;
+    this.colorSpeed = 0.001
   }
 
   init() {
@@ -708,7 +710,7 @@ class Sin extends Sketch { // Scene 7
 
 
     beginShape()
-    fill(sin(frameCount / 100) * someColor(0), cos(frameCount / 100) * 200, 150, this.opacity);
+    fill(sin(frameCount * this.colorSpeed) * 255, sin(frameCount * this.colorSpeed / 2) * 200, sin(frameCount * this.colorSpeed / 3) * 200, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
