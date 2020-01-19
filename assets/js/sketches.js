@@ -760,7 +760,7 @@ class Orbitals extends Sketch {// Scene 8
     this.ampX = width / 4;
     this.ampY = height / 2;
     this.wobbleX = 0;
-    this.wobbleY = 0;
+    this.wobbleY = 1;
     this.speed = 1;
     this.sceneNum = 9;
     this.opacity = 0;
@@ -791,7 +791,7 @@ class Orbitals extends Sketch {// Scene 8
       const sinX = sin(changeX * thisSpinner.speed);
       const cosY = cos(changeY * thisSpinner.speed)
       thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobbleX);
-      thisSpinner.pos.y = startY + cosY * (this.ampY - (i * this.wobbleY)
+      thisSpinner.pos.y = startY + cosY * (this.ampY - (i * this.wobbleY))
       strokeWeight(thisSpinner.weight);
       stroke(thisSpinner.color[0], thisSpinner.color[1], thisSpinner.color[2], this.opacity)
       point(thisSpinner.pos.x, thisSpinner.pos.y)
