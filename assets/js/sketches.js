@@ -711,7 +711,10 @@ class Sin extends Sketch { // Scene 7
 
 
     beginShape()
-    fill(this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50, this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50, this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50, this.opacity);
+    const r = this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
+    const g = this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
+    const b = this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50
+    fill(r, g, b, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
