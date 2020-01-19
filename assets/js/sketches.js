@@ -690,6 +690,10 @@ class Sin extends Sketch { // Scene 7
         faders: {
           freq1: 0.004,
           amplitude1: 50,
+          freq2: 0.01,
+          ampli2: 75,
+          freq3: 0.01,
+          amplitude3: 15,
         }
       }
     }
