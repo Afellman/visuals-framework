@@ -771,7 +771,7 @@ class Orbitals extends Sketch {// Scene 8
       let x = (width / 2) + sin(Math.random()) * (width / 4);
       const y = height / 2 + cos(Math.random()) * (i * 3);
       const newOrbital = { color: someColor(2), pos: createVector(x, y) }
-      const newOrbital = new Objects.Point(x, y, someColor(2));
+      // const newOrbital = new Objects.Point(x, y, someColor(2));
       newOrbital.speed = Math.random() / 3;
       newOrbital.weight = Math.random() * 10;
       newOrbital.index = i;
@@ -792,6 +792,8 @@ class Orbitals extends Sketch {// Scene 8
       thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobble);
       thisSpinner.pos.y = startY + cosY * (this.ampY - i)
       strokeWeight(thisSpinner.weight);
+      stroke(thisSpinner.color[0], thisSpinner.color[1], thisSpinner.color[2], this.opacity)
+      point(thisSpinner.pos.x, thisSpinner.pos.y)
       thisSpinner.draw();
       this.explode(thisSpinner, 0.1);
     }
