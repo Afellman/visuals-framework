@@ -885,7 +885,6 @@ class LinesShader extends Sketch {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
     this.cray = 0.0;
     this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
@@ -909,7 +908,6 @@ class LinesShader extends Sketch {
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-
   }
 
   unload() {
