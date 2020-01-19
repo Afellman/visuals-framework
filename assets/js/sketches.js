@@ -712,10 +712,10 @@ class Sin extends Sketch { // Scene 7
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
       let n = i * 0.005;
-      for (let j = 0; j < 3; j++) {
+      for (let j = 1; j < 4; j++) {
         const thisFreq = this.params.faders["freq" + i];
         const thisAmp = this.params.faders["amplitude" + i];
-        y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp;
+        y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp * (1 + noise(n, n));
       }
       vertex(x, y);
     }
