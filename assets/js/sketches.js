@@ -879,6 +879,7 @@ class LinesShader extends Sketch {
     this.img = images[0];
     this.direction = 1;
     this.opacity = 0;
+    this.sceneNum = 9;
   }
 
   init(index) {
