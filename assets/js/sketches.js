@@ -715,7 +715,7 @@ class Sin extends Sketch { // Scene 7
       let y = height / 2;
       let n = i * 0.005;
       for (let j = 0; j < howManyWaves; j++) {
-        y += this.params.faders["freq" + i]
+        y += this.params.faders["freq" + i];
         y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
       }
       vertex(x, y);
