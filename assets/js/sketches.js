@@ -702,13 +702,9 @@ class Sin extends Sketch { // Scene 7
 
   init() {
     super.init();
-    this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(75, 0.01))
-    this.waves.push(new Objects.SineWave(15, 0.01))
   }
 
   draw() {
-    let howManyWaves = this.waves.length;
     fill(255, 255, 255, this.opacity)
 
     beginShape()
@@ -720,7 +716,6 @@ class Sin extends Sketch { // Scene 7
         const thisFreq = this.params.faders["freq" + i];
         const thisAmp = this.params.faders["amplitude" + i];
         y += sin(2 * PI * thisFreq * (i + this.time)) * thisAmp;
-        // y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
       }
       vertex(x, y);
     }
