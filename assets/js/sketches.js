@@ -708,7 +708,7 @@ class Sin extends Sketch { // Scene 7
 
 
     beginShape()
-    fill(sin(frameCount / 100) * 255, cos(frameCount / 100) * 255, 255, this.opacity);
+    fill(sin(frameCount / 100) * 200, cos(frameCount / 100) * 200, 200, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
