@@ -709,7 +709,7 @@ class Sin extends Sketch { // Scene 7. Maped
 
   draw() {
 
-
+    noStroke();
     beginShape()
     const r = this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
     const g = this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
