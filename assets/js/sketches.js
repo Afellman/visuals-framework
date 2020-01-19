@@ -755,7 +755,13 @@ class Sin extends Sketch { // Scene 7. Maped
 class Orbitals extends Sketch {// Scene 8
   constructor() {
     super();
-    this.spinnerAmt = 1000;
+    this.params = {
+      faders: {
+        spinnerAmount: 1000,
+
+      }
+    }
+    this.params.faders.spinnerAmount = 1000;
     this.spinners = [];
     this.ampX = width / 4;
     this.ampY = height / 2;
@@ -768,7 +774,7 @@ class Orbitals extends Sketch {// Scene 8
 
   init() {
     super.init();
-    for (let i = 0; i < this.spinnerAmt; i++) {
+    for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
       let x = (width / 2) + sin(Math.random()) * (width / 4);
       const y = height / 2 + cos(Math.random()) * (i * 3);
       const newOrbital = { color: someColor(2), pos: createVector(x, y) }
@@ -782,7 +788,7 @@ class Orbitals extends Sketch {// Scene 8
 
   draw() {
     stroke("grey")
-    for (let i = 0; i < this.spinnerAmt; i++) {
+    for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
       let thisSpinner = this.spinners[i];
       const changeX = frameCount / 10 * this.speed;
       const changeY = (frameCount / 10);
