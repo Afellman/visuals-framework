@@ -806,7 +806,6 @@ class Orbitals extends Sketch {// Scene 8
 
 }
 
-
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
@@ -862,24 +861,24 @@ class Rain extends Sketch {
   }
 }
 
-
-
-
 class LinesShader extends Sketch {
-  A
+
   constructor(img) {
     super();
+    this.params = {
+      faders: {
+        xOff: 0,
+        yOff: 0,
+        speed: 0,
+        freq: 0,
+        amp: 0,
+        noise: 0
+      }
+    }
     this.linesShader;
     this.img = images[0];
-    this.speed = 1;
     this.direction = 1;
     this.opacity = 0;
-    this.xOff = 0;
-    this.yOff = 0;
-    this.amp = 0;
-    this.noise = 0;
-    this.freq = 0;
-    this.speed = 0;
   }
 
   init(index) {
@@ -899,12 +898,12 @@ class LinesShader extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_xOff', this.xOff);
-    this.shader.setUniform('u_yOff', this.yOff);
-    this.shader.setUniform('u_amp', this.amp);
-    this.shader.setUniform('u_noise', this.noise);
-    this.shader.setUniform('u_freq', this.freq);
-    this.shader.setUniform('u_speed', this.speed);
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shader.setUniform('u_amp', this.params.faders.amp);
+    this.shader.setUniform('u_noise', this.params.faders.noise);
+    this.shader.setUniform('u_freq', this.params.faders.freq);
+    this.shader.setUniform('u_speed', this.params.faders.speed);
 
 
     this.shaderBox.shader(this.shader);
@@ -919,73 +918,9 @@ class LinesShader extends Sketch {
   }
 
   listeners = [
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      midi: "1",
-      midiMethod: val => this.params[0] = val / 100,
-      method: (val) => {
-        this.yOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider1",
-      midi: "2",
-      midiMethod: val => this.params[1] = val / 100,
-      method: (val) => {
-        this.xOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider1",
-      midi: "3",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 10);
-        this.params[2] = val;
-      },
-      method: (val) => {
-        this.amp = val.args[0] / 10;
-      }
-    },
-    {
-      socketName: '/1/multifader1/4',
-      nodeID: "slider1",
-      midi: "4",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 0.5)
-        this.params[3] = val
-      },
-      method: (val) => {
-        this.freq = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/5',
-      nodeID: "slider1",
-      midi: "5",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 1)
-        this.params[4] = val
-      },
-      method: (val) => {
-        this.speed = val.args[0] * 2;
-      }
-    },
-    {
-      socketName: '/1/multifader1/6',
-      nodeID: "slider1",
-      midi: "6",
-      midiMethod: val => {
-        this.params[5] = val / 100
-      },
-      method: (val) => {
-        this.noise = val.args[0];
-      }
-    },
   ]
 }
+
 class BGShader extends Sketch {
   constructor() {
     super();
