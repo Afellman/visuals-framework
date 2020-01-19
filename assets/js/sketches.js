@@ -869,12 +869,12 @@ class LinesShader extends Sketch {
       faders: {
         xOff: 0,
         yOff: 0,
-        speed: 0,
-        freq: 0,
         amp: 0,
         noise: 0
       }
     }
+    this.freq = 0;
+    this.speed = 0;
     this.linesShader;
     this.img = images[0];
     this.direction = 1;
@@ -902,8 +902,8 @@ class LinesShader extends Sketch {
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
     this.shader.setUniform('u_amp', this.params.faders.amp);
     this.shader.setUniform('u_noise', this.params.faders.noise);
-    this.shader.setUniform('u_freq', this.params.faders.freq);
-    this.shader.setUniform('u_speed', this.params.faders.speed);
+    this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_speed', this.speed);
 
 
     this.shaderBox.shader(this.shader);
