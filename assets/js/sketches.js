@@ -680,7 +680,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-class Sin extends Sketch { // Scene 7
+class Sin extends Sketch { // Scene 7. Maped
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
@@ -713,7 +713,7 @@ class Sin extends Sketch { // Scene 7
     beginShape()
     const r = this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
     const g = this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
-    const b = this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50
+    const b = this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50;
     fill(r, g, b, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
@@ -751,6 +751,63 @@ class Sin extends Sketch { // Scene 7
   ]
 
 }
+
+class Orbitals extends Sketch {
+  constructor() {
+    super();
+    this.spinnerAmt = 1000;
+    this.spinners = [];
+    this.ampX = width / 4;
+    this.ampY = height / 2;
+    this.wobble = 0;
+    this.speed = 1
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.spinnerAmt; i++) {
+      let x = (width / 2) + sin(Math.random()) * (width / 4);
+      const y = height / 2 + cos(Math.random()) * (i * 3);
+      const newOrbital = new Objects.Point(x, y, someColor());
+      newOrbital.speed = Math.random() / 3;
+      newOrbital.weight = Math.random() * 10;
+      newOrbital.index = i;
+      this.spinners.push(newOrbital);
+
+    }
+  }
+
+  draw() {
+    stroke("grey")
+    for (let i = 0; i < this.spinnerAmt; i++) {
+      let thisSpinner = this.spinners[i];
+      const changeX = frameCount / 10 * this.speed;
+      const changeY = (frameCount / 10);
+      const startX = width / 2;
+      const startY = height / 2;
+      const sinX = sin(changeX * thisSpinner.speed);
+      const cosY = cos(changeY * thisSpinner.speed)
+      thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobble);
+      thisSpinner.pos.y = startY + cosY * (this.ampY - i)
+      strokeWeight(thisSpinner.weight);
+      thisSpinner.draw();
+      this.explode(thisSpinner, 0.1);
+    }
+  }
+
+  explode(spinner, rate) {
+    if (spinner.explode) {
+      spinner.weight += rate;
+      if (spinner.weight > 20) {
+        this.spinners.splice(spinner.index, 1);
+        this.spinnerAmt--;
+      }
+    }
+
+  }
+
+}
+
 
 class Rain extends Sketch {
   constructor(obj) {
@@ -1026,61 +1083,6 @@ class Ripples extends Sketch {
   }
 }
 
-class Orbitals extends Sketch {
-  constructor() {
-    super();
-    this.spinnerAmt = 1000;
-    this.spinners = [];
-    this.ampX = width / 4;
-    this.ampY = height / 2;
-    this.wobble = 0;
-    this.speed = 1
-  }
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.spinnerAmt; i++) {
-      let x = (width / 2) + sin(Math.random()) * (width / 4);
-      const y = height / 2 + cos(Math.random()) * (i * 3);
-      const newOrbital = new Objects.Point(x, y, someColor());
-      newOrbital.speed = Math.random() / 3;
-      newOrbital.weight = Math.random() * 10;
-      newOrbital.index = i;
-      this.spinners.push(newOrbital);
-
-    }
-  }
-
-  draw() {
-    stroke("grey")
-    for (let i = 0; i < this.spinnerAmt; i++) {
-      let thisSpinner = this.spinners[i];
-      const changeX = frameCount / 10 * this.speed;
-      const changeY = (frameCount / 10);
-      const startX = width / 2;
-      const startY = height / 2;
-      const sinX = sin(changeX * thisSpinner.speed);
-      const cosY = cos(changeY * thisSpinner.speed)
-      thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobble);
-      thisSpinner.pos.y = startY + cosY * (this.ampY - i)
-      strokeWeight(thisSpinner.weight);
-      thisSpinner.draw();
-      this.explode(thisSpinner, 0.1);
-    }
-  }
-
-  explode(spinner, rate) {
-    if (spinner.explode) {
-      spinner.weight += rate;
-      if (spinner.weight > 20) {
-        this.spinners.splice(spinner.index, 1);
-        this.spinnerAmt--;
-      }
-    }
-
-  }
-
-}
 
 class Mirror extends Sketch {
   constructor(isVertical, isHorizonal) {
