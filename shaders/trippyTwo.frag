@@ -91,7 +91,7 @@ void main() {
   float pat = pattern(vec2(uv.x + u_waterMove * u_time, uv.y + u_waterMove* u_time));
   vec4 tex = texture2D(tex0, uv * pat);
 
-  tex = (colorSwirl(tex, uv) - 1);
+  tex = (colorSwirl(tex, uv) - 3.0);
 
   // tex.b += 0.2 + sin(u_time * 12.0);
   tex.a = u_opacity;
