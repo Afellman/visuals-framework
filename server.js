@@ -107,10 +107,9 @@ function registerIncoming() {
     udpPort.send({ address: `/${val.scene}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
   });
 
-  // Turning off all the scene toggles and opacity. Limited to 100 for now.
+  // Turning off all the scene toggles and opacity. 100 should be more than enough
   for (let i = 0; i < 100; i++) {
     udpPort.send({ address: `/${i}/opacity`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
-
     udpPort.send({ address: `/${i}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   }
 }
