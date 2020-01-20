@@ -409,17 +409,12 @@ function getMIDIMessage(midiMessage) {
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
   if (command !== 132) {
-
-    if (note < 17) {
-      controlScene[note].method(velocity, command);
-    } else {
-      genericMidi[note].method(velocity, command);
-    }
+    genericMidi[note].method(velocity, command);
   }
 }
 
 const genericMidi = {
-  "17": {
+  "1": {
     scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
