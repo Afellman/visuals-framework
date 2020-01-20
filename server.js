@@ -104,7 +104,6 @@ function registerIncoming() {
     for (let i in val.params) {
       udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
     }
-    udpPort.send({ address: `/${val.scene}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
   });
 
   // Turning off all the scene toggles and opacity. 100 should be more than enough
