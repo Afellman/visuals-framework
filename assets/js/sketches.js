@@ -963,9 +963,7 @@ class FlowShader extends Sketch {
       this.params.faders.backMove += sin(100) * 2;
     }
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("tex0", this.img);
-    this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterMove', this.params.faders.waterMove);
     this.shader.setUniform('u_backMove', this.params.faders.backMove);
