@@ -10,7 +10,6 @@ uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_backMove;
 uniform float u_waterMove;
-uniform vec4 params;
 uniform float u_opacity;
 
 
