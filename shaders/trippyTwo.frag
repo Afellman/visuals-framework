@@ -10,7 +10,6 @@ uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_backMove;
 uniform float u_waterMove;
-uniform vec4 params;
 uniform float u_opacity;
 
 
@@ -89,11 +88,12 @@ void main() {
   vec2 uv = vTexCoord;
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
-  float pat = pattern(vec2(uv.x + sin(u_waterMove * u_time), uv.y + cos(u_waterMove * u_time)));
+  float pat = pattern(vec2(uv.x + u_waterMove * u_time, uv.y + u_waterMove * u_time));
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex = colorSwirl(tex, uv);
 
   // tex.b += 0.2 + sin(u_time * 12.0);
-  gl_FragColor = vec4(tex.rgb, u_opacity);
+  tex.a = u_opacity;
+  gl_FragColor = vec4(tex);
 }
