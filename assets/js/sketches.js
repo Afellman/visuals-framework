@@ -576,7 +576,7 @@ class TreeFractal extends Sketch { // Scene 5. Maped.
     if (len > 4) {
       push();
       rotate(this.params.faders.angle);
-      this.bran  ch(len * this.params.faders.divider);
+      this.branch(len * this.params.faders.divider);
       pop();
       push();
       rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
