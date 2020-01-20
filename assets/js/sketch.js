@@ -68,36 +68,31 @@ const controlScene = {
   "4": {
     isActive: false,
     scene: {},
-    method: function (vel, cmd) {
-      toggle: function (val) {
-        if (val.args[0]) {
-          this.scene = new Proximity();
-          loadScene(this.scene);
-        } else {
-          unloadScene(this.scene.id);
-        }
-      },
-      opacity: function (val) {
-        this.scene.opacity = val.args[0];
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new Proximity();
+        loadScene(this.scene);
+      } else {
+        unloadScene(this.scene.id);
       }
+    },
+    opacity: function (val) {
+      this.scene.opacity = normalToColor(val.args[0]);
     }
   },
   "5": {
     isActive: false,
     scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
-          this.scene = new Geometry();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new Geometry();
+        loadScene(this.scene);
       } else {
-        this.scene.opacity = midiToColor(vel);
+        unloadScene(this.scene.id);
       }
+    },
+    opacity: function (val) {
+      this.scene.opacity = normalToColor(val.args[0]);
     }
   },
   "6": {
