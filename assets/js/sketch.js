@@ -98,19 +98,16 @@ const controlScene = {
   "6": {
     isActive: false,
     scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
-          this.scene = new GoldenSpiral();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new GoldenSpiral();
+        loadScene(this.scene);
       } else {
-        this.scene.opacity = midiToColor(vel);
+        unloadScene(this.scene.id);
       }
+    },
+    opacity: function (val) {
+      this.scene.opacity = normalToColor(val.args[0]);
     }
   },
   "7": {
