@@ -118,21 +118,18 @@ function unloadScene(id) {
 
 const controlScene = {
   "1": {
-    isActive: false,
     scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
-          this.scene = new Starry();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new Starry();
+        loadScene(this.scene);
       } else {
-        this.scene.opacity = midiToColor(vel);
+
+        unloadScene(this.scene.id);
       }
+    },
+    opacity: function () {
+      this.scene.opacity = midiToColor(vel);
     }
   },
   "2": {
