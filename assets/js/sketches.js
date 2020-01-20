@@ -957,10 +957,10 @@ class FlowShader extends Sketch {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
     if (this.waterMove) {
-      this.speed1 = 0.5 + sin(frameCount / 100) * 10;
+      this.params.faders.speed1 = 0.5 + sin(frameCount / 10) * 10;
     }
     if (this.backMove) {
-      this.speed2 = 0.5 + sin(frameCount / 100) * 10;
+      this.params.faders.speed2 = 0.5 + sin(frameCount / 10) * 10;
     }
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
