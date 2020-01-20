@@ -936,7 +936,6 @@ class FlowShader extends Sketch {
       faders: {
         speed1: 0.01,
         speed2: 0.01,
-
       }
     }
     this.sceneNum = 10;
@@ -964,8 +963,8 @@ class FlowShader extends Sketch {
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_speed1', this.speed1);
-    this.shader.setUniform('u_speed2', this.speed2);
+    this.shader.setUniform('u_speed1', this.params.fadersspeed1);
+    this.shader.setUniform('u_speed2', this.params.fadersspeed2);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
