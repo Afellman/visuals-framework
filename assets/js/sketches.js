@@ -235,6 +235,51 @@ class Sketch {
   }
 }
 
+class BGShader extends Sketch {
+  constructor() {
+    super();
+    this.lightSpeed = 0.01;
+    this.pointsAmt = 1;
+    this.diameter = 200;
+    this.time = 0;
+    this.shader = shaders[0];
+  }
+
+
+  init() {
+    super.init();
+    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.points = [
+      [0.5, 0.5]
+    ]
+
+  }
+
+  draw() {
+    // background("black");
+
+    // THIS NEEDS p5.js not p5.min.js. Used to set array of uniforms with dynamic length
+    // for (let i = 0; i < this.points.length; i++) {
+    //   const point = this.points[i];
+    //   // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
+    //   // the whole array at once using the p5 setUniform method, so setting them
+    //   // directely and individually. I made adjustments to p5.js to put gl and
+    //   // glShaderProgram on the window object.
+    //   var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+    //   window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
+    // }
+
+    noStroke();
+    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+    this.time += 0.01
+  }
+
+  listeners = []
+}
+
 class Starry extends Sketch { // Scene 1. Maped
   constructor() {
     super();
@@ -937,50 +982,6 @@ class LinesShader extends Sketch {
   ]
 }
 
-class BGShader extends Sketch {
-  constructor() {
-    super();
-    this.lightSpeed = 0.01;
-    this.pointsAmt = 1;
-    this.diameter = 200;
-    this.time = 0;
-    this.shader = shaders[0];
-  }
-
-
-  init() {
-    super.init();
-    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    this.points = [
-      [0.5, 0.5]
-    ]
-
-  }
-
-  draw() {
-    // background("black");
-
-    // THIS NEEDS p5.js not p5.min.js. Used to set array of uniforms with dynamic length
-    // for (let i = 0; i < this.points.length; i++) {
-    //   const point = this.points[i];
-    //   // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
-    //   // the whole array at once using the p5 setUniform method, so setting them
-    //   // directely and individually. I made adjustments to p5.js to put gl and
-    //   // glShaderProgram on the window object.
-    //   var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
-    //   window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
-    // }
-
-    noStroke();
-    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
-    this.time += 0.01
-  }
-
-  listeners = []
-}
 
 class Ripples extends Sketch {
   constructor(obj) {
