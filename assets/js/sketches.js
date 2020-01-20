@@ -946,7 +946,6 @@ class FlowShader extends Sketch {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[5];
@@ -963,8 +962,8 @@ class FlowShader extends Sketch {
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_speed1', this.params.fadersspeed1);
-    this.shader.setUniform('u_speed2', this.params.fadersspeed2);
+    this.shader.setUniform('u_speed1', this.params.faders.speed1);
+    this.shader.setUniform('u_speed2', this.params.faders.speed2);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
