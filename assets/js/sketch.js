@@ -124,12 +124,11 @@ const controlScene = {
         this.scene = new Starry();
         loadScene(this.scene);
       } else {
-
         unloadScene(this.scene.id);
       }
     },
-    opacity: function () {
-      this.scene.opacity = midiToColor(vel);
+    opacity: function (val) {
+      this.scene.opacity = noramlToColor(val.args[0]);
     }
   },
   "2": {
