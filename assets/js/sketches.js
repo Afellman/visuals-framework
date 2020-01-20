@@ -284,11 +284,11 @@ class Starry extends Sketch { // Scene 1. Maped
   addPoint() {
     let { starAmt } = this.params.faders;
     let pointSize = 1;
-    let x = map(Math.random(), 0, 1, (width / 2) - 50, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 50, (height / 2 + 100));
+    let x = map(Math.random(), 0, 1, (width / 2) - 50, (width / 2 + 50));
+    let y = map(Math.random(), 0, 1, (height / 2) - 50, (height / 2 + 50));
     let vec = createVector(x, y);
     if (frameCount % 5 == 0) {
-      pointSize *= Math.random() * 10
+      pointSize *= Math.random() * 5
     }
     let newPoint = {
       pos: vec,
