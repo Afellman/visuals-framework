@@ -96,7 +96,7 @@ function setupSocket() {
 
 function registerIncoming() {
   glClient.on("sceneOff", (val) => {
-    udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+    udpPort.send({ address: `/${val}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   });
 
   glClient.on("updateOsc", (val) => {
