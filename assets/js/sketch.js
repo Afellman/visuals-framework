@@ -94,6 +94,11 @@ function setupSockets() {
     showFPS = val;
   });
 
+  for (const i in controlScene) {
+    socket.on(`/${i}/toggle`, val => controlScene[i].toggle(val))
+    socket.on(`/${i}/opacity`, val => controlScene[i].opacity(val))
+  }
+
 }
 
 function normalToColor(val) {
