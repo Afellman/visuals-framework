@@ -977,13 +977,13 @@ class FlowShader extends Sketch {
     {
       socketName: "speed",
       socketMethod: (val) => {
-        this.params.speed1 += val.args[0];
+        this.params.faders.speed1 += val.args[0];
       }
     },
     {
       socketName: "freq",
       socketMethod: (val) => {
-        this.params.speed2 += val.args[0];
+        this.params.faders.speed2 += val.args[0];
       }
     },
   ]
