@@ -235,7 +235,7 @@ class Sketch {
   }
 }
 
-class BGShader extends Sketch {
+class BGShader extends Sketch { // Always loaded. Gives more FPS...??
   constructor() {
     super();
     this.lightSpeed = 0.01;
@@ -856,61 +856,6 @@ class Orbitals extends Sketch {// Scene 8
 
 }
 
-class Rain extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.dots = [];
-    if (!this.loaded) {
-      this.params = {
-        faders: {
-          amplitude: 2.5,
-          speed: 0.1,
-          freq: 0.01,
-          freq2: 2
-        }
-      }
-      this.sceneNum = 7;
-      this.rowsAmount = 50;
-      this.dotsAmount = 20;
-      this.globalChange = 14
-      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
-      this.opacity = 0;
-    }
-  }
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.rowsAmount; i++) {
-      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
-      this.dots[i] = []
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
-        this
-          .dots[i]
-          .push({
-            pos: {
-              x: x,
-              y: y,
-            },
-            size: 2,
-          })
-      }
-    }
-  }
-
-  draw() {
-    stroke(230, 230, 230, this.opacity);
-    fill(230, 230, 230, this.opacity);
-    for (let i = 0; i < this.rowsAmount; i++) {
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
-        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
-      }
-    }
-  }
-}
-
 class LinesShader extends Sketch {
 
   constructor(img) {
@@ -981,6 +926,63 @@ class LinesShader extends Sketch {
     },
   ]
 }
+
+
+class Rain extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.dots = [];
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          amplitude: 2.5,
+          speed: 0.1,
+          freq: 0.01,
+          freq2: 2
+        }
+      }
+      this.sceneNum = 7;
+      this.rowsAmount = 50;
+      this.dotsAmount = 20;
+      this.globalChange = 14
+      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
+      this.opacity = 0;
+    }
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.rowsAmount; i++) {
+      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
+      this.dots[i] = []
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
+        this
+          .dots[i]
+          .push({
+            pos: {
+              x: x,
+              y: y,
+            },
+            size: 2,
+          })
+      }
+    }
+  }
+
+  draw() {
+    stroke(230, 230, 230, this.opacity);
+    fill(230, 230, 230, this.opacity);
+    for (let i = 0; i < this.rowsAmount; i++) {
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let thisDot = this.dots[i][j];
+        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
+        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
+      }
+    }
+  }
+}
+
 
 
 class Ripples extends Sketch {
