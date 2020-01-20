@@ -49,152 +49,148 @@ const controlScene = {
     opacity: function (val) {
       this.scene.opacity = normalToColor(val.args[0]);
     }
-  }
-},
-"3": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
+  },
+  "3": {
+    isActive: false,
+    scene: {},
+    toggle: function (val) {
+      if (val.args[0]) {
         this.scene = new RopeSwing();
         loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToColor(vel);
-    }
-  }
-},
-"4": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
       } else {
-        this.scene = new Proximity();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToNormal(vel);
-    }
-  }
-},
-"5": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
         unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new Geometry();
-        loadScene(this.scene);
-        this.isActive = true;
       }
-    } else {
-      this.scene.opacity = midiToColor(vel);
+    },
+    opacity: function (val) {
+      this.scene.opacity = normalToColor(val.args[0]);
+    }
+  },
+  "4": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Proximity();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
+      }
+    }
+  },
+  "5": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Geometry();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "6": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new GoldenSpiral();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "7": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new SineWaves();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "8": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Orbitals();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToColor(vel);
+      }
+    }
+  },
+  "9": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new LinesShader();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
+      }
+    }
+  },
+  "10": {
+    isActive: false,
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new FlowShader();
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else {
+        this.scene.opacity = midiToNormal(vel);
+      }
     }
   }
-},
-"6": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new GoldenSpiral();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToColor(vel);
-    }
-  }
-},
-"7": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new SineWaves();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToColor(vel);
-    }
-  }
-},
-"8": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new Orbitals();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToColor(vel);
-    }
-  }
-},
-"9": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new LinesShader();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToNormal(vel);
-    }
-  }
-},
-"10": {
-  isActive: false,
-    scene: { },
-  method: function (vel, cmd) {
-    if (cmd == 148) {  // 148 == Pad
-      if (this.isActive) {
-        unloadScene(this.scene.id);
-        this.isActive = false;
-      } else {
-        this.scene = new FlowShader();
-        loadScene(this.scene);
-        this.isActive = true;
-      }
-    } else {
-      this.scene.opacity = midiToNormal(vel);
-    }
-  }
-}
 }
 
 function setImages(imgs) {
