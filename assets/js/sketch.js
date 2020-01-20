@@ -96,6 +96,10 @@ function setupSockets() {
 
 }
 
+function normalToColor(val) {
+  return Math.round(map(val, 0, 1, 0, 255));
+}
+
 function loadScene(scene) {
   const id = Math.random() * 100000;
   scene.id = id
@@ -128,7 +132,7 @@ const controlScene = {
       }
     },
     opacity: function (val) {
-      this.scene.opacity = noramlToColor(val.args[0]);
+      this.scene.opacity = normalToColor(val.args[0]);
     }
   },
   "2": {
