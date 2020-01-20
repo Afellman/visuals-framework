@@ -77,7 +77,7 @@ float pattern( in vec2 p )
 }
 
 vec4 colorSwirl(vec4 texture, vec2 uv) {
-  float r = pattern(vec2(texture.r, uv.x + u_backSpeed * 0.8* u_time));
+  float r = pattern(vec2(texture.r, uv.x + u_backSpeed * 0.8 * u_time));
   float g = pattern(vec2(texture.g, uv.x * uv.y + u_backSpeed * 0.6* u_time));
   float b = pattern(vec2(texture.b, uv.y + u_backSpeed *  0.75* u_time));
   
