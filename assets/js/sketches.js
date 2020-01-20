@@ -539,7 +539,7 @@ class Proximity extends Sketch { // Scene 4. Maped
   mouseClicked() { }
 }
 
-class TreeFractal extends Sketch { // Scene 5. Maped.
+class Geometry extends Sketch { // Scene 5. Maped.
   constructor() {
     super();
     if (!this.loaded) {
