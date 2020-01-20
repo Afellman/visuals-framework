@@ -96,16 +96,22 @@ function setupSocket() {
 
 function registerIncoming() {
   glClient.on("sceneOff", (val) => {
-    udpPort.send({ address: `/${val}/led`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+    udpPort.send({ address: `/${val}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   });
+
 
   glClient.on("updateOsc", (val) => {
     for (let i in val.params) {
       udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
     }
     udpPort.send({ address: `/${val.scene}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
-
   });
+
+  // Turning off all the scene toggles and opacity. 100 should be more than enough
+  for (let i = 0; i < 100; i++) {
+    udpPort.send({ address: `/${i}/opacity`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+    udpPort.send({ address: `/${i}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+  }
 }
 
 function setupWatcher() {

@@ -235,6 +235,51 @@ class Sketch {
   }
 }
 
+class BGShader extends Sketch { // Always loaded. Gives more FPS...??
+  constructor() {
+    super();
+    this.lightSpeed = 0.01;
+    this.pointsAmt = 1;
+    this.diameter = 200;
+    this.time = 0;
+    this.shader = shaders[0];
+  }
+
+
+  init() {
+    super.init();
+    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.points = [
+      [0.5, 0.5]
+    ]
+
+  }
+
+  draw() {
+    // background("black");
+
+    // THIS NEEDS p5.js not p5.min.js. Used to set array of uniforms with dynamic length
+    // for (let i = 0; i < this.points.length; i++) {
+    //   const point = this.points[i];
+    //   // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
+    //   // the whole array at once using the p5 setUniform method, so setting them
+    //   // directely and individually. I made adjustments to p5.js to put gl and
+    //   // glShaderProgram on the window object.
+    //   var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
+    //   window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
+    // }
+
+    noStroke();
+    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+    this.time += 0.01
+  }
+
+  listeners = []
+}
+
 class Starry extends Sketch { // Scene 1. Maped
   constructor() {
     super();
@@ -269,7 +314,7 @@ class Starry extends Sketch { // Scene 1. Maped
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
+      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100) * thisPoint.size;
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - speed))
       fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
@@ -283,12 +328,17 @@ class Starry extends Sketch { // Scene 1. Maped
   }
   addPoint() {
     let { starAmt } = this.params.faders;
-    let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
-    let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
+    let pointSize = 1;
+    let x = map(Math.random(), 0, 1, (width / 2) - 50, (width / 2 + 50));
+    let y = map(Math.random(), 0, 1, (height / 2) - 50, (height / 2 + 50));
     let vec = createVector(x, y);
+    if (frameCount % 5 == 0) {
+      pointSize *= Math.random() * 2.5
+    }
     let newPoint = {
       pos: vec,
       color: 200 + Math.floor(Math.random() * 55) + 1,
+      size: pointSize
     };
     this.points.push(newPoint)
     starAmt++;
@@ -340,7 +390,7 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 }
 
-class SineWaves extends Sketch { // Scene 3. Maped 
+class RopeSwing extends Sketch { // Scene 3. Maped 
   constructor(obj) {
     super(obj);
     this.params = {};
@@ -352,19 +402,19 @@ class SineWaves extends Sketch { // Scene 3. Maped
           line1R: 255,
           line1G: 255,
           line1B: 255,
-          line1Speed: 0.01,
+          line1Speed: 0.06,
           line2R: 255,
           line2G: 255,
           line2B: 255,
-          line2Speed: 0.01,
+          line2Speed: 0.06,
           line3R: 255,
           line3G: 255,
           line3B: 255,
-          line3Speed: 0.01,
+          line3Speed: 0.06,
           line4R: 255,
           line4G: 255,
           line4B: 255,
-          line4Speed: 0.01,
+          line4Speed: 0.06,
           weight: 3
         },
         buttons: {
@@ -405,7 +455,7 @@ class SineWaves extends Sketch { // Scene 3. Maped
           prevY = height / 2;
         }
       }
-      thisLine.time += speed;
+      thisLine.time += speed / 6;
     }
   }
 
@@ -432,7 +482,7 @@ class SineWaves extends Sketch { // Scene 3. Maped
   ]
 }
 
-class SpinningCircles extends Sketch { // Scene 4. Maped
+class Proximity extends Sketch { // Scene 4. Maped
   constructor() {
     super();
     this.centerPoints = [];
@@ -539,7 +589,7 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
   mouseClicked() { }
 }
 
-class TreeFractal extends Sketch { // Scene 5. Maped.
+class Geometry extends Sketch { // Scene 5. Maped.
   constructor() {
     super();
     if (!this.loaded) {
@@ -576,7 +626,7 @@ class TreeFractal extends Sketch { // Scene 5. Maped.
     if (len > 4) {
       push();
       rotate(this.params.faders.angle);
-      this.bran  ch(len * this.params.faders.divider);
+      this.branch(len * this.params.faders.divider);
       pop();
       push();
       rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
@@ -680,7 +730,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-class Sin extends Sketch { // Scene 7. Maped
+class SineWaves extends Sketch { // Scene 7. Maped
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
@@ -752,7 +802,7 @@ class Sin extends Sketch { // Scene 7. Maped
 
 }
 
-class Orbitals extends Sketch {// Scene 8
+class Orbitals extends Sketch {// Scene 8. Maped. Needs word
   constructor() {
     super();
     this.params = {
@@ -806,62 +856,7 @@ class Orbitals extends Sketch {// Scene 8
 
 }
 
-class Rain extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.dots = [];
-    if (!this.loaded) {
-      this.params = {
-        faders: {
-          amplitude: 2.5,
-          speed: 0.1,
-          freq: 0.01,
-          freq2: 2
-        }
-      }
-      this.sceneNum = 7;
-      this.rowsAmount = 50;
-      this.dotsAmount = 20;
-      this.globalChange = 14
-      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
-      this.opacity = 0;
-    }
-  }
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.rowsAmount; i++) {
-      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
-      this.dots[i] = []
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
-        this
-          .dots[i]
-          .push({
-            pos: {
-              x: x,
-              y: y,
-            },
-            size: 2,
-          })
-      }
-    }
-  }
-
-  draw() {
-    stroke(230, 230, 230, this.opacity);
-    fill(230, 230, 230, this.opacity);
-    for (let i = 0; i < this.rowsAmount; i++) {
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
-        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
-      }
-    }
-  }
-}
-
-class LinesShader extends Sketch {
+class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 
   constructor(img) {
     super();
@@ -932,49 +927,129 @@ class LinesShader extends Sketch {
   ]
 }
 
-class BGShader extends Sketch {
-  constructor() {
+class FlowShader extends Sketch {
+  constructor(img) {
     super();
-    this.lightSpeed = 0.01;
-    this.pointsAmt = 1;
-    this.diameter = 200;
-    this.time = 0;
-    this.shader = shaders[0];
+    this.linesShader;
+    this.img = images[2];
+    this.params = {
+      faders: {
+        speed1: 0.01,
+        speed2: 0.01,
+      }
+    }
+    this.sceneNum = 10;
+    this.opacity = 0;
   }
 
-
-  init() {
+  init(index) {
     super.init();
     this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    this.points = [
-      [0.5, 0.5]
-    ]
-
+    this.time = 0;
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = shaders[5];
+    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
+    this.shaderPath = "./shaders/trippytwo.frag"
   }
 
   draw() {
-    // background("black");
-
-    // THIS NEEDS p5.js not p5.min.js. Used to set array of uniforms with dynamic length
-    // for (let i = 0; i < this.points.length; i++) {
-    //   const point = this.points[i];
-    //   // theShader.setUniform("u_point" + i, this.plot(point)); Can't manage to set
-    //   // the whole array at once using the p5 setUniform method, so setting them
-    //   // directely and individually. I made adjustments to p5.js to put gl and
-    //   // glShaderProgram on the window object.
-    //   var someVec2Element0Loc = window.gl.getUniformLocation(window.glShaderProgram, "u_points[" + i + "]");
-    //   window.gl.uniform2fv(someVec2Element0Loc, point); // set element 0
-    // }
-
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    this.shader.setUniform("u_color", glBackground) // Get this equation correct.
+    if (this.waterMove) {
+      this.params.faders.waterMove += sin(100) * 2;
+    }
+    if (this.backMove) {
+      this.params.faders.backMove += sin(100) * 2;
+    }
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_loops", this.loops);
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_cray', this.cray)
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_waterMove', this.params.faders.waterMove);
+    this.shader.setUniform('u_backMove', this.params.faders.backMove);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += 0.01
+
+
   }
 
-  listeners = []
+  unload() {
+    super.unload();
+  }
+
+  listeners = [
+    {
+      socketName: "waterMove",
+      socketMethod: (val) => {
+        this.waterMove = val.args[0];
+      }
+    },
+    {
+      socketName: "backMove",
+      socketMethod: (val) => {
+        this.backMove = val.args[0]
+      }
+    },
+  ]
+}
+
+
+class Rain extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.dots = [];
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          amplitude: 2.5,
+          speed: 0.1,
+          freq: 0.01,
+          freq2: 2
+        }
+      }
+      this.sceneNum = 7;
+      this.rowsAmount = 50;
+      this.dotsAmount = 20;
+      this.globalChange = 14
+      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
+      this.opacity = 0;
+    }
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.rowsAmount; i++) {
+      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
+      this.dots[i] = []
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
+        this
+          .dots[i]
+          .push({
+            pos: {
+              x: x,
+              y: y,
+            },
+            size: 2,
+          })
+      }
+    }
+  }
+
+  draw() {
+    stroke(230, 230, 230, this.opacity);
+    fill(230, 230, 230, this.opacity);
+    for (let i = 0; i < this.rowsAmount; i++) {
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let thisDot = this.dots[i][j];
+        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
+        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
+      }
+    }
+  }
 }
 
 class Ripples extends Sketch {
@@ -1027,7 +1102,6 @@ class Ripples extends Sketch {
   }
 }
 
-
 class Mirror extends Sketch {
   constructor(isVertical, isHorizonal) {
     super();
@@ -1078,118 +1152,6 @@ class SoundTest extends Sketch {
     }
   }
   listeners = [{}]
-}
-
-
-class FlowShader extends Sketch {
-  constructor(img) {
-    super();
-    this.linesShader;
-    this.img = images[2];
-    this.speed = 1;
-    this.direction = 1;
-    this.opacity = 0;
-  }
-
-  init(index) {
-    super.init();
-    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
-    this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
-    this.loops = 4;
-    this.cray = 0.0;
-    this.shader = shaders[5];
-    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
-    this.shaderPath = "./shaders/trippytwo.frag"
-  }
-
-  draw() {
-    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
-    noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_loops", this.loops);
-    this.shader.setUniform("u_params", this.params);
-    this.shader.setUniform("tex0", this.img);
-    this.shader.setUniform('u_cray', this.cray)
-    this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_speed', this.speed);
-    this.shader.setUniform('u_direction', this.direction);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
-
-  }
-
-  unload() {
-    super.unload();
-  }
-
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "1",
-    midiMethod: val => this.params[0] = val / 100,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "2",
-    midiMethod: val => this.params[1] = val / 100,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "3",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 10);
-      this.params[2] = val;
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "4",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 0.5)
-      this.params[3] = val
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "5",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 1)
-      this.params[4] = val
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "6",
-    midiMethod: val => {
-      this.params[5] = val / 100
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  ]
 }
 
 class Drops extends Sketch {
