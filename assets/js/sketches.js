@@ -680,7 +680,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
   ]
 }
 
-class Sin extends Sketch { // Scene 7. Maped
+class SineWaves extends Sketch { // Scene 7. Maped
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
