@@ -88,7 +88,7 @@ void main() {
   vec2 uv = vTexCoord;
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
-  float pat = pattern(vec2(uv.x + u_waterMove + u_time, uv.y + u_waterMove+ u_ time));
+  float pat = pattern(vec2(uv.x + u_waterMove + u_time, uv.y + u_waterMove+ u_time));
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex = colorSwirl(tex, uv);
