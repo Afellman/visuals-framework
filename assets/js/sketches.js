@@ -802,7 +802,7 @@ class SineWaves extends Sketch { // Scene 7. Maped
 
 }
 
-class Orbitals extends Sketch {// Scene 8
+class Orbitals extends Sketch {// Scene 8. Maped. Needs word
   constructor() {
     super();
     this.params = {
@@ -856,7 +856,7 @@ class Orbitals extends Sketch {// Scene 8
 
 }
 
-class LinesShader extends Sketch {
+class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 
   constructor(img) {
     super();
@@ -926,168 +926,6 @@ class LinesShader extends Sketch {
     },
   ]
 }
-
-
-class Rain extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.dots = [];
-    if (!this.loaded) {
-      this.params = {
-        faders: {
-          amplitude: 2.5,
-          speed: 0.1,
-          freq: 0.01,
-          freq2: 2
-        }
-      }
-      this.sceneNum = 7;
-      this.rowsAmount = 50;
-      this.dotsAmount = 20;
-      this.globalChange = 14
-      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
-      this.opacity = 0;
-    }
-  }
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.rowsAmount; i++) {
-      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
-      this.dots[i] = []
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
-        this
-          .dots[i]
-          .push({
-            pos: {
-              x: x,
-              y: y,
-            },
-            size: 2,
-          })
-      }
-    }
-  }
-
-  draw() {
-    stroke(230, 230, 230, this.opacity);
-    fill(230, 230, 230, this.opacity);
-    for (let i = 0; i < this.rowsAmount; i++) {
-      for (let j = 0; j < this.dotsAmount; j++) {
-        let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
-        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
-      }
-    }
-  }
-}
-
-
-
-class Ripples extends Sketch {
-  constructor(obj) {
-    super(obj);
-    this.circles = [];
-    if (!this.loaded) {
-      this.angle = 0.01
-    }
-  }
-
-  init() {
-    super.init();
-  }
-
-  draw() {
-    for (let i = 0; i < this.circles.length; i++) {
-      let thisCircle = this.circles[i];
-      thisCircle.draw();
-      if (thisCircle.size > 400) {
-        this.circles.splice(i, 1);
-      }
-    }
-  }
-
-  addCircle(x, y) {
-    this
-      .circles
-      .push(new Objects.ExplodingCircle({
-        x: x,
-        y: y,
-        size: 25,
-        stroke: someColor()
-      }))
-  }
-  mouseClicked() {
-    if (this.clicked) {
-      let x = mouseX;
-      let y = mouseY;
-      this.addCircle(x, y);
-      setTimeout(() => this.addCircle(x, y), 200)
-      setTimeout(() => this.addCircle(x, y), 400)
-      this.clicked = false;
-    } else {
-      this.clicked = true;
-      setTimeout(() => {
-        this.clicked = false
-      }, 500)
-    }
-  }
-}
-
-
-class Mirror extends Sketch {
-  constructor(isVertical, isHorizonal) {
-    super();
-    this.isVertical = isVertical || false;
-    this.isHorizonal = isHorizonal || true;
-  }
-  init() {
-    super.init();
-  }
-  draw() {
-    if (this.isHorizonal) {
-      push()
-      translate(width, 0)
-      scale(-1, 1);
-      image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
-      pop()
-    }
-    if (this.isVertical) {
-      push()
-      translate(0, height)
-      scale(1, -1);
-      image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
-      pop()
-    }
-  }
-  listeners = [{}]
-}
-
-class SoundTest extends Sketch {
-  constructor() {
-    super();
-  }
-
-  init() {
-    super.init();
-    this.prevX = 0;
-    this.prevY = 0;
-  }
-
-  draw() {
-    stroke("white")
-    for (let i = 0; i < 1024; i++) {
-      let x = map(i, 0, 1024, 0, width);
-      let y = height / 2 - map(mic.getLevel(0.5), 0, 1, 0, height);
-      line(this.prevX, this.prevY, x, y);
-      this.prevX = x;
-      this.prevY = y;
-    }
-  }
-  listeners = [{}]
-}
-
 
 class FlowShader extends Sketch {
   constructor(img) {
@@ -1198,6 +1036,164 @@ class FlowShader extends Sketch {
     }
   },
   ]
+}
+
+
+class Rain extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.dots = [];
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          amplitude: 2.5,
+          speed: 0.1,
+          freq: 0.01,
+          freq2: 2
+        }
+      }
+      this.sceneNum = 7;
+      this.rowsAmount = 50;
+      this.dotsAmount = 20;
+      this.globalChange = 14
+      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
+      this.opacity = 0;
+    }
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.rowsAmount; i++) {
+      let x = Math.round(map(i, 0, this.rowsAmount, 0, width));
+      this.dots[i] = []
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let y = Math.round(map(j, 0, this.dotsAmount, 0, height + 100));
+        this
+          .dots[i]
+          .push({
+            pos: {
+              x: x,
+              y: y,
+            },
+            size: 2,
+          })
+      }
+    }
+  }
+
+  draw() {
+    stroke(230, 230, 230, this.opacity);
+    fill(230, 230, 230, this.opacity);
+    for (let i = 0; i < this.rowsAmount; i++) {
+      for (let j = 0; j < this.dotsAmount; j++) {
+        let thisDot = this.dots[i][j];
+        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
+        ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
+      }
+    }
+  }
+}
+
+class Ripples extends Sketch {
+  constructor(obj) {
+    super(obj);
+    this.circles = [];
+    if (!this.loaded) {
+      this.angle = 0.01
+    }
+  }
+
+  init() {
+    super.init();
+  }
+
+  draw() {
+    for (let i = 0; i < this.circles.length; i++) {
+      let thisCircle = this.circles[i];
+      thisCircle.draw();
+      if (thisCircle.size > 400) {
+        this.circles.splice(i, 1);
+      }
+    }
+  }
+
+  addCircle(x, y) {
+    this
+      .circles
+      .push(new Objects.ExplodingCircle({
+        x: x,
+        y: y,
+        size: 25,
+        stroke: someColor()
+      }))
+  }
+  mouseClicked() {
+    if (this.clicked) {
+      let x = mouseX;
+      let y = mouseY;
+      this.addCircle(x, y);
+      setTimeout(() => this.addCircle(x, y), 200)
+      setTimeout(() => this.addCircle(x, y), 400)
+      this.clicked = false;
+    } else {
+      this.clicked = true;
+      setTimeout(() => {
+        this.clicked = false
+      }, 500)
+    }
+  }
+}
+
+class Mirror extends Sketch {
+  constructor(isVertical, isHorizonal) {
+    super();
+    this.isVertical = isVertical || false;
+    this.isHorizonal = isHorizonal || true;
+  }
+  init() {
+    super.init();
+  }
+  draw() {
+    if (this.isHorizonal) {
+      push()
+      translate(width, 0)
+      scale(-1, 1);
+      image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
+      pop()
+    }
+    if (this.isVertical) {
+      push()
+      translate(0, height)
+      scale(1, -1);
+      image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
+      pop()
+    }
+  }
+  listeners = [{}]
+}
+
+class SoundTest extends Sketch {
+  constructor() {
+    super();
+  }
+
+  init() {
+    super.init();
+    this.prevX = 0;
+    this.prevY = 0;
+  }
+
+  draw() {
+    stroke("white")
+    for (let i = 0; i < 1024; i++) {
+      let x = map(i, 0, 1024, 0, width);
+      let y = height / 2 - map(mic.getLevel(0.5), 0, 1, 0, height);
+      line(this.prevX, this.prevY, x, y);
+      this.prevX = x;
+      this.prevY = y;
+    }
+  }
+  listeners = [{}]
 }
 
 class Drops extends Sketch {
