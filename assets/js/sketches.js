@@ -288,7 +288,7 @@ class Starry extends Sketch { // Scene 1. Maped
     let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
     if (frameCount % 100 == 0) {
-      pointSize *= 10
+      pointSize *= Math.random() * 10
     }
     let newPoint = {
       pos: vec,
