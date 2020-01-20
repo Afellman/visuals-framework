@@ -956,6 +956,9 @@ class FlowShader extends Sketch {
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
+    if (this.waterMove) {
+      this.speed1 = 0.5 + sin(frameCount / 100) * 0.5;
+    }
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("tex0", this.img);
@@ -967,6 +970,7 @@ class FlowShader extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
+
   }
 
   unload() {
@@ -977,13 +981,13 @@ class FlowShader extends Sketch {
     {
       socketName: "speed",
       socketMethod: (val) => {
-        this.params.faders.speed1 += val.args[0];
+        this.params.faders.speed1 += val.args[0] / 10;
       }
     },
     {
       socketName: "freq",
       socketMethod: (val) => {
-        this.params.faders.speed2 += val.args[0];
+        this.params.faders.speed2 += val.args[0] / 10;
       }
     },
   ]
