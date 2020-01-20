@@ -432,7 +432,7 @@ class RopeSwing extends Sketch { // Scene 3. Maped
   ]
 }
 
-class SpinningCircles extends Sketch { // Scene 4. Maped
+class Proximity extends Sketch { // Scene 4. Maped
   constructor() {
     super();
     this.centerPoints = [];
