@@ -959,6 +959,9 @@ class FlowShader extends Sketch {
     if (this.waterMove) {
       this.speed1 = 0.5 + sin(frameCount / 100) * 0.5;
     }
+    if (this.backMove) {
+      this.speed2 = 0.5 + sin(frameCount / 100) * 0.5;
+    }
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
     this.shader.setUniform("tex0", this.img);
@@ -979,15 +982,15 @@ class FlowShader extends Sketch {
 
   listeners = [
     {
-      socketName: "speed",
+      socketName: "waterMove",
       socketMethod: (val) => {
-        this.params.faders.speed1 += val.args[0] / 10;
+        this.waterMove = val.args[0];
       }
     },
     {
-      socketName: "freq",
+      socketName: "backMove",
       socketMethod: (val) => {
-        this.params.faders.speed2 += val.args[0] / 10;
+        this.backMove = val.args[0]
       }
     },
   ]
