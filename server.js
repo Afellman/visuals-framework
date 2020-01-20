@@ -106,9 +106,8 @@ function registerIncoming() {
     }
     udpPort.send({ address: `/${val.scene}/led`, args: [{ type: "f", value: 1 }] }, remoteIP, 9000)
   });
-
   for (let i = 0; i < 100; i++) {
-    udpPort.send({ address: `/${val}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
+    udpPort.send({ address: `/${i}/toggle`, args: [{ type: "f", value: 0 }] }, remoteIP, 9000)
   }
 }
 
