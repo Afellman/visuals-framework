@@ -292,7 +292,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
     let newPoint = {
       pos: vec,
-      color: 200 + Math.floor(Math.random() * 55) + 1,
+      color: 100 + Math.floor(Math.random() * 55) + 1,
       size: pointSize
     };
     this.points.push(newPoint)
