@@ -205,11 +205,11 @@ class Sketch {
       });
     }
 
-    socket.on(`/${this.sceneNum}/toggle`, () => {
-      controlScene[this.sceneNum].toggle()
+    socket.on(`/${this.sceneNum}/toggle`, (val) => {
+      controlScene[this.sceneNum].toggle(val)
     })
-    socket.on(`/${this.sceneNum}/opacity`, () => {
-      controlScene[this.sceneNum].opacity()
+    socket.on(`/${this.sceneNum}/opacity`, (val) => {
+      controlScene[this.sceneNum].opacity(val)
     })
     this.updateOsc();
   }
