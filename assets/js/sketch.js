@@ -78,7 +78,7 @@ const controlScene = {
         }
       },
       opacity: function (val) {
-        this.scene.opacity = normalToColor(val.args[0]);
+        this.scene.opacity = val.args[0];
       }
     }
   },
