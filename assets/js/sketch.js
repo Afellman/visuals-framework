@@ -129,6 +129,7 @@ const controlScene = {
   "1": {
     scene: {},
     toggle: function (val) {
+      console.log(val, "val")
       if (val.args[0]) {
         this.scene = new Starry();
         loadScene(this.scene);
