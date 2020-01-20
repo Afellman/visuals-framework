@@ -204,14 +204,6 @@ class Sketch {
         this.params.faders[param] = val.args[0];
       });
     }
-
-    socket.on(`/${this.sceneNum}/toggle`, (val) => {
-      console.log(val);
-      controlScene[this.sceneNum].toggle(val)
-    })
-    socket.on(`/${this.sceneNum}/opacity`, (val) => {
-      controlScene[this.sceneNum].opacity(val)
-    })
     this.updateOsc();
   }
 
