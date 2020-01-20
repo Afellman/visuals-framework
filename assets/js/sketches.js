@@ -269,7 +269,7 @@ class Starry extends Sketch { // Scene 1. Maped
       if (thisPoint == undefined) {
         thisPoint = this.addPoint();
       }
-      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
+      let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100) * thisPoint.size;
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - speed))
       fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
@@ -283,12 +283,17 @@ class Starry extends Sketch { // Scene 1. Maped
   }
   addPoint() {
     let { starAmt } = this.params.faders;
+    let pointSize = 1;
     let x = map(Math.random(), 0, 1, (width / 2) - 100, (width / 2 + 100));
     let y = map(Math.random(), 0, 1, (height / 2) - 100, (height / 2 + 100));
     let vec = createVector(x, y);
+    if (frameCount % 100 == 0) {
+      pointSize *= 10
+    }
     let newPoint = {
       pos: vec,
       color: 200 + Math.floor(Math.random() * 55) + 1,
+      size: pointSize
     };
     this.points.push(newPoint)
     starAmt++;
