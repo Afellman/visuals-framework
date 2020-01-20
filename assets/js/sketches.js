@@ -270,9 +270,6 @@ class Starry extends Sketch { // Scene 1. Maped
         thisPoint = this.addPoint();
       }
       let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100);
-      if (frameCount % 100 == 0) {
-        pointSize *= 10
-      }
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - speed))
       fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
