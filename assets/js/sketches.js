@@ -934,10 +934,8 @@ class FlowShader extends Sketch {
     this.img = images[2];
     this.params = {
       faders: {
-        waterMove: 0.01,
-        backMove: 0.01,
-        speed1: 0.01,
-        speed2: 0.01,
+        waterSpeed: 0.01,
+        backSpeed: 0.01,
       }
     }
     this.sceneNum = 10;
@@ -967,8 +965,8 @@ class FlowShader extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_waterMove', this.params.faders.waterMove);
-    this.shader.setUniform('u_backMove', this.params.faders.backMove);
+    this.shader.setUniform('u_waterSpeed', this.params.faders.waterSpeed);
+    this.shader.setUniform('u_backSpeed', this.params.faders.backSpeed);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
@@ -982,15 +980,15 @@ class FlowShader extends Sketch {
 
   listeners = [
     {
-      socketName: "waterMove",
+      socketName: "waterSpeed",
       socketMethod: (val) => {
-        this.params.faders.waterMove = val.args[0];
+        this.params.faders.waterSpeed = val.args[0];
       }
     },
     {
-      socketName: "backMove",
+      socketName: "backSpeed",
       socketMethod: (val) => {
-        this.params.faders.backMove = val.args[0];
+        this.params.faders.backSpeed = val.args[0];
       }
     },
   ]
