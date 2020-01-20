@@ -422,7 +422,7 @@ const genericMidi = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror(true);
+          this.scene = new Mirror();
           loadScene(this.scene);
           this.isActive = true;
         }
@@ -432,11 +432,30 @@ const genericMidi = {
         glBackground[3] = map(vel, 0, 127, 0, 1);
       }
     }
+  },
+  "2": {
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          this.scene = new Mirror(true);
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+        // } else if (cmd == 132) {
+        //   this.scene.opacity = midiToNormal(vel);
+        // } else if (cmd == 180) {
+        //   glBackground[3] = map(vel, 0, 127, 0, 1);
+        // }
+      }
+    }
   }
-}
 
 function onMIDIFailure() {
-  console.log('Could not access your MIDI devices.');
+    console.log('Could not access your MIDI devices.');
 }
 
 function midiToColor(vel) {
