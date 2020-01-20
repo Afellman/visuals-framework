@@ -357,19 +357,19 @@ class RopeSwing extends Sketch { // Scene 3. Maped
           line1R: 255,
           line1G: 255,
           line1B: 255,
-          line1Speed: 0.01,
+          line1Speed: 0.06,
           line2R: 255,
           line2G: 255,
           line2B: 255,
-          line2Speed: 0.01,
+          line2Speed: 0.06,
           line3R: 255,
           line3G: 255,
           line3B: 255,
-          line3Speed: 0.01,
+          line3Speed: 0.06,
           line4R: 255,
           line4G: 255,
           line4B: 255,
-          line4Speed: 0.01,
+          line4Speed: 0.06,
           weight: 3
         },
         buttons: {
@@ -410,7 +410,7 @@ class RopeSwing extends Sketch { // Scene 3. Maped
           prevY = height / 2;
         }
       }
-      thisLine.time += speed / 10;
+      thisLine.time += speed / 6;
     }
   }
 
