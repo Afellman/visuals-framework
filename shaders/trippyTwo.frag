@@ -86,8 +86,9 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 
 void main() {
   vec2 uv = vTexCoord;
-  float move = u_waterSpeed * u_time;
-  float pat = pattern(vec2(uv.x + move , uv.y + move));
+  float patMove = u_waterSpeed * u_time;
+  // float imageMove = 
+  float pat = pattern(uv);
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex = colorSwirl(tex, uv);
