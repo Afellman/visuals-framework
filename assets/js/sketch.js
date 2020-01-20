@@ -69,17 +69,16 @@ const controlScene = {
     isActive: false,
     scene: {},
     method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-        } else {
+      toggle: function (val) {
+        if (val.args[0]) {
           this.scene = new Proximity();
           loadScene(this.scene);
-          this.isActive = true;
+        } else {
+          unloadScene(this.scene.id);
         }
-      } else {
-        this.scene.opacity = midiToNormal(vel);
+      },
+      opacity: function (val) {
+        this.scene.opacity = normalToColor(val.args[0]);
       }
     }
   },
