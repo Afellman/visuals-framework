@@ -203,14 +203,14 @@ class Sketch {
         const param = val.address.split("/")[2];
         this.params.faders[param] = val.args[0];
       });
-      socket.on(`/${this.sceneNum}/toggle`, () => {
-        controlScene[this.sceneNum].toggle()
-      })
-      socket.on(`/${this.sceneNum}/opacity`, () => {
-        controlScene[this.sceneNum].opacity()
-      })
     }
 
+    socket.on(`/${this.sceneNum}/toggle`, () => {
+      controlScene[this.sceneNum].toggle()
+    })
+    socket.on(`/${this.sceneNum}/opacity`, () => {
+      controlScene[this.sceneNum].opacity()
+    })
     this.updateOsc();
   }
 
