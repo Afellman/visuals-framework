@@ -958,7 +958,6 @@ class FlowShader extends Sketch {
     noStroke();
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_loops", this.loops);
-    this.shader.setUniform("u_params", this.params);
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_cray', this.cray)
     this.shader.setUniform('u_time', frameCount / 1000)
@@ -974,7 +973,20 @@ class FlowShader extends Sketch {
     super.unload();
   }
 
-  listeners = []
+  listeners = [
+    {
+      socketName: "speed",
+      socketMethod: (val) => {
+        this.params.speed1 += val.args[0] / 10;
+      }
+    },
+    {
+      socketName: "freq",
+      socketMethod: (val) => {
+        this.params.speed2 += val.args[0] / 10;
+      }
+    },
+  ]
 }
 
 
