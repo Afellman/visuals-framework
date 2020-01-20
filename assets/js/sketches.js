@@ -410,7 +410,7 @@ class RopeSwing extends Sketch { // Scene 3. Maped
           prevY = height / 2;
         }
       }
-      thisLine.time += speed;
+      thisLine.time += speed / 10;
     }
   }
 
