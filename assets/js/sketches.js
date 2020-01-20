@@ -970,72 +970,7 @@ class FlowShader extends Sketch {
     super.unload();
   }
 
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "1",
-    midiMethod: val => this.params[0] = val / 100,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "2",
-    midiMethod: val => this.params[1] = val / 100,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "3",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 10);
-      this.params[2] = val;
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "4",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 0.5)
-      this.params[3] = val
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "5",
-    midiMethod: val => {
-      val = map(val, 0, 127, 0, 1)
-      this.params[4] = val
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "6",
-    midiMethod: val => {
-      this.params[5] = val / 100
-    },
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  ]
+  listeners = []
 }
 
 
