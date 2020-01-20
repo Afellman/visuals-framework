@@ -89,11 +89,10 @@ void main() {
   uv.y = 1.0 - uv.y;
   vec2 center = vec2(0.5, 0.5);
   float pat = pattern(vec2(uv.x + u_waterSpeed * u_time, uv.y + u_waterSpeed * u_time));
-  vec4 tex = texture2D(tex0, uv * pat);
+  vec4 tex = texture2D(tex0, uv / pat);
 
   tex = colorSwirl(tex, uv);
 
-  // tex.b += 0.2 + sin(u_time * 12.0);
   tex.a = u_opacity;
   gl_FragColor = vec4(tex);
 }
