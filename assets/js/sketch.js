@@ -93,6 +93,7 @@ function setupSockets() {
     debug = val;
     showFPS = val;
   });
+
 }
 
 function loadScene(scene) {
@@ -161,7 +162,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SineWaves();
+          this.scene = new RopeSwing();
           loadScene(this.scene);
           this.isActive = true;
         }
@@ -179,7 +180,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new SpinningCircles();
+          this.scene = new Proximity();
           loadScene(this.scene);
           this.isActive = true;
         }
@@ -197,7 +198,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new TreeFractal();
+          this.scene = new Geometry();
           loadScene(this.scene);
           this.isActive = true;
         }
@@ -233,7 +234,7 @@ const controlScene = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Sin();
+          this.scene = new SineWaves();
           loadScene(this.scene);
           this.isActive = true;
         }
