@@ -87,11 +87,13 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 void main() {
   vec2 uv = vTexCoord;
   float patMove = u_waterSpeed * u_time;
-  float pat = pattern(uv);
+  float pat = pattern(uv + patMove); // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
-  tex = colorSwirl(tex, uv);
+  tex = colorSwirl(tex, uv); // Adding background color movement
 
+  vec3 center = vec2(0.5, 0.5);
+  tex = vec4(1.0 - distance(center, tex.r), distance(center, tex.g), tex.b, tex.a).
   tex.a = u_opacity;
   gl_FragColor = vec4(tex);
 }
