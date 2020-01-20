@@ -18,7 +18,7 @@ let debug = false;
 const midiSubscribers = {
 }
 
-setupSockets();
+
 
 const controlScene = {
   "1": {
@@ -198,6 +198,8 @@ const controlScene = {
     }
   }
 }
+
+setupSockets();
 function setImages(imgs) {
   images = imgs;
 }
