@@ -932,10 +932,14 @@ class FlowShader extends Sketch {
     super();
     this.linesShader;
     this.img = images[2];
-    this.speed1 = 1;
-    this.speed2 = 1;
+    this.params = {
+      faders: {
+        speed1: 0.01,
+        speed2: 0.01,
 
-    this.direction = 1;
+      }
+    }
+    this.sceneNum = 10;
     this.opacity = 0;
   }
 
