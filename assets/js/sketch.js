@@ -20,116 +20,10 @@ const midiSubscribers = {
 
 setupSockets();
 
-function setImages(imgs) {
-  images = imgs;
-}
-function setShaders(shaderArry) {
-  shaders = shaderArry;
-}
-
-// ======================================== P5 Functions
-// For any preloading of sounds or images.
-function preload() {
-  loadImages(setImages);
-  loadShaders(setShaders);
-}
-
-// Starting with a canvas the full window size.
-function setup() {
-  console.log("setup")
-  // disableFriendlyErrors = true;
-  glCanvas = createCanvas(windowWidth, windowHeight);
-  images.forEach((img, i) => takeColor(img, i))
-  loadScene(new BGShader()) // For background.
-  // For Audio input
-  // mic = new p5.AudioIn();
-  // mic.getSources((devices) => {
-  //   devices.forEach((device, i) => console.log(i, device.label))
-  // });
-  // mic.start();
-  // fft = new p5.FFT(0.8, 512);
-  // fft.setInput(mic);
-
-}
-
-function draw() {
-  const length = scenes.length;
-  // background(glBackground); // Moved to shader.
-  for (let i = 0; i < length; i++) {
-    if (scenes[i])
-      push()
-    scenes[i].draw();
-    pop();
-  }
-  if (showFPS) {
-    push()
-    stroke("black")
-    fill('white')
-    text("FPS:" + frameRate().toFixed(2), 10, 10)
-    pop()
-  }
-
-}
-
-// ======================================== Other Functions
-
-function setupSockets() {
-  socket.on('connect', function () {
-    console.log(socket)
-    console.log("Socket Connected")
-  });
-
-  socket.on('disconnected', function () {
-    console.log("Socket Disconnected")
-  });
-
-  socket.on("refresh", (val) => {
-    if (val) {
-      window.location.reload()
-    }
-  });
-
-  socket.on("debug", (val) => {
-    debug = val;
-    showFPS = val;
-  });
-
-  for (const i in controlScene) {
-    socket.on(`/${i}/toggle`, val => controlScene[i].toggle(val))
-    socket.on(`/${i}/opacity`, val => controlScene[i].opacity(val))
-  }
-
-}
-
-function normalToColor(val) {
-  return Math.round(map(val, 0, 1, 0, 255));
-}
-
-function loadScene(scene) {
-  const id = Math.random() * 100000;
-  scene.id = id
-  scene.init();
-  scenes.push(scene);
-}
-
-function unloadScene(id) {
-  let index = -1;
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i].id === id) {
-      index = i;
-      break;
-    }
-  }
-  socket.emit("sceneOff", scenes[index].sceneNum);
-  scenes[index].unload();
-  scenes.splice(index, 1);
-}
-
 const controlScene = {
   "1": {
     scene: {},
     toggle: function (val) {
-      console.log(val, "val")
       if (val.args[0]) {
         this.scene = new Starry();
         loadScene(this.scene);
@@ -304,6 +198,110 @@ const controlScene = {
     }
   }
 }
+function setImages(imgs) {
+  images = imgs;
+}
+function setShaders(shaderArry) {
+  shaders = shaderArry;
+}
+
+// ======================================== P5 Functions
+// For any preloading of sounds or images.
+function preload() {
+  loadImages(setImages);
+  loadShaders(setShaders);
+}
+
+// Starting with a canvas the full window size.
+function setup() {
+  console.log("setup")
+  // disableFriendlyErrors = true;
+  glCanvas = createCanvas(windowWidth, windowHeight);
+  images.forEach((img, i) => takeColor(img, i))
+  loadScene(new BGShader()) // For background.
+  // For Audio input
+  // mic = new p5.AudioIn();
+  // mic.getSources((devices) => {
+  //   devices.forEach((device, i) => console.log(i, device.label))
+  // });
+  // mic.start();
+  // fft = new p5.FFT(0.8, 512);
+  // fft.setInput(mic);
+
+}
+
+function draw() {
+  const length = scenes.length;
+  // background(glBackground); // Moved to shader.
+  for (let i = 0; i < length; i++) {
+    if (scenes[i])
+      push()
+    scenes[i].draw();
+    pop();
+  }
+  if (showFPS) {
+    push()
+    stroke("black")
+    fill('white')
+    text("FPS:" + frameRate().toFixed(2), 10, 10)
+    pop()
+  }
+
+}
+
+// ======================================== Other Functions
+
+function setupSockets() {
+  socket.on('connect', function () {
+    console.log(socket)
+    console.log("Socket Connected")
+  });
+
+  socket.on('disconnected', function () {
+    console.log("Socket Disconnected")
+  });
+
+  socket.on("refresh", (val) => {
+    if (val) {
+      window.location.reload()
+    }
+  });
+
+  socket.on("debug", (val) => {
+    debug = val;
+    showFPS = val;
+  });
+
+  for (const i in controlScene) {
+    socket.on(`/${i}/toggle`, val => controlScene[i].toggle(val))
+    socket.on(`/${i}/opacity`, val => controlScene[i].opacity(val))
+  }
+}
+
+function normalToColor(val) {
+  return Math.round(map(val, 0, 1, 0, 255));
+}
+
+function loadScene(scene) {
+  const id = Math.random() * 100000;
+  scene.id = id
+  scene.init();
+  scenes.push(scene);
+}
+
+function unloadScene(id) {
+  let index = -1;
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i].id === id) {
+      index = i;
+      break;
+    }
+  }
+  socket.emit("sceneOff", scenes[index].sceneNum);
+  scenes[index].unload();
+  scenes.splice(index, 1);
+}
+
 
 function toggleMirror(vert) {
   if (!mirror) {
