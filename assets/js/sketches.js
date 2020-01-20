@@ -206,6 +206,7 @@ class Sketch {
     }
 
     socket.on(`/${this.sceneNum}/toggle`, (val) => {
+      console.log(val);
       controlScene[this.sceneNum].toggle(val)
     })
     socket.on(`/${this.sceneNum}/opacity`, (val) => {
