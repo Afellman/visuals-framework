@@ -93,7 +93,7 @@ void main() {
   tex = colorSwirl(tex, uv); // Adding background color movement
 
   vec2 center = vec2(0.5, 0.5);
-  float t = vec4(1.0 - distance(0.5, tex.r), distance(0.5, tex.g), tex.b, tex.a);
+  float t = vec4( distance(0.5, tex.r), distance(0.5, tex.g), tex.b, tex.a);
   // t.a = u_opacity;
   gl_FragColor = t;
 }
