@@ -432,7 +432,6 @@ class SineWaves extends Sketch { // Scene 3. Maped
   ]
 }
 
-
 class SpinningCircles extends Sketch { // Scene 4. Maped
   constructor() {
     super();
@@ -446,10 +445,11 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
           curl: 0,
           proximity: 0,
           speed: 0.00,
-          circleSize: 3
+          circleSize: 3,
+          multiSpeed: 0
         },
       }
-
+      this.multiSin = false;
       this.pointMax = 200;
       this.multiplier = 10;
       this.opacity = 0;
@@ -508,70 +508,36 @@ class SpinningCircles extends Sketch { // Scene 4. Maped
       centerPoint.pos.y = y;
       centerPoint.size = circleSize;
 
-
+      stroke(255, 255, 255, 50);
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
         if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
-          stroke(255, 255, 255, 50);
+
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
     }
+
+    this.multiplier += sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
     this.freq += speed;
   }
 
-  listeners = [{
-    socketName: "multiplier",
-    socketMethod: (val) => this.multiplier += val.args[0]
-  }]
+  listeners = [
+    {
+      socketName: "resetMulti",
+      socketMethod: (val) => {
+        this.multiplier = 10;
+      }
+    },
+    {
+      socketName: "stopMulti",
+      socketMethod: (val) => {
+        this.params.faders.multiSpeed = 0;
+        this.updateOsc();
+      }
+    },]
   mouseClicked() { }
 }
-
-class GoldenSpiral extends Sketch {
-  constructor(color = 255) {
-    super();
-    if (!this.loaded) {
-      this.params = {
-        faders: {
-          speed: 0.01,
-          size: 200,
-          stepSize: 2,
-          angle: PI * (3.0 - sqrt(5)),
-          number: 500
-        }
-      }
-    }
-    this.sceneNum = 6
-    this.time = 0;
-    this.opacity = 20;
-    this.opacity = 0;
-  }
-  listeners = [{
-
-  }]
-  init() {
-    super.init();
-  }
-
-  draw() {
-    // background(0);
-    fill(255, 10);
-    stroke(255, 255, 255, this.opacity)
-    translate(width / 2, height / 2)
-    // this.number = frameCount;
-    for (var i = 0; i < this.params.faders.number; i++) {
-      rotate(this.time);
-      translate(0, i * this.params.faders.stepSize);
-      rotate(this.params.faders.angle);
-      line(0, 0, -this.params.faders.size, this.params.faders.size);
-      // triangle(-this.size, 0, 0, this.size, this.size, 0)
-      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
-      // rect(0, 0, this.size, this.size); 					// draw a rectangle
-    }
-    this.time += this.params.faders.speed / 1000;
-  }
-}
-
 
 class TreeFractal extends Sketch { // Scene 5. Maped.
   constructor() {
@@ -610,7 +576,7 @@ class TreeFractal extends Sketch { // Scene 5. Maped.
     if (len > 4) {
       push();
       rotate(this.params.faders.angle);
-      this.branch(len * this.params.faders.divider);
+      this.bran  ch(len * this.params.faders.divider);
       pop();
       push();
       rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
@@ -656,101 +622,107 @@ class TreeFractal extends Sketch { // Scene 5. Maped.
   ]
 }
 
-class Connecter extends Sketch {// replaced by spinning circles
-  constructor(color) {
+class GoldenSpiral extends Sketch { // Scene 6. Maped
+  constructor(color = 255) {
     super();
-    this.params = {
-      faders: {
-
-
-      }
-    }
-    this.pointAmt = 200,
-      this.circleDiameter = 410;
-    this.curl = 280;
-    this.strokeWeight = 1;
-    this.multiplier = 10;
-    this.centerPoints = [];
-    this.color = 255;
-    this.proximity = 500;
-    this.speed = 0.01;
-    this.color = color || false;
-    this.imgIndex = 2;
-    this.opacity = 0;
-  }
-
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.pointAmt; i++) {
-      const orbit = sin(this.freq + i * 10) * this.curl;
-      const circle = sin(i) * this.circleDiameter;
-      const orbitY = cos(this.freq + i * this.multiplier);
-      const circleY = cos(i) * this.circleDiameter;
-      const newPoint = new Objects.Circle(
-        width / 2 + orbit + circle,
-        (height / 2 + orbitY * this.curl) + circleY,
-        5,
-        this.color || someColor(this.imgIndex),
-      );
-      this.centerPoints.push(newPoint);
-    }
-    this.freq = this.speed;
-  }
-
-  draw() {
-    strokeWeight(this.strokeWeight);
-    let orbit;
-    let circle;
-    let orbitY;
-    let circleY;
-    for (let i = 0; i < this.pointAmt; i++) {
-      let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
-      orbitY = cos(this.freq + i * this.multiplier);
-      circleY = cos(i) * this.circleDiameter;
-      thisPoint.pos.x = width / 2 + orbit + circle
-      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
-      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
-      for (let j = 0; j < this.pointAmt; j++) {
-        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
-          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          speed: 0.01,
+          size: 200,
+          stepSize: 2,
+          angle: PI * (3.0 - sqrt(5)),
+          number: 500
         }
       }
     }
-    this.freq += this.speed;
+    this.color = [255, 255, 255];
+    this.sceneNum = 6
+    this.time = 0;
+    this.opacity = 0;
   }
-  listeners = []
-  mouseClicked() { }
+  listeners = [{
+
+  }]
+  init() {
+    super.init();
+  }
+
+  draw() {
+    // background(0);
+    fill(255, 10);
+    stroke(this.color[0], this.color[1], this.color[2], this.opacity)
+    translate(width / 2, height / 2)
+    // this.number = frameCount;
+    for (var i = 0; i < this.params.faders.number; i++) {
+      rotate(this.time);
+      translate(0, i * this.params.faders.stepSize);
+      rotate(this.params.faders.angle);
+      line(0, 0, -this.params.faders.size, this.params.faders.size);
+      // triangle(-this.size, 0, 0, this.size, this.size, 0)
+      // ellipse(0, 0, this.size);						// draw an ellipse (circle)
+      // rect(0, 0, this.size, this.size); 					// draw a rectangle
+    }
+    this.time += this.params.faders.speed / 1000;
+  }
+
+  listeners = [
+    {
+      socketName: "colorToggle",
+      socketMethod: (val) => {
+        if (val.args[0]) {
+          this.color = [58, 19, 6];
+        } else {
+          this.color = [255, 255, 255];
+        }
+      }
+    }
+  ]
 }
 
-class Sin extends Sketch {
+class Sin extends Sketch { // Scene 7. Maped
   constructor(obj) {
     super(obj);
-    this.waves = [];
     if (!this.loaded) {
       this.time = 0;
+      this.params = {
+        faders: {
+          freq1: 0.004,
+          amplitude1: 50,
+          freq2: 0.01,
+          amplitude2: 75,
+          freq3: 0.01,
+          amplitude3: 15,
+          colorSpeed: 0.01
+        }
+      }
     }
+    this.color1
+    this.sceneNum = 7;
+    this.opacity = 0;
+    this.color = someColor(2)
   }
 
   init() {
     super.init();
-    this.waves.push(new Objects.SineWave(50, 0.004))
-    this.waves.push(new Objects.SineWave(75, 0.01))
-    this.waves.push(new Objects.SineWave(15, 0.01))
   }
 
   draw() {
-    let howManyWaves = this.waves.length;
-    stroke("white")
+
+    noStroke();
     beginShape()
+    const r = this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
+    const g = this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
+    const b = this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50;
+    fill(r, g, b, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
       let y = height / 2;
-      let n = i * 0.005
-      for (let j = 0; j < howManyWaves; j++) {
-        y += this.waves[j].getVoltage(i + this.time) * (1 + noise(n, n));
+      let n = i * 0.005;
+      for (let j = 1; j < 4; j++) {
+        const thisFreq = this.params.faders["freq" + j];
+        const thisAmp = this.params.faders["amplitude" + j];
+        y += sin(2 * PI * thisFreq * (i + this.time) + 1) * thisAmp * (1 + noise(n, n));
       }
       vertex(x, y);
     }
@@ -780,19 +752,78 @@ class Sin extends Sketch {
 
 }
 
+class Orbitals extends Sketch {// Scene 8
+  constructor() {
+    super();
+    this.params = {
+      faders: {
+        spinnerAmount: 1000,
+        ampX: width / 4,
+        ampY: height / 2,
+        wobbleX: 0,
+        wobbleY: 1,
+        freqX: 1,
+        freqY: 1,
+        speed: 0.1
+      }
+    }
+    this.spinners = [];
+    this.sceneNum = 8;
+    this.opacity = 0;
+  }
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
+      let x = (width / 2) + sin(Math.random()) * (width / 4);
+      const y = height / 2 + cos(Math.random()) * (i * 3);
+      const newOrbital = { color: someColor(2), pos: createVector(x, y) }
+      // const newOrbital = new Objects.Point(x, y, someColor(2));
+      newOrbital.speed = Math.random() / 3;
+      newOrbital.weight = Math.random() * 10;
+      newOrbital.index = i;
+      this.spinners.push(newOrbital);
+    }
+  }
+
+  draw() {
+    stroke("grey")
+    for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
+      let thisSpinner = this.spinners[i];
+      const changeX = frameCount * this.params.faders.speed * this.params.faders.freqX;
+      const changeY = (frameCount * this.params.faders.speed * this.params.faders.freqY);
+      const startX = width / 2;
+      const startY = height / 2;
+      const sinX = sin(changeX * thisSpinner.speed);
+      const cosY = cos(changeY * thisSpinner.speed)
+      thisSpinner.pos.x = startX + sinX * this.params.faders.ampX - (i * this.params.faders.wobbleX);
+      thisSpinner.pos.y = startY + cosY * (this.params.faders.ampY - (i * this.params.faders.wobbleY))
+      strokeWeight(thisSpinner.weight);
+      stroke(thisSpinner.color[0], thisSpinner.color[1], thisSpinner.color[2], this.opacity)
+      point(thisSpinner.pos.x, thisSpinner.pos.y)
+    }
+  }
+
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
     this.dots = [];
     if (!this.loaded) {
+      this.params = {
+        faders: {
+          amplitude: 2.5,
+          speed: 0.1,
+          freq: 0.01,
+          freq2: 2
+        }
+      }
+      this.sceneNum = 7;
       this.rowsAmount = 50;
       this.dotsAmount = 20;
       this.globalChange = 14
-      this.period = 0.04;
-      this.xspacing = 0.003;
-      this.speed = 0.01;
-      this.rateChange = (TWO_PI / this.period) * this.xspacing;
-      this.amplitude = 2.5;
+      this.rateChange = (TWO_PI / this.params.faders.freq) * this.params.faders.freq2;
       this.opacity = 0;
     }
   }
@@ -818,28 +849,87 @@ class Rain extends Sketch {
   }
 
   draw() {
-    this.rateChange = (PI / this.period) * this.xspacing;
-    this.globalChange += this.speed;
-    let change = this.globalChange;
+    stroke(230, 230, 230, this.opacity);
+    fill(230, 230, 230, this.opacity);
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(change * i) * this.amplitude) * 5;
-        stroke(230, 230, 230, this.opacity);
-        fill(230, 230, 230, this.opacity);
+        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
-        change += this.rateChange;
       }
     }
   }
+}
 
-  controls = {
-    changeSpeed: (val) => this.speed = sin(val),
-    changePeriod: (val) => this.period = val,
-    changeSpacing: (val) => this.xspacing = val,
-    changeAmp: (val) => this.amplitude = val
+class LinesShader extends Sketch {
+
+  constructor(img) {
+    super();
+    this.params = {
+      faders: {
+        xOff: 0,
+        yOff: 0,
+        amp: 0,
+        noise: 0
+      }
+    }
+    this.freq = 0;
+    this.speed = 0;
+    this.linesShader;
+    this.img = images[0];
+    this.direction = 1;
+    this.opacity = 0;
+    this.sceneNum = 9;
   }
 
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.time = 0;
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
+    this.shaderPath = "./shaders/movingLines.frag";
+  }
+
+  draw() {
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shader.setUniform('u_amp', this.params.faders.amp);
+    this.shader.setUniform('u_noise', this.params.faders.noise);
+    this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_speed', this.speed);
+
+
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+  }
+
+  unload() {
+    super.unload();
+    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+  }
+
+  listeners = [
+    {
+      socketName: "speed",
+      socketMethod: (val) => {
+        this.speed += val.args[0];
+      }
+    },
+    {
+      socketName: "freq",
+      socketMethod: (val) => {
+        this.freq += val.args[0];
+      }
+    },
+  ]
 }
 
 class BGShader extends Sketch {
@@ -937,61 +1027,6 @@ class Ripples extends Sketch {
   }
 }
 
-class Orbitals extends Sketch {
-  constructor() {
-    super();
-    this.spinnerAmt = 1000;
-    this.spinners = [];
-    this.ampX = width / 4;
-    this.ampY = height / 2;
-    this.wobble = 0;
-    this.speed = 1
-  }
-
-  init() {
-    super.init();
-    for (let i = 0; i < this.spinnerAmt; i++) {
-      let x = (width / 2) + sin(Math.random()) * (width / 4);
-      const y = height / 2 + cos(Math.random()) * (i * 3);
-      const newOrbital = new Objects.Point(x, y, someColor());
-      newOrbital.speed = Math.random() / 3;
-      newOrbital.weight = Math.random() * 10;
-      newOrbital.index = i;
-      this.spinners.push(newOrbital);
-
-    }
-  }
-
-  draw() {
-    stroke("grey")
-    for (let i = 0; i < this.spinnerAmt; i++) {
-      let thisSpinner = this.spinners[i];
-      const changeX = frameCount / 10 * this.speed;
-      const changeY = (frameCount / 10);
-      const startX = width / 2;
-      const startY = height / 2;
-      const sinX = sin(changeX * thisSpinner.speed);
-      const cosY = cos(changeY * thisSpinner.speed)
-      thisSpinner.pos.x = startX + sinX * this.ampX - (i * this.wobble);
-      thisSpinner.pos.y = startY + cosY * (this.ampY - i)
-      strokeWeight(thisSpinner.weight);
-      thisSpinner.draw();
-      this.explode(thisSpinner, 0.1);
-    }
-  }
-
-  explode(spinner, rate) {
-    if (spinner.explode) {
-      spinner.weight += rate;
-      if (spinner.weight > 20) {
-        this.spinners.splice(spinner.index, 1);
-        this.spinnerAmt--;
-      }
-    }
-
-  }
-
-}
 
 class Mirror extends Sketch {
   constructor(isVertical, isHorizonal) {
@@ -1045,127 +1080,6 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
-class LinesShader extends Sketch {
-  A
-  constructor(img) {
-    super();
-    this.linesShader;
-    this.img = images[0];
-    this.speed = 1;
-    this.direction = 1;
-    this.opacity = 0;
-    this.xOff = 0;
-    this.yOff = 0;
-    this.amp = 0;
-    this.noise = 0;
-    this.freq = 0;
-    this.speed = 0;
-  }
-
-  init(index) {
-    super.init();
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.time = 0;
-    this.params = [1.0, 0.0, 1.7, 0.0, 0.0, 0.0]
-    this.loops = 4;
-    this.cray = 0.0;
-    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
-    this.shaderPath = "./shaders/movingLines.frag";
-  }
-
-  draw() {
-    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
-    noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.img);
-    this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_xOff', this.xOff);
-    this.shader.setUniform('u_yOff', this.yOff);
-    this.shader.setUniform('u_amp', this.amp);
-    this.shader.setUniform('u_noise', this.noise);
-    this.shader.setUniform('u_freq', this.freq);
-    this.shader.setUniform('u_speed', this.speed);
-
-
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
-
-  }
-
-  unload() {
-    super.unload();
-    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
-  }
-
-  listeners = [
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      midi: "1",
-      midiMethod: val => this.params[0] = val / 100,
-      method: (val) => {
-        this.yOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/2',
-      nodeID: "slider1",
-      midi: "2",
-      midiMethod: val => this.params[1] = val / 100,
-      method: (val) => {
-        this.xOff = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/3',
-      nodeID: "slider1",
-      midi: "3",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 10);
-        this.params[2] = val;
-      },
-      method: (val) => {
-        this.amp = val.args[0] / 10;
-      }
-    },
-    {
-      socketName: '/1/multifader1/4',
-      nodeID: "slider1",
-      midi: "4",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 0.5)
-        this.params[3] = val
-      },
-      method: (val) => {
-        this.freq = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/5',
-      nodeID: "slider1",
-      midi: "5",
-      midiMethod: val => {
-        val = map(val, 0, 127, 0, 1)
-        this.params[4] = val
-      },
-      method: (val) => {
-        this.speed = val.args[0] * 2;
-      }
-    },
-    {
-      socketName: '/1/multifader1/6',
-      nodeID: "slider1",
-      midi: "6",
-      midiMethod: val => {
-        this.params[5] = val / 100
-      },
-      method: (val) => {
-        this.noise = val.args[0];
-      }
-    },
-  ]
-}
 
 class FlowShader extends Sketch {
   constructor(img) {
@@ -1277,7 +1191,6 @@ class FlowShader extends Sketch {
   },
   ]
 }
-
 
 class Drops extends Sketch {
   constructor(obj) {
@@ -1417,6 +1330,76 @@ class EarthQuake extends Sketch {
     }
   }
 }
+
+class Connecter extends Sketch {// replaced by spinning circles
+  constructor(color) {
+    super();
+    this.params = {
+      faders: {
+
+
+      }
+    }
+    this.pointAmt = 200,
+      this.circleDiameter = 410;
+    this.curl = 280;
+    this.strokeWeight = 1;
+    this.multiplier = 10;
+    this.centerPoints = [];
+    this.color = 255;
+    this.proximity = 500;
+    this.speed = 0.01;
+    this.color = color || false;
+    this.imgIndex = 2;
+    this.opacity = 0;
+  }
+
+
+  init() {
+    super.init();
+    for (let i = 0; i < this.pointAmt; i++) {
+      const orbit = sin(this.freq + i * 10) * this.curl;
+      const circle = sin(i) * this.circleDiameter;
+      const orbitY = cos(this.freq + i * this.multiplier);
+      const circleY = cos(i) * this.circleDiameter;
+      const newPoint = new Objects.Circle(
+        width / 2 + orbit + circle,
+        (height / 2 + orbitY * this.curl) + circleY,
+        5,
+        this.color || someColor(this.imgIndex),
+      );
+      this.centerPoints.push(newPoint);
+    }
+    this.freq = this.speed;
+  }
+
+  draw() {
+    strokeWeight(this.strokeWeight);
+    let orbit;
+    let circle;
+    let orbitY;
+    let circleY;
+    for (let i = 0; i < this.pointAmt; i++) {
+      let thisPoint = this.centerPoints[i];
+      orbit = sin(this.freq + i * 10) * this.curl;
+      circle = sin(i) * this.circleDiameter;
+      orbitY = cos(this.freq + i * this.multiplier);
+      circleY = cos(i) * this.circleDiameter;
+      thisPoint.pos.x = width / 2 + orbit + circle
+      thisPoint.pos.y = (height / 2 + orbitY * this.curl) + circleY;
+      stroke(thisPoint.stroke[0], thisPoint.stroke[1], thisPoint.stroke[2], this.opacity);
+      for (let j = 0; j < this.pointAmt; j++) {
+        if (dist(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < this.proximity) {
+          line(thisPoint.pos.x, thisPoint.pos.y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        }
+      }
+    }
+    this.freq += this.speed;
+  }
+  listeners = []
+  mouseClicked() { }
+}
+
 
 const Objects = {
   /**
