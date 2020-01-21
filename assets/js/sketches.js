@@ -936,9 +936,7 @@ class FlowShader extends Sketch {
       faders: {
         waterSpeed: 0.001,
         backSpeed: 0.001,
-        distX: 0.01,
-        distY: 1.0,
-        offset: 1.0
+        offset: 0
       }
     }
     this.offsetSin = 0.0;
