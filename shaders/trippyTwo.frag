@@ -76,11 +76,11 @@ float pattern( in vec2 p )
     return fbm( p + 4.0*r );
 }
 
-vec4 colorSwirl(vec4 texture, vec2 uv) {
-  float r = pattern();
+// vec4 colorSwirl(vec4 texture, vec2 uv) {
+//   float r = pattern();
   
-  return vec4(r,b,g, 1.0);
-}
+//   return vec4(r,b,g, 1.0);
+// }
 
 void main() {
   vec2 uv = vTexCoord;
