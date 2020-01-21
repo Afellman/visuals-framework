@@ -7,9 +7,8 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
-uniform float u_time;
-uniform float u_backSpeed;
-uniform float u_waterSpeed;
+uniform float u_backTime;
+uniform float u_waterTime;
 uniform float u_opacity;
 
 
@@ -77,17 +76,15 @@ float pattern( in vec2 p )
 }
 
 vec4 colorSwirl(vec4 texture, vec2 uv) {
-  float r = pattern(vec2(texture.r, uv.x + u_backSpeed * 0.8 * u_time));
-  float g = pattern(vec2(texture.g, uv.x * uv.y + u_backSpeed * 0.6* u_time));
-  float b = pattern(vec2(texture.b, uv.y + u_backSpeed *  0.71* u_time));
+  float r = pattern(vec2(texture.r, uv.x + u_backTime * 0.8 ));
+  float g = pattern(vec2(texture.g, uv.x * uv.y + u_backTime * 0.6));
+  float b = pattern(vec2(texture.b, uv.y + u_backTime *  0.71));
   
   return vec4(r,b,g, 1.0);
 }
 
-void main() {
   vec2 uv = vTexCoord;
-  float patMove = u_waterSpeed * u_time;
-  float pat = pattern(uv + patMove); // Swirl pattern on image
+  float pat = pattern(uv + u_waterTime); // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex = colorSwirl(tex, uv); // Adding background color movement
