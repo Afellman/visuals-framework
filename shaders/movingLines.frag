@@ -66,7 +66,7 @@ void main() {
 
   float ran = random(uv) * u_noise ; // Adds noise
   float amp = sin(u_amp * u_time) / 10.0;
-  float y = sin(PI * 2.0 * uv.x * u_freq + * u_time + ran ) * amp;
+  float y = sin(PI * 2.0 * uv.x * u_freq + u_time + ran ) * amp;
 
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
