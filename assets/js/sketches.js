@@ -986,6 +986,13 @@ class FlowShader extends Sketch {
   }
 
   listeners = [
+    {
+      socketName: "stopOffset",
+      socketMethod: (val) => {
+        this.params.faders.offset = 0;
+        this.updateOsc();
+      }
+    },
   ]
 }
 
