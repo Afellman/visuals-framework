@@ -934,10 +934,12 @@ class FlowShader extends Sketch {
     this.img = images[2];
     this.params = {
       faders: {
-        waterSpeed: 0.22,
-        backSpeed: 0.66,
+        waterSpeed: 0.0,
+        backSpeed: 0.0,
       }
     }
+    this.waterTime = 0.0;
+    this.backTime = 0.0;
     this.sceneNum = 10;
     this.opacity = 0;
   }
@@ -965,13 +967,14 @@ class FlowShader extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_waterSpeed', this.params.faders.waterSpeed);
-    this.shader.setUniform('u_backSpeed', this.params.faders.backSpeed);
+    this.shader.setUniform('u_waterTime', this.waterTime);
+    this.shader.setUniform('u_backTime', this.backTime);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-
+    this.backTime += this.backSpeed;
+    this.waterTime += this.waterSpeed;
   }
 
   unload() {
