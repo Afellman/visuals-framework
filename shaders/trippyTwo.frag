@@ -10,8 +10,6 @@ uniform sampler2D tex0;
 uniform float u_backTime;
 uniform float u_waterTime;
 uniform float u_opacity;
-uniform float u_distX;
-uniform float u_distY;
 
 
 vec3 colorize(vec4 tex){
@@ -87,7 +85,7 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 
 void main() {
   vec2 uv = vTexCoord;
-  float pat = pattern(vec2(distance(u_distX, uv.x),distance(u_distY, uv.y)) + u_waterTime); // Swirl pattern on image
+  float pat = pattern(uv + u_waterTime) * 2.0; // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex = colorSwirl(tex, uv); // Adding background color movement
