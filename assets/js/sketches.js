@@ -866,11 +866,11 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
         yOff: 0,
         amp: 0,
         noise: 0,
-        freq: 0
+        freq: 0,
+        speed: 0
       }
     }
     this.freq = 0;
-    this.speed = 0;
     this.linesShader;
     this.img = images[0]; // Peter
     // this.img = images[5]; // Aussy
@@ -906,7 +906,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += this.speed / 10;
+    this.time += this.params.faders.speed / 10;
     this.freq += this.params.faders.freq / 10;
   }
 
@@ -919,7 +919,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     {
       socketName: "stopSpeed",
       socketMethod: (val) => {
-        this.speed = 0
+        this.speed = 0;
       }
     },
     {
