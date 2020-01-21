@@ -978,7 +978,7 @@ class FlowShader extends Sketch {
 
     this.backTime += this.params.faders.backSpeed / 2;
     this.waterTime += this.params.faders.waterSpeed / 10;
-    this.offsetSin += this.params.faders.offset;
+    this.offsetSin += this.params.faders.offset / 100;
   }
 
   unload() {
