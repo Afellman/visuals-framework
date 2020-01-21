@@ -872,7 +872,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.speed = 0;
     this.linesShader;
     this.img = images[0]; // Peter
-    this.img = images[5]; // Aussy
+    // this.img = images[5]; // Aussy
     this.direction = 1;
     this.opacity = 0;
     this.sceneNum = 9;
@@ -893,18 +893,19 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     noStroke();
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.img);
-    this.shader.setUniform('u_time', frameCount / 1000)
+    // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
     this.shader.setUniform('u_amp', this.params.faders.amp);
     this.shader.setUniform('u_noise', this.params.faders.noise);
     this.shader.setUniform('u_freq', this.freq);
-    this.shader.setUniform('u_speed', this.speed);
+    this.shader.setUniform('u_time', this.time);
 
 
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
+    this.time += this.speed
   }
 
   unload() {
@@ -916,7 +917,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     {
       socketName: "speed",
       socketMethod: (val) => {
-        this.speed += val.args[0];
+        this.speed += val.args[0] / 100;
       }
     },
     {
