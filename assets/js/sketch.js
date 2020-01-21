@@ -475,7 +475,7 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg"),
     loadImage("./assets/images/alec/img014.jpg"),
-    loadImage("./assets/images/australia/adam-ferguson-australia-fires-climate-change-1.jpg")
+    loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg")
   ])
     .then(res => resolve(res))
     .catch(res => new Error(res));
