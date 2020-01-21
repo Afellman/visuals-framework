@@ -76,19 +76,21 @@ float pattern( in vec2 p )
     return fbm( p + 4.0*r );
 }
 
-// vec4 colorSwirl(vec4 texture, vec2 uv) {
-//   float r = pattern();
+vec4 colorSwirl(vec4 texture, vec2 uv) {
+  float r = pattern(vec2(texture.r, uv.x + u_backTime * 0.8 ));
+  float g = pattern(vec2(texture.g, uv.x * uv.y + u_backTime * 0.6));
+  float b = pattern(vec2(texture.b, uv.y + u_backTime *  0.71));
   
-//   return vec4(r,b,g, 1.0);
-// }
+  return vec4(r,b,g, 1.0);
+}
 
 void main() {
   vec2 uv = vTexCoord;
   float pat = pattern(uv + u_waterTime) * u_offset; // Swirl pattern on image
-  vec4 tex = texture2D(tex0 * pat, uv);
+  vec4 tex = texture2D(tex0, uv * pat);
 
   // tex = colorSwirl(tex, uv); // Adding background color movement
-  tex = tex *
+
   tex.a = u_opacity;
   gl_FragColor = tex;
 }
