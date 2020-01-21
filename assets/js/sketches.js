@@ -906,8 +906,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += this.speed / 100
-    this.freq += this.params.faders.freq / 100
+    this.time += this.speed / 10;
+    this.freq += this.params.faders.freq / 10;
   }
 
   unload() {
@@ -917,9 +917,15 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 
   listeners = [
     {
-      socketName: "speed",
+      socketName: "stopSpeed",
       socketMethod: (val) => {
-        this.speed += val.args[0];
+        this.speed = 0
+      }
+    },
+    {
+      socketName: "stopFreq",
+      socketMethod: (val) => {
+        this.params.faders.freq = 0;
       }
     },
   ]
