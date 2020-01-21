@@ -982,18 +982,6 @@ class FlowShader extends Sketch {
   }
 
   listeners = [
-    {
-      socketName: "waterSpeed",
-      socketMethod: (val) => {
-        this.params.faders.waterSpeed = val.args[0] / 100;
-      }
-    },
-    {
-      socketName: "backSpeed",
-      socketMethod: (val) => {
-        this.params.faders.backSpeed = val.args[0] / 100
-      }
-    },
   ]
 }
 
