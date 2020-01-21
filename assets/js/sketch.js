@@ -445,17 +445,18 @@ const genericMidi = {
           loadScene(this.scene);
           this.isActive = true;
         }
-        // } else if (cmd == 132) {
-        //   this.scene.opacity = midiToNormal(vel);
-        // } else if (cmd == 180) {
-        //   glBackground[3] = map(vel, 0, 127, 0, 1);
-        // }
       }
+      // } else if (cmd == 132) {
+      //   this.scene.opacity = midiToNormal(vel);
+      // } else if (cmd == 180) {
+      //   glBackground[3] = map(vel, 0, 127, 0, 1);
+      // }
     }
   }
+}
 
 function onMIDIFailure() {
-    console.log('Could not access your MIDI devices.');
+  console.log('Could not access your MIDI devices.');
 }
 
 function midiToColor(vel) {
@@ -472,7 +473,8 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/peter.jpg"),
     loadImage("./assets/images/peter2.jpg"),
     loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/waterfall.jpg")
+    loadImage("./assets/images/waterfall.jpg"),
+    loadImage("./assets/images/alec/006.jpg")
   ])
     .then(res => resolve(res))
     .catch(res => new Error(res));
