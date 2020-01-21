@@ -906,8 +906,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += this.params.faders.speed / 10;
-    this.freq += this.params.faders.freq / 10;
+    this.time += this.params.faders.speed
+    this.freq += this.params.faders.freq;
   }
 
   unload() {
