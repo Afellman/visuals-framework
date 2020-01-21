@@ -865,7 +865,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
         xOff: 0,
         yOff: 0,
         amp: 0,
-        noise: 0
+        noise: 0,
+        freq: 0
       }
     }
     this.freq = 0;
@@ -905,8 +906,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += this.speed
-    this.freq += this.params.faders.freq
+    this.time += this.speed / 100
+    this.freq += this.params.faders.freq / 100
   }
 
   unload() {
