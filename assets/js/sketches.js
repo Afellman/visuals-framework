@@ -937,7 +937,8 @@ class FlowShader extends Sketch {
         waterSpeed: 0.0,
         backSpeed: 0.0,
         distX: 0.0,
-        distY: 1.0
+        distY: 1.0,
+        offset: 1.0
       }
     }
     this.waterTime = 0.1;
