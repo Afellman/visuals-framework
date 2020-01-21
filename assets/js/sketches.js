@@ -938,8 +938,8 @@ class FlowShader extends Sketch {
         backSpeed: 0.0,
       }
     }
-    this.waterTime = 0.0;
-    this.backTime = 0.0;
+    this.waterTime = 0.1;
+    this.backTime = 0.1;
     this.sceneNum = 10;
     this.opacity = 0;
   }
