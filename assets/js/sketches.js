@@ -920,12 +920,14 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
       socketName: "stopSpeed",
       socketMethod: (val) => {
         this.speed = 0;
+        this.updateOsc();
       }
     },
     {
       socketName: "stopFreq",
       socketMethod: (val) => {
         this.params.faders.freq = 0;
+        this.updateOsc();
       }
     },
   ]
