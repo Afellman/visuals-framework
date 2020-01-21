@@ -934,9 +934,9 @@ class FlowShader extends Sketch {
     this.img = images[2];
     this.params = {
       faders: {
-        waterSpeed: 0.0,
-        backSpeed: 0.0,
-        distX: 0.0,
+        waterSpeed: 0.001,
+        backSpeed: 0.001,
+        distX: 0.01,
         distY: 1.0,
         offset: 1.0
       }
