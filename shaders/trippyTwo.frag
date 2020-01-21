@@ -10,6 +10,8 @@ uniform sampler2D tex0;
 uniform float u_backTime;
 uniform float u_waterTime;
 uniform float u_opacity;
+uniform float u_distX;
+uniform float u_distY;
 
 
 vec3 colorize(vec4 tex){
