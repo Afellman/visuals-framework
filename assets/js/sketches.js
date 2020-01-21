@@ -871,7 +871,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.freq = 0;
     this.speed = 0;
     this.linesShader;
-    this.img = images[0];
+    this.img = images[0]; // Peter
+    this.img = images[5]; // Aussy
     this.direction = 1;
     this.opacity = 0;
     this.sceneNum = 9;
