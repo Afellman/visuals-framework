@@ -973,8 +973,8 @@ class FlowShader extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    this.backTime += this.backSpeed;
-    this.waterTime += this.waterSpeed;
+    this.backTime += this.params.faders.backSpeed;
+    this.waterTime += this.params.faders.waterSpeed;
   }
 
   unload() {
