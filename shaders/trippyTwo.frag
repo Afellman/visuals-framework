@@ -91,7 +91,7 @@ void main() {
 
   vec4 tex2 = colorSwirl(tex, uv); // Adding background color movement
 
-  tex += tex2;
+  tex += -tex2;
   tex.a = u_opacity;
   gl_FragColor = tex;
 }
