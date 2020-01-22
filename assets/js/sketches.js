@@ -1160,6 +1160,134 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
+class Walker extends Sketch { // Scene 6. Maped
+  constructor(color = 255) {
+    super();
+    if (!this.loaded) {
+      this.params = {
+        faders: {
+          speed: 0.01,
+          size: 200,
+          stepSize: 2,
+          angle: PI * (3.0 - sqrt(5)),
+          number: 500
+        }
+      }
+    }
+    this.scale = 10;
+    this.walkers = {};
+    this.walkerAmt = 100;
+    this.scale = 1;
+    this.pixelOccupiedX = {};
+    this.pixelOccupiedY = {};
+    this.reproductionRate = .60;
+  }
+
+  init() {
+    super.init();
+    for (let i = 1; i < this.walkerAmt + 1; i++) {
+      var rand = Math.round(Math.random() * 999999999);
+      this.walkers[rand] = new this.Walker(rand, 0, 0, 0, this);
+    }
+  }
+
+  draw() {
+    // background(0, 0, 0, 0)
+    for (let i in this.walkers) {
+      this.walkers[i].display();
+      this.walkers[i].step();
+      if (this.walkers[i]) {
+        this.walkers[i].preventOffScreen();
+      }
+    }
+  }
+
+  Walker = class {
+    constructor(name, x, y, color, parent) {
+      this.name = name;
+      this.parent = parent;
+      this.x = x || width / 2;
+      this.y = y || height / 2;
+      this.color = color || someColor(3);
+    }
+    display() {
+      noStroke();
+      fill(this.color[0], this.color[1], this.color[2], 10);
+      // fill(255, 10);
+
+      // fill(255);
+      ellipse(this.x, this.y, this.parent.scale);
+    }
+    step() {
+      let stepX = (int(random(3)) - 1);
+      let stepY = (int(random(3)) - 1);
+
+
+      this.parent.pixelOccupiedX[this.x] = null;
+      this.parent.pixelOccupiedY[this.y] = null;
+
+      this.x += stepX * this.parent.scale;
+      this.y += stepY * this.parent.scale;
+      // this.checkCollison(); // For reproduction and death
+
+      this.parent.pixelOccupiedX[this.x] = this.name;
+      this.parent.pixelOccupiedY[this.y] = this.name;
+    }
+    preventOffScreen() {
+      if (this.x < 1) {
+        this.x += this.parent.scale;
+      } else if (this.x > width - 1) {
+        this.x -= this.parent.scale;
+      } else if (this.y < 1) {
+        this.y += this.parent.scale;
+      } else if (this.y > height - 1) {
+        this.y -= this.parent.scale;
+      }
+    }
+    checkCollison() {
+      var walkerAtX = this.parent.pixelOccupiedX[this.x]
+      var walkerAtY = this.parent.pixelOccupiedY[this.y]
+      if (walkerAtX !== null && walkerAtX !== undefined && walkerAtX == walkerAtY) {
+        // var gaus = randomGaussian(30, 2);
+        // if(gaus )
+        var ran = Math.random();
+        if (ran < reproductionRate) {
+          this.reproduce();
+        } else {
+          this.removeWalker();
+        }
+        // console.log(gaus);
+        // this.reproduce();
+      }
+    }
+    reproduce() {
+      var rand = Math.round(Math.random() * 999999999);
+      walkers[rand] = new Walker(rand, this.x, this.y, this.color);
+      updateCount(1);
+    }
+    removeWalker() {
+      delete walkers[this.name]
+      pixelOccupiedX[this.x] = null;
+      pixelOccupiedY[this.y] = null;
+      updateCount(-1);
+    }
+  }
+
+
+  listeners = [
+    {
+      socketName: "colorToggle",
+      socketMethod: (val) => {
+        if (val.args[0]) {
+          this.color = [58, 19, 6];
+        } else {
+          this.color = [255, 255, 255];
+        }
+      }
+    }
+  ]
+}
+
 class Drops extends Sketch {
   constructor(obj) {
     super(obj);
@@ -1193,8 +1321,11 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
-        ellipse(thisPoint.x, thisPoint.y, 2);
+        // thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
+        thisPoint.add(acc.div(800));
+        let size = 10 * (frameCount / 1000);
+        rect(thisPoint.x, thisPoint.y, size, size);
+
       }
     }
   }
