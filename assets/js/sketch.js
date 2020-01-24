@@ -193,6 +193,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
+  loadScene(new FlowShader()) // For background.
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
@@ -475,7 +476,10 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg"),
     loadImage("./assets/images/alec/img014.jpg"),
-    loadImage("./assets/images/australia/adam-ferguson-australia-fires-climate-change-1.jpg")
+    loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
+    loadImage("./assets/images/colorImg1.jpg"),
+    loadImage("./assets/images/universe.jpg"),
+
   ])
     .then(res => resolve(res))
     .catch(res => new Error(res));
