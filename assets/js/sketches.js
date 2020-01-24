@@ -872,7 +872,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     }
     this.freq = 0;
     this.linesShader;
-    this.img = images[0]; // Peter
+    // this.img = images[0]; // Peter
+    this.img = images[6]; // Peter
     // this.img = images[5]; // Aussy
     this.direction = 1;
     this.opacity = 0;
@@ -937,7 +938,8 @@ class FlowShader extends Sketch {
   constructor(img) {
     super();
     this.linesShader;
-    this.img = images[2];
+    // this.img = images[2];
+    this.img = images[7];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -1160,7 +1162,7 @@ class SoundTest extends Sketch {
   listeners = [{}]
 }
 
-class Walker extends Sketch { // Scene 6. Maped
+class Walker extends Sketch {
   constructor(color = 255) {
     super();
     if (!this.loaded) {
@@ -1174,10 +1176,9 @@ class Walker extends Sketch { // Scene 6. Maped
         }
       }
     }
-    this.scale = 10;
     this.walkers = {};
-    this.walkerAmt = 100;
-    this.scale = 1;
+    this.walkerAmt = 500;
+    this.scale = 2;
     this.pixelOccupiedX = {};
     this.pixelOccupiedY = {};
     this.reproductionRate = .60;
@@ -1192,7 +1193,6 @@ class Walker extends Sketch { // Scene 6. Maped
   }
 
   draw() {
-    // background(0, 0, 0, 0)
     for (let i in this.walkers) {
       this.walkers[i].display();
       this.walkers[i].step();
@@ -1208,7 +1208,7 @@ class Walker extends Sketch { // Scene 6. Maped
       this.parent = parent;
       this.x = x || width / 2;
       this.y = y || height / 2;
-      this.color = color || someColor(3);
+      this.color = color || someColor(6);
     }
     display() {
       noStroke();
