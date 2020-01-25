@@ -999,8 +999,7 @@ class FlowShader extends Sketch {
 class VideoShader extends Sketch {
   constructor(img) {
     super();
-    // this.img = images[2];
-    this.img = images[7];
+    this.video = videos[0];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -1021,7 +1020,7 @@ class VideoShader extends Sketch {
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = shaders[5];
+    this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag"
   }
