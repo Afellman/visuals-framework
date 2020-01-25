@@ -1049,13 +1049,13 @@ class VideoShader extends Sketch {
     this.shaderBox.shader(this.shader);
 
     // send the camera and the two other past frames into the camera feed
-    this.shader.setUniform('tex0', this.layers[this.index1]);
-    this.shader.setUniform('tex1', this.layers[this.index2]);
-    this.shader.setUniform('tex2', this.layers[this.index3]);
+    this.shader.setUniform('tex0', this.video.get());
+    // this.shader.setUniform('tex1', this.layers[this.index2]);
+    // this.shader.setUniform('tex2', this.layers[this.index3]);
 
-    this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
-    this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
-    this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
+    // this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
+    // this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
+    // this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
 
