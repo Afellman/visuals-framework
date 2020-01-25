@@ -1060,7 +1060,8 @@ class VideoShader extends Sketch {
 
 
     let graphics = createGraphics(width, height);
-    graphics.image(graphics);
+    graphics.image(graphics, 0, 0, height, width);
+    image
     image(graphics, 0, 0, width, height);
   }
 
