@@ -184,7 +184,7 @@ function setShaders(shaderArry) {
 function setVideos(videoArray) {
   // loadScene(new VideoShader()) // For background.
   console.log("videos loaded")
-  scenes[1].opacity = 1;
+  // scenes[1].opacity = 1;
   videos = videoArray;
 }
 
