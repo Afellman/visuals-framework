@@ -1051,7 +1051,6 @@ class VideoShader extends Sketch {
   ]
 }
 
-
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
