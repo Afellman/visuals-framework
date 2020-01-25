@@ -11,6 +11,7 @@ let mic;
 let textureShader;
 let images = [];
 let shaders = [];
+let videos = [];
 let mirror = false;
 let ctrlPressed = false;
 let save;
@@ -474,7 +475,7 @@ function midiToNormal(vel) {
 }
 // ========================================= Async Loaders
 
-function loadImages(resolve, reject) {
+function loadImages(cb) {
   Promise.all([
     loadImage("./assets/images/peter.jpg"),
     loadImage("./assets/images/peter2.jpg"),
@@ -486,11 +487,11 @@ function loadImages(resolve, reject) {
     loadImage("./assets/images/universe.jpg"),
 
   ])
-    .then(res => resolve(res))
+    .then(res => cb(res))
     .catch(res => new Error(res));
 }
 
-function loadShaders(resolve, reject) {
+function loadShaders(cb) {
   Promise.all([
     loadShader(
       "./shaders/texture.vert",
@@ -504,8 +505,12 @@ function loadShaders(resolve, reject) {
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
   ])
-    .then(res => resolve(res))
+    .then(res => cb(res))
     .catch(res => new Error(res));
+}
+
+function loadVideos(cb) {
+  videos = createVideo(["./assets/videos/exploreAustralia.mp4"])
 }
 
 
