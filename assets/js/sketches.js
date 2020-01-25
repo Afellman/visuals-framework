@@ -1028,19 +1028,17 @@ class VideoShader extends Sketch {
 
   draw() {
     noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.video);
-    this.shader.setUniform('u_time', frameCount / 1000)
-    this.shader.setUniform('u_waterTime', this.waterTime);
-    this.shader.setUniform('u_backTime', this.backTime);
-    this.shader.setUniform('u_offset', this.offsetSin);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+    // draw the camera on the current layer
+    layers[index1].image(cam, 0, 0, width, height);
 
-    this.backTime += this.params.faders.backSpeed / 2;
-    this.waterTime += this.params.faders.waterSpeed / 10;
-    this.offsetSin += this.params.faders.offset / 10;
+    // shader() sets the active shader with our shader
+    shaderLayer.shader(camShader);
+
+    // send the camera and the two other past frames into the camera feed
+    camShader.setUniform('tex0', layers[index1]);
+    camShader.setUniform('tex1', layers[index2]);
+    camShader.setUniform('tex2', layers[index3]);
+
   }
 
   unload() {
