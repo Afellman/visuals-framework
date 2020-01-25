@@ -1009,6 +1009,7 @@ class VideoShader extends Sketch {
     this.sceneNum = 11;
     this.opacity = 0;
     this.layers = [];
+    this.index1 = 0
     this.index2 = this.params.faders.numLayers / 3; // 30
     this.index3 = this.params.faders.numLayers / 3 * 2; // 60
   }
