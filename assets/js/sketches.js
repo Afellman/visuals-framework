@@ -1021,8 +1021,7 @@ class VideoShader extends Sketch {
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[6];
-    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
-    this.shaderPath = "./shaders/trippytwo.frag";
+    this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
     this.video.play()
     this.video.hide();
     for (let i = 0; i < this.params.faders.numLayers; i++) {
