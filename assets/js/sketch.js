@@ -510,9 +510,9 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"]), () => {
-    console.log("videos loaded")
-  }];
+  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], () => {
+    console.log("videos loaded");
+  })];
 }
 
 
