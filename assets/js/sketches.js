@@ -1024,15 +1024,15 @@ class VideoShader extends Sketch {
   draw() {
     noStroke();
     // draw the camera on the current layer
-    this.layers[index1].image(cam, 0, 0, width, height);
+    this.layers[index1].image(this.video, 0, 0, width, height);
 
     // shader() sets the active shader with our shader
-    shaderLayer.shader(camShader);
+    this.shaderBox.shader(camShader);
 
     // send the camera and the two other past frames into the camera feed
-    camShader.setUniform('tex0', this.layers[this.index1]);
-    camShader.setUniform('tex1', this.layers[this.index2]);
-    camShader.setUniform('tex2', this.layers[this.index3]);
+    this.shader.setUniform('tex0', this.layers[this.index1]);
+    this.shader.setUniform('tex1', this.layers[this.index2]);
+    this.shader.setUniform('tex2', this.layers[this.index3]);
 
     this.index1 = (this.index1 + 1) % this.layers.length;
     this.index2 = (this.index2 + 1) % this.layers.length;
