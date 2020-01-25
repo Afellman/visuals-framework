@@ -1003,15 +1003,10 @@ class VideoShader extends Sketch {
     this.video.size(1080, 960);
     this.params = {
       faders: {
-        waterSpeed: 0.001,
-        backSpeed: 0.001,
-        offset: 0.5
+        numLayers: 90
       }
     }
-    this.offsetSin = 0.0;
-    this.waterTime = 0.1;
-    this.backTime = 0.1;
-    this.sceneNum = 10;
+    this.sceneNum = 11;
     this.opacity = 0;
   }
 
@@ -1029,15 +1024,15 @@ class VideoShader extends Sketch {
   draw() {
     noStroke();
     // draw the camera on the current layer
-    layers[index1].image(cam, 0, 0, width, height);
+    this.layers[index1].image(cam, 0, 0, width, height);
 
     // shader() sets the active shader with our shader
     shaderLayer.shader(camShader);
 
     // send the camera and the two other past frames into the camera feed
-    camShader.setUniform('tex0', layers[index1]);
-    camShader.setUniform('tex1', layers[index2]);
-    camShader.setUniform('tex2', layers[index3]);
+    camShader.setUniform('tex0', this.layers[index1]);
+    camShader.setUniform('tex1', this.layers[index2]);
+    camShader.setUniform('tex2', this.layers[index3]);
 
   }
 
