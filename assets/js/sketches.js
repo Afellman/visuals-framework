@@ -1021,9 +1021,15 @@ class VideoShader extends Sketch {
     this.shaderPath = "./shaders/trippytwo.frag";
 
     for (let i = 0; i < this.numLayers; i++) {
+      this.addLayer();
       let l = createGraphics(windowWidth, windowHeight);
       this.layers.push(l);
     }
+  }
+
+  addLayer() {
+    let l = createGraphics(windowWidth, windowHeight);
+    this.layers.push(l);
   }
 
   draw() {
