@@ -1003,7 +1003,7 @@ class VideoShader extends Sketch {
     this.video.size(1080, 960);
     this.params = {
       faders: {
-        numLayers: 20
+        numLayers: 50
       }
     }
     this.sceneNum = 11;
