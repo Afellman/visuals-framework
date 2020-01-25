@@ -200,7 +200,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
-  // loadScene(new VideoShader()) // For background.
+  loadScene(new VideoShader()) // For background.
   // scenes[1].opacity = 1;
 
   // For Audio input
@@ -514,9 +514,9 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  // videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], () => {
-  //   console.log("videos loaded");
-  // })];
+  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], () => {
+    console.log("videos loaded");
+  })];
 }
 
 
