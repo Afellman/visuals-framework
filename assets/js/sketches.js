@@ -1042,25 +1042,25 @@ class VideoShader extends Sketch {
 
   draw() {
     noStroke();
-    // // draw the camera on the current layer
-    // this.layers[this.index1].image(this.video, 0, 0, width, height);
+    // draw the camera on the current layer
+    this.layers[this.index1] = this.video.get()
 
-    // // shader() sets the active shader with our shader container
-    // this.shaderBox.shader(this.shader);
+    // shader() sets the active shader with our shader container
+    this.shaderBox.shader(this.shader);
 
-    // // send the camera and the two other past frames into the camera feed
-    // this.shader.setUniform('tex0', this.layers[this.index1]);
-    // this.shader.setUniform('tex1', this.layers[this.index2]);
-    // this.shader.setUniform('tex2', this.layers[this.index3]);
+    // send the camera and the two other past frames into the camera feed
+    this.shader.setUniform('tex0', this.layers[this.index1]);
+    this.shader.setUniform('tex1', this.layers[this.index2]);
+    this.shader.setUniform('tex2', this.layers[this.index3]);
 
-    // this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
-    // this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
-    // this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
-    // image(shaderLayer, 0,0,width, height);
-    // this.shaderBox.rect(0, 0, width, height);
+    this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
+    this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
+    this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
+    image(shaderLayer, 0, 0, width, height);
+    this.shaderBox.rect(0, 0, width, height);
 
 
-    let graphics = this.video.get()
+
     image(graphics, 0, 0, width, height);
   }
 
