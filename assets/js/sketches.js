@@ -1059,8 +1059,9 @@ class VideoShader extends Sketch {
     // this.shaderBox.rect(0, 0, width, height);
 
 
-    let graphics = create
-    image(shaderLayer, 0, 0, width, height);
+    let graphics = createGraphics(width, height);
+    graphics.image(graphics);
+    image(graphics, 0, 0, width, height);
   }
 
   unload() {
