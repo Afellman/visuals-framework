@@ -1031,6 +1031,11 @@ class VideoShader extends Sketch {
     this.numLayers++;
   }
 
+  removeLayer() {
+    this.layers.pop();
+    this.numLayers++;
+  }
+
   draw() {
     noStroke();
     // draw the camera on the current layer
