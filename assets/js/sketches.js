@@ -1009,8 +1009,8 @@ class VideoShader extends Sketch {
     this.sceneNum = 11;
     this.opacity = 0;
     this.layers = [];
-    this.index2 = this.numLayers / 3; // 30
-    this.index3 = this.numLayers / 3 * 2; // 60
+    this.index2 = this.params.faders.numLayers / 3; // 30
+    this.index3 = this.params.faders.numLayers / 3 * 2; // 60
   }
 
   init(index) {
@@ -1023,7 +1023,7 @@ class VideoShader extends Sketch {
     this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag";
 
-    for (let i = 0; i < this.numLayers; i++) {
+    for (let i = 0; i < this.params.faders.numLayers; i++) {
       this.addLayer();
     }
   }
@@ -1031,12 +1031,12 @@ class VideoShader extends Sketch {
   addLayer() {
     let l = createGraphics(windowWidth, windowHeight);
     this.layers.push(l);
-    this.numLayers++;
+    this.params.faders.numLayers++;
   }
 
   removeLayer() {
     this.layers.pop();
-    this.numLayers++;
+    this.params.faders.numLayers++;
   }
 
   draw() {
@@ -1052,9 +1052,9 @@ class VideoShader extends Sketch {
     this.shader.setUniform('tex1', this.layers[this.index2]);
     this.shader.setUniform('tex2', this.layers[this.index3]);
 
-    this.index1 = (this.index1 + 1) % this.numLayers;
-    this.index2 = (this.index2 + 1) % this.numLayers;
-    this.index3 = (this.index3 + 1) % this.numLayers;
+    this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
+    this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
+    this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
   }
 
   unload() {
