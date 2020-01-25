@@ -1060,8 +1060,6 @@ class VideoShader extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
 
-
-    image(graphics, 0, 0, width, height);
   }
 
   unload() {
