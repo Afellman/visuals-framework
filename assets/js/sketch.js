@@ -183,6 +183,7 @@ function setShaders(shaderArry) {
 
 function setVideos(videoArray) {
   console.log("videos loaded")
+  this.videos = videoArray;
 }
 
 // ======================================== P5 Functions
@@ -356,9 +357,8 @@ function mouseClicked() {
     }
   };
 
-  scenes[1].opacity = 1;
-  videos = videoArray;
   loadScene(new VideoShader()) // For background.
+  scenes[1].opacity = 1;
 };
 
 function keyPressed(e) {
