@@ -1057,8 +1057,8 @@ class VideoShader extends Sketch {
     this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
     this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
     this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
-    image(this.shaderBox, 0, 0, width, height);
-    this.shaderBox.rect(0, 0, width, height);
+    image(this.layers[this.index1], 0, 0, width, height);
+    // this.shaderBox.rect(0, 0, width, height);
 
 
   }
