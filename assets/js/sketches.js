@@ -1026,16 +1026,9 @@ class VideoShader extends Sketch {
   }
 
   draw() {
-    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    // if (this.waterMove) {
-    //   this.params.faders.waterMove += sin(PI) * 2;
-    // }
-    // if (this.backMove) {
-    //   this.params.faders.backMove += sin(PI) * 2;
-    // }
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform("tex0", this.vid);
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterTime', this.waterTime);
     this.shader.setUniform('u_backTime', this.backTime);
