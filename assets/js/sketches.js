@@ -1029,7 +1029,7 @@ class VideoShader extends Sketch {
   draw() {
     noStroke();
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.vid);
+    this.shader.setUniform("tex0", this.video);
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterTime', this.waterTime);
     this.shader.setUniform('u_backTime', this.backTime);
