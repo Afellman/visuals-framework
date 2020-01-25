@@ -456,12 +456,9 @@ const genericMidi = {
           loadScene(this.scene);
           this.isActive = true;
         }
+      } else if (cmd == 180) {
+        glBackground[3] = map(vel, 0, 127, 0, 0.1);
       }
-      // } else if (cmd == 132) {
-      //   this.scene.opacity = midiToNormal(vel);
-      // } else if (cmd == 180) {
-      //   glBackground[3] = map(vel, 0, 127, 0, 1);
-      // }
     }
   }
 }
@@ -489,7 +486,7 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
-    loadImage("./assets/images/sand.jpg"),
+    loadImage("./assets/images/alec/sand.jpg"),
 
   ])
     .then(res => cb(res))
