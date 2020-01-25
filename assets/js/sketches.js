@@ -1032,7 +1032,7 @@ class VideoShader extends Sketch {
   addLayer() {
     let l = createGraphics(windowWidth, windowHeight);
     this.layers.push(l);
-    this.params.faders.numLayers++;
+    // this.params.faders.numLayers++;
   }
 
   removeLayer() {
