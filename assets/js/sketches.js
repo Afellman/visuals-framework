@@ -1061,7 +1061,7 @@ class VideoShader extends Sketch {
 
 
 
-    image(graphics, 0, 0, width, height);
+    // image(graphics, 0, 0, width, height);
   }
 
   unload() {
