@@ -489,6 +489,7 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
+    loadImage("./assets/images/sand.jpg"),
 
   ])
     .then(res => cb(res))
@@ -515,7 +516,7 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], cb)];
+  // videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], cb)];
 }
 
 
