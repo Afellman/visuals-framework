@@ -504,6 +504,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
