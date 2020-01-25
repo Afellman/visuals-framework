@@ -175,8 +175,13 @@ const controlScene = {
 function setImages(imgs) {
   images = imgs;
 }
+
 function setShaders(shaderArry) {
   shaders = shaderArry;
+}
+
+function setVideos(videoArray) {
+  videos = videoArray;
 }
 
 // ======================================== P5 Functions
@@ -184,6 +189,7 @@ function setShaders(shaderArry) {
 function preload() {
   loadImages(setImages);
   loadShaders(setShaders);
+  loadVideos(setVideos);
 }
 
 // Starting with a canvas the full window size.
