@@ -1015,7 +1015,7 @@ class VideoShader extends Sketch {
 
   init(index) {
     super.init();
-    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    // this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
