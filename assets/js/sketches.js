@@ -1015,12 +1015,12 @@ class VideoShader extends Sketch {
 
   init(index) {
     super.init();
-    // this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[6];
-    // this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag";
     this.video.loop()
     this.video.hide();
@@ -1056,7 +1056,7 @@ class VideoShader extends Sketch {
     this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
     this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
     this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
-    image(shaderLayer, 0, 0, width, height);
+    image(this.shader, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
 
 
