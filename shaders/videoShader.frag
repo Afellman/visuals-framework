@@ -19,7 +19,7 @@ void main() {
   uv.y = 1.0 - uv.y;
   
   // get the three webcam feeds
-  vec4 cam = texture2D(tex0, uv);
+  vec4 cam = texture2D(tex0, vec2(uv.x, uv.y + 0.8));
   vec4 cam2 = texture2D(tex1, uv);
   vec4 cam3 = texture2D(tex2, uv);
   
