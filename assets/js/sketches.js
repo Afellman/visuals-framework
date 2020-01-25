@@ -1003,7 +1003,7 @@ class VideoShader extends Sketch {
     this.video.size(500, 500);
     this.params = {
       faders: {
-        numLayers: 90
+        numLayers: 5
       }
     }
     this.sceneNum = 11;
@@ -1024,7 +1024,7 @@ class VideoShader extends Sketch {
     this.shaderPath = "./shaders/trippytwo.frag";
     this.video.hide();
     for (let i = 0; i < this.params.faders.numLayers; i++) {
-      // this.addLayer();
+      this.addLayer();
     }
   }
 
