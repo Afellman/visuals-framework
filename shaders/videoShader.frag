@@ -25,7 +25,7 @@ void main() {
 
   
   // lets use one channel from each of the textures
-  vec4 colOut = vec4(cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
+  vec4 colOut = vec4(1.0-cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
   // render the output
   gl_FragColor = colOut;
