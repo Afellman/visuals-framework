@@ -1023,6 +1023,7 @@ class VideoShader extends Sketch {
     // this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag";
     this.video.hide();
+    vid.loop()
     // for (let i = 0; i < this.params.faders.numLayers; i++) {
     //   this.addLayer();
     // }
@@ -1060,7 +1061,6 @@ class VideoShader extends Sketch {
 
 
     let graphics = createCapture(this.video)
-    graphics.image(this.video, 0, 0, height, width);
     image(graphics, 0, 0, width, height);
   }
 
