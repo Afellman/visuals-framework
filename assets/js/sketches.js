@@ -1005,7 +1005,7 @@ class VideoShader extends Sketch {
       faders: {
         waterSpeed: 0.001,
         backSpeed: 0.001,
-        offset: 0
+        offset: 1
       }
     }
     this.offsetSin = 0.0;
