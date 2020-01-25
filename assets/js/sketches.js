@@ -1022,8 +1022,6 @@ class VideoShader extends Sketch {
 
     for (let i = 0; i < this.numLayers; i++) {
       this.addLayer();
-      let l = createGraphics(windowWidth, windowHeight);
-      this.layers.push(l);
     }
   }
 
@@ -1045,9 +1043,9 @@ class VideoShader extends Sketch {
     this.shader.setUniform('tex1', this.layers[this.index2]);
     this.shader.setUniform('tex2', this.layers[this.index3]);
 
-    this.index1 = (this.index1 + 1) % this.layers.length;
-    this.index2 = (this.index2 + 1) % this.layers.length;
-    this.index3 = (this.index3 + 1) % this.layers.length;
+    this.index1 = (this.index1 + 1) % this.numLayers;
+    this.index2 = (this.index2 + 1) % this.numLayers;
+    this.index3 = (this.index3 + 1) % this.numLayers;
   }
 
   unload() {
