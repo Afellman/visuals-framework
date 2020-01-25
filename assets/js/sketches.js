@@ -1034,6 +1034,9 @@ class VideoShader extends Sketch {
     camShader.setUniform('tex1', this.layers[index2]);
     camShader.setUniform('tex2', this.layers[index3]);
 
+    this.index1 = (this.index1 + 1) % this.layers.length;
+    this.index2 = (this.index2 + 1) % this.layers.length;
+    this.index3 = (this.index3 + 1) % this.layers.length;
   }
 
   unload() {
