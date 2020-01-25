@@ -937,7 +937,68 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 class FlowShader extends Sketch {
   constructor(img) {
     super();
-    this.linesShader;
+    // this.img = images[2];
+    this.img = images[7];
+    this.params = {
+      faders: {
+        waterSpeed: 0.001,
+        backSpeed: 0.001,
+        offset: 0
+      }
+    }
+    this.offsetSin = 0.0;
+    this.waterTime = 0.1;
+    this.backTime = 0.1;
+    this.sceneNum = 10;
+    this.opacity = 0;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    this.time = 0;
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = shaders[5];
+    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
+    this.shaderPath = "./shaders/trippytwo.frag"
+  }
+
+  draw() {
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_waterTime', this.waterTime);
+    this.shader.setUniform('u_backTime', this.backTime);
+    this.shader.setUniform('u_offset', this.offsetSin);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+
+    this.backTime += this.params.faders.backSpeed / 2;
+    this.waterTime += this.params.faders.waterSpeed / 10;
+    this.offsetSin += this.params.faders.offset / 10;
+  }
+
+  unload() {
+    super.unload();
+  }
+
+  listeners = [
+    {
+      socketName: "stopOffset",
+      socketMethod: (val) => {
+        this.params.faders.offset = 0;
+        this.updateOsc();
+      }
+    },
+  ]
+}
+
+class VideoShader extends Sketch {
+  constructor(img) {
+    super();
     // this.img = images[2];
     this.img = images[7];
     this.params = {
