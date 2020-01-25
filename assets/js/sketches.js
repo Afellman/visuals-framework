@@ -1018,7 +1018,12 @@ class VideoShader extends Sketch {
     this.cray = 0.0;
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
-    this.shaderPath = "./shaders/trippytwo.frag"
+    this.shaderPath = "./shaders/trippytwo.frag";
+
+    for (let i = 0; i < this.numLayers; i++) {
+      let l = createGraphics(windowWidth, windowHeight);
+      this.layers.push(l);
+    }
   }
 
   draw() {
@@ -1026,7 +1031,7 @@ class VideoShader extends Sketch {
     // draw the camera on the current layer
     this.layers[index1].image(this.video, 0, 0, width, height);
 
-    // shader() sets the active shader with our shader
+    // shader() sets the active shader with our shader container
     this.shaderBox.shader(camShader);
 
     // send the camera and the two other past frames into the camera feed
