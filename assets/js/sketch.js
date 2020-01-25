@@ -182,7 +182,10 @@ function setShaders(shaderArry) {
 }
 
 function setVideos(videoArray) {
+  loadScene(new VideoShader()) // For background.
+  scenes[1].opacity = 1;
   videos = videoArray;
+  console.log("videos loaded")
 }
 
 // ======================================== P5 Functions
@@ -200,8 +203,6 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i))
   loadScene(new BGShader()) // For background.
-  loadScene(new VideoShader()) // For background.
-  // scenes[1].opacity = 1;
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -514,9 +515,7 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], () => {
-    console.log("videos loaded");
-  })];
+  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], cb)];
 }
 
 
