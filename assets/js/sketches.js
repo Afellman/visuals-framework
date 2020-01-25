@@ -1015,18 +1015,18 @@ class VideoShader extends Sketch {
 
   init(index) {
     super.init();
-    this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
+    // this.shaderBox = createGraphics(innerWidth, innerHeight, WEBGL);
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
     this.shader = shaders[6];
-    this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
+    // this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag";
-    this.video.play()
+    this.video.loop()
     this.video.hide();
-    // for (let i = 0; i < this.params.faders.numLayers; i++) {
-    //   this.addLayer();
-    // }
+    for (let i = 0; i < this.params.faders.numLayers; i++) {
+      this.addLayer();
+    }
   }
 
   addLayer() {
@@ -1043,25 +1043,25 @@ class VideoShader extends Sketch {
   draw() {
     noStroke();
     // draw the camera on the current layer
-    this.layers[this.index1] = this.video.get()
+    this.layers[this.index1].image(this.video.get(), 0, 0, width, height);
 
     // shader() sets the active shader with our shader container
     this.shaderBox.shader(this.shader);
 
     // send the camera and the two other past frames into the camera feed
-    this.shader.setUniform('tex0', this.video.get());
-    // this.shader.setUniform('tex1', this.layers[this.index2]);
-    // this.shader.setUniform('tex2', this.layers[this.index3]);
+    this.shader.setUniform('tex0', this.layers[this.index1]);
+    this.shader.setUniform('tex1', this.layers[this.index2]);
+    this.shader.setUniform('tex2', this.layers[this.index3]);
 
-    // this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
-    // this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
-    // this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
-    image(this.shaderBox, 0, 0, width, height);
+    this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
+    this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
+    this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
+    image(shaderLayer, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
 
 
 
-    // image(graphics, 0, 0, width, height);
+    image(graphics, 0, 0, width, height);
   }
 
   unload() {
