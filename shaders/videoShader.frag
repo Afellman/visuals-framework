@@ -24,12 +24,12 @@ void main() {
   vec4 cam3 = texture2D(tex2,  uv);
 
   // lets get the average color of the rgb values
-  float avg = dot(cam.rgb, vec3(0.33333));
+  float avg = dot(cam.rgb, cam2.rgb);
 
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
-  
-  float disp = cam * sin(u_time);
+
+  float disp = avg * sin(u_time);
   // lets use one channel from each of the textures
   // vec4 colOut = vec4(1.0-cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
