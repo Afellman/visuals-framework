@@ -130,9 +130,9 @@ let maze = {
     }
 
     wave(waveSpeed, waveVol) {
-      this.x = this.x + sin(this.y + waveSpeed) * waveAmt;
+      this.x = this.x + Math.sin(this.y + waveSpeed) * waveAmt;
       waveSpeed += waveVol;
-      // this.y += this.x + sin(this.y / 100 + waveSpeed) * 10;
+      // this.y += this.x + Math.sin(this.y / 100 + waveSpeed) * 10;
     }
   }
 } // Refactor using Sketch as parent.
@@ -376,7 +376,7 @@ class Sun extends Sketch { // Scene 2. Maped
     stroke(0, 0);
     for (let i = 0; i < ringAmt; i++) {
       let opacVariance = i;
-      size = 200 + (i * 10) + sin(i + this.time * this.freq) * amp;
+      size = 200 + (i * 10) + Math.sin(i + this.time * this.freq) * amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
@@ -446,7 +446,7 @@ class RopeSwing extends Sketch { // Scene 3. Maped
       strokeWeight(weight);
       for (let i = 0; i < this.res; i++) {
         let x = width / 100 * i;
-        let y = height / 2 + -Math.abs(sin((2 * PI * x * thisLine.freq) / (width * 2))) * (sin(thisLine.time) * thisLine.maxAmpY);
+        let y = height / 2 + -Math.abs(Math.sin((2 * PI * x * thisLine.freq) / (width * 2))) * (Math.sin(thisLine.time) * thisLine.maxAmpY);
         line(prevX, prevY, x, y);
         prevX = x;
         prevY = y;
@@ -510,8 +510,8 @@ class Proximity extends Sketch { // Scene 4. Maped
   init() {
     super.init();
     for (let i = 0; i < this.pointMax; i++) {
-      let orbit = sin(this.freq + i * 10) * this.params.faders.circleDiameter;
-      let circle = sin(i) * this.params.faders.curl;
+      let orbit = Math.sin(this.freq + i * 10) * this.params.faders.circleDiameter;
+      let circle = Math.sin(i) * this.params.faders.curl;
       let orbitY = cos(this.freq + i * this.multiplier);
       let circleY = cos(i) * this.params.faders.curl;
       this.centerPoints.push({
@@ -548,8 +548,8 @@ class Proximity extends Sketch { // Scene 4. Maped
     for (let i = 0; i < pointAmt; i++) {
       stroke(255, 255, 255, 255 * opacity);
       centerPoint = centerPoints[i];
-      orbit = sin(freq + i * 10) * curl;
-      circle = sin(i) * circleDiameter;
+      orbit = Math.sin(freq + i * 10) * curl;
+      circle = Math.sin(i) * circleDiameter;
       orbitY = cos(freq + i * multiplier);
       circleY = cos(i) * circleDiameter;
       x = width / 2 + orbit + circle;
@@ -566,7 +566,7 @@ class Proximity extends Sketch { // Scene 4. Maped
       }
     }
 
-    this.multiplier += sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
+    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
     this.freq += speed / 50;
   }
 
@@ -610,9 +610,9 @@ class Geometry extends Sketch { // Scene 5. Maped.
 
   }
   draw() {
-    let r = 150 + sin(frameCount / 200) * 50;
-    let b = 200 + sin(frameCount / 100) * 50;
-    let g = 100 + sin(frameCount / 300) * 50;
+    let r = 150 + Math.sin(frameCount / 200) * 50;
+    let b = 200 + Math.sin(frameCount / 100) * 50;
+    let g = 100 + Math.sin(frameCount / 300) * 50;
     stroke(r, g, b, this.opacity);
     translate(width / 1.5, height);
     this.branch(this.params.faders.length, 0);
@@ -634,41 +634,49 @@ class Geometry extends Sketch { // Scene 5. Maped.
       pop();
     }
   }
-  listeners = [{
-    socketName: '/1/multifader1/1',
-    nodeID: "slider1",
-    midi: "2",
-    midiMethod: val => this.angle = val / 30,
-    method: (val) => {
-      this.angle = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider2",
-    midi: "3",
-    midiMethod: val => this.divider = val / 100,
-    method: (val) => {
-      this.divider = val.args[0];
-    }
-  },
-  {
-    socketName: '/1/multifader1/1',
-    nodeID: "slider3",
-    midi: "4",
-    midiMethod: val => this.length = val * 10,
-    method: (val) => {
-      this.length = val.args[0] * 300;
-    }
-  },
-  {
-    nodeID: "slider4",
-    midi: "1",
-    midiMethod: val => this.movement = val / 10000,
-    method: (val) => {
-      this.movement = val.args[0] / 100;
-    }
-  },
+  listeners = [
+    {
+      socketName: 'stopMove',
+      method: (val) => {
+        this.params.faders.movement = 0;
+        this.updateOsc();
+      }
+    },
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider1",
+      midi: "2",
+      midiMethod: val => this.angle = val / 30,
+      method: (val) => {
+        this.angle = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider2",
+      midi: "3",
+      midiMethod: val => this.divider = val / 100,
+      method: (val) => {
+        this.divider = val.args[0];
+      }
+    },
+    {
+      socketName: '/1/multifader1/1',
+      nodeID: "slider3",
+      midi: "4",
+      midiMethod: val => this.length = val * 10,
+      method: (val) => {
+        this.length = val.args[0] * 300;
+      }
+    },
+    {
+      nodeID: "slider4",
+      midi: "1",
+      midiMethod: val => this.movement = val / 10000,
+      method: (val) => {
+        this.movement = val.args[0] / 100;
+      }
+    },
   ]
 }
 
@@ -761,9 +769,9 @@ class SineWaves extends Sketch { // Scene 7. Maped
 
     noStroke();
     beginShape()
-    const r = this.color[0] + sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
-    const g = this.color[1] + sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
-    const b = this.color[2] + sin(frameCount * this.params.faders.colorSpeed / 4) * 50;
+    const r = this.color[0] + Math.sin(frameCount * this.params.faders.colorSpeed / 2) * 50;
+    const g = this.color[1] + Math.sin(frameCount * this.params.faders.colorSpeed / 3) * 50;
+    const b = this.color[2] + Math.sin(frameCount * this.params.faders.colorSpeed / 4) * 50;
     fill(r, g, b, this.opacity);
     for (let i = 0; i < 360; i++) {
       let x = map(i, 0, 360, 0, width);
@@ -772,7 +780,7 @@ class SineWaves extends Sketch { // Scene 7. Maped
       for (let j = 1; j < 4; j++) {
         const thisFreq = this.params.faders["freq" + j];
         const thisAmp = this.params.faders["amplitude" + j];
-        y += sin(2 * PI * thisFreq * (i + this.time) + 1) * thisAmp * (1 + noise(n, n));
+        y += Math.sin(2 * PI * thisFreq * (i + this.time) + 1) * thisAmp * (1 + noise(n, n));
       }
       vertex(x, y);
     }
@@ -825,7 +833,7 @@ class Orbitals extends Sketch {// Scene 8. Maped. Needs word
   init() {
     super.init();
     for (let i = 0; i < this.params.faders.spinnerAmount; i++) {
-      let x = (width / 2) + sin(Math.random()) * (width / 4);
+      let x = (width / 2) + Math.sin(Math.random()) * (width / 4);
       const y = height / 2 + cos(Math.random()) * (i * 3);
       const newOrbital = { color: someColor(2), pos: createVector(x, y) }
       // const newOrbital = new Objects.Point(x, y, someColor(2));
@@ -844,7 +852,7 @@ class Orbitals extends Sketch {// Scene 8. Maped. Needs word
       const changeY = (frameCount * this.params.faders.speed * this.params.faders.freqY);
       const startX = width / 2;
       const startY = height / 2;
-      const sinX = sin(changeX * thisSpinner.speed);
+      const sinX = Math.sin(changeX * thisSpinner.speed);
       const cosY = cos(changeY * thisSpinner.speed)
       thisSpinner.pos.x = startX + sinX * this.params.faders.ampX - (i * this.params.faders.wobbleX);
       thisSpinner.pos.y = startY + cosY * (this.params.faders.ampY - (i * this.params.faders.wobbleY))
@@ -1150,7 +1158,7 @@ class Rain extends Sketch {
     for (let i = 0; i < this.rowsAmount; i++) {
       for (let j = 0; j < this.dotsAmount; j++) {
         let thisDot = this.dots[i][j];
-        thisDot.size = Math.round(sin(frameCount * this.params.faders.freq * i) + sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
+        thisDot.size = Math.round(Math.sin(frameCount * this.params.faders.freq * i) + Math.sin(frameCount * this.params.faders.freq2 * 2 * i) * this.params.faders.amplitude) * 5;
         ellipse(thisDot.pos.x, thisDot.pos.y, thisDot.size)
       }
     }
@@ -1418,7 +1426,7 @@ class Drops extends Sketch {
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
-        // thisPoint.add(acc.normalize().mult(sin(frameCount / 100)));
+        // thisPoint.add(acc.normalize().mult(Math.sin(frameCount / 100)));
         thisPoint.add(acc.div(800));
         let size = 10 * (frameCount / 1000);
         rect(thisPoint.x, thisPoint.y, size, size);
@@ -1483,7 +1491,7 @@ class Grid extends Sketch {
     acc.normalize();
 
     // acc.mult(5)
-    // point.x += sin(this.angle) * acc.x;
+    // point.x += Math.sin(this.angle) * acc.x;
     // point.y += cos(this.angle) * acc.y;
   }
 }
@@ -1554,8 +1562,8 @@ class Connecter extends Sketch {// replaced by spinning circles
   init() {
     super.init();
     for (let i = 0; i < this.pointAmt; i++) {
-      const orbit = sin(this.freq + i * 10) * this.curl;
-      const circle = sin(i) * this.circleDiameter;
+      const orbit = Math.sin(this.freq + i * 10) * this.curl;
+      const circle = Math.sin(i) * this.circleDiameter;
       const orbitY = cos(this.freq + i * this.multiplier);
       const circleY = cos(i) * this.circleDiameter;
       const newPoint = new Objects.Circle(
@@ -1577,8 +1585,8 @@ class Connecter extends Sketch {// replaced by spinning circles
     let circleY;
     for (let i = 0; i < this.pointAmt; i++) {
       let thisPoint = this.centerPoints[i];
-      orbit = sin(this.freq + i * 10) * this.curl;
-      circle = sin(i) * this.circleDiameter;
+      orbit = Math.sin(this.freq + i * 10) * this.curl;
+      circle = Math.sin(i) * this.circleDiameter;
       orbitY = cos(this.freq + i * this.multiplier);
       circleY = cos(i) * this.circleDiameter;
       thisPoint.pos.x = width / 2 + orbit + circle
@@ -1648,7 +1656,7 @@ const Objects = {
       this.angle = this.speed;
     }
     draw() {
-      this.size += sin(radians(this.angle)) * 10;
+      this.size += Math.sin(radians(this.angle)) * 10;
       this.color
       stroke(this.stroke);
       strokeWeight(10);
@@ -1712,7 +1720,7 @@ const Objects = {
       this.startY = startY || height / 2;
     }
     getVoltage(time) {
-      return this.amplitude * sin(2 * PI * this.frequency * time + this.phase);
+      return this.amplitude * Math.sin(2 * PI * this.frequency * time + this.phase);
     }
   },
 
@@ -1734,7 +1742,7 @@ const Methods = {
     }
   },
   sin: (amp, freq, time, phase) => {
-    return amp * sin(2 * PI * freq * time + phase);
+    return amp * Math.sin(2 * PI * freq * time + phase);
   },
 
 }
