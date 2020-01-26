@@ -1041,8 +1041,8 @@ class DisplaceImg extends Sketch {
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
 
-    this.displaceX += this.params.faders.displaceX;
-    this.displaceY += this.params.faders.displaceY;
+    this.displaceX += this.params.faders.displaceX / 1000;
+    this.displaceY += this.params.faders.displaceY / 100;
   }
 
   unload() {
