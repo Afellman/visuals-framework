@@ -20,19 +20,17 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv.y = 1.0 - uv.y;
   
-  // get the three webcam feeds
-  vec4 cam = texture2D(tex0, uv);
-  // lets get the average color of the rgb values
-  float avg = dot(cam.rgb, vec3(0.33333));
+  vec4 img1 = texture2D(tex0, uv);
+  float avg = dot(img1.rgb, vec3(0.33333));
 
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
   float disp = avg * 10.0;
 
-  vec4 cam2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
+  vec4 img2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
   // lets use one channel from each of the textures
 
   // render the output
-  gl_FragColor = cam2;
+  gl_FragColor = img2;
 }
