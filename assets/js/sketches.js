@@ -492,7 +492,7 @@ class Proximity extends Sketch { // Scene 4. Maped
         faders: {
           pointAmt: 100,
           circleDiameter: 0,
-          curl: 0,
+          curl: 220,
           proximity: 0,
           speed: 0.00,
           circleSize: 3,
