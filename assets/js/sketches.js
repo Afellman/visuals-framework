@@ -1396,7 +1396,7 @@ class Drops extends Sketch { // Scene 12.
         for (let k = 0; k < this.explodePoints.length; k++) {
           const explode = this.explodePoints[k];
           let acc = p5.Vector.sub(thisPoint, explode.vec);
-          explode.sin = Math.sin(frameCount / 100);
+          explode.sin = Math.sin(frameCount / 1000);
           thisPoint.add(acc.normalize().mult(explode.sin));
           if (explode.sin <= 0) {
             this.explodePoints.slice(k, 1);
@@ -1413,7 +1413,7 @@ class Drops extends Sketch { // Scene 12.
     x = map(x, 0, 1, 0, width);
     y = map(y, 0, 1, 0, width);
     const newPoint = createVector(x, y);
-    this.explodePoints.push({ vec: newPoint, sin: 0);
+    this.explodePoints.push({ vec: newPoint, sin: 0 });
   }
 
   listeners = [
