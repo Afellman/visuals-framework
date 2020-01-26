@@ -946,7 +946,7 @@ class FlowShader extends Sketch {
         offset: 0
       }
     }
-    this.offsetSin = 0.5;
+    this.offsetSin = 1;
     this.waterTime = 0.1;
     this.backTime = 0.1;
     this.sceneNum = 10;
@@ -1029,7 +1029,7 @@ class DisplaceImg extends Sketch {
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_displaceX", noise(frameCount / 1000) / 2);
-    this.shader.setUniform("u_displaceY", this.displaceY);
+    this.shader.setUniform("u_displaceY", noise(frameCount / 1000) / 2);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
