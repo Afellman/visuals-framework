@@ -8,8 +8,6 @@ varying vec2 vTexCoord;
 
 // our textures coming from p5
 uniform sampler2D tex0;
-uniform sampler2D tex1;
-uniform sampler2D tex2;
 uniform float u_time;
 
 
@@ -34,8 +32,7 @@ void main() {
 
   vec4 cam2 = texture2D(tex1,  uv + disp);
   // lets use one channel from each of the textures
-  vec4 colOut = vec4(cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
   // render the output
-  gl_FragColor = cam2 * colOut;
+  gl_FragColor = cam2;
 }
