@@ -1041,7 +1041,7 @@ class VideoShader extends Sketch {
     this.shader.setUniform('tex0', this.video.get());
     this.shader.setUniform('u_time', frameCount);
 
-    image(this.shaderBox, 0, 0, width, height);
+    image(this.video.get(), 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
   }
 
