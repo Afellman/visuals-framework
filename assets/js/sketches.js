@@ -1000,7 +1000,7 @@ class VideoShader extends Sketch {
   constructor(img) {
     super();
     this.video = videos[0];
-    this.video.size(1080, 960);
+    this.video.size(800, 600);
     this.params = {
       faders: {
         numLayers: 90
