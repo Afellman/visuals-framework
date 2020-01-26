@@ -679,7 +679,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
       this.params = {
         faders: {
           speed: 0.0,
-          size: 20,
+          size: 10,
           stepSize: 6.98,
           angle: 3.147,
           number: 159
@@ -938,7 +938,7 @@ class FlowShader extends Sketch {
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[10];
+    this.img = images[12];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -993,6 +993,7 @@ class FlowShader extends Sketch {
         this.updateOsc();
       }
     },
+
   ]
 }
 
