@@ -514,7 +514,18 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  videos = [createVideo(["./assets/videos/aussie1.mp4", "./assets/videos/aussie2.mp4"], cb)];
+  function isDone() {
+    count++;
+    if (count == 2) {
+      cb();
+    }
+  }
+  videos = [
+    createVideo(["./assets/videos/aussie1.mp4"], isDone),
+    createVideo(["./assets/videos/aussie2.mp4"], isDone),
+  ];
+
+
 }
 
 
