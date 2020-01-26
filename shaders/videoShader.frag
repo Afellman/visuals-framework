@@ -30,7 +30,7 @@ void main() {
 
   float disp = avg * 10.0;
 
-  vec4 cam2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y));
+  vec4 cam2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
   // lets use one channel from each of the textures
 
   // render the output
