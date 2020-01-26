@@ -678,11 +678,11 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
     if (!this.loaded) {
       this.params = {
         faders: {
-          speed: 0.01,
-          size: 200,
-          stepSize: 2,
-          angle: PI * (3.0 - sqrt(5)),
-          number: 500
+          speed: 0.0,
+          size: 20,
+          stepSize: 6.98,
+          angle: 3.1156,
+          number: 159
         }
       }
     }
