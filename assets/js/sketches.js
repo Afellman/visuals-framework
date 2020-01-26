@@ -1120,7 +1120,7 @@ class Bricks extends Sketch { // Scene 9. Maped. Needs work.
     this.shader.setUniform('u_amp', this.params.faders.amp);
     this.shader.setUniform('u_noise', this.params.faders.noise);
     this.shader.setUniform('u_freq', this.freq);
-    this.shader.setUniform('u_time', this.time);
+    this.shader.setUniform('u_time', frameCount);
 
 
     this.shaderBox.shader(this.shader);
