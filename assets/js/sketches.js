@@ -1401,13 +1401,13 @@ class Drops extends Sketch { // Scene 12.
         // thisPoint.add(acc.div(800));
         let size = 5 * (frameCount / 1000);
         rect(thisPoint.x, thisPoint.y, size, size);
-
       }
     }
   }
 
   addPoint(x, y) {
-    console.log(x, y)
+    x = map(x, 0, 1, 0, width);
+    y = map(y, 0, 1, 0, width);
     const newPoint = createVector(x, y);
     this.explodePoints.push(newPoint);
   }
