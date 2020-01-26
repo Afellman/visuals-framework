@@ -514,6 +514,7 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
+  let count = 0;
   function isDone() {
     count++;
     if (count == 2) {
@@ -524,6 +525,8 @@ function loadVideos(cb) {
     createVideo(["./assets/videos/aussie1.mp4"], isDone),
     createVideo(["./assets/videos/aussie2.mp4"], isDone),
   ];
+
+  videos.forEach(video => video.hide())
 
 
 }
