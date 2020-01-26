@@ -1396,11 +1396,12 @@ class Drops extends Sketch { // Scene 12.
         for (let k = 0; k < this.explodePoints.length; k++) {
           const explode = this.explodePoints[k];
           let acc = p5.Vector.sub(thisPoint, explode.vec);
-          explode.sin = Math.sin(frameCount / 10) / 10;
+          explode.sin = Math.sin(frameCount / 100) / 10;
           thisPoint.add(acc.normalize().mult(explode.sin));
           if (explode.sin <= 0) {
-            console.log("<0")
+
             this.explodePoints.slice(k, 1);
+            break;
           }
         }
         // thisPoint.add(acc.div(800));
