@@ -1000,12 +1000,8 @@ class DisplaceImg extends Sketch {
   constructor(img) {
     super();
     this.img = images[5];
-    this.params = {
-      faders: {
-        displaceX: 0,
-        displaceY: 0
-      }
-    }
+    this.displaceX = 0;
+    this.displaceY = 0;
     this.sceneNum = 11;
     this.opacity = 0;
   }
@@ -1032,8 +1028,8 @@ class DisplaceImg extends Sketch {
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_displaceX", this.params.faders.displaceX);
-    this.shader.setUniform("u_displaceY", this.params.faders.displaceY);
+    this.shader.setUniform("u_displaceX", displaceX);
+    this.shader.setUniform("u_displaceY", displaceY);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
@@ -1045,6 +1041,13 @@ class DisplaceImg extends Sketch {
   }
 
   listeners = [
+    {
+      socketName: "displace",
+      socketMethod: (val) => {
+        this.displaceX = val.args[0]
+        this.displaceY = val.args[1]
+      }
+    },
     {
       socketName: "image1",
       socketMethod: (val) => {
@@ -1069,6 +1072,7 @@ class DisplaceImg extends Sketch {
         this.img = images[8];
       }
     },
+
   ]
 }
 
