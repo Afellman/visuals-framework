@@ -999,8 +999,8 @@ class FlowShader extends Sketch {
 class VideoShader extends Sketch {
   constructor(img) {
     super();
-    this.video = videos[2];
-    this.video.size(800, 600);
+    this.img = iamge[4];
+    this.img.size(800, 600);
     this.params = {
       faders: {
         numLayers: 90
@@ -1022,8 +1022,6 @@ class VideoShader extends Sketch {
     this.cray = 0.0;
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
-    this.video.loop()
-    this.firstFrame = this.video.get();
   }
 
   removeLayer() {
@@ -1033,12 +1031,11 @@ class VideoShader extends Sketch {
 
   draw() {
     noStroke();
-
     // draw the camera on the current layer
     this.shaderBox.shader(this.shader);
 
     // send the camera and the two other past frames into the camera feed
-    this.shader.setUniform('tex0', this.video.get());
+    this.shader.setUniform('tex0', this.img);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
