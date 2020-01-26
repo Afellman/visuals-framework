@@ -1000,6 +1000,13 @@ class VideoShader extends Sketch {
   constructor(img) {
     super();
     this.video = videos[2];
+    this.video._onended = () => {
+      this.videoStopped = true;
+      this.video.play();
+      setTimeout(() => {
+        this.videoStopped = false
+      }, 500)
+    }
     this.video.size(800, 600);
     this.params = {
       faders: {
@@ -1032,7 +1039,7 @@ class VideoShader extends Sketch {
 
   draw() {
     noStroke();
-    if (this.video) {
+    if (!this.videoStopped) {
 
       // draw the camera on the current layer
       this.shaderBox.shader(this.shader);
