@@ -947,7 +947,7 @@ class FlowShader extends Sketch {
         colorAmount: 0
       }
     }
-    this.offsetSin = 1;
+    this.offsetSin = 0.07;
     this.waterTime = 0.1;
     this.backTime = 0.1;
     this.sceneNum = 10;
