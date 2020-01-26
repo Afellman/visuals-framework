@@ -200,6 +200,21 @@ const controlScene = {
     opacity: function (val) {
       this.scene.opacity = val.args[0];
     }
+  },
+  "13": {
+    isActive: false,
+    scene: {},
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new Bricks();
+        loadScene(this.scene);
+      } else {
+        unloadScene(this.scene.id);
+      }
+    },
+    opacity: function (val) {
+      this.scene.opacity = val.args[0];
+    }
   }
 }
 
