@@ -1408,12 +1408,24 @@ class Drops extends Sketch { // Scene 12.
 
   addPoint(x, y) {
     const newPoint = createVector(x, y);
-    this.explodePoints
+    this.explodePoints.push(newPoint);
   }
 
   listeners = [
     {
       socketName: "multixy1/1",
+      socketMethod: (val) => {
+        this.addApoint(val.args[0], val.args[1]);
+      }
+    },
+    {
+      socketName: "multixy1/2",
+      socketMethod: (val) => {
+        this.addApoint(val.args[0], val.args[1]);
+      }
+    },
+    {
+      socketName: "multixy1/3",
       socketMethod: (val) => {
         this.addApoint(val.args[0], val.args[1]);
       }
