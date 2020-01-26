@@ -18,7 +18,7 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv.y = 1.0 - uv.y;
   
-  uv = vec2(uv.x, uv.y);
+  uv = vec2(uv.x, uv.y + 0.3);
   // get the three webcam feeds
   vec4 cam = texture2D(tex0, uv);
   vec4 cam2 = texture2D(tex1,  uv);
