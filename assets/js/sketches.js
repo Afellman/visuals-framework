@@ -609,7 +609,6 @@ class Geometry extends Sketch { // Scene 5. Maped.
 
   }
   draw() {
-    let len = 100;
     let r = 150 + sin(frameCount / 200) * 50;
     let b = 200 + sin(frameCount / 100) * 50;
     let g = 100 + sin(frameCount / 300) * 50;
@@ -617,6 +616,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     translate(width / 1.5, height);
     this.branch(this.params.faders.length);
     // this.angle = this.startingAngle * frameCount / 500;
+    this.movement += this.params.faders.movement;
   }
   branch(len) {
     line(0, 0, 0, -len);
@@ -627,7 +627,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.branch(len * this.params.faders.divider);
       pop();
       push();
-      rotate(noise(frameCount * this.params.faders.movement, -len) - this.params.faders.angle);
+      rotate(noise(frameCount * this.movement, -len) - this.params.faders.angle);
       this.branch(len * this.params.faders.divider);
       pop();
     }
