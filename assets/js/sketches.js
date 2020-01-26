@@ -909,7 +909,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
   ]
 }
 
-class FlowShader extends Sketch {
+class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
@@ -974,7 +974,7 @@ class FlowShader extends Sketch {
   ]
 }
 
-class DisplaceImg extends Sketch {
+class DisplaceImg extends Sketch { // scene 11. maped
   constructor(img) {
     super();
     this.img = images[5];
@@ -1360,7 +1360,7 @@ class Walker extends Sketch {
   ]
 }
 
-class Drops extends Sketch {
+class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
