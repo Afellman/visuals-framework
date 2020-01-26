@@ -681,7 +681,7 @@ class GoldenSpiral extends Sketch { // Scene 6. Maped
           speed: 0.0,
           size: 20,
           stepSize: 6.98,
-          angle: 3.1156,
+          angle: 3.147,
           number: 159
         }
       }
