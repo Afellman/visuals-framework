@@ -596,11 +596,11 @@ class Geometry extends Sketch { // Scene 5. Maped.
           angle: 1.2666,
           divider: 0.65,
           length: 220,
-          movement: 0.0022,
+          movement: 0,
         }
       }
     }
-    this.movement = 0.01
+    this.movement = 0.001
     this.sceneNum = 5;
     this.startingAngle = this.angle;
     this.opacity = 0;
