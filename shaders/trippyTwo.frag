@@ -91,7 +91,7 @@ void main() {
   vec4 tex = texture2D(tex0, uv * pat);
 
   vec4 colors = colorSwirl(tex, uv);
-  tex += fract(colors) * u_colorAmount; // Adding background color movement
+  tex *= vec4(tex, colors); // Adding background color movement
 
   tex.a = u_opacity;
   gl_FragColor = tex;
