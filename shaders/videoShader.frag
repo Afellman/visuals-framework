@@ -30,12 +30,12 @@ void main() {
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
-  float disp = avg * sin(u_time);
+  float disp = avg * sin(u_time / 100);
 
   vec4 cam2 = texture2D(tex1,  uv + disp);
   // lets use one channel from each of the textures
   // vec4 colOut = vec4(1.0-cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
   // render the output
-  gl_FragColor = ;
+  gl_FragColor = cam2;
 }
