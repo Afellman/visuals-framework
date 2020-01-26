@@ -17,6 +17,7 @@ uniform float u_yOff;
 uniform float u_amp;
 uniform float u_noise;
 uniform float u_freq;
+uniform float u_multi;
 
 
 float random (in vec2 st) {
@@ -70,7 +71,7 @@ void main() {
 
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
-  vec4 tex = texture2D(tex0, uv * distance(uv.x, 0.5) * 0.0);
+  vec4 tex = texture2D(tex0, uv * distance(uv.x, 0.5) * u_multi);
 
   tex.r = random(tex.r);
   tex.b = random(tex.b);
