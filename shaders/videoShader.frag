@@ -35,5 +35,6 @@ void main() {
   // vec4 colOut = vec4(1.0-cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
   // render the output
-  gl_FragColor = cam;
+  gl_FragColor =   float disp = avg * sin(u_time);
+;
 }
