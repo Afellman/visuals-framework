@@ -1030,8 +1030,10 @@ class VideoShader extends Sketch {
     // draw the camera on the current layer
     this.shaderBox.shader(this.shader);
     // send the camera and the two other past frames into the camera feed
-    this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform('tex0', this.img);
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_displaceX", this.params.faders.displaceX);
+    this.shader.setUniform("u_displaceY", this.params.faders.displaceX);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
