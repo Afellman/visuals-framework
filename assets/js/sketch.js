@@ -517,6 +517,7 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/termines.jpeg"),
     loadImage("./assets/images/austrailia/trees.jpeg"),
     loadImage("./assets/images/austrailia/uluru.jpeg"),
+    loadImage("./assets/images/austrailia/eucalyptus.jpeg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
     loadImage("./assets/images/alec/sand.jpg"),
