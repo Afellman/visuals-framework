@@ -847,9 +847,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     }
     this.freq = 0;
     this.linesShader;
-    // this.img = images[0]; // Peter
-    this.img = images[6]; // Peter
-    // this.img = images[5]; // Aussy
+    this.img = images[7]; // Peter
     this.direction = 1;
     this.opacity = 0;
     this.sceneNum = 9;
@@ -1064,7 +1062,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     {
       socketName: "image3",
       socketMethod: (val) => {
-        this.img = images[7];
+        this.img = images[11];
       }
     },
     {
