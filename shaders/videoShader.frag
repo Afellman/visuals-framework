@@ -10,8 +10,8 @@ varying vec2 vTexCoord;
 uniform sampler2D tex0;
 uniform float u_time;
 uniform float u_opacity;
-uniform float u_time;
-uniform float u_time;
+uniform float u_displaceX;
+uniform float u_displaceY;
 
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
-  float disp = avg * 0.-;
+  float disp = avg * 0.0;
 
   vec4 cam2 = texture2D(tex0,  uv + disp);
   // lets use one channel from each of the textures
