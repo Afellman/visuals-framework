@@ -1088,7 +1088,8 @@ class Bricks extends Sketch { // Scene 9. Maped. Needs work.
         amp: 0,
         noise: 0,
         freq: 0,
-        speed: 0
+        speed: 0,
+        multi: 1
       }
     }
     this.freq = 0;
