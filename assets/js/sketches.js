@@ -1024,7 +1024,6 @@ class VideoShader extends Sketch {
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
     this.video.loop()
     this.firstFrame = this.video.get();
-
   }
 
   removeLayer() {
@@ -1042,7 +1041,7 @@ class VideoShader extends Sketch {
     this.shader.setUniform('tex0', this.video.get());
     this.shader.setUniform('u_time', frameCount);
 
-    image(this.video.get(), 0, 0, width, height);
+    image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
   }
 
