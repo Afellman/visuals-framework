@@ -1024,15 +1024,6 @@ class VideoShader extends Sketch {
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
     this.video.loop()
     this.video.hide();
-    for (let i = 0; i < this.params.faders.numLayers; i++) {
-      this.addLayer();
-    }
-  }
-
-  addLayer() {
-    let l = createGraphics(windowWidth, windowHeight);
-    this.layers.push(l);
-    // this.params.faders.numLayers++;
   }
 
   removeLayer() {
@@ -1043,16 +1034,12 @@ class VideoShader extends Sketch {
   draw() {
     noStroke();
     // draw the camera on the current layer
-    // shader() sets the active shader with our shader container
     this.shaderBox.shader(this.shader);
 
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.video.get());
     this.shader.setUniform('u_time', frameCount);
 
-    this.index1 = (this.index1 + 1) % this.params.faders.numLayers;
-    this.index2 = (this.index2 + 1) % this.params.faders.numLayers;
-    this.index3 = (this.index3 + 1) % this.params.faders.numLayers;
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
 
