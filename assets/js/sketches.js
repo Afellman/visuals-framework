@@ -546,7 +546,7 @@ class Proximity extends Sketch { // Scene 4. Maped
       multiplier } = this;
     fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
-      stroke(255, 255, 255, this.opacity);
+      stroke(255, 255, 255, opacity);
       centerPoint = centerPoints[i];
       orbit = sin(freq + i * 10) * curl;
       circle = sin(i) * circleDiameter;
