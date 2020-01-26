@@ -637,47 +637,13 @@ class Geometry extends Sketch { // Scene 5. Maped.
   listeners = [
     {
       socketName: 'stopMove',
-      method: (val) => {
+      socketMethod: (val) => {
         console.log("stop")
         this.params.faders.movement = 0;
         this.updateOsc();
       }
     },
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider1",
-      midi: "2",
-      midiMethod: val => this.angle = val / 30,
-      method: (val) => {
-        this.angle = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider2",
-      midi: "3",
-      midiMethod: val => this.divider = val / 100,
-      method: (val) => {
-        this.divider = val.args[0];
-      }
-    },
-    {
-      socketName: '/1/multifader1/1',
-      nodeID: "slider3",
-      midi: "4",
-      midiMethod: val => this.length = val * 10,
-      method: (val) => {
-        this.length = val.args[0] * 300;
-      }
-    },
-    {
-      nodeID: "slider4",
-      midi: "1",
-      midiMethod: val => this.movement = val / 10000,
-      method: (val) => {
-        this.movement = val.args[0] / 100;
-      }
-    },
+
   ]
 }
 
