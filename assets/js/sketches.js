@@ -1042,7 +1042,7 @@ class DisplaceImg extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     this.displaceX += this.params.faders.displaceX / 1000;
-    this.displaceY += this.params.faders.displaceY / 100;
+    this.displaceY += this.params.faders.displaceY / 1000;
   }
 
   unload() {
@@ -1050,6 +1050,19 @@ class DisplaceImg extends Sketch {
   }
 
   listeners = [
+    {
+      socketName: "stopX",
+      socketMethod: (val) => {
+        this.params.faders.displaceX = 0;
+      }
+    },
+    {
+      socketName: "stopY",
+      socketMethod: (val) => {
+        this.params.faders.displaceY = 0;
+        this.updateOsc();
+      }
+    },
     {
       socketName: "displace",
       socketMethod: (val) => {
