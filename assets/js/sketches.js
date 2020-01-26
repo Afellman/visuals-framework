@@ -1417,13 +1417,13 @@ class Drops extends Sketch { // Scene 12.
       socketName: "multixy1/1",
       socketMethod: (val) => {
         console.log(val)
-        this.addApoint(val.args[0], val.args[1]);
+        this.addPoint(val.args[0], val.args[1]);
       }
     },
     {
       socketName: "multixy1/2",
       socketMethod: (val) => {
-        this.addApoint(val.args[0], val.args[1]);
+        this.addPoint(val.args[0], val.args[1]);
       }
     },
     {
