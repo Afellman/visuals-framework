@@ -514,7 +514,7 @@ function loadShaders(cb) {
 }
 
 function loadVideos(cb) {
-  videos = [createVideo(["./assets/videos/exploreAustralia.mp4"], cb)];
+  videos = [createVideo(["./assets/videos/aussie1.mp4", "./assets/videos/aussie2.mp4"], cb)];
 }
 
 
