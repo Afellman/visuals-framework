@@ -1413,7 +1413,7 @@ class Drops extends Sketch { // Scene 12.
     x = map(x, 0, 1, 0, width);
     y = map(y, 0, 1, 0, width);
     const newPoint = createVector(x, y);
-    this.explodePoints.push(newPoint);
+    this.explodePoints.push({ vec: newPoint, sin: 0);
   }
 
   listeners = [
