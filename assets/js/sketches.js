@@ -1391,7 +1391,6 @@ class Drops extends Sketch { // Scene 12.
     stroke("white")
     fill("white")
     for (let i = 0; i < this.resolution; i++) {
-      // ellipse(thisPoint.x, thisPoint.y, 5);
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         for (let k = 0; k < this.explodePoints.length; k++) {
@@ -1407,9 +1406,14 @@ class Drops extends Sketch { // Scene 12.
     }
   }
 
-  listeners = [{
-
-  }]
+  listeners = [
+    {
+      socketName: "multixy1/1",
+      socketMethod: (val) => {
+        this.addApoint(val.args[0], val.args[1]);
+      }
+    },
+  ]
 }
 
 class Grid extends Sketch {
