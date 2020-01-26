@@ -1394,7 +1394,7 @@ class Drops extends Sketch {
         thisPoint = this.grid[i][j];
         let acc = p5.Vector.sub(thisPoint, createVector(width / 2, height / 2));
         // thisPoint.add(acc.normalize().mult(Math.sin(frameCount / 100)));
-        thisPoint.add(acc.normalize().div(800));
+        thisPoint.add(acc.normalize());
         let size = 5 * (frameCount / 1000);
         rect(thisPoint.x, thisPoint.y, size, size);
 
