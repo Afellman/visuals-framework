@@ -847,7 +847,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     }
     this.freq = 0;
     this.linesShader;
-    this.img = images[6]; // Peter
+    this.img = images[6];
     this.direction = 1;
     this.opacity = 0;
     this.sceneNum = 9;
@@ -861,13 +861,14 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     this.cray = 0.0;
     this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
     this.shaderPath = "./shaders/movingLines.frag";
+    this.
   }
 
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.img);
+    this.shader.setUniform("tex0", glCanvas.image(glCanvas));
     // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
