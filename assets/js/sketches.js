@@ -1070,7 +1070,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     {
       socketName: "image4",
       socketMethod: (val) => {
-        this.img = images[8];
+        this.img = images[10];
       }
     },
 
@@ -1399,7 +1399,6 @@ class Drops extends Sketch { // Scene 12.
           explode.sin = Math.sin(frameCount / 100) / 10;
           thisPoint.add(acc.normalize().mult(explode.sin));
           if (explode.sin <= 0) {
-
             this.explodePoints.slice(k, 1);
             break;
           }
