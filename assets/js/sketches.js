@@ -569,7 +569,7 @@ class Proximity extends Sketch { // Scene 4. Maped
     }
 
     this.multiplier += sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
-    this.freq += speed;
+    this.freq += speed / 100;
   }
 
   listeners = [
