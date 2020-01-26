@@ -481,6 +481,10 @@ function loadImages(cb) {
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg"),
     loadImage("./assets/images/alec/img014.jpg"),
+    loadImage("./assets/images/austrailia/.jpg"),
+    loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
+    loadImage("./assets/images/austrailia/beach.jpg"),
+    loadImage("./assets/images/austrailia/greens.jpg"),
     loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
@@ -525,8 +529,6 @@ function loadVideos(cb) {
   ];
 
   videos.forEach(video => video.hide())
-
-
 }
 
 
