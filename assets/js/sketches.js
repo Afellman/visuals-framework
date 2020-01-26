@@ -1371,7 +1371,7 @@ class Drops extends Sketch { // Scene 12.
     this.center.normalize();
     this.speed = 0.01;
     this.explodePoints = [];
-    this.scenNum = 12;
+    this.sceneNum = 12;
   }
 
   init() {
@@ -1416,6 +1416,7 @@ class Drops extends Sketch { // Scene 12.
     {
       socketName: "multixy1/1",
       socketMethod: (val) => {
+        console.log(val)
         this.addApoint(val.args[0], val.args[1]);
       }
     },
