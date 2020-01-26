@@ -1046,10 +1046,27 @@ class DisplaceImg extends Sketch {
 
   listeners = [
     {
-      socketName: "stopOffset",
+      socketName: "image1",
       socketMethod: (val) => {
-        this.params.faders.offset = 0;
-        this.updateOsc();
+        this.img = images[5];
+      }
+    },
+    {
+      socketName: "image2",
+      socketMethod: (val) => {
+        this.img = images[6];
+      }
+    },
+    {
+      socketName: "image3",
+      socketMethod: (val) => {
+        this.img = images[7];
+      }
+    },
+    {
+      socketName: "image4",
+      socketMethod: (val) => {
+        this.img = images[8];
       }
     },
   ]
