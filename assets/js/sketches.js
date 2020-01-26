@@ -979,7 +979,7 @@ class FlowShader extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     this.backTime += this.params.faders.backSpeed / 2;
-    this.waterTime += this.params.faders.waterSpeed / 10;
+    this.waterTime += this.params.faders.waterSpeed / 100;
     this.offsetSin += this.params.faders.offset / 10;
   }
 
