@@ -546,6 +546,7 @@ class Proximity extends Sketch { // Scene 4. Maped
       multiplier } = this;
     noStroke();
     fill(255, 255, 255, 255 * opacity);
+    stroke(255, 255, 255, 50);
     for (let i = 0; i < pointAmt; i++) {
       centerPoint = centerPoints[i];
       orbit = sin(freq + i * 10) * curl;
@@ -558,12 +559,10 @@ class Proximity extends Sketch { // Scene 4. Maped
       centerPoint.pos.y = y;
       centerPoint.size = circleSize;
 
-
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
-        let dis = dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
-        if (dis < proximity) { // Connects all dots together
-          stroke(255, 255, 255, this.opacity * dis);
+        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
+
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
