@@ -610,7 +610,6 @@ class Geometry extends Sketch { // Scene 5. Maped.
 
   }
   draw() {
-    noFill();
     let r = 150 + sin(frameCount / 200) * 50;
     let b = 200 + sin(frameCount / 100) * 50;
     let g = 100 + sin(frameCount / 300) * 50;
@@ -621,7 +620,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement += this.params.faders.movement / 1000;
   }
   branch(len) {
-    point(0, 0);
+    line(0, 0, 0, -len);
     translate(0, -len);
     if (len > 4) {
       push();
