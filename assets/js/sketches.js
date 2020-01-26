@@ -1024,6 +1024,7 @@ class VideoShader extends Sketch {
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
     this.video.loop()
     this.firstFrame = this.video.get();
+
   }
 
   removeLayer() {
