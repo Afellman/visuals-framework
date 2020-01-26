@@ -1077,6 +1077,82 @@ class DisplaceImg extends Sketch { // scene 11. maped
   ]
 }
 
+class Bricks extends Sketch { // Scene 9. Maped. Needs work.
+
+  constructor(img) {
+    super();
+    this.params = {
+      faders: {
+        xOff: 0,
+        yOff: 0,
+        amp: 0,
+        noise: 0,
+        freq: 0,
+        speed: 0
+      }
+    }
+    this.freq = 0;
+    this.linesShader;
+    this.img = images[6];
+    this.direction = 1;
+    this.opacity = 0;
+    this.sceneNum = 13;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.time = 0;
+    this.loops = 4;
+    this.cray = 0.0;
+    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
+    this.shaderPath = "./shaders/movingLines.frag";
+  }
+
+  draw() {
+    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.img);
+    // this.shader.setUniform('u_time', frameCount / 1000)
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shader.setUniform('u_amp', this.params.faders.amp);
+    this.shader.setUniform('u_noise', this.params.faders.noise);
+    this.shader.setUniform('u_freq', this.freq);
+    this.shader.setUniform('u_time', this.time);
+
+
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+    this.time += this.params.faders.speed
+    this.freq += this.params.faders.freq;
+  }
+
+  unload() {
+    super.unload();
+    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+  }
+
+  listeners = [
+    {
+      socketName: "stopSpeed",
+      socketMethod: (val) => {
+        this.params.faders.speed = 0;
+        this.updateOsc();
+      }
+    },
+    {
+      socketName: "stopFreq",
+      socketMethod: (val) => {
+        this.params.faders.freq = 0;
+        this.updateOsc();
+      }
+    },
+  ]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
