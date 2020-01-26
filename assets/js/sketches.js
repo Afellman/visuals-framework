@@ -1404,7 +1404,7 @@ class Drops extends Sketch { // Scene 12.
           }
         }
         // thisPoint.add(acc.div(800));
-        let size = 5 * (frameCount / 1000);
+        let size = 5 * (frameCount / 10);
         rect(thisPoint.x, thisPoint.y, size, size);
       }
     }
@@ -1421,7 +1421,6 @@ class Drops extends Sketch { // Scene 12.
     {
       socketName: "multixy1/1",
       socketMethod: (val) => {
-        console.log(val)
         this.addPoint(val.args[0], val.args[1]);
       }
     },
