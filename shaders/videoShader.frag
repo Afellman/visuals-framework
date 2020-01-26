@@ -26,11 +26,11 @@ void main() {
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
-  float disp = avg * 2.0;
+  float disp = avg;
 
   vec4 img2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
-  // lets use one channel from each of the textures
 
+  img.r = fract(img2.r + uv.x);
   // render the output
   gl_FragColor = img2;
 }
