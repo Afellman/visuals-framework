@@ -30,9 +30,9 @@ void main() {
 
   vec4 img2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
 
-  float r = fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0);
-  float g = fract(distance(uv.y, 0.5)) * sin(u_time / 1000.0);
-  float b = fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0);
+  float r = img2.r * fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0);
+  float g = img2.g * fract(distance(uv.y, 0.5)) * sin(u_time / 1000.0);
+  float b = img2.b * fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0);
   img2.r = r;
   img2.g = g;
   img2.b = b;
