@@ -21,20 +21,21 @@ void main() {
   
   // get the three webcam feeds
   vec4 cam = texture2D(tex0, uv);
-  vec4 cam2 = texture2D(tex1,  uv);
-  vec4 cam3 = texture2D(tex2,  uv);
+
+  // vec4 cam3 = texture2D(tex2,  uv);
 
   // lets get the average color of the rgb values
-  float avg = dot(cam.rgb, cam2.rgb);
+  float avg = dot(cam.rgb, vec3(0.33333));
 
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
   float disp = avg * sin(u_time);
+
+  vec4 cam2 = texture2D(tex1,  uv + disp);
   // lets use one channel from each of the textures
   // vec4 colOut = vec4(1.0-cam.r* sin(uv.y), cam2.g, cam3.b, 1.0);
 
   // render the output
-  gl_FragColor =   float disp = avg * sin(u_time);
-;
+  gl_FragColor = ;
 }
