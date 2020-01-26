@@ -517,13 +517,14 @@ function loadVideos(cb) {
   let count = 0;
   function isDone() {
     count++;
-    if (count == 2) {
+    if (count == 3) {
       cb();
     }
   }
   videos = [
     createVideo(["./assets/videos/aussie1.mp4"], isDone),
     createVideo(["./assets/videos/aussie2.mp4"], isDone),
+    createVideo(["./assets/videos/aussie3.mp4"], isDone),
   ];
 
   videos.forEach(video => video.hide())
