@@ -1370,7 +1370,8 @@ class Drops extends Sketch {
     this.center = createVector(width / 2, height / 2);
     this.center.normalize();
     this.speed = 0.01;
-    this.explodePoints = []
+    this.explodePoints = [];
+    this.scenNum = 12;
   }
 
   init() {
@@ -1406,7 +1407,9 @@ class Drops extends Sketch {
     }
   }
 
-  listeners = [{}]
+  listeners = [{
+
+  }]
 }
 
 class Grid extends Sketch {
