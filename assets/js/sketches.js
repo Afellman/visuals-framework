@@ -1394,9 +1394,13 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.resolution; j++) {
         thisPoint = this.grid[i][j];
         for (let k = 0; k < this.explodePoints.length; k++) {
-          let acc = p5.Vector.sub(thisPoint, this.explodePoints[k]);
-          thisPoint.add(acc.normalize().mult(0.2));
-
+          const explode = this.explodePoints[k];
+          let acc = p5.Vector.sub(thisPoint, explode.vec);
+          explode.sin = Math.sin(frameCount / 100);
+          thisPoint.add(acc.normalize().mult(explode.sin));
+          if (explode.sin <= 0) {
+            this.explodePoints.slice(k, 1);
+          }
         }
         // thisPoint.add(acc.div(800));
         let size = 5 * (frameCount / 1000);
