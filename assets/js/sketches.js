@@ -617,7 +617,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     translate(width / 1.5, height);
     this.branch(this.params.faders.length);
     // this.angle = this.startingAngle * frameCount / 500;
-    this.movement += this.params.faders.movement;
+    this.movement += this.params.faders.movement / 100;
   }
   branch(len) {
     line(0, 0, 0, -len);
