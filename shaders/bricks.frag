@@ -72,7 +72,6 @@ void main() {
 
   vec4 tex = texture2D(tex0, uv);
 
-  tex.r = sin(u_time / 10.0);
-  
+  tex.r = random(tex.r);
   gl_FragColor = vec4(tex.rgb, u_opacity);
 }
