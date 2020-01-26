@@ -971,7 +971,7 @@ class FlowShader extends Sketch {
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterTime', this.waterTime);
-    this.shader.setUniform('u_backTime', this.backTime);
+    this.shader.setUniform('u_backTime', this.backTime / 10);
     this.shader.setUniform('u_offset', this.offsetSin);
     this.shader.setUniform('u_colorAmount', this.params.faders.colorAmount);
     this.shaderBox.shader(this.shader);
