@@ -600,6 +600,8 @@ class Geometry extends Sketch { // Scene 5. Maped.
         }
       }
     }
+    this.divider = 0.65;
+    this.length = 220;
     this.movement = 0.001
     this.sceneNum = 5;
     this.startingAngle = this.angle;
@@ -615,9 +617,11 @@ class Geometry extends Sketch { // Scene 5. Maped.
     let g = 100 + sin(frameCount / 300) * 50;
     stroke(r, g, b, this.opacity);
     translate(width / 1.5, height);
-    this.branch(this.params.faders.length);
+    this.branch(this.length);
     // this.angle = this.startingAngle * frameCount / 500;
     this.movement += this.params.faders.movement / 1000;
+    this.length += this.params.faders.length / 1000;
+    this.divider += this.params.faders.divider / 1000;
   }
   branch(len) {
     line(0, 0, 0, -len);
@@ -625,11 +629,11 @@ class Geometry extends Sketch { // Scene 5. Maped.
     if (len > 4) {
       push();
       rotate(this.params.faders.angle);
-      this.branch(len * this.params.faders.divider);
+      this.branch(len * this.divider);
       pop();
       push();
       rotate(noise(frameCount * this.movement, -len) - this.params.faders.angle);
-      this.branch(len * this.params.faders.divider);
+      this.branch(len * this.divider);
       pop();
     }
   }
