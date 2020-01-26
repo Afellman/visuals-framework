@@ -10,6 +10,7 @@ varying vec2 vTexCoord;
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
+uniform float u_time;
 
 
 void main() {
