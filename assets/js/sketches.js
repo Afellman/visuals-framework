@@ -638,6 +638,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     {
       socketName: 'stopMove',
       method: (val) => {
+        console.log("stop")
         this.params.faders.movement = 0;
         this.updateOsc();
       }
