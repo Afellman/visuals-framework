@@ -1000,6 +1000,12 @@ class DisplaceImg extends Sketch {
   constructor(img) {
     super();
     this.img = images[5];
+    this.params = {
+      faders: {
+        displaceX: 0,
+        displaceY: 0
+      }
+    }
     this.displaceX = 0;
     this.displaceY = 0;
     this.sceneNum = 11;
@@ -1034,6 +1040,9 @@ class DisplaceImg extends Sketch {
 
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
+
+    this.displaceX += this.params.faders.displaceX;
+    this.displaceY += this.params.faders.displaceY;
   }
 
   unload() {
