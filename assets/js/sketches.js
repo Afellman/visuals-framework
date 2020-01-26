@@ -558,11 +558,12 @@ class Proximity extends Sketch { // Scene 4. Maped
       centerPoint.pos.y = y;
       centerPoint.size = circleSize;
 
-      stroke(255, 255, 255, 50);
+
       ellipse(Math.round(x), Math.round(y), circleSize);
       for (let j = 0; j < pointAmt; j++) {
-        if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
-
+        let dis = dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y)
+        if (dis < proximity) { // Connects all dots together
+          stroke(255, 255, 255, this.opacity * dis);
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
         }
       }
@@ -1028,7 +1029,7 @@ class DisplaceImg extends Sketch {
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_displaceX", noise(frameCount / 1000) * 10);
+    this.shader.setUniform("u_displaceX", noise(frameCount / 1000) / 2);
     this.shader.setUniform("u_displaceY", this.displaceY);
     this.shader.setUniform('u_time', frameCount);
 
