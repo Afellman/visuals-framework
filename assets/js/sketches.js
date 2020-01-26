@@ -867,7 +867,6 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
-    this.graph = createGraphics(w, h, [renderer])
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", graph.image(glCanvas, 0, 0));
     // this.shader.setUniform('u_time', frameCount / 1000)
