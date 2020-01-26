@@ -1028,7 +1028,7 @@ class DisplaceImg extends Sketch {
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_displaceX", noise(frameCount));
+    this.shader.setUniform("u_displaceX", noise(frameCount / 1000) * 10);
     this.shader.setUniform("u_displaceY", this.displaceY);
     this.shader.setUniform('u_time', frameCount);
 
