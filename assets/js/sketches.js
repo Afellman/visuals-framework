@@ -1022,8 +1022,7 @@ class VideoShader extends Sketch {
     this.cray = 0.0;
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
-    this.video.loop()
-    this.video.hide();
+    this.video.play()
   }
 
   removeLayer() {
@@ -1042,8 +1041,6 @@ class VideoShader extends Sketch {
 
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
-
-
   }
 
   unload() {
