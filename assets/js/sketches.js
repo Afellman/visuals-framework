@@ -1395,7 +1395,7 @@ class Drops extends Sketch { // Scene 12.
         thisPoint = this.grid[i][j];
         for (let k = 0; k < this.explodePoints.length; k++) {
           let acc = p5.Vector.sub(thisPoint, this.explodePoints[k]);
-          thisPoint.add(acc.normalize();
+          thisPoint.add(acc.normalize().mult(0.2));
 
         }
         // thisPoint.add(acc.div(800));
