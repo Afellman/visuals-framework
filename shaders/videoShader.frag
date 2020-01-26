@@ -22,7 +22,7 @@ void main() {
   // get the three webcam feeds
   vec4 cam = texture2D(tex0, uv);
 
-  vec4 cam3 = texture2D(tex0,  uv);
+  vec4 cam3 = texture2D(tex1,  uv);
 
   // lets get the average color of the rgb values
   float avg = dot(cam.rgb, vec3(0.33333));
