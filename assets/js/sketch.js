@@ -356,9 +356,6 @@ function mouseClicked() {
       scenes[i].mouseClicked();
     }
   };
-
-  loadScene(new VideoShader()) // For background.
-  scenes[1].opacity = 1;
 };
 
 function keyPressed(e) {
