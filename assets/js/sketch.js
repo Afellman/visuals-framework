@@ -170,6 +170,21 @@ const controlScene = {
     opacity: function (val) {
       this.scene.opacity = val.args[0];
     }
+  },
+  "11": {
+    isActive: false,
+    scene: {},
+    toggle: function (val) {
+      if (val.args[0]) {
+        this.scene = new DisplaceImg();
+        loadScene(this.scene);
+      } else {
+        unloadScene(this.scene.id);
+      }
+    },
+    opacity: function (val) {
+      this.scene.opacity = val.args[0];
+    }
   }
 }
 
@@ -191,7 +206,7 @@ function setVideos(videoArray) {
 function preload() {
   loadImages(setImages);
   loadShaders(setShaders);
-  loadVideos(setVideos);
+  // loadVideos(setVideos);
 }
 
 // Starting with a canvas the full window size.
