@@ -31,5 +31,5 @@ void main() {
   // lets use one channel from each of the textures
 
   // render the output
-  gl_FragColor = cam2
+  gl_FragColor = cam2;
 }
