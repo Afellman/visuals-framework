@@ -30,7 +30,7 @@ void main() {
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
-  float disp = avg * sin(u_time / 100.0);
+  float disp = avg * sin(u_time / 100.0) / 10.0;
 
   vec4 cam2 = texture2D(tex1,  uv + disp);
   // lets use one channel from each of the textures
