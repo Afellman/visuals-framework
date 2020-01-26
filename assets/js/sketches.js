@@ -867,8 +867,9 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
   draw() {
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
+    this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", graph.image(glCanvas, 0, 0));
+    this.shader.setUniform("tex0", this.graph);
     // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
