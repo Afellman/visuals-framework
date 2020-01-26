@@ -28,7 +28,7 @@ void main() {
   // then spread it between -1 and 1
   avg = avg * 2.0 - 1.0;
 
-  float disp = avg * 0.0;
+  float disp = avg * vec2(u_displaceX, u_displaceY);
 
   vec4 cam2 = texture2D(tex0,  uv + disp);
   // lets use one channel from each of the textures
