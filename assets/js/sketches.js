@@ -620,6 +620,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement += this.params.faders.movement / 1000;
   }
   branch(len, i) {
+    i++;
     line(0, 0, 0, -len);
     translate(0, -len);
     if (len > 4) {
