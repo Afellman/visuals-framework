@@ -996,7 +996,7 @@ class FlowShader extends Sketch {
   ]
 }
 
-class VideoShader extends Sketch {
+class DisplaceImg extends Sketch {
   constructor(img) {
     super();
     this.img = images[5];
@@ -1033,7 +1033,7 @@ class VideoShader extends Sketch {
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("u_displaceX", this.params.faders.displaceX);
-    this.shader.setUniform("u_displaceY", this.params.faders.displaceX);
+    this.shader.setUniform("u_displaceY", this.params.faders.displacey);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
