@@ -90,7 +90,8 @@ void main() {
   float pat = pattern(uv + u_waterTime) * u_offset; // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
-  tex += (colorSwirl(tex, uv) * u_colorAmount) / 3; // Adding background color movement
+  vec4 colors = colorSwirl(tex, uv);
+  tex *= colors / (colors * u_colorAmount); // Adding background color movement
 
   tex.a = u_opacity;
   gl_FragColor = tex;
