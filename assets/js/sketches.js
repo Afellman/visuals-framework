@@ -1054,6 +1054,7 @@ class DisplaceImg extends Sketch {
       socketName: "stopX",
       socketMethod: (val) => {
         this.params.faders.displaceX = 0;
+        this.updateOsc();
       }
     },
     {
