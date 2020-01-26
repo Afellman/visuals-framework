@@ -999,7 +999,7 @@ class FlowShader extends Sketch {
 class VideoShader extends Sketch {
   constructor(img) {
     super();
-    this.video = videos[1];
+    this.video = videos[2];
     this.video.size(800, 600);
     this.params = {
       faders: {
