@@ -970,7 +970,12 @@ class FlowShader extends Sketch { // Scene 10. Maped
         this.updateOsc();
       }
     },
-
+    {
+      socketName: "image1",
+      socketMethod: (val) => {
+        this.img = images[5];
+      }
+    },
   ]
 }
 
