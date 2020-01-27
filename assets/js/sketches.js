@@ -913,7 +913,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[13];
+    this.img = images[14];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -972,6 +972,12 @@ class FlowShader extends Sketch { // Scene 10. Maped
     },
     {
       socketName: "image1",
+      socketMethod: (val) => {
+        this.img = images[14];
+      }
+    },
+    {
+      socketName: "image2",
       socketMethod: (val) => {
         this.img = images[12];
       }
