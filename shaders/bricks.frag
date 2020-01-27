@@ -72,7 +72,7 @@ void main() {
   uv = vec2((uv.x + u_xOff + y),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
 
   // vec4 tex = texture2D(tex0,);
-  vec4 tex = vec4(vec2(1.0,1.0),  uv * distance(uv.x, 0.5) * 0.015);
+  vec4 tex = vec4(vec2(1.0,1.0),  uv * distance(uv.x, 0.5) *u_multi);
   tex.r = random(tex.r);
   tex.b = random(tex.b);
 
