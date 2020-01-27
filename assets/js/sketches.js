@@ -913,7 +913,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[7];
+    this.img = images[13];
     this.params = {
       faders: {
         waterSpeed: 0.001,
