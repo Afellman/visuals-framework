@@ -1077,7 +1077,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
   ]
 }
 
-class Bricks extends Sketch { // Scene 9. Maped. Needs work.
+class Bricks extends Sketch { // Scene 13. Maped. Needs work.
 
   constructor(img) {
     super();
