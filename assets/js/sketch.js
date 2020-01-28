@@ -503,7 +503,7 @@ const genericMidi = {
         glBackground[3] = map(vel, 0, 127, 0, 0.2);
       }
     }
-  },
+  }
 }
 
 function onMIDIFailure() {
