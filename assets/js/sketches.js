@@ -1288,6 +1288,7 @@ class Mirror extends Sketch {
     super.init();
   }
   draw() {
+    tint(255, this.opacity)
     if (this.isHorizonal) {
       push()
       translate(width, 0)
