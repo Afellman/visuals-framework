@@ -480,10 +480,9 @@ const genericMidi = {
           loadScene(this.scene);
           this.isActive = true;
         }
-      } else if (cmd == 132) {
       } else if (cmd == 180) {
         this.scene.opacity = midiToColor(vel);
-        glBackground[3] = map(vel, 0, 127, 0, 1);
+
       }
     }
   },
@@ -518,7 +517,7 @@ const genericMidi = {
       //   }
       // } else 
       if (cmd == 180) {
-        glBackground[3] = map(vel, 0, 127, 0, 0.2);
+        glBackground[3] = midiToNormal(vel);
       }
     }
   }
