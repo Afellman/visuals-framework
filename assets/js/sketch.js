@@ -481,8 +481,8 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 132) {
-        this.scene.opacity = midiToNormal(vel);
       } else if (cmd == 180) {
+        this.scene.opacity = midiToColor(vel);
         glBackground[3] = map(vel, 0, 127, 0, 1);
       }
     }
@@ -500,6 +500,24 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
+        glBackground[3] = map(vel, 0, 127, 0, 0.2);
+      }
+    }
+  },
+  "2": {
+    scene: {},
+    method: function (vel, cmd) {
+      // if (cmd == 148) {  // 148 == Pad
+      //   if (this.isActive) {
+      //     unloadScene(this.scene.id);
+      //     this.isActive = false;
+      //   } else {
+      //     this.scene = new Mirror(true);
+      //     loadScene(this.scene);
+      //     this.isActive = true;
+      //   }
+      // } else 
+      if (cmd == 180) {
         glBackground[3] = map(vel, 0, 127, 0, 0.2);
       }
     }
