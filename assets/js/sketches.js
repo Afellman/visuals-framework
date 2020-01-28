@@ -913,7 +913,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[14];
+    this.img = images[2];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -1282,6 +1282,7 @@ class Mirror extends Sketch {
     super();
     this.isVertical = isVertical || false;
     this.isHorizonal = isHorizonal || true;
+    this.opacity = 0;
   }
   init() {
     super.init();
