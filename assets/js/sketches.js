@@ -973,7 +973,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[14];
+        this.img = images[2];
       }
     },
     {
@@ -1288,7 +1288,6 @@ class Mirror extends Sketch {
     super.init();
   }
   draw() {
-    // tint(255, this.opacity)
     if (this.isHorizonal) {
       push()
       translate(width, 0)
