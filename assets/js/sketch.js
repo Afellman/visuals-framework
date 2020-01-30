@@ -546,7 +546,7 @@ const genericMidi = {
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror(true);
+          this.scene = new LinesShader(true);
           loadScene(this.scene);
           this.isActive = true;
         }
