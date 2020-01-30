@@ -536,12 +536,45 @@ const genericMidi = {
       } else if (cmd == 180) {
         controlScene["9"].scene.params.faders.xOff = midiToNormal(vel) / 10;
       }
+    },
+    "3": {
+      scene: {},
+      method: function (vel, cmd) {
+        if (cmd == 148) {  // 148 == Pad
+          if (this.isActive) {
+            unloadScene(this.scene.id);
+            this.isActive = false;
+          } else {
+            this.scene = new Mirror(true);
+            loadScene(this.scene);
+            this.isActive = true;
+          }
+        } else if (cmd == 180) {
+          controlScene["9"].scene.params.faders.yOff = midiToNormal(vel) / 10;
+        }
+      }
+    },
+    "4": {
+      scene: {},
+      method: function (vel, cmd) {
+        if (cmd == 148) {  // 148 == Pad
+          if (this.isActive) {
+            unloadScene(this.scene.id);
+            this.isActive = false;
+          } else {
+            this.scene = new Mirror(true);
+            loadScene(this.scene);
+            this.isActive = true;
+          }
+        } else if (cmd == 180) {
+          controlScene["9"].scene.params.faders.xOff = midiToNormal(vel) / 10;
+        }
+      }
     }
   }
-}
 
 function onMIDIFailure() {
-  console.log('Could not access your MIDI devices.');
+    console.log('Could not access your MIDI devices.');
 }
 
 function midiToColor(vel) {
