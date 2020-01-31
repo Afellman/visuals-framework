@@ -517,7 +517,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.yOff = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.yOff = midiToNormal(vel) / 10;
       }
     }
   },
@@ -534,7 +534,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.xOff = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.xOff = midiToNormal(vel) / 10;
       }
     },
   },
@@ -551,7 +551,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.freq = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.freq = midiToNormal(vel) / 10;
       }
     }
   },
@@ -568,7 +568,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.amp = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.amp = midiToNormal(vel) / 10;
       }
     },
   },
@@ -585,7 +585,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.noise = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.noise = midiToNormal(vel) / 10;
       }
     },
   },
@@ -602,7 +602,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        thi8s..scene.params.faders.speed = midiToNormal(vel) / 10;
+        genericMidi[5].scene.params.faders.speed = midiToNormal(vel) / 10;
       }
     },
   }
