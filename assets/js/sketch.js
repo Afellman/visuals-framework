@@ -494,6 +494,8 @@ const genericMidi = {
         if (this.isActive) {
           unloadScene(this.scene.id);
           this.isActive = false;
+          this.scene = {};
+
         } else {
           this.scene = new Mirror(true);
           loadScene(this.scene);
@@ -510,6 +512,7 @@ const genericMidi = {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
           // unloadScene(this.scene.id);
+          this.scene = {};
           this.isActive = false;
         } else {
           // this.scene = new Mirror(true);
@@ -527,6 +530,7 @@ const genericMidi = {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
           // unloadScene(this.scene.id);
+          this.scene = {};
           this.isActive = false;
         } else {
           // this.scene = new Mirror(true);
@@ -543,6 +547,7 @@ const genericMidi = {
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
+          this.scene = {};
           unloadScene(this.scene.id);
           this.isActive = false;
         } else {
