@@ -288,7 +288,10 @@ class Starry extends Sketch { // Scene 1. Maped
         starAmt: 200,
         speed: 10,
         size: 1,
-        color: 1
+        color: 1,
+        r: 255,
+        g: 255,
+        b: 255
       },
     }
     this.sceneNum = 1;
@@ -305,7 +308,7 @@ class Starry extends Sketch { // Scene 1. Maped
     }
   }
   draw() {
-    let { color, size, starAmt, speed } = this.params.faders;
+    let { r, g, b, size, starAmt, speed } = this.params.faders;
     let thisPoint = {};
     noStroke();
 
@@ -317,7 +320,7 @@ class Starry extends Sketch { // Scene 1. Maped
       let pointSize = dist(thisPoint.pos.x, thisPoint.pos.y, width / 2, height / 2) * (size / 100) * thisPoint.size;
       let acc = p5.Vector.sub(thisPoint.pos, createVector(width / 2, height / 2));
       thisPoint.pos.add(acc.div(400 - speed))
-      fill(color * thisPoint.color, color * thisPoint.color, color * thisPoint.color, this.opacity);
+      fill(r * thisPoint.color, g * thisPoint.color, b * thisPoint.color, this.opacity);
       ellipse(thisPoint.pos.x, thisPoint.pos.y, pointSize);
       if (thisPoint.pos.x > width || thisPoint.pos.x < 0 || thisPoint.pos.y > height || thisPoint.pos.y < 0) {
         this.points.splice(i, 1);
@@ -1029,8 +1032,8 @@ class DisplaceImg extends Sketch { // scene 11. maped
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_displaceX", noise(frameCount / 1000) / 2 * this.displaceX);
-    this.shader.setUniform("u_displaceY", noise(frameCount / 1000) / 2 * this.displaceY);
+    this.shader.setUniform("u_displaceX", noise(frameCount / 100) * this.displaceX);
+    this.shader.setUniform("u_displaceY", noise(frameCount / 100) * this.displaceY);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
