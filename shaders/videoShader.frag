@@ -30,7 +30,7 @@ void main() {
 
   vec4 img2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
 
-  img2.r = fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0) * 10.0;
+  img2.r = fract(distance(uv.x, 0.5)) * sin(u_time / 1000.0);
 
   // render the output
   gl_FragColor = vec4(img2.rgb, u_opacity);
