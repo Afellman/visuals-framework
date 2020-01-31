@@ -604,7 +604,7 @@ const genericMidi = {
       }
     },
   },
-  "6": {
+  "7": {
     scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
@@ -622,7 +622,7 @@ const genericMidi = {
       }
     },
   },
-  "6": {
+  "8": {
     scene: {},
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
