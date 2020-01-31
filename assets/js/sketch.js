@@ -528,7 +528,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        glBackground[3] = map(vel, 0, 127, 0, 0.2);
+        genericMidi[5].scene.opacity = midiToNormal(vel) / 10;
       }
     }
   },
