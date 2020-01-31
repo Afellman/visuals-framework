@@ -1099,22 +1099,20 @@ class DisplaceImg extends Sketch { // scene 11. maped
   ]
 }
 
-class Feedback extends Sketch { // Scene 9. Maped. Needs work.
+class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
   constructor(img) {
     super();
     this.params = {
       faders: {
+        xOff: 0,
+        yOff: 0,
         amp: 0,
         noise: 0,
         freq: 0,
         speed: 0
       }
     }
-    this.freq = 0;
-    this.linesShader;
-    this.img = images[6];
-    this.direction = 1;
     this.opacity = 0;
     this.sceneNum = 13;
   }
@@ -1139,9 +1137,6 @@ class Feedback extends Sketch { // Scene 9. Maped. Needs work.
     // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
-    this.shader.setUniform('u_amp', this.params.faders.amp);
-    this.shader.setUniform('u_noise', this.params.faders.noise);
-    this.shader.setUniform('u_freq', this.freq);
     this.shader.setUniform('u_time', this.time);
 
 
