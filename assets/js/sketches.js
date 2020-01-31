@@ -1032,8 +1032,8 @@ class DisplaceImg extends Sketch { // scene 11. maped
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("u_displaceX", noise(frameCount / 100) * 10 * this.displaceX);
-    this.shader.setUniform("u_displaceY", noise(frameCount / 100) * 2 * this.displaceY);
+    this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
+    this.shader.setUniform("u_displaceY", noise(frameCount this.params.faders.freq) * this.params.faders.amp * this.displaceY);
     this.shader.setUniform('u_time', frameCount);
 
     image(this.shaderBox, 0, 0, width, height);
