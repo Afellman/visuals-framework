@@ -509,15 +509,15 @@ const genericMidi = {
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
-          unloadScene(this.scene.id);
+          // unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror(true);
+          // this.scene = new Mirror(true);
           loadScene(this.scene);
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        controlScene["9"].scene.params.faders.yOff = midiToNormal(vel) / 10;
+        thi8s..scene.params.faders.yOff = midiToNormal(vel) / 10;
       }
     }
   },
@@ -526,15 +526,15 @@ const genericMidi = {
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
-          unloadScene(this.scene.id);
+          // unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror(true);
+          // this.scene = new Mirror(true);
           loadScene(this.scene);
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        controlScene["9"].scene.params.faders.xOff = midiToNormal(vel) / 10;
+        thi8s..scene.params.faders.xOff = midiToNormal(vel) / 10;
       }
     },
   },
@@ -551,7 +551,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        controlScene["9"].scene.params.faders.yOff = midiToNormal(vel) / 10;
+        thi8s..scene.params.faders.freq = midiToNormal(vel) / 10;
       }
     }
   },
@@ -560,15 +560,49 @@ const genericMidi = {
     method: function (vel, cmd) {
       if (cmd == 148) {  // 148 == Pad
         if (this.isActive) {
-          unloadScene(this.scene.id);
+          // unloadScene(this.scene.id);
           this.isActive = false;
         } else {
-          this.scene = new Mirror(true);
+          // this.scene = new Mirror(true);
           loadScene(this.scene);
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        controlScene["9"].scene.params.faders.xOff = midiToNormal(vel) / 10;
+        thi8s..scene.params.faders.amp = midiToNormal(vel) / 10;
+      }
+    },
+  },
+  "6": {
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          // unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          // this.scene = new Mirror(true);
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else if (cmd == 180) {
+        thi8s..scene.params.faders.noise = midiToNormal(vel) / 10;
+      }
+    },
+  },
+  "6": {
+    scene: {},
+    method: function (vel, cmd) {
+      if (cmd == 148) {  // 148 == Pad
+        if (this.isActive) {
+          // unloadScene(this.scene.id);
+          this.isActive = false;
+        } else {
+          // this.scene = new Mirror(true);
+          loadScene(this.scene);
+          this.isActive = true;
+        }
+      } else if (cmd == 180) {
+        thi8s..scene.params.faders.speed = midiToNormal(vel) / 10;
       }
     },
   }
