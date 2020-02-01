@@ -710,6 +710,4 @@ function loadVideos(cb) {
   videos.forEach(video => video.hide())
 }
 
-
-
 setupSockets();
