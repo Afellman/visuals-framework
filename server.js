@@ -102,7 +102,7 @@ function registerIncoming() {
 
   glClient.on("updateOsc", (val) => {
     for (let i in val.params) {
-      console.log(val);
+      console.log(val, "foo");
       udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
     }
   });
