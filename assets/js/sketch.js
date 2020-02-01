@@ -661,6 +661,7 @@ function loadImages(cb) {
     loadImage("./assets/images/leaves.jpg"),
     loadImage("./assets/images/waterfall.jpg"),
     loadImage("./assets/images/alec/img014.jpg"),
+    loadImage("./assets/images/alec/035.jpg"),
     loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
     loadImage("./assets/images/austrailia/beach.jpeg"),
     loadImage("./assets/images/austrailia/greens.jpeg"),
