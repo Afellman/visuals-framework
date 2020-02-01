@@ -1107,17 +1107,15 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
   listeners = [
     {
-      socketName: "stopSpeed",
+      socketName: "yOxx",
       socketMethod: (val) => {
-        this.params.faders.speed = 0;
-        this.updateOsc();
+        this.xOff = val;
       }
     },
     {
-      socketName: "stopFreq",
+      socketName: "xOff",
       socketMethod: (val) => {
-        this.params.faders.freq = 0;
-        this.updateOsc();
+        this.xOff = val;
       }
     },
   ]
