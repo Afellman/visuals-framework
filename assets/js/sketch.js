@@ -227,14 +227,14 @@ const controlScene = {
   },
   "13": {
     isActive: false,
-    scenes: {},
+    scene: {},
     toggle: function (val) {
-      if (!this.scenes[val.args[0]]) {
-        this.scenes[val.args[0] = new Feedback(val.args[0]);
-        loadScene(this.scenes[val.args[0]]);
+      if (val.args[0]) {
+        this.scene = new Feedback();
+        loadScene(this.scene);
       } else {
-        unloadScene(this.scenes[val.args[0]].id);
-        delete this.scenes[val.args[0]]
+        unloadScene(this.scene.id);
+        this.scene = {};
       }
     },
     opacity: function (val) {
