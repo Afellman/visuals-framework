@@ -159,37 +159,6 @@ class Sketch {
   }
 
   attachListeners() {
-    // let length = this.listeners.length;
-    // for (let i = 0; i < length; i++) {
-    //   let thisListener = this.listeners[i];
-
-    // const nodes = document.querySelectorAll("#" + thisListener.nodeID);
-    // const node = nodes[0];
-    // if (node) {
-    //   if (node.tagName == "BUTTON") {
-
-    //     node.addEventListener("click", (e) => {
-    //       thisListener.method({
-    //         args: [e.target.value / 100]
-    //       });
-    //     })
-    //   } else {
-    //     node.addEventListener("change", (e) => {
-    //       thisListener.method({
-    //         args: [e.target.value / 100]
-    //       });
-    //     })
-    //   }
-    // }
-
-    // if (thisListener.midi) {
-    //   if (midiSubscribers[thisListener.midi]) {
-    //     midiSubscribers[thisListener.midi].push(thisListener.midiMethod)
-    //   } else {
-    //     midiSubscribers[thisListener.midi] = [thisListener.midiMethod]
-    //   }
-    // }
-    // }
 
     for (let i = 0; i < this.listeners.length; i++) {
       const thisSocket = this.listeners[i];
@@ -1103,18 +1072,10 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
   constructor(img) {
     super();
-    this.params = {
-      faders: {
-        xOff: 0,
-        yOff: 0,
-        amp: 0,
-        noise: 0,
-        freq: 0,
-        speed: 0
-      }
-    }
     this.opacity = 1;
     this.sceneNum = 13;
+    this.xOff = 0;
+    this.yOff = 0;
   }
 
   init(index) {
