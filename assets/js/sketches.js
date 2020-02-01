@@ -1700,7 +1700,6 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
-
 const Objects = {
   /**
    * @class Point
