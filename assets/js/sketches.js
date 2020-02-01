@@ -1081,7 +1081,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
       }
     }
     this.opacity = 1;
-    // this.sceneNum = 13;
+    this.sceneNum = 13;
   }
 
   init(index) {
@@ -1144,7 +1144,6 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
       }
     }
     this.opacity = 0;
-    this.sceneNum = 13;
   }
 
   init(index) {
