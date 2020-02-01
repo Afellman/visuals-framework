@@ -1114,9 +1114,8 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     {
       socketName: "xy",
       socketMethod: (val) => {
-        this.params.faders.xOff = val.args[1]
-        this.params.faders.yOff = val.args[0]
-        this.updateOsc();
+        this.params.faders.xOff = val.args[1] / 100
+        this.params.faders.yOff = val.args[0] / 100
       }
     },
   ]
