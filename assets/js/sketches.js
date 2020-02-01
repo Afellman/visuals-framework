@@ -867,7 +867,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     {
       socketName: "centerX",
       socketMethod: (val) => {
-        this.params.faders.speed = 0;
+        this.params.faders.xOff = 0;
         this.updateOsc();
       }
     },
@@ -1711,6 +1711,114 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
+class Diffusion extends Sketch {
+  constructor() {
+    super();
+
+    this.grid;
+    this.next;
+
+    this.dA = 1;
+    this.dB = 0.5;
+    this.feed = 0.055;
+    this.k = 0.062;
+  }
+
+  init() {
+    super.init()
+    pixelDensity(1);
+    this.grid = [];
+    this.next = [];
+    for (var x = 0; x < width; x++) {
+      this.grid[x] = [];
+      this.next[x] = [];
+      for (var y = 0; y < height; y++) {
+        this.grid[x][y] = {
+          a: 1,
+          b: 0
+        };
+        this.next[x][y] = {
+          a: 1,
+          b: 0
+        };
+      }
+    }
+
+    for (var i = 100; i < 110; i++) {
+      for (var j = 100; j < 110; j++) {
+        this.grid[i][j].b = 1;
+      }
+    }
+  }
+
+  draw() {
+    for (var x = 1; x < width - 1; x++) {
+      for (var y = 1; y < height - 1; y++) {
+        var a = this.grid[x][y].a;
+        var b = this.grid[x][y].b;
+        this.next[x][y].a = a + this.dA * this.laplaceA(x, y) - a * b * b + this.feed * (1 - a);
+        this.next[x][y].b = b + this.dB * this.laplaceB(x, y) + a * b * b - (this.k + this.feed) * b;
+
+        this.next[x][y].a = constrain(this.next[x][y].a, 0, 1);
+        this.next[x][y].b = constrain(this.next[x][y].b, 0, 1);
+      }
+    }
+
+    loadPixels();
+    for (var x = 0; x < width; x++) {
+      for (var y = 0; y < height; y++) {
+        var pix = (x + y * width) * 4;
+        var a = this.next[x][y].a;
+        var b = this.next[x][y].b;
+        var c = floor((a - b) * 255);
+        c = constrain(c, 0, 255);
+        pixels[pix + 0] = c;
+        pixels[pix + 1] = c;
+        pixels[pix + 2] = c;
+        pixels[pix + 3] = 255;
+      }
+    }
+    updatePixels();
+
+    swap();
+  }
+
+  laplaceA() {
+    var sumA = 0;
+    sumA += this.grid[x][y].a * -1;
+    sumA += this.grid[x - 1][y].a * 0.2;
+    sumA += this.grid[x + 1][y].a * 0.2;
+    sumA += this.grid[x][y + 1].a * 0.2;
+    sumA += this.grid[x][y - 1].a * 0.2;
+    sumA += this.grid[x - 1][y - 1].a * 0.05;
+    sumA += this.grid[x + 1][y - 1].a * 0.05;
+    sumA += this.grid[x + 1][y + 1].a * 0.05;
+    sumA += this.grid[x - 1][y + 1].a * 0.05;
+    return sumA;
+  }
+
+  laplaceB(x, y) {
+    var sumB = 0;
+    sumB += this.grid[x][y].b * -1;
+    sumB += this.grid[x - 1][y].b * 0.2;
+    sumB += this.grid[x + 1][y].b * 0.2;
+    sumB += this.grid[x][y + 1].b * 0.2;
+    sumB += this.grid[x][y - 1].b * 0.2;
+    sumB += this.grid[x - 1][y - 1].b * 0.05;
+    sumB += this.grid[x + 1][y - 1].b * 0.05;
+    sumB += this.grid[x + 1][y + 1].b * 0.05;
+    sumB += this.grid[x - 1][y + 1].b * 0.05;
+    return sumB;
+  }
+
+
+  swap() {
+    var temp = this.grid;
+    this.grid = next;
+    this.next = temp;
+  }
+  listeners = [{}]
+}
 const Objects = {
   /**
    * @class Point
