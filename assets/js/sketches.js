@@ -1057,7 +1057,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     {
       socketName: "image3",
       socketMethod: (val) => {
-        this.img = images[11];
+        this.img = images[7];
       }
     },
     {
