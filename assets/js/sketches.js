@@ -1123,7 +1123,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = this.shaderBox.createShader(shaders[1]._vertSrc, shaders[1]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
     this.shaderPath = "./shaders/movingLines.frag";
     this.graph = createGraphics(width, height);
   }
