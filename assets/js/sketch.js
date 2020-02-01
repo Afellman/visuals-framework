@@ -230,7 +230,7 @@ const controlScene = {
     scene: {},
     toggle: function (val) {
       if (val.args[0]) {
-        this.scene = new Bricks();
+        this.scene = new Feedback();
         loadScene(this.scene);
       } else {
         unloadScene(this.scene.id);
@@ -681,9 +681,7 @@ function loadImages(cb) {
 
 function loadShaders(cb) {
   Promise.all([
-    loadShader(
-      "./shaders/texture.vert",
-      "./shaders/shader.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/movingLines.frag"),
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
