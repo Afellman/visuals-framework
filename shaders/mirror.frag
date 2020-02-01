@@ -3,8 +3,10 @@ precision mediump float;
 // lets grab texcoords from the vertex shader
 varying vec2 vTexCoord;
 
+
 // our texture coming from p5
 uniform sampler2D tex0;
+uniform float u_opacity;
 
 
 void main() {
@@ -22,5 +24,6 @@ void main() {
 
 
   // output to screen
-  gl_FragColor = tex;
+    gl_FragColor = vec4(tex.rgb, u_opacity);
+
 }
