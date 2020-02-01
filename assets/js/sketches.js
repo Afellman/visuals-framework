@@ -325,7 +325,7 @@ class Sun extends Sketch { // Scene 2. Maped
     this.params = {
       faders: {
         amp: 20,
-        ringAmt: 1,
+        ringAmt: 3,
         speed: 0,
         r: 100,
         g: 53,
