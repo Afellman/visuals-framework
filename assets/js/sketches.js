@@ -1076,7 +1076,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.sceneNum = 13;
     this.xOff = 0;
     this.yOff = 0;
-    this.feedbackNum = num
+    this.feedbackNum = num;
   }
 
   init(index) {
