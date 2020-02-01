@@ -670,7 +670,6 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/eucalyptus.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
-    loadImage("./assets/images/alec/sand.jpg"),
     loadImage("./assets/images/bricks.jpg"),
 
   ])
