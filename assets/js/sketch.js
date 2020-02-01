@@ -227,14 +227,14 @@ const controlScene = {
   },
   "13": {
     isActive: false,
-    scenes: [],
+    scenes: {},
     toggle: function (val) {
       if (!this.scenes[val.args[0]]) {
         this.scenes.push(new Feedback(val.args[0]));
         loadScene(this.scenes[val.args[0]]);
       } else {
         unloadScene(this.scenes[val.args[0]].id);
-        this.scenes.splice(val.args[0], 1)
+        delete this.scenes[val.args[0]]
       }
     },
     opacity: function (val) {
