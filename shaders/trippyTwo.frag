@@ -61,7 +61,7 @@ float fbm (in vec2 st) {
     // Loop of octaves
     for (int i = 0; i < OCTAVES; i++) {
         value += amplitude * noise(st);
-        st *= frequency;
+        st *= 2.;
         amplitude *= .5;
     }
     return value;
