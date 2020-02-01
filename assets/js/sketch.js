@@ -229,6 +229,7 @@ const controlScene = {
     isActive: false,
     scenes: [],
     toggle: function (val) {
+      this.scenes[val]
       this.scenes.push(new Feedback(this.scenes.length));
       loadScene(this.scenes[this.scenes.length - 1]);
       unloadScene(this.scenes[this.scenes.length - 1].id);
