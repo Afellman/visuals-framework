@@ -269,7 +269,7 @@ function setup() {
   console.log("setup")
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  images.forEach((img, i) => takeColor(img, i))
+  images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
 
   // For Audio input
@@ -287,10 +287,11 @@ function draw() {
   const length = scenes.length;
   // background(glBackground); // Moved to shader.
   for (let i = 0; i < length; i++) {
-    if (scenes[i])
+    if (scenes[i]) {
       push()
-    scenes[i].draw();
-    pop();
+      scenes[i].draw();
+      pop();
+    }
   }
   if (showFPS) {
     push()
