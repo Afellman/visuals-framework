@@ -1814,7 +1814,7 @@ class Diffusion extends Sketch {
 
   swap() {
     var temp = this.grid;
-    this.grid = next;
+    this.grid = this.next;
     this.next = temp;
   }
   listeners = [{}]
