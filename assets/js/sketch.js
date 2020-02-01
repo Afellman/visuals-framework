@@ -496,21 +496,9 @@ const genericMidi = {
   "1": {
     scene: {},
     method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          this.scene = new Mirror();
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 132) {
+      if (cmd == 180) {
         // this.scene.opacity = midiToNormal(vel);
-      } else if (cmd == 180) {
-        this.scene.opacity = midiToNormal(vel);
-        // glBackground[3] = map(vel, 0, 127, 0, 1);
+        glBackground[3] = map(vel, 0, 127, 0, 1);
       }
     }
   },
