@@ -230,7 +230,7 @@ const controlScene = {
     scenes: [],
     toggle: function (val) {
       if (val.args[0]) {
-        this.scene = new Feedback();
+        this.scenes.push(new Feedback());
         loadScene(this.scene);
       } else {
         unloadScene(this.scene.id);
