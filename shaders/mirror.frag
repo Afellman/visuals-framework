@@ -18,10 +18,9 @@ void main() {
   // this line will make our uvs mirrored
   // it will convert it into a number that goes 0 to 1 to 0
   // abs() will turn our negative numbers positive
-  // vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
+  vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
   
-  uv.x = abs(uv.x * 2.0  - 1.0);
-  vec4 tex = texture2D(tex0, uv);
+  vec4 tex = texture2D(tex0, mirrorUvs);
 
 
   // output to screen
