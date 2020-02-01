@@ -1143,8 +1143,7 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
         yOff: 0,
       }
     }
-    this.opacity = 1;
-    this.sceneNum = 14;
+    this.opacity = 0;
   }
 
   init(index) {
@@ -1167,16 +1166,6 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   unload() {
     super.unload();
     // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
-  }
-
-  updateOsc() {
-    super.updateOsc();
-    // Syncs iPad with scenes starting values
-    socket.emit("updateOsc", {
-      scene: this.sceneNum,
-      isXY: true,
-      xy: [this.params.faders.yOff, this.params.faders.yOff]
-    });
   }
 
   listeners = [
