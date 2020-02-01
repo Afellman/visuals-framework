@@ -1036,10 +1036,10 @@ class DisplaceImg extends Sketch { // scene 11. maped
       }
     },
     {
-      socketName: "displace",
+      socketName: "reset",
       socketMethod: (val) => {
-        this.displaceY = val.args[0]
-        this.displaceX = val.args[1]
+        this.displaceY = 0
+        this.displaceX = 0
       }
     },
     {
