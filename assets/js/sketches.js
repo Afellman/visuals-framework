@@ -1110,6 +1110,15 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
+  updateOsc() {
+    super();
+    // Syncs iPad with scenes starting values
+    socket.emit("updateOsc", {
+      scene: this.sceneNum,
+      params: { xy: [this.params.faders.yOff, this.params.faders.yOff] }
+    });
+  }
+
   listeners = [
     {
       socketName: "xy",
