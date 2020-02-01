@@ -231,9 +231,9 @@ const controlScene = {
     toggle: function (val) {
       if (val.args[0]) {
         this.scenes.push(new Feedback());
-        loadScene(this.scene);
+        loadScene(this.scenes[this.scenes.length - 1]);
       } else {
-        unloadScene(this.scene.id);
+        unloadScene(this.scenes[this.scenes.length - 1].id);
         this.scenes.pop();
       }
     },
