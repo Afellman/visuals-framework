@@ -509,8 +509,8 @@ const genericMidi = {
       } else if (cmd == 132) {
         // this.scene.opacity = midiToNormal(vel);
       } else if (cmd == 180) {
-        // this.scene.opacity = midiToNormal(vel);
-        glBackground[3] = map(vel, 0, 127, 0, 1);
+        this.scene.opacity = midiToNormal(vel);
+        // glBackground[3] = map(vel, 0, 127, 0, 1);
       }
     }
   },
