@@ -1107,13 +1107,13 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
   listeners = [
     {
-      socketName: "yOxx",
+      socketName: `xOff/${this.feedbackNum}`,
       socketMethod: (val) => {
         this.xOff = val;
       }
     },
     {
-      socketName: "xOff",
+      socketName: `yOff/${this.feedbackNum}`,
       socketMethod: (val) => {
         this.xOff = val;
       }
