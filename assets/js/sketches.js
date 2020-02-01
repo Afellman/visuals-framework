@@ -1070,68 +1070,68 @@ class DisplaceImg extends Sketch { // scene 11. maped
   ]
 }
 
-class Feedback extends Sketch { // Scene 13. Maped. Needs work.
+// class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
-  constructor(img) {
-    super();
-    this.params = {
-      faders: {
-        xOff: 0,
-        yOff: 0,
-      }
-    }
-    this.opacity = 1;
-    this.sceneNum = 13;
-  }
+//   constructor(img) {
+//     super();
+//     this.params = {
+//       faders: {
+//         xOff: 0,
+//         yOff: 0,
+//       }
+//     }
+//     this.opacity = 1;
+//     this.sceneNum = 13;
+//   }
 
-  init(index) {
-    super.init();
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.time = 0;
-    this.loops = 4;
-    this.cray = 0.0;
-    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
-    this.graph = createGraphics(width, height);
-  }
+//   init(index) {
+//     super.init();
+//     this.shaderBox = createGraphics(width, height, WEBGL);
+//     this.time = 0;
+//     this.loops = 4;
+//     this.cray = 0.0;
+//     this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
+//     this.graph = createGraphics(width, height);
+//   }
 
-  draw() {
-    // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
-    noStroke();
-    this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.graph);
-    this.shader.setUniform('u_xOff', this.params.faders.xOff);
-    this.shader.setUniform('u_yOff', this.params.faders.yOff);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
-  }
+//   draw() {
+//     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
+//     noStroke();
+//     this.graph.image(glCanvas, 0, 0)
+//     this.shader.setUniform("u_opacity", this.opacity)
+//     this.shader.setUniform("tex0", this.graph);
+//     this.shader.setUniform('u_xOff', this.params.faders.xOff);
+//     this.shader.setUniform('u_yOff', this.params.faders.yOff);
+//     this.shaderBox.shader(this.shader);
+//     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+//     this.shaderBox.rect(0, 0, width, height);
+//   }
 
-  unload() {
-    super.unload();
-    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
-  }
+//   unload() {
+//     super.unload();
+//     // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+//   }
 
-  updateOsc() {
-    super.updateOsc();
-    // Syncs iPad with scenes starting values
-    socket.emit("updateOsc", {
-      scene: this.sceneNum,
-      isXY: true,
-      xy: [this.params.faders.yOff, this.params.faders.yOff]
-    });
-  }
+//   updateOsc() {
+//     super.updateOsc();
+//     // Syncs iPad with scenes starting values
+//     socket.emit("updateOsc", {
+//       scene: this.sceneNum,
+//       isXY: true,
+//       xy: [this.params.faders.yOff, this.params.faders.yOff]
+//     });
+//   }
 
-  // listeners = [
-  //   {
-  //     socketName: "xy",
-  //     socketMethod: (val) => {
-  //       this.params.faders.xOff = val.args[1] / 10
-  //       this.params.faders.yOff = val.args[0] / 10
-  //     }
-  //   },
-  // ]
-}
+//   // listeners = [
+//   //   {
+//   //     socketName: "xy",
+//   //     socketMethod: (val) => {
+//   //       this.params.faders.xOff = val.args[1] / 10
+//   //       this.params.faders.yOff = val.args[0] / 10
+//   //     }
+//   //   },
+//   // ]
+// }
 
 class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
