@@ -1070,13 +1070,16 @@ class DisplaceImg extends Sketch { // scene 11. maped
 
 class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
-  constructor(num) {
+  constructor(img) {
     super();
+    this.params = {
+      faders: {
+        xOff: 0,
+        yOff: 0,
+      }
+    }
     this.opacity = 1;
     this.sceneNum = 13;
-    this.xOff = 0;
-    this.yOff = 0;
-    this.feedbackNum = num;
   }
 
   init(index) {
@@ -1095,8 +1098,8 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.graph);
-    this.shader.setUniform('u_xOff', this.xOff);
-    this.shader.setUniform('u_yOff', this.yOff);
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
@@ -1104,19 +1107,22 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
   unload() {
     super.unload();
+    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
   listeners = [
     {
-      socketName: `xOff/${this.feedbackNum}`,
+      socketName: "stopSpeed",
       socketMethod: (val) => {
-        this.xOff = val;
+        this.params.faders.speed = 0;
+        this.updateOsc();
       }
     },
     {
-      socketName: `yOff/${this.feedbackNum}`,
+      socketName: "stopFreq",
       socketMethod: (val) => {
-        this.yOff = val;
+        this.params.faders.freq = 0;
+        this.updateOsc();
       }
     },
   ]
