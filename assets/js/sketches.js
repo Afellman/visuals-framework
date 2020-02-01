@@ -1133,7 +1133,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
   ]
 }
 
-class MirrorShader extends Sketch { // Scene 14. Maped. Needs work.
+class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
   constructor(img) {
     super();
@@ -1295,34 +1295,35 @@ class Ripples extends Sketch {
   }
 }
 
-class Mirror extends Sketch {
-  constructor(isVertical, isHorizonal) {
-    super();
-    this.isVertical = isVertical || false;
-    this.isHorizonal = isHorizonal || true;
-    this.opacity = 0;
-  }
-  init() {
-    super.init();
-  }
-  draw() {
-    if (this.isHorizonal) {
-      push()
-      translate(width, 0)
-      scale(-1, 1);
-      image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
-      pop()
-    }
-    if (this.isVertical) {
-      push()
-      translate(0, height)
-      scale(1, -1);
-      image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
-      pop()
-    }
-  }
-  listeners = [{}]
-}
+// DEPRECATED. Mirror effect is now in the shader.
+// class Mirror extends Sketch {
+//   constructor(isVertical, isHorizonal) {
+//     super();
+//     this.isVertical = isVertical || false;
+//     this.isHorizonal = isHorizonal || true;
+//     this.opacity = 0;
+//   }
+//   init() {
+//     super.init();
+//   }
+//   draw() {
+//     if (this.isHorizonal) {
+//       push()
+//       translate(width, 0)
+//       scale(-1, 1);
+//       image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
+//       pop()
+//     }
+//     if (this.isVertical) {
+//       push()
+//       translate(0, height)
+//       scale(1, -1);
+//       image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
+//       pop()
+//     }
+//   }
+//   listeners = [{}]
+// } 
 
 class SoundTest extends Sketch {
   constructor() {
