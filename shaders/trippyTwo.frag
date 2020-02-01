@@ -87,7 +87,7 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 
 void main() {
   vec2 uv = vTexCoord;
-  float pat = pattern(uv + u_waterTime) * u_offset; // Swirl pattern on image
+  float pat = pattern(uv + u_waterTime * 2.0) * u_offset; // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex += (colorSwirl(tex, uv) * u_colorAmount); // Adding background color movement
