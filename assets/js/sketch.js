@@ -687,7 +687,6 @@ function loadShaders(cb) {
     loadShader(
       "./shaders/texture.vert",
       "./shaders/movingLines.frag"),
-
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
