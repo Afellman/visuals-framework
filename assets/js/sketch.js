@@ -235,7 +235,6 @@ const controlScene = {
       } else {
         unloadScene(this.scene.id);
         this.scene = {};
-
       }
     },
     opacity: function (val) {
