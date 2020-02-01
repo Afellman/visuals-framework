@@ -229,7 +229,7 @@ const controlScene = {
     isActive: false,
     scenes: [],
     toggle: function (val) {
-      if (this.scenes[val]) {
+      if (!this.scenes[val]) {
         this.scenes.push(new Feedback(val));
         loadScene(this.scenes[val]);
       } else {
