@@ -1111,10 +1111,11 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
   }
 
   updateOsc() {
-    super();
+    super.updateOsc();
     // Syncs iPad with scenes starting values
     socket.emit("updateOsc", {
       scene: this.sceneNum,
+      isXY: true
       params: { xy: [this.params.faders.yOff, this.params.faders.yOff] }
     });
   }
