@@ -229,12 +229,12 @@ const controlScene = {
     isActive: false,
     scenes: [],
     toggle: function (val) {
-      if (!this.scenes[val]) {
-        this.scenes.push(new Feedback(val));
-        loadScene(this.scenes[val]);
+      if (!this.scenes[val.args[0]]) {
+        this.scenes.push(new Feedback(val.args[0]));
+        loadScene(this.scenes[val.args[0]]);
       } else {
-        unloadScene(this.scenes[val].id);
-        this.scenes.splice(val, 1)
+        unloadScene(this.scenes[val.args[0]].id);
+        this.scenes.splice(val.args[0], 1)
       }
     },
     opacity: function (val) {
