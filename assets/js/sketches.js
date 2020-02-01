@@ -1113,7 +1113,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
         speed: 0
       }
     }
-    this.opacity = 0;
+    this.opacity = 1;
     this.sceneNum = 13;
   }
 
@@ -1135,13 +1135,9 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.shader.setUniform("tex0", this.graph);
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
-
-
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.time += this.params.faders.speed
-    this.freq += this.params.faders.freq;
   }
 
   unload() {
