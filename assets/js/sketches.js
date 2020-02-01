@@ -1070,12 +1070,13 @@ class DisplaceImg extends Sketch { // scene 11. maped
 
 class Feedback extends Sketch { // Scene 13. Maped. Needs work.
 
-  constructor(img) {
+  constructor(num) {
     super();
     this.opacity = 1;
     this.sceneNum = 13;
     this.xOff = 0;
     this.yOff = 0;
+    this.feedbackNum = num
   }
 
   init(index) {
@@ -1115,7 +1116,7 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     {
       socketName: `yOff/${this.feedbackNum}`,
       socketMethod: (val) => {
-        this.xOff = val;
+        this.yOff = val;
       }
     },
   ]
