@@ -1783,7 +1783,7 @@ class Diffusion extends Sketch {
     swap();
   }
 
-  laplaceA() {
+  laplaceA(x, y) {
     var sumA = 0;
     sumA += this.grid[x][y].a * -1;
     sumA += this.grid[x - 1][y].a * 0.2;
