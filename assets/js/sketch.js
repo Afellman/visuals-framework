@@ -497,7 +497,6 @@ const genericMidi = {
     scene: {},
     method: function (vel, cmd) {
       if (cmd == 180) {
-        // this.scene.opacity = midiToNormal(vel);
         glBackground[3] = map(vel, 0, 127, 0, 1);
       }
     }
@@ -516,7 +515,7 @@ const genericMidi = {
           this.isActive = true;
         }
       } else if (cmd == 180) {
-        glBackground[3] = map(vel, 0, 127, 0, 1);
+        this.scene.opacity = midiToNormal(vel);
       }
     }
   },
@@ -676,7 +675,6 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
     loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/feedback.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
   ])
     .then(res => cb(res))
