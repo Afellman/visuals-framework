@@ -7,7 +7,8 @@ varying vec2 vTexCoord;
 // our texture coming from p5
 uniform sampler2D tex0;
 uniform float u_opacity;
-
+uniform float u_xOff;
+uniform float u_yOff;
 
 void main() {
 
@@ -20,6 +21,7 @@ void main() {
   // abs() will turn our negative numbers positive
   vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
   
+  mirrorUvs = vec2((uv.x + u_xOff),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
   vec4 tex = texture2D(tex0, mirrorUvs);
 
 
