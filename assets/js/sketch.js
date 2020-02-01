@@ -229,11 +229,13 @@ const controlScene = {
     isActive: false,
     scenes: [],
     toggle: function (val) {
-      this.scenes[val]
-      this.scenes.push(new Feedback(this.scenes.length));
-      loadScene(this.scenes[this.scenes.length - 1]);
-      unloadScene(this.scenes[this.scenes.length - 1].id);
-      this.scenes.pop();
+      if (this.scenes[val]) {
+        this.scenes.push(new Feedback(val));
+        loadScene(this.scenes[val]);
+      } else {
+        unloadScene(this.scenes[val].id);
+        this.scenes.splice(val, 1)
+      }
     },
     opacity: function (val) {
       this.scene.opacity = val.args[0];
