@@ -55,8 +55,8 @@ float noise (in vec2 st) {
 float fbm (in vec2 st) {
     // Initial values
     float value = 0.0;
-    float amplitude = u_fbmAmp;
-    float frequency = 0.;
+    float amplitude = 0.5;
+    float frequency = u_fbmAmp;
     //
     // Loop of octaves
     for (int i = 0; i < OCTAVES; i++) {
