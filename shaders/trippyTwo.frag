@@ -50,7 +50,7 @@ float noise (in vec2 st) {
             (d - b) * u.x * u.y;
 }
 
-#define OCTAVES 2
+#define OCTAVES 8
 float fbm (in vec2 st) {
     // Initial values
     float value = 0.0;
