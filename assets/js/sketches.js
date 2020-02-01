@@ -1124,7 +1124,6 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.loops = 4;
     this.cray = 0.0;
     this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
-    this.shaderPath = "./shaders/movingLines.frag";
     this.graph = createGraphics(width, height);
   }
 
@@ -1134,10 +1133,8 @@ class Feedback extends Sketch { // Scene 13. Maped. Needs work.
     this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.graph);
-    // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
-    this.shader.setUniform('u_time', this.time);
 
 
     this.shaderBox.shader(this.shader);
