@@ -21,7 +21,7 @@ void main() {
   // vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
   
   uv.x = abs(uv.x * 2.0  - 1.0);
-  vec4 tex = texture2D(tex0, mirrorUvs);
+  vec4 tex = texture2D(tex0, uv);
 
 
   // output to screen
