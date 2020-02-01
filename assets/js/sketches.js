@@ -865,16 +865,16 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 
   listeners = [
     {
-      socketName: "stopSpeed",
+      socketName: "centerX",
       socketMethod: (val) => {
         this.params.faders.speed = 0;
         this.updateOsc();
       }
     },
     {
-      socketName: "stopFreq",
+      socketName: "centerY",
       socketMethod: (val) => {
-        this.params.faders.freq = 0;
+        this.params.faders.yOff = 0;
         this.updateOsc();
       }
     },
@@ -1149,7 +1149,7 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   init(index) {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
     this.graph = createGraphics(width, height);
   }
 
