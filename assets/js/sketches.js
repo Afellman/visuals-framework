@@ -1780,7 +1780,7 @@ class Diffusion extends Sketch {
     }
     updatePixels();
 
-    swap();
+    this.swap();
   }
 
   laplaceA(x, y) {
