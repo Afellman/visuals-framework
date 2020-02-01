@@ -12,6 +12,7 @@ uniform float u_waterTime;
 uniform float u_opacity;
 uniform float u_offset;
 uniform float u_colorAmount;
+uniform float u_fbmAmp;
 
 
 vec3 colorize(vec4 tex){
@@ -54,7 +55,7 @@ float noise (in vec2 st) {
 float fbm (in vec2 st) {
     // Initial values
     float value = 0.0;
-    float amplitude = .5;
+    float amplitude = u_fbmAmp;
     float frequency = 0.;
     //
     // Loop of octaves
