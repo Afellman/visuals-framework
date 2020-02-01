@@ -5,7 +5,7 @@ const simpleGit = require("simple-git")("./");
 const fs = require('fs');
 const port = 3000;
 const app = express();
-const remoteIP = "192.168.1.12";
+const remoteIP = "192.168.1.3";
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 let debug = true;
@@ -103,7 +103,7 @@ function registerIncoming() {
   glClient.on("updateOsc", (val) => {
     for (let i in val.params) {
       console.log(val, "foo");
-      udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
+      udpPort.send({ address: `/${val.scene}/${i}`, args: [{ value: val.params[i] }] }, remoteIP, 9000)
     }
   });
 
