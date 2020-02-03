@@ -12,7 +12,7 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
 
-  float color = (distance(uv.x, 0.5) <= 0.01) ? 1.0 : 0.;
+  float color = (distance(uv.x, 0.5) <= 0.001) ? 1.0 : 0.;
   vec4 vecx = vec4(color, color,color ,1.0);
   // output to screen
     gl_FragColor = vecx;
