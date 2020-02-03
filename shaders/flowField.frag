@@ -5,10 +5,6 @@ varying vec2 vTexCoord;
 
 
 // our texture coming from p5
-uniform sampler2D tex0;
-uniform float u_opacity;
-uniform float u_xOff;
-uniform float u_yOff;
 
 void main() {
 
