@@ -1924,7 +1924,7 @@ const Objects = {
     }
 
     show() {
-      stroke(255, this.hue % 25);
+      stroke(4);
       this.hue++;
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
