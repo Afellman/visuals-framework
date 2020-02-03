@@ -1717,7 +1717,7 @@ class FlowField extends Sketch {
     this.particles = [];
     this.inc = 0.1;
     this.zinc = 0.0003;
-    this.scale = 100;
+    this.scale = 20;
     this.cols;
     this.rows;
     this.zoff = 0;
@@ -1924,7 +1924,7 @@ const Objects = {
     }
 
     show() {
-      stroke(255, 3);
+      stroke(255, 2);
       this.hue++;
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
