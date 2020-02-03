@@ -13,7 +13,7 @@ void main() {
   uv = 1.0 - uv;
 
   float color = (distance(uv.x, 0.5) <= 0.1) ? 1. : 0.;
-  vec4 vecx = vec4(1.0, 1.0,1.0 ,1.0)
+  vec4 vecx = vec4(color, color,color ,1.0);
   // output to screen
     gl_FragColor = vecx;
 }
