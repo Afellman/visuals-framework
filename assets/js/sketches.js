@@ -1928,7 +1928,7 @@ const Objects = {
       this.hue++;
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-
+      this.updatePrev();
     }
 
     updatePrev() {
