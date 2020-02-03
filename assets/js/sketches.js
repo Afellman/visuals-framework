@@ -1711,6 +1711,64 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
+class FlowField extends Sketch {
+  constructor() {
+    super();
+    this.particles = [];
+    this.inc = 0.1;
+    this.zinc = 0.003;
+    this.scale = 10;
+    this.cols;
+    this.rows;
+    this.zoff = 0;
+    this.flowField = [];
+    this.particleAmt = 500;
+  }
+
+  init() {
+    this.cols = floor(width / this.scale);
+    this.rows = floor(height / this.scale);
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i] = new Objects.Particle(this.scale, this.cols);
+    }
+
+    this.flowField = new Array(this.cols * this.rows);
+  }
+
+  draw() {
+    let yoff = 0;
+    for (let y = 0; y < this.rows; y++) {
+      for (let x = 0; x < this.cols; x++) {
+        let xoff = 0;
+        let index = x + y * this.cols;
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let v = p5.Vector.fromAngle(angle);
+
+        v.setMag(1);
+        this.flowField[index] = v;
+        xoff += this.inc;
+        stroke(0, 50);
+      }
+      yoff += this.inc;
+      this.zoff += this.zinc;
+    }
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i].follow(this.flowField);
+      this.particles[i].update();
+      this.particles[i].edges();
+      this.particles[i].show();
+    }
+  }
+
+  listeners = [
+    {
+
+    }
+  ]
+}
+
 const Objects = {
   /**
    * @class Point
@@ -1830,6 +1888,73 @@ const Objects = {
     }
   },
 
+  Particle: class {
+    constructor(scale, cols) {
+      this.pos = createVector(Math.random() * width, Math.random() * height);
+      this.vel = createVector(0, 0);
+      this.acc = createVector(0, 0);
+      this.maxspeed = 4;
+      this.scale = scale;
+      this.hue = 0;
+
+      this.cols = cols;
+      this.prevPos = this.pos.copy();
+
+    }
+
+    update() {
+      this.vel.add(this.acc);
+      this.vel.limit(this.maxspeed);
+      this.pos.add(this.vel);
+      this.acc.mult(0);
+    }
+
+    follow(vectors) {
+      let x = floor(this.pos.x / this.scale);
+      let y = floor(this.pos.y / this.scale);
+      let index = x + y * this.cols;
+
+      let force = vectors[index];
+      this.applyForce(force);
+
+    }
+
+    applyForce(force) {
+      this.acc.add(force);
+    }
+
+    show() {
+      stroke(this.hue % 255, 255, 255, 25);
+      this.hue++;
+      strokeWeight(1);
+      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+
+    }
+
+    updatePrev() {
+      this.prevPos.x = this.pos.x;
+      this.prevPos.y = this.pos.y;
+    };
+
+    edges() {
+      if (this.pos.x > width) {
+        this.pos.x = 0;
+        this.updatePrev();
+      }
+      if (this.pos.x < 0) {
+        this.pos.x = width;
+        this.updatePrev();
+      }
+      if (this.pos.y > height) {
+        this.pos.y = 0;
+        this.updatePrev();
+      }
+      if (this.pos.y < 0) {
+        this.pos.y = height;
+        this.updatePrev();
+      }
+    }
+  }
 
 }
 
