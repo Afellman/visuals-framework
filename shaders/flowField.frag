@@ -5,6 +5,10 @@ varying vec2 vTexCoord;
 
 
 // our texture coming from p5
+uniform sampler2D tex0;
+uniform float u_opacity;
+uniform float u_xOff;
+uniform float u_yOff;
 
 void main() {
 
@@ -12,8 +16,15 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
 
-  float color = (distance(uv.x, 0.5) <= 0.1) ? 1. : 0.;
-  vec4 vecx = vec4(color, color,color ,1.0)
+  // this line will make our uvs mirrored
+  // it will convert it into a number that goes 0 to 1 to 0
+  // abs() will turn our negative numbers positive
+  uv = vec2((uv.x + u_xOff),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
+  vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
+  
+  vec4 tex = texture2D(tex0, mirrorUvs);
+
   // output to screen
-    gl_FragColor = vecx;
+    gl_FragColor = vec4(tex.rgb, u_opacity);
+
 }
