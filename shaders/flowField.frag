@@ -19,5 +19,5 @@ void main() {
   float color = distance(uv.x, 0.5) <= 0.0 ? 1. : 0.;
   vec4 vexc = vec4(color, color,color ,1.0)
   // output to screen
-    gl_FragColor = vecx;
+    gl_FragColor = vexc;
 }
