@@ -1725,14 +1725,7 @@ class FlowField extends Sketch {
     this.particleAmt = 500;
   }
 
-
   init() {
-    super.init();
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
-    this.graph = createGraphics(width, height);
-
-
     this.cols = floor(width / this.scale);
     this.rows = floor(height / this.scale);
 
@@ -1748,37 +1741,29 @@ class FlowField extends Sketch {
   }
 
   draw() {
+    let yoff = 0;
+    for (let y = 0; y < this.rows; y++) {
+      let xoff = 0;
+      for (let x = 0; x < this.cols; x++) {
+        let index = x + y * this.cols;
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let v = p5.Vector.fromAngle(angle);
 
-    noStroke();
-    this.graph.image(glCanvas, 0, 0)
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+        v.setMag(1);
+        this.flowField[index] = v;
+        xoff += this.inc;
+        stroke(0, 50);
+      }
+      yoff += this.inc;
+      this.zoff += this.zinc;
+    }
 
-
-    // let yoff = 0;
-    // for (let y = 0; y < this.rows; y++) {
-    //   let xoff = 0;
-    //   for (let x = 0; x < this.cols; x++) {
-    //     let index = x + y * this.cols;
-    //     let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
-    //     let v = p5.Vector.fromAngle(angle);
-
-    //     v.setMag(1);
-    //     this.flowField[index] = v;
-    //     xoff += this.inc;
-    //     stroke(0, 50);
-    //   }
-    //   yoff += this.inc;
-    //   this.zoff += this.zinc;
-    // }
-
-    // for (let i = 0; i < this.particleAmt; i++) {
-    //   this.particles[i].follow(this.flowField);
-    //   this.particles[i].update();
-    //   this.particles[i].edges();
-    //   this.particles[i].show();
-    // }
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i].follow(this.flowField);
+      this.particles[i].update();
+      this.particles[i].edges();
+      this.particles[i].show();
+    }
   }
 
   listeners = [
