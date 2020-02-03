@@ -1732,6 +1732,10 @@ class FlowField extends Sketch {
     for (let i = 0; i < this.particleAmt; i++) {
       this.particles[i] = new Objects.Particle(this.scale, this.cols);
     }
+    setTimeout(() => {
+      glBackground[3] = 0;
+
+    }, 1000)
 
     this.flowField = new Array(this.cols * this.rows);
   }
