@@ -16,10 +16,9 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
+
 const midiSubscribers = {
 }
-
-
 
 const controlScene = {
   "1": {
@@ -271,6 +270,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
+  loadScene(new FlowField()) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -657,10 +657,10 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/termines.jpeg"),
     loadImage("./assets/images/austrailia/trees.jpeg"),
     loadImage("./assets/images/austrailia/uluru.jpeg"),
-    loadImage("./assets/images/austrailia/eucalyptus.jpg"),
+    // loadImage("./assets/images/austrailia/eucalyptus.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
-    loadImage("./assets/images/bricks.jpg"),
+    // loadImage("./assets/images/bricks.jpg"),
 
   ])
     .then(res => cb(res))
