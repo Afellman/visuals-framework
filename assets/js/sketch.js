@@ -23,7 +23,7 @@ let midi177 = (function() {
     ret.push(0);
   }
   return ret;
-});
+})();
 let midi178 = (function() {
   let ret = [];
   for(let i = 0; i < 96; i ++){
