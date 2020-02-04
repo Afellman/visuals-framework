@@ -24,7 +24,7 @@ let midi177 = (function() {
   }
   return ret;
 });
-let midi177 = (function() {
+let midi178 = (function() {
   let ret = [];
   for(let i = 0; i < 96; i ++){
     ret.push(0);
