@@ -512,6 +512,8 @@ function getMIDIMessage(midiMessage) {
     } else if(midi177[note] <= 0){
       velocity --
       midi177[note] = velocity
+    } else {
+      midi177[note] = velocity
     }
   }
   console.log(velocity,  midi177[note])
