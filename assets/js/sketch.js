@@ -20,8 +20,16 @@ let debug = false;
 let midi177 = (function() {
   let ret = [];
   for(let i = 0; i < 96; i ++){
-    ret.push(0)
+    ret.push(0);
   }
+  return ret;
+});
+let midi177 = (function() {
+  let ret = [];
+  for(let i = 0; i < 96; i ++){
+    ret.push(0);
+  }
+  return ret;
 });
 const midiSubscribers = {
 }
