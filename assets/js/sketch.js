@@ -17,6 +17,7 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
+let midiNotes = []
 const midiSubscribers = {
 }
 
@@ -488,9 +489,10 @@ function getMIDIMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
-  if (command !== 132) {
-    genericMidi[note].method(velocity, command);
-  }
+  // if (command !== 132) {
+  //   genericMidi[note].method(velocity, command);
+  // }
+  midiNotes[note] = {vel, cmd}
 }
 
 const genericMidi = {
