@@ -30,7 +30,7 @@ let midi178 = (function() {
     ret.push(0);
   }
   return ret;
-});
+})();
 const midiSubscribers = {
 }
 
@@ -506,10 +506,15 @@ function getMIDIMessage(midiMessage) {
   //   genericMidi[note].method(velocity, command);
   // }
   if(command == 177){
-    midi177[note] = midi177[note] < velocity ? midi177[note] + 1 : midi177[note]-1;
-    console.log(midi177[note])
-
+    if(midi177[note] >= 127){
+      velocity++;
+      midi177[note] = velocity
+    } else if(midi177[note] <= 0){
+      velocity --
+      midi177[note] = velocity
+    }
   }
+  console.log(velocity)
 }
 
 const genericMidi = {
