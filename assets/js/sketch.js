@@ -507,13 +507,13 @@ function getMIDIMessage(midiMessage) {
   // }
   if(command == 177){
     if(midi177[note] >= 127){
-      velocity++;
       midi177[note] ++;
     } else if(midi177[note] <= 0){
       velocity --
       midi177[note] --
     }
-    midi177[note] = velocity;
+    velocity = midi177[note]
+
   }
   console.log(velocity,  midi177[note])
 }
