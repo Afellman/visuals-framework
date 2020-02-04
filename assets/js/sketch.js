@@ -17,7 +17,12 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
-let midiNotes = []
+let midi177 = (function() {
+  let ret = [];
+  for(let i = 0; i < 96; i ++){
+    ret.push(0)
+  }
+});
 const midiSubscribers = {
 }
 
