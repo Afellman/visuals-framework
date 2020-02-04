@@ -514,7 +514,7 @@ function getMIDIMessage(midiMessage) {
       midi177[note] = velocity
     }
   }
-  console.log(velocity)
+  console.log(velocity,  midi177[note])
 }
 
 const genericMidi = {
