@@ -677,7 +677,6 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
     loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
