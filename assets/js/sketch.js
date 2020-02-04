@@ -509,7 +509,6 @@ function getMIDIMessage(midiMessage) {
     if(midi177[note] >= 127){
       midi177[note] ++;
     } else if(midi177[note] <= 0){
-      velocity --
       midi177[note] --
     }
     velocity = midi177[note]
