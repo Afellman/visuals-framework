@@ -506,10 +506,10 @@ function getMIDIMessage(midiMessage) {
   //   genericMidi[note].method(velocity, command);
   // }
   if(command == 177){
-    if(midi177[note] >= 127){
+    if(velocity >= 127){
       midi177[note] ++;
-    } else if(midi177[note] <= 0){
-      midi177[note] --
+    } else if(midi177[note] < 0){
+      velocity[note] --
     }
     velocity = midi177[note]
 
