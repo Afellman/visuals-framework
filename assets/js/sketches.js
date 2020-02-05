@@ -602,7 +602,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.branch(len * this.params.faders.divider, i);
       pop();
       push();
-      rotate(this.params.faders.angle);
+      rotate(this.params.faders.angle / 4);
       this.branch(len * this.params.faders.divider, i);
       pop();
       push();
