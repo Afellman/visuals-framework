@@ -598,7 +598,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     translate(0, -len);
     if (len > 4) {
       push();
-      rotate(this.params.faders.angle);
+      rotate(this.params.faders.angle / 2);
       this.branch(len * this.params.faders.divider, i);
       pop();
       push();
