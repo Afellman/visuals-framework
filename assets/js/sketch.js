@@ -17,16 +17,16 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
-let midi177 = (function() {
+let midi177 = (function () {
   let ret = [];
-  for(let i = 0; i < 96; i ++){
+  for (let i = 0; i < 96; i++) {
     ret.push(0);
   }
   return ret;
 })();
-let midi178 = (function() {
+let midi178 = (function () {
   let ret = [];
-  for(let i = 0; i < 96; i ++){
+  for (let i = 0; i < 96; i++) {
     ret.push(0);
   }
   return ret;
@@ -284,7 +284,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
-  loadScene(new FlowField()) // For background.
+  loadScene(new Geometry()) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -516,7 +516,7 @@ function getMIDIMessage(midiMessage) {
     velocity = midi177[note];
 
   }
-  console.log(velocity,  midi177[note])
+  console.log(velocity, midi177[note])
 }
 
 const genericMidi = {

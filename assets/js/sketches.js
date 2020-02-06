@@ -566,7 +566,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.params = {
         faders: {
           angle: 1.2666,
-          divider: 0.65,
+          divider: 0.30,
           length: 220,
           movement: 0,
         }
@@ -575,7 +575,8 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement = 0.001
     this.sceneNum = 5;
     this.startingAngle = this.angle;
-    this.opacity = 0;
+    // this.opacity = 0;
+    this.opacity = 255;
   }
   init() {
     super.init();
