@@ -566,7 +566,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.params = {
         faders: {
           angle: 1.2666,
-          divider: 0.30,
+          divider: 0.65,
           length: 220,
           movement: 0,
         }
