@@ -1275,7 +1275,7 @@ class Gridz extends Sketch {
         pop();
       }
     }
-    this.time+= 0.003
+    this.time+= 0.03
   }
  
   listeners = [{}]
