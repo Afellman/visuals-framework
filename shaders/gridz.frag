@@ -1,3 +1,4 @@
+#define MAX_POINTS  
 precision mediump float;
 
 // lets grab texcoords from the vertex shader
@@ -5,7 +6,9 @@ varying vec2 vTexCoord;
 
 
 // our texture coming from p5
-uniform vec2 points;
+uniform float u_scale;
+uniform float u_rows;
+uniform float u_cols;
 
 void main() {
 
