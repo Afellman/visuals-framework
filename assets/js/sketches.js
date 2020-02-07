@@ -1266,8 +1266,9 @@ class Gridz extends Sketch {
         let yPos = y * this.scale;
         let yPos2 = (this.cols - y) * this.scale;
 
+        // translate(xPos, yPos)
         line(xPos - this.scale, yPos - this.scale, xPos + this.scale, yPos  + this.scale)
-        line(xPos2 - this.scale, yPos2 + this.scale, xPos2 + this.scale, yPos2  - this.scale)
+        line(xPos - this.scale, yPos2 + this.scale, xPos + this.scale, yPos2  - this.scale)
       }
     }
   }
