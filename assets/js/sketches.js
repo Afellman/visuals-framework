@@ -1251,6 +1251,7 @@ class Gridz extends Sketch {
     this.rows = Math.floor(width / this.scale);
     this.cols = Math.floor(height / this.scale);
     this.angle = 0;
+    this.time = 0;
   }
  
   init() {
@@ -1281,7 +1282,7 @@ class Gridz extends Sketch {
         pop();
       }
     }
-    this.time+= 0.001
+    this.time+= 0.01
   }
  
   listeners = [{}]
