@@ -1247,7 +1247,7 @@ class FlowField extends Sketch {
 class Gridz extends Sketch {
   constructor() {
     super();
-    this.scale = 50;
+    this.scale = 100;
     this.rows = Math.floor(width / this.scale);
     this.cols = Math.floor(height / this.scale);
     this.angle = 0;
@@ -1265,7 +1265,6 @@ class Gridz extends Sketch {
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 200;
-        strokeWeight((hue / 200) * 3)
         stroke(hue);
         push()
         translate(xPos, yPos)
