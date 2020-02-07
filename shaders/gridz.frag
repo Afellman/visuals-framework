@@ -18,6 +18,6 @@ void main() {
   float r = mod(uv.x, u_intervalX * sin(u_time)) + mod(uv.y, u_intervalY * cos(u_time));
 
   // output to screen
-    gl_FragColor = vec4(r,0.0,0.0,1.0);
+    gl_FragColor = vec4(r,r,r,1.0);
 
 }
