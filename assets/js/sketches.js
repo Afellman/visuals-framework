@@ -1244,6 +1244,22 @@ class FlowField extends Sketch {
   ]
 }
 
+class Gridz extends Sketch {
+  constructor() {
+    super();
+  }
+ 
+  init() {
+    super.init()
+  }
+ 
+  draw() {
+    
+  }
+ 
+  listeners = [{}]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
