@@ -1256,7 +1256,6 @@ class Gridz extends Sketch {
  
   init() {
     super.init();
-    glBackground  = [0.9,0.9,0.9, 1.0]
   }
  
   draw() {
@@ -1276,7 +1275,7 @@ class Gridz extends Sketch {
         pop();
       }
     }
-    this.time+= 0.03
+    this.time+= 0.003
   }
  
   listeners = [{}]
