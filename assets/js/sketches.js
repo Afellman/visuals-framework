@@ -1259,12 +1259,13 @@ class Gridz extends Sketch {
   }
  
   draw() {
-    stroke(255);
+ 
     for(let x = 0; x < this.rows; x ++){
       let xPos = x * this.scale;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
-        let hue = noise(x, y, this.time);
+        let hue = noise(x, y, this.time) * 255;
+        stroke(hue);
         push()
         translate(xPos, yPos)
         rotate(this.angle)
@@ -1280,6 +1281,7 @@ class Gridz extends Sketch {
         pop();
       }
     }
+    this.time+= 0.001
   }
  
   listeners = [{}]
