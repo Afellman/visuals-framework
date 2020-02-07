@@ -1247,13 +1247,11 @@ class FlowField extends Sketch {
 class Gridz extends Sketch {
   constructor() {
     super();
-    this.scale = 300;
+    this.scale = 100;
     this.rows = Math.ceil(width / this.scale);
-    this.cols = Math.ceil(height / this.scale);
+    this.cols = Math.floor(height / this.scale);
     this.angle = 0;
     this.time = 0;
-    this.xInterval = this.scale / width;
-    this.yInterval =  this.scale / height;
   }
  
   init() {
@@ -1266,7 +1264,7 @@ class Gridz extends Sketch {
   draw() {
   
     for(let x = 0; x < this.rows; x ++){
-      let xPos = x * this.xInterval * this.scale;
+      let xPos = x * this.scale;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 150;
@@ -1277,22 +1275,16 @@ class Gridz extends Sketch {
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
         line(0, 0 + this.scale, 0, 0  - this.scale)
         pop();
-        push()
-        translate(width - xPos, height - yPos)
-        line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
-        line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
-        line(0, 0 + this.scale, 0, 0  - this.scale)
-        pop()
       }
     }
 
-    // this.graph.image(glCanvas, 0, 0)
-    // this.shader.setUniform("u_intervalX", this.xInterval);
-    // this.shader.setUniform("u_intervalY",  this.scale / height);
-    // this.shaderBox.shader(this.shader);
-    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    // this.shaderBox.rect(0, 0, width, height);
-    this.time+= 0.01
+    this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_intervalX",  this.scale / width);
+    this.shader.setUniform("u_intervalY",  this.scale / height);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+    this.time+= 0.03
   }
  
   listeners = [{}]
