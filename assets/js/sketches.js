@@ -1269,15 +1269,8 @@ class Gridz extends Sketch {
         stroke(hue);
         push()
         translate(xPos, yPos)
-        rotate(this.angle)
         line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
-        pop();
-        push();
-        translate(xPos, yPos)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
-        pop();
-        push();
-        translate(xPos, yPos)
         line(0, 0 + this.scale, 0, 0  - this.scale)
         pop();
       }
