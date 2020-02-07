@@ -1256,6 +1256,9 @@ class Gridz extends Sketch {
  
   init() {
     super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
+    this.graph = createGraphics(width, height);
   }
  
   draw() {
@@ -1274,6 +1277,15 @@ class Gridz extends Sketch {
         pop();
       }
     }
+
+    this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.graph);
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
     this.time+= 0.03
   }
  
