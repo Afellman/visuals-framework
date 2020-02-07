@@ -1182,6 +1182,68 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   ]
 }
 
+class FlowField extends Sketch {
+  constructor() {
+    super();
+    this.particles = [];
+    this.inc = 0.1;
+    this.zinc = 0.0003;
+    this.scale = 20;
+    this.cols;
+    this.rows;
+    this.zoff = 0;
+    this.flowField = [];
+    this.particleAmt = 500;
+  }
+
+  init() {
+    this.cols = floor(width / this.scale);
+    this.rows = floor(height / this.scale);
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i] = new Objects.Particle(this.scale, this.cols);
+    }
+    setTimeout(() => {
+      glBackground[3] = 0;
+
+    }, 1000)
+
+    this.flowField = new Array(this.cols * this.rows);
+  }
+
+  draw() {
+    let yoff = 0;
+    for (let y = 0; y < this.rows; y++) {
+      let xoff = 0;
+      for (let x = 0; x < this.cols; x++) {
+        let index = x + y * this.cols;
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let v = p5.Vector.fromAngle(angle);
+
+        v.setMag(1);
+        this.flowField[index] = v;
+        xoff += this.inc;
+        stroke(0, 50);
+      }
+      yoff += this.inc;
+      this.zoff += this.zinc;
+    }
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i].follow(this.flowField);
+      this.particles[i].update();
+      this.particles[i].edges();
+      this.particles[i].show();
+    }
+  }
+
+  listeners = [
+    {
+
+    }
+  ]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
@@ -1712,67 +1774,6 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
-class FlowField extends Sketch {
-  constructor() {
-    super();
-    this.particles = [];
-    this.inc = 0.1;
-    this.zinc = 0.0003;
-    this.scale = 20;
-    this.cols;
-    this.rows;
-    this.zoff = 0;
-    this.flowField = [];
-    this.particleAmt = 500;
-  }
-
-  init() {
-    this.cols = floor(width / this.scale);
-    this.rows = floor(height / this.scale);
-
-    for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i] = new Objects.Particle(this.scale, this.cols);
-    }
-    setTimeout(() => {
-      glBackground[3] = 0;
-
-    }, 1000)
-
-    this.flowField = new Array(this.cols * this.rows);
-  }
-
-  draw() {
-    let yoff = 0;
-    for (let y = 0; y < this.rows; y++) {
-      let xoff = 0;
-      for (let x = 0; x < this.cols; x++) {
-        let index = x + y * this.cols;
-        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
-        let v = p5.Vector.fromAngle(angle);
-
-        v.setMag(1);
-        this.flowField[index] = v;
-        xoff += this.inc;
-        stroke(0, 50);
-      }
-      yoff += this.inc;
-      this.zoff += this.zinc;
-    }
-
-    for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i].follow(this.flowField);
-      this.particles[i].update();
-      this.particles[i].edges();
-      this.particles[i].show();
-    }
-  }
-
-  listeners = [
-    {
-
-    }
-  ]
-}
 
 const Objects = {
   /**
