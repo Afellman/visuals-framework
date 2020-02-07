@@ -1278,10 +1278,11 @@ class Gridz extends Sketch {
         line(0, 0 + this.scale, 0, 0  - this.scale)
         pop();
         push()
-        translate(width - xPos, heigth - yPos)
+        translate(width - xPos, height - yPos)
         line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
         line(0, 0 + this.scale, 0, 0  - this.scale)
+        pop()
       }
     }
 
@@ -1291,7 +1292,7 @@ class Gridz extends Sketch {
     // this.shaderBox.shader(this.shader);
     // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     // this.shaderBox.rect(0, 0, width, height);
-    this.time+= 0.03
+    this.time+= 0.003
   }
  
   listeners = [{}]
