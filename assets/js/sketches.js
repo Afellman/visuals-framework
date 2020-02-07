@@ -1248,8 +1248,8 @@ class Gridz extends Sketch {
   constructor() {
     super();
     this.scale = 100;
-    this.rows = width / this.scale;
-    this.cols = height / this.scale
+    this.rows = Math.ceil(width / this.scale);
+    this.cols = Math.ceil(height / this.scale);
     this.angle = 0;
     this.time = 0;
     this.xInterval = this.scale / width;
@@ -1266,10 +1266,9 @@ class Gridz extends Sketch {
   draw() {
   
     for(let x = 0; x < this.rows; x ++){
-      let xPos = x * this.xInterval * this.scale * this.rows;
+      let xPos = x * this.xInterval * this.scale;
       for(let y = 0; y < this.cols; y ++) {
-        let yPos = y * this.yInterval * this.scale * this.cols;
-        // let yPos = y * this.scale;
+        let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 150;
         stroke(hue);
         push()
@@ -1281,12 +1280,12 @@ class Gridz extends Sketch {
       }
     }
 
-    this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_intervalX", this.xInterval);
-    this.shader.setUniform("u_intervalY",  this.scale / height);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+    // this.graph.image(glCanvas, 0, 0)
+    // this.shader.setUniform("u_intervalX", this.xInterval);
+    // this.shader.setUniform("u_intervalY",  this.scale / height);
+    // this.shaderBox.shader(this.shader);
+    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    // this.shaderBox.rect(0, 0, width, height);
     this.time+= 0.03
   }
  
