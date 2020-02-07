@@ -1256,11 +1256,11 @@ class Gridz extends Sketch {
  
   init() {
     super.init();
-
+    glBackground  = [0.9,0.9,0.9, 1.0]
   }
  
   draw() {
- 
+  
     for(let x = 0; x < this.rows; x ++){
       let xPos = x * this.scale;
       for(let y = 0; y < this.cols; y ++) {
