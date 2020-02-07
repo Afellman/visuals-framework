@@ -1264,6 +1264,7 @@ class Gridz extends Sketch {
       let xPos = x * this.scale;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
+        let hue = noise(x, y, this.time);
         push()
         translate(xPos, yPos)
         rotate(this.angle)
