@@ -1273,6 +1273,10 @@ class Gridz extends Sketch {
         translate(xPos, yPos)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
         pop();
+        push();
+        translate(xPos, yPos)
+        line(0, 0 + this.scale, 0, 0  - this.scale)
+        pop();
       }
     }
   }
