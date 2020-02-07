@@ -1247,10 +1247,13 @@ class FlowField extends Sketch {
 class Gridz extends Sketch {
   constructor() {
     super();
+    this.scale = 20;
+    this.rows = Math.floor(width / scale);
   }
  
   init() {
-    super.init()
+    super.init();
+
   }
  
   draw() {
