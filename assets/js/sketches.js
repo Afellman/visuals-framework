@@ -1279,9 +1279,7 @@ class Gridz extends Sketch {
     }
 
     this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_scale",  )
-    this.shader.setUniform("u_rows", this.rows);
-    this.shader.setUniform("u_cols", this.cols);
+    this.shader.setUniform("u_intervalX",  width / this.scale)
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
