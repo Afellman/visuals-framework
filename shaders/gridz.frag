@@ -16,9 +16,9 @@ void main() {
   uv = 1.0 - uv;
 
   float r = 100. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
-  float g =100. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
+  float g = 100. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
 
   // output to screen
-    gl_FragColor = vec4(r,0.0,0.0,1.0);
+    gl_FragColor = vec4(r,g,0.0,1.0);
 
 }
