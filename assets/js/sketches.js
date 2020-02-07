@@ -1265,6 +1265,7 @@ class Gridz extends Sketch {
         let yPos = y * this.scale;
         push()
         translate(xPos, yPos)
+        rotate(this.angle)
         line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
         pop();
         push();
