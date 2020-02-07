@@ -1248,7 +1248,7 @@ class Gridz extends Sketch {
   constructor() {
     super();
     this.scale = 100;
-    this.rows = width / this.scale;
+    this.rows = Math.floor(width / this.scale);
     this.cols = Math.floor(height / this.scale);
     this.angle = 0;
     this.time = 0;
