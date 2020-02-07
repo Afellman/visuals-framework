@@ -1267,6 +1267,7 @@ class Gridz extends Sketch {
   
     for(let x = 0; x < this.rows; x ++){
       let xPos = x * this.xInterval * this.scale * this.rows;
+      let xPos = x * this.yInterval * this.scale * this.cols;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 150;
