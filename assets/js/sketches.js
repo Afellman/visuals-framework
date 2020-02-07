@@ -1275,18 +1275,16 @@ class Gridz extends Sketch {
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
         line(0, 0 + this.scale, 0, 0  - this.scale)
         pop();
-        
-    this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.graph);
-    this.shader.setUniform('u_xOff', this.params.faders.xOff);
-    this.shader.setUniform('u_yOff', this.params.faders.yOff);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
       }
     }
 
+    this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_scale", this.scale)
+    this.shader.setUniform("u_rows", this.rows);
+    this.shader.setUniform("u_cols", this.cols);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
     this.time+= 0.03
   }
  
