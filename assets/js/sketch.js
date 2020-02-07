@@ -506,14 +506,16 @@ function getMIDIMessage(midiMessage) {
   //   genericMidi[note].method(velocity, command);
   // }
   if(command == 177){
-    if(velocity >= 127){
-      midi177[note] ++;
-    } else if(velocity <= 0){
-      midi177[note] --
-    } else {
+    // if(velocity >= 127){
+    //   midi177[note] ++;
+    // } else if(velocity <= 0){
+    //   midi177[note] --
+    // } else {
        
-    }
-    velocity = midi177[note];
+    // }
+    // velocity = midi177[note];
+    
+    
 
   }
   console.log(velocity, midi177[note])
