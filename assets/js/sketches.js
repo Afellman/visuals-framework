@@ -1266,7 +1266,7 @@ class Gridz extends Sketch {
   draw() {
   
     for(let x = 0; x < this.rows; x ++){
-      let xPos = x *this.xInterval * this.scale;
+      let xPos = x * this.xInterval * this.scale;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 150;
@@ -1280,12 +1280,12 @@ class Gridz extends Sketch {
       }
     }
 
-    this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_intervalX", this.xInterval);
-    this.shader.setUniform("u_intervalY",  this.scale / height);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+    // this.graph.image(glCanvas, 0, 0)
+    // this.shader.setUniform("u_intervalX", this.xInterval);
+    // this.shader.setUniform("u_intervalY",  this.scale / height);
+    // this.shaderBox.shader(this.shader);
+    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    // this.shaderBox.rect(0, 0, width, height);
     this.time+= 0.03
   }
  
