@@ -15,7 +15,7 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
 
-  float r = 1 * mod(uv.x, u_intervalX) + mod(uv.y, u_intervalY);
+  float r = 2. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
   float g = mod(uv.x, u_intervalX) + mod(uv.y, u_intervalY);
 
   // output to screen
