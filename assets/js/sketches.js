@@ -1247,7 +1247,7 @@ class FlowField extends Sketch {
 class Gridz extends Sketch {
   constructor() {
     super();
-    this.scale = 20;
+    this.scale = 10;
     this.rows = Math.floor(width / this.scale);
     this.cols = Math.floor(height / this.scale);
   }
@@ -1263,7 +1263,7 @@ class Gridz extends Sketch {
       let xPos = x * this.scale;
       for(let y = 0; y < this.cols; y ++) {
         let yPos = y * this.scale;
-        line(xPos, yPos, 0 + 10, 0  + 10)
+        line(xPos, yPos, xPos + 10, yPos  + 10)
       }
     }
   }
