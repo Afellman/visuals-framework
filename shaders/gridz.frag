@@ -19,6 +19,6 @@ void main() {
   float g = 100. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
 
   // output to screen
-    gl_FragColor = vec4(r,g,0.0,0.5);
+    gl_FragColor = vec4(r,r,r,0.5);
 
 }
