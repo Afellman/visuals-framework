@@ -15,7 +15,7 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
 
-  float r = 150. * mod(uv.x, u_intervalX + 0.0006) * mod(uv.y, u_intervalY);
+  float r = 150. * mod(uv.x, u_intervalX) * mod(uv.y, u_intervalY);
 
   // output to screen
     gl_FragColor = vec4(r,r,r,0.3);
