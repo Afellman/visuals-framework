@@ -11,14 +11,11 @@ uniform float u_rows;
 uniform float u_cols;
 
 void main() {
-
   vec2 uv = vTexCoord;
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
 
-  // this line will make our uvs mirrored
-  // it will convert it into a number that goes 0 to 1 to 0
-  // abs() will turn our negative numbers positive
+  float r = uv.x % u_scale;
 
   // output to screen
     gl_FragColor = vec4(0.0,0.0,0.0,0.0);
