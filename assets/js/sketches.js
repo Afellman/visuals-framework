@@ -1247,7 +1247,7 @@ class FlowField extends Sketch {
 class Gridz extends Sketch {
   constructor() {
     super();
-    this.scale = 15;
+    this.scale = 50;
     this.rows = Math.floor(width / this.scale);
     this.cols = Math.floor(height / this.scale);
   }
