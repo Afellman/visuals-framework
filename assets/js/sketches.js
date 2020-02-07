@@ -1278,12 +1278,12 @@ class Gridz extends Sketch {
       }
     }
 
-    this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_intervalX",  this.scale / width);
-    this.shader.setUniform("u_intervalY",  this.scale / height);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
+    // this.graph.image(glCanvas, 0, 0)
+    // this.shader.setUniform("u_intervalX",  this.scale / width);
+    // this.shader.setUniform("u_intervalY",  this.scale / height);
+    // this.shaderBox.shader(this.shader);
+    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    // this.shaderBox.rect(0, 0, width, height);
     this.time+= 0.01
   }
  
