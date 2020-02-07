@@ -1267,7 +1267,7 @@ class Gridz extends Sketch {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 200;
         strokeWeight((hue / 200) * 5)
-        stroke(255);
+        stroke(200);
         push()
         translate(xPos, yPos)
         line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
