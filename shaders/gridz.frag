@@ -16,12 +16,8 @@ void main() {
   // this line will make our uvs mirrored
   // it will convert it into a number that goes 0 to 1 to 0
   // abs() will turn our negative numbers positive
-  uv = vec2((uv.x + u_xOff),uv.y + u_yOff); // u_params[0] is offsetting the y to create the lines
-  vec2 mirrorUvs = abs(uv * 2.0  - 1.0);
-  
-  vec4 tex = texture2D(tex0, mirrorUvs);
 
   // output to screen
-    gl_FragColor = vec4(tex.rgb, u_opacity);
+    gl_FragColor = vec4(0.0,0.0,0.0,0.0);
 
 }
