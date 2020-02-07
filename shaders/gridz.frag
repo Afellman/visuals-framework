@@ -6,7 +6,7 @@ varying vec2 vTexCoord;
 
 
 // our texture coming from p5
-uniform float u_scale;
+uniform float u_time;
 uniform float u_intervalX;
 uniform float u_intervalY;
 
