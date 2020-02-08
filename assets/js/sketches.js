@@ -1293,7 +1293,9 @@ class Rainbow extends Sketch {
     this.lines = [];
     this.lineAmt = 50;
     this.arc = height / 4;
-    this.lineLength = 0.75
+    this.lineLength = 3;
+    this.speed = 0.01;
+    this.time = 0;
   }
 
   init() {
@@ -1311,16 +1313,16 @@ class Rainbow extends Sketch {
     for (let i = 0; i < 1; i++) {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
-      thisLine.posStart.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * this.arc;
-      thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * this.arc);
+      thisLine.posStart.x = width / 2 + Math.sin(-HALF_PI + this.time) * this.arc;
+      thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(this.time) * this.arc);
 
-
-      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * (this.arc) * this.lineLength;
-      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * (this.arc) * this.lineLength);
+      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.arc) / this.lineLength;
+      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.arc) / this.lineLength);
 
 
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
     }
+    this.time += this.speed;
   }
 
   lineBounce() {
