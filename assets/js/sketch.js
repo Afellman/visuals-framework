@@ -284,7 +284,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
-  loadScene(new Gridz()) // For background.
+  loadScene(new Rainbow()) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -505,16 +505,16 @@ function getMIDIMessage(midiMessage) {
   // if (command !== 132) {
   //   genericMidi[note].method(velocity, command);
   // }
-  if(command == 177){
+  if (command == 177) {
     // if(velocity >= 127){
     //   midi177[note] ++;
     // } else if(velocity <= 0){
     //   midi177[note] --
     // } else {
-       
+
     // }
     // velocity = midi177[note];
-    
+
 
 
   }
