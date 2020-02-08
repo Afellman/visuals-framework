@@ -1307,9 +1307,10 @@ class Rainbow extends Sketch {
 
   draw() {
     for (let i = 0; i < this.lineAmt; i++) {
-      const newLine = this.lines[i];
-      stroke(newLine.color);
-      line(newLine.posStart.x, newLine.posStart.y, newLine.posEnd.x, newLine.posEnd.y);
+      const thisLine = this.lines[i];
+      stroke(thisLine.color);
+      thisLine.pos.y = Math.sin(x) / (width * 2);
+      line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
     }
   }
 
