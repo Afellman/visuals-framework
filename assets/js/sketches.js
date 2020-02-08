@@ -1307,8 +1307,8 @@ class Rainbow extends Sketch {
   draw() {
     for (let i = 0; i < 1; i++) {
       const thisLine = this.lines[i];
-      stroke(thisLine.color);
-
+      thisLine.update();
+      thisLine.display();
 
     }
 
@@ -1344,6 +1344,7 @@ class Rainbow extends Sketch {
     }
 
     display() {
+      stroke(thisLine.color);
       line(this.posStart.x, this.posStart.y, this.posEnd.x, this.posEnd.y);
     }
   }
