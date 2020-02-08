@@ -1301,9 +1301,7 @@ class Rainbow extends Sketch {
   init() {
     for (let i = 0; i < this.lineAmt; i++) {
       const newLine = {
-        posStart: createVector(width / 2, height / 2),
-        posEnd: createVector(width / 2, height / 2),
-        color: [255, 255, 255, 255]
+
       }
       this.lines.push(newLine);
     }
@@ -1319,18 +1317,30 @@ class Rainbow extends Sketch {
       thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.arc) / this.lineLength;
       thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.arc) / this.lineLength);
 
-
-      line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
     }
-    this.time += this.speed
+
+    this.time += this.speed;
   }
 
   lineBounce() {
-
+    new this.line()
   }
 
   mouseClicked() {
     lineBounce();
+  }
+
+  line = class line {
+    constructor(parent) {
+      this.parent = parent;
+      this.posStart = createVector(width / 2, height / 2),
+        this.posEnd = createVector(width / 2, height / 2),
+        this.color = [255, 255, 255, 255]
+    }
+
+    display() {
+      line(this.posStart.x, this.posStart.y, this.posEnd.x, this.posEnd.y);
+    }
   }
 
   listeners = [{}]
