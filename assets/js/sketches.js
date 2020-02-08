@@ -1310,7 +1310,7 @@ class Rainbow extends Sketch {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
       let x = width / 2 + Math.sin(frameCount / 100) * width / 4;
-      let y = height / 2 + -Math.abs(Math.sin(3 + frameCount / 100) * height / 4);
+      let y = height / 2 + -Math.abs(Math.sin(PI * 2 * frameCount) * height / 4);
       thisLine.posStart.x = x;
       thisLine.posStart.y = y
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
