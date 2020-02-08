@@ -1338,7 +1338,7 @@ class Rainbow extends Sketch {
         this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.parent.arc) / this.parent.lineLength;
         this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.parent.arc) / this.parent.lineLength);
 
-        if (this.time % PI / 10 == 0) {
+        if (this.time % PI / 100 < 0.1) {
           this.moving = false;
         }
         this.time += this.parent.speed;
