@@ -1307,7 +1307,7 @@ class Rainbow extends Sketch {
   draw() {
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
-      thisLine.update();
+      thisLine.update(i);
       thisLine.display();
 
     }
@@ -1333,10 +1333,10 @@ class Rainbow extends Sketch {
       this.orig = this.posStart.x;
     }
 
-    update() {
+    update(i) {
       if (this.moving) {
         this.move();
-        this.time += this.parent.speed;
+        this.time += this.parent.speed / i;
         this.time = this.time % 360;
         if (this.time == 0) {
           this.moving = false;
