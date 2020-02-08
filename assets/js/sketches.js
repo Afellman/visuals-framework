@@ -1256,9 +1256,6 @@ class Gridz extends Sketch {
 
   init() {
     super.init();
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
-    this.graph = createGraphics(width, height);
   }
 
   draw() {
@@ -1273,7 +1270,7 @@ class Gridz extends Sketch {
         translate(xPos, yPos)
         line(0 - this.scale * noise(frameCount / 100), 0 - this.scale * noise(frameCount / 100), 0 + this.scale, 0 + this.scale)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0 - this.scale)
-        line(0, 0 + this.scale / 10, 0, 0 - this.scale / 10)
+        // line(0, 0 + this.scale, 0, 0 - this.scale)
         pop();
       }
     }
@@ -1285,6 +1282,22 @@ class Gridz extends Sketch {
     // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     // this.shaderBox.rect(0, 0, width, height);
     this.time += 0.01
+  }
+
+  listeners = [{}]
+}
+
+class Gridz extends Sketch {
+  constructor() {
+    super();
+  }
+
+  init() {
+  }
+
+  draw() {
+
+
   }
 
   listeners = [{}]
