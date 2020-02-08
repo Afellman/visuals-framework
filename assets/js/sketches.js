@@ -1300,10 +1300,7 @@ class Rainbow extends Sketch {
 
   init() {
     for (let i = 0; i < this.lineAmt; i++) {
-      const newLine = {
-
-      }
-      this.lines.push(newLine);
+      this.lines.push(new this.Line(this));
     }
   }
 
@@ -1311,11 +1308,7 @@ class Rainbow extends Sketch {
     for (let i = 0; i < 1; i++) {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
-      thisLine.posStart.x = width / 2 + Math.sin(-HALF_PI + this.time) * this.arc;
-      thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(this.time) * this.arc);
 
-      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.arc) / this.lineLength;
-      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.arc) / this.lineLength);
 
     }
 
@@ -1323,19 +1316,31 @@ class Rainbow extends Sketch {
   }
 
   lineBounce() {
-    new this.line()
+    this.lines[0].startBounce();
   }
 
   mouseClicked() {
     lineBounce();
   }
 
-  line = class line {
+  Line = class line {
     constructor(parent) {
       this.parent = parent;
-      this.posStart = createVector(width / 2, height / 2),
-        this.posEnd = createVector(width / 2, height / 2),
-        this.color = [255, 255, 255, 255]
+      this.posStart = createVector(width / 2, height / 2);
+      this.posEnd = createVector(width / 2, height / 2);
+      this.color = [255, 255, 255, 255];
+    }
+
+    startBounce() {
+
+    }
+
+    update() {
+      this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * this.parent.arc;
+      this.posStart.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * this.parent.arc);
+
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * (this.parent.arc) / this.parent.lineLength;
+      this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * (this.parent.arc) / this.parent.lineLength);
     }
 
     display() {
