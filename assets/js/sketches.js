@@ -1332,15 +1332,22 @@ class Rainbow extends Sketch {
     }
 
     startBounce() {
-
+      this.moving = true;
     }
 
     update() {
-      this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * this.parent.arc;
-      this.posStart.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * this.parent.arc);
+      if (this.moving) {
+        this.orig = this.posStart.x;
+        this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * this.parent.arc;
+        this.posStart.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * this.parent.arc);
 
-      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * (this.parent.arc) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * (this.parent.arc) / this.parent.lineLength);
+        this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.parent.time) * (this.parent.arc) / this.parent.lineLength;
+        this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.parent.time) * (this.parent.arc) / this.parent.lineLength);
+
+        if (this.posStart.x == this.orig) {
+          this.moving = false;
+        }
+      }
     }
 
     display() {
