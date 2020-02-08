@@ -1325,7 +1325,7 @@ class Rainbow extends Sketch {
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 2, height / 2);
       this.color = [255, 255, 255, 255];
-      this.time = 0;
+      this.time = 1;
     }
 
     startBounce() {
@@ -1337,7 +1337,7 @@ class Rainbow extends Sketch {
       if (this.moving) {
         this.move();
         this.time += this.parent.speed / i;
-        if (this.time % 180 < 1) { // Stop function
+        if (this.time % 180 < 2) { // Stop function
           this.moving = false;
           this.move();
         }
