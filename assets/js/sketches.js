@@ -1341,12 +1341,11 @@ class Rainbow extends Sketch {
         this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
         this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
 
-
+        if (this.time == 0) {
+          this.moving = false;
+        }
         this.time += this.parent.speed;
         this.time = this.time % 360;
-        // if (this.time == 0) {
-        //   this.moving = false;
-        // }
       }
     }
 
