@@ -1313,7 +1313,7 @@ class Rainbow extends Sketch {
       // let y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * height / 4);
       thisLine.posStart.x = x;
       // thisLine.posStart.y = y
-      console.log(x)
+      // console.log(x)
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
     }
   }
