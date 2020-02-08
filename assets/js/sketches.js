@@ -1306,6 +1306,7 @@ class Rainbow extends Sketch {
   }
 
   draw() {
+    rotate(PI / (frameCount / 100))
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
@@ -1314,7 +1315,6 @@ class Rainbow extends Sketch {
 
       line(x - 10, y - 10, x + 10, y + 10);
     }
-    rotate(PI / (frameCount / 100))
   }
 
   listeners = [{}]
