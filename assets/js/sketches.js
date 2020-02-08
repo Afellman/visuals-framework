@@ -1253,27 +1253,27 @@ class Gridz extends Sketch {
     this.angle = 0;
     this.time = 0;
   }
- 
+
   init() {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
     this.graph = createGraphics(width, height);
   }
- 
+
   draw() {
-  
-    for(let x = 0; x < this.rows; x ++){
+
+    for (let x = 0; x < this.rows; x++) {
       let xPos = x * this.scale;
-      for(let y = 0; y < this.cols; y ++) {
+      for (let y = 0; y < this.cols; y++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 150;
         stroke(hue);
         push()
         translate(xPos, yPos)
-        line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0  + this.scale)
-        line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0  - this.scale)
-        line(0, 0 + this.scale, 0, 0  - this.scale)
+        line(0 - this.scale, 0 - this.scale, 0 + this.scale, 0 + this.scale)
+        line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0 - this.scale)
+        // line(0, 0 + this.scale, 0, 0  - this.scale)
         pop();
       }
     }
@@ -1284,9 +1284,9 @@ class Gridz extends Sketch {
     // this.shaderBox.shader(this.shader);
     // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     // this.shaderBox.rect(0, 0, width, height);
-    this.time+= 0.01
+    this.time += 0.01
   }
- 
+
   listeners = [{}]
 }
 
