@@ -1323,22 +1323,24 @@ class Rainbow extends Sketch {
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 2, height / 2);
       this.color = [255, 255, 255, 255];
-      this.time = this.parent.speed;
+      this.time = 0;
     }
 
     startBounce() {
       this.moving = true;
+      this.orig = this.posStart.x;
     }
 
     update() {
       if (this.moving) {
+
         this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.time) * this.parent.arc;
         this.posStart.y = height / 2 + -Math.abs(Math.sin(this.time) * this.parent.arc);
 
         this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.parent.arc) / this.parent.lineLength;
         this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.parent.arc) / this.parent.lineLength);
 
-        if (this.time % PI / 10 < 0.001) {
+        if (this.posStart.x - this.orig < 0.1) {
           this.moving = false;
         }
         this.time += this.parent.speed;
