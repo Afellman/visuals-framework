@@ -1344,7 +1344,7 @@ class Rainbow extends Sketch {
     }
 
     display() {
-      stroke(thisLine.color);
+      stroke(this.color);
       line(this.posStart.x, this.posStart.y, this.posEnd.x, this.posEnd.y);
     }
   }
