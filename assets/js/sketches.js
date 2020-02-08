@@ -1314,7 +1314,7 @@ class Rainbow extends Sketch {
 
       line(x - 10, y - 10, x + 10, y + 10);
     }
-    rotate(frameCount)
+    rotate(PI / (frameCount / 100))
   }
 
   listeners = [{}]
