@@ -1313,8 +1313,8 @@ class Rainbow extends Sketch {
       thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * height / 4);
 
 
-      thisLine.posEnd.x = width / 2 + Math.sin(frameCount / 100 / 4) * (height / 4) / 4;
-      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100 / 4) * (height / 4) / 4);
+      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI / 4 + frameCount / 100 / 2) * (height / 4) / 4;
+      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100 / 2) * (height / 4) / 4);
 
 
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
