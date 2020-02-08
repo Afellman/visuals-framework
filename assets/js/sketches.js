@@ -1323,7 +1323,7 @@ class Rainbow extends Sketch {
     lineBounce();
   }
 
-  Line = class line {
+  Line = class Line {
     constructor(parent) {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
