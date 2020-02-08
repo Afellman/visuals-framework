@@ -1306,6 +1306,7 @@ class Rainbow extends Sketch {
   }
 
   draw() {
+    translate(width / 2, height / 2);
     rotate(PI / (frameCount / 1000))
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
