@@ -1306,15 +1306,15 @@ class Rainbow extends Sketch {
   }
 
   draw() {
-    for (let i = 0; i < this.lineAmt; i++) {
+    for (let i = 0; i < 1; i++) {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
-      thisLine.posStart.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * height / 4;
-      thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * height / 4);
+      thisLine.posStart.x = width / 2 + Math.sin(-HALF_PI + frameCount) * height / 4;
+      thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(frameCount) * height / 4);
 
 
-      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100 / 2) * (height / 4) / 4;
-      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100 / 2) * (height / 4) / 4);
+      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + frameCount / 2) * (height / 4) / 4;
+      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 2) * (height / 4) / 4);
 
 
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
