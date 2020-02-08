@@ -1314,7 +1314,9 @@ class Rainbow extends Sketch {
   }
 
   mouseClicked() {
-    this.lines[0].startBounce();
+    for (let i = 0; i < this.lines.length; i++) {
+      this.lines[i].startBounce();
+    }
   }
 
   Line = class Line {
