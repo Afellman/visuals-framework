@@ -1290,14 +1290,25 @@ class Gridz extends Sketch {
 class Rainbow extends Sketch {
   constructor() {
     super();
+    this.lines = [];
   }
 
   init() {
-
+    for (let i = 0; i < this.lineAmt; i++) {
+      const newLine = {
+        posStart: createVector(0, 0),
+        posEnd: createVector(0, 0),
+        color: [255, 255, 255, 255]
+      }
+      this.lines.push(newLine);
+    }
   }
 
   draw() {
-
+    for (let i = 0; i < this.lineAmt; i++) {
+      const newLine = this.lines[i];
+      line(newLine.posStart.x, newLine.posStart.y, newLine.posEnd.x, newLine.posEnd.y);
+    }
   }
 
   listeners = [{}]
