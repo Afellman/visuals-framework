@@ -1335,15 +1335,15 @@ class Rainbow extends Sketch {
       if (this.moving) {
 
         let rad = radians(this.time);
-        this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.time) * this.parent.arc;
-        this.posStart.y = height / 2 + -Math.abs(Math.sin(this.time) * this.parent.arc);
+        this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
+        this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
 
-        this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.parent.arc) / this.parent.lineLength;
-        this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.parent.arc) / this.parent.lineLength);
+        this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
+        this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
 
-        if (this.posStart.x - this.orig < 0.001) {
-          this.moving = false;
-        }
+        // if (this.posStart.x - this.orig < 0.001) {
+        //   this.moving = false;
+        // }
         this.time++;
         this.time = this.time % 360;
       }
