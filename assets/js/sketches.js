@@ -1311,8 +1311,6 @@ class Rainbow extends Sketch {
       thisLine.display();
 
     }
-
-    this.time += this.speed;
   }
 
   mouseClicked() {
@@ -1325,6 +1323,7 @@ class Rainbow extends Sketch {
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 2, height / 2);
       this.color = [255, 255, 255, 255];
+      this.time = 0;
     }
 
     startBounce() {
@@ -1344,6 +1343,7 @@ class Rainbow extends Sketch {
           this.moving = false;
         }
       }
+      this.time += this.parent.speed;
     }
 
     display() {
