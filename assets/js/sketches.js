@@ -1308,15 +1308,13 @@ class Rainbow extends Sketch {
   draw() {
     translate(width / 2, height / 2);
     rotate(PI / (frameCount / 1000))
-    translate(0, 0);
-
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
       stroke(thisLine.color);
       let x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * height / 4;
       let y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * height / 4);
 
-      line(x - 10, y - 10, x + 10, y + 10);
+      line(x, y, x + 10, y + 10);
     }
   }
 
