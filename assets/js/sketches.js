@@ -1287,16 +1287,16 @@ class Gridz extends Sketch {
   listeners = [{}]
 }
 
-class Gridz extends Sketch {
+class Rainbow extends Sketch {
   constructor() {
     super();
   }
 
   init() {
+
   }
 
   draw() {
-
 
   }
 
