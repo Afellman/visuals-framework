@@ -1344,8 +1344,9 @@ class Rainbow extends Sketch {
         // if (this.posStart.x - this.orig < 0.001) {
         //   this.moving = false;
         // }
-        this.time++;
-        this.time = this.time % 360;
+        // this.time++;
+        // this.time = this.time % 360;
+        this.time = 360
       }
     }
 
