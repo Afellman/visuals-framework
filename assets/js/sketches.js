@@ -1294,7 +1294,7 @@ class Rainbow extends Sketch {
     this.lineAmt = 50;
     this.arc = height / 4;
     this.lineLength = 3;
-    this.speed = 0.1;
+    this.speed = 1;
     this.time = 0;
   }
 
@@ -1341,12 +1341,12 @@ class Rainbow extends Sketch {
         this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
         this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
 
-        // if (this.posStart.x - this.orig < 0.001) {
-        //   this.moving = false;
-        // }
-        // this.time++;
-        // this.time = this.time % 360;
-        this.time = 360
+
+        this.time += this.parent.speed;
+        this.time = this.time % 360;
+        if (this.time == 0) {
+          this.moving = false;
+        }
       }
     }
 
