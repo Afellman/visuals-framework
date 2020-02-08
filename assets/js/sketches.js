@@ -1293,7 +1293,7 @@ class Rainbow extends Sketch {
     this.lines = [];
     this.lineAmt = 50;
     this.arc = height / 4;
-    this.lineLength = 0.4
+    this.lineLength = 0.25
   }
 
   init() {
@@ -1315,8 +1315,8 @@ class Rainbow extends Sketch {
       thisLine.posStart.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * arc);
 
 
-      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * (arc) this.lineLength;
-      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * (arc) this.lineLength);
+      thisLine.posEnd.x = width / 2 + Math.sin(-HALF_PI + frameCount / 100) * (arc) * this.lineLength;
+      thisLine.posEnd.y = height / 2 + -Math.abs(Math.sin(frameCount / 100) * (arc) * this.lineLength);
 
 
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
