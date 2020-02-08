@@ -1315,12 +1315,8 @@ class Rainbow extends Sketch {
     this.time += this.speed;
   }
 
-  lineBounce() {
-    this.lines[0].startBounce();
-  }
-
   mouseClicked() {
-    lineBounce();
+    this.lines[0].startBounce();
   }
 
   Line = class Line {
