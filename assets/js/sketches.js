@@ -1294,7 +1294,7 @@ class Rainbow extends Sketch {
     this.lineAmt = 50;
     this.arc = height / 4;
     this.lineLength = 3;
-    this.speed = 2;
+    this.speed = 3;
     this.time = 0;
   }
 
@@ -1344,9 +1344,9 @@ class Rainbow extends Sketch {
 
         this.time += this.parent.speed;
         this.time = this.time % 360;
-        if (this.time == 0) {
-          this.moving = false;
-        }
+        // if (this.time == 0) {
+        //   this.moving = false;
+        // }
       }
     }
 
