@@ -1297,7 +1297,7 @@ class Rainbow extends Sketch {
   init() {
     for (let i = 0; i < this.lineAmt; i++) {
       const newLine = {
-        posStart: createVector(width / 4, height / 1.5),
+        posStart: createVector(width / 2, height / 2),
         posEnd: createVector(width / 2, height / 2),
         color: [255, 255, 255, 255]
       }
