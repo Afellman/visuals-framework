@@ -1274,7 +1274,7 @@ class Gridz extends Sketch {
         line(0 - this.scale * noise(frameCount / 100), 0 - this.scale * noise(frameCount / 100), 0 + this.scale, 0 + this.scale)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0 - this.scale)
         // line(0, 0 + this.scale / 10, 0, 0 - this.scale / 10)
-        ellipse(0 * noise(frameCount) + 1, 0, 20)
+        ellipse(1 + noise(frameCount) * 25, 0, 20)
         pop();
       }
     }
