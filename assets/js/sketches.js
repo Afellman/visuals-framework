@@ -1328,19 +1328,17 @@ class Rainbow extends Sketch {
 
     startBounce() {
       this.moving = true;
-      this.orig = this.posStart.x;
     }
 
     update() {
       if (this.moving) {
-
         this.posStart.x = width / 2 + Math.sin(-HALF_PI + this.time) * this.parent.arc;
         this.posStart.y = height / 2 + -Math.abs(Math.sin(this.time) * this.parent.arc);
 
         this.posEnd.x = width / 2 + Math.sin(-HALF_PI + this.time) * (this.parent.arc) / this.parent.lineLength;
         this.posEnd.y = height / 2 + -Math.abs(Math.sin(this.time) * (this.parent.arc) / this.parent.lineLength);
 
-        if (this.posStart.x == this.orig) {
+        if (this.time % PI) {
           this.moving = false;
         }
         this.time += this.parent.speed;
