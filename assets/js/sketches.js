@@ -1291,6 +1291,7 @@ class Rainbow extends Sketch {
   constructor() {
     super();
     this.lines = [];
+    this.lineAmt = 50;
   }
 
   init() {
