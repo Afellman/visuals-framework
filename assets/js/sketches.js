@@ -1322,7 +1322,7 @@ class Rainbow extends Sketch {
 
       line(thisLine.posStart.x, thisLine.posStart.y, thisLine.posEnd.x, thisLine.posEnd.y);
     }
-    this.time = Math.abs(sin(frameCount / 10) * 2);
+    this.time = Math.abs(sin(frameCount / 10) * 4);
   }
 
   lineBounce() {
