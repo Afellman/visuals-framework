@@ -1295,7 +1295,7 @@ class Gridz extends Sketch {
 
   listeners = [
     {
-      midiNote: 0,
+      note: 0,
       method: (val) => this.speed = val
     }
   ]
