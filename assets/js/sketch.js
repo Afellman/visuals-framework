@@ -665,9 +665,7 @@ function onMidiMessage(midiMessage) {
     midi180[note].method(midi180[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
   } else {  // Akai 
-    if (command !== 132) {
-      genericMidi[note].method(velocity, command);
-    }
+    genericMidi[note].method(velocity, command);
   }
 }
 
