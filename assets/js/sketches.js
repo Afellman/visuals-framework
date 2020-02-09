@@ -1208,6 +1208,11 @@ class FlowField extends Sketch {
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 1;
+    this.topMax = 200;
+    this.bottomMax = 200;
+    this.rightMax = 200;
+    this.leftMax = 200;
+
   }
 
   init() {
@@ -1306,11 +1311,11 @@ class FlowField extends Sketch {
         this.pos.x = width;
         this.updatePrev();
       }
-      if (this.pos.y > height) {
+      if (this.pos.y > (height / 2) - this.parent.bottomMax) {
         this.pos.y = 0;
         this.updatePrev();
       }
-      if (this.pos.y < 0) {
+      if (this.pos.y < (height / 2) - this.parent.topMax) {
         this.pos.y = height;
         this.updatePrev();
       }
