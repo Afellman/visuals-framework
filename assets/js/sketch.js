@@ -486,7 +486,7 @@ navigator.requestMIDIAccess().then((midiAccess) =>{
   for (let input of midiAccess.inputs.values()) {
     input.onmidimessage = getMIDIMessage;
   }
-}, onMIDIFailure);
+}, () =>   console.log('Could not access your MIDI devices.'););
 
 let midi179 = (function () {
   let ret = [];
@@ -641,7 +641,6 @@ const genericMidi = {
   }
 }
 
-function onMIDISuccess
 
 function getMIDIMessage(midiMessage) {
   let command = midiMessage.data[0];
@@ -659,7 +658,7 @@ function getMIDIMessage(midiMessage) {
 }
 
 function onMIDIFailure() {
-  console.log('Could not access your MIDI devices.');
+
 }
 
 function midiToColor(vel) {
