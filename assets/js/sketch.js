@@ -16,10 +16,23 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
+
+let midi177 = (function () {
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push(0);
+  }
+  return ret;
+})();
+let midi178 = (function () {
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push(0);
+  }
+  return ret;
+})();
 const midiSubscribers = {
 }
-
-
 
 const controlScene = {
   "1": {
@@ -271,6 +284,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
+  loadScene(new Rainbow()) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -488,9 +502,23 @@ function getMIDIMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
-  if (command !== 132) {
-    genericMidi[note].method(velocity, command);
+  // if (command !== 132) {
+  //   genericMidi[note].method(velocity, command);
+  // }
+  if (command == 177) {
+    // if(velocity >= 127){
+    //   midi177[note] ++;
+    // } else if(velocity <= 0){
+    //   midi177[note] --
+    // } else {
+
+    // }
+    // velocity = midi177[note];
+
+
+
   }
+  console.log(velocity, midi177[note])
 }
 
 const genericMidi = {
@@ -657,10 +685,10 @@ function loadImages(cb) {
     loadImage("./assets/images/austrailia/termines.jpeg"),
     loadImage("./assets/images/austrailia/trees.jpeg"),
     loadImage("./assets/images/austrailia/uluru.jpeg"),
-    loadImage("./assets/images/austrailia/eucalyptus.jpg"),
+    // loadImage("./assets/images/austrailia/eucalyptus.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/universe.jpg"),
-    loadImage("./assets/images/bricks.jpg"),
+    // loadImage("./assets/images/bricks.jpg"),
 
   ])
     .then(res => cb(res))
@@ -677,6 +705,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
     loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/gridz.frag"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));

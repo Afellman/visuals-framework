@@ -575,7 +575,8 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement = 0.001
     this.sceneNum = 5;
     this.startingAngle = this.angle;
-    this.opacity = 0;
+    // this.opacity = 0;
+    this.opacity = 255;
   }
   init() {
     super.init();
@@ -1181,6 +1182,187 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   ]
 }
 
+class FlowField extends Sketch {
+  constructor() {
+    super();
+    this.particles = [];
+    this.inc = 0.1;
+    this.zinc = 0.0003;
+    this.scale = 20;
+    this.cols;
+    this.rows;
+    this.zoff = 0;
+    this.flowField = [];
+    this.particleAmt = 500;
+  }
+
+  init() {
+    this.cols = floor(width / this.scale);
+    this.rows = floor(height / this.scale);
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i] = new Objects.Particle(this.scale, this.cols);
+    }
+    setTimeout(() => {
+      glBackground[3] = 0;
+
+    }, 1000)
+
+    this.flowField = new Array(this.cols * this.rows);
+  }
+
+  draw() {
+    let yoff = 0;
+    for (let y = 0; y < this.rows; y++) {
+      let xoff = 0;
+      for (let x = 0; x < this.cols; x++) {
+        let index = x + y * this.cols;
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let v = p5.Vector.fromAngle(angle);
+
+        v.setMag(1);
+        this.flowField[index] = v;
+        xoff += this.inc;
+        stroke(0, 50);
+      }
+      yoff += this.inc;
+      this.zoff += this.zinc;
+    }
+
+    for (let i = 0; i < this.particleAmt; i++) {
+      this.particles[i].follow(this.flowField);
+      this.particles[i].update();
+      this.particles[i].edges();
+      this.particles[i].show();
+    }
+  }
+
+  listeners = [
+    {
+
+    }
+  ]
+}
+
+class Gridz extends Sketch {
+  constructor() {
+    super();
+    this.scale = 100;
+    this.rows = Math.ceil(width / this.scale);
+    this.cols = Math.ceil(height / this.scale);
+    this.angle = 0;
+    this.time = 0;
+  }
+
+  init() {
+    super.init();
+  }
+
+  draw() {
+
+    for (let x = 0; x < this.rows; x++) {
+      let xPos = x * this.scale;
+      for (let y = 0; y < this.cols; y++) {
+        let yPos = y * this.scale;
+        let hue = noise(x, y, this.time) * 200;
+        stroke(hue);
+        push()
+        translate(xPos, yPos)
+        line(0 - this.scale * noise(frameCount / 100), 0 - this.scale * noise(frameCount / 100), 0 + this.scale, 0 + this.scale)
+        line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0 - this.scale)
+        // line(0, 0 + this.scale, 0, 0 - this.scale)
+        pop();
+      }
+    }
+
+    // this.graph.image(glCanvas, 0, 0)
+    // this.shader.setUniform("u_intervalX",  this.scale / width);
+    // this.shader.setUniform("u_intervalY",  this.scale / height);
+    // this.shaderBox.shader(this.shader);
+    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    // this.shaderBox.rect(0, 0, width, height);
+    this.time += 0.01
+  }
+
+  listeners = [{}]
+}
+
+class Rainbow extends Sketch {
+  constructor() {
+    super();
+    this.lines = [];
+    this.lineAmt = 5;
+    this.arc = height / 4;
+    this.lineLength = 3;
+    this.speed = 3;
+    this.time = 0;
+  }
+
+  init() {
+    for (let i = 0; i < this.lineAmt; i++) {
+      this.lines.push(new this.Line(this));
+    }
+  }
+
+  draw() {
+    for (let i = 0; i < this.lineAmt; i++) {
+      const thisLine = this.lines[i];
+      thisLine.update(i);
+      thisLine.display();
+
+    }
+  }
+
+  mouseClicked() {
+    for (let i = 0; i < this.lines.length; i++) {
+      this.lines[i].startBounce();
+    }
+  }
+
+  Line = class Line {
+    constructor(parent) {
+      this.parent = parent;
+      this.posStart = createVector(width / 2, height / 2);
+      this.posEnd = createVector(width / 2, height / 2);
+      this.color = [255, 255, 255, 255];
+      this.time = 0;
+    }
+
+    startBounce() {
+      this.moving = true;
+      this.orig = this.posStart.x;
+    }
+
+    update(i) {
+      if (this.moving) {
+        this.move();
+        this.time += this.parent.speed - (i / 4);
+        this.time = this.time % 360;
+        if (this.time % 180 < 1) { // Stop function
+          this.moving = false;
+          this.move();
+        }
+      }
+    }
+
+    move() {
+      let rad = radians(this.time);
+      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
+      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
+
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
+      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
+    }
+
+    display() {
+      stroke(this.color);
+      line(this.posStart.x, this.posStart.y, this.posEnd.x, this.posEnd.y);
+    }
+  }
+
+  listeners = [{}]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
@@ -1711,6 +1893,7 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
+
 const Objects = {
   /**
    * @class Point
@@ -1830,6 +2013,73 @@ const Objects = {
     }
   },
 
+  Particle: class {
+    constructor(scale, cols) {
+      this.pos = createVector(Math.random() * width, Math.random() * height);
+      this.vel = createVector(0, 0);
+      this.acc = createVector(0, 0);
+      this.maxspeed = 4;
+      this.scale = scale;
+      this.hue = 0;
+
+      this.cols = cols;
+      this.prevPos = this.pos.copy();
+
+    }
+
+    update() {
+      this.vel.add(this.acc);
+      this.vel.limit(this.maxspeed);
+      this.pos.add(this.vel);
+      this.acc.mult(0);
+    }
+
+    follow(vectors) {
+      let x = floor(this.pos.x / this.scale);
+      let y = floor(this.pos.y / this.scale);
+      let index = x + y * this.cols;
+
+      let force = vectors[index];
+      this.applyForce(force);
+
+    }
+
+    applyForce(force) {
+      this.acc.add(force);
+    }
+
+    show() {
+      stroke(255, 2);
+      this.hue++;
+      strokeWeight(1);
+      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.updatePrev();
+    }
+
+    updatePrev() {
+      this.prevPos.x = this.pos.x;
+      this.prevPos.y = this.pos.y;
+    };
+
+    edges() {
+      if (this.pos.x > width) {
+        this.pos.x = 0;
+        this.updatePrev();
+      }
+      if (this.pos.x < 0) {
+        this.pos.x = width;
+        this.updatePrev();
+      }
+      if (this.pos.y > height) {
+        this.pos.y = 0;
+        this.updatePrev();
+      }
+      if (this.pos.y < 0) {
+        this.pos.y = height;
+        this.updatePrev();
+      }
+    }
+  }
 
 }
 
