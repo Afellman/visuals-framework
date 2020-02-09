@@ -658,10 +658,12 @@ function onMidiMessage(midiMessage) {
   if (command == 179) {
     midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi179[note].method(midi179[note].velocity);
+    console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
   } else if(command == 180){
-    
+    midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+    midi180[note].method(midi180[note].velocity);
+    console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
   }
-  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
 }
 
 function midiToColor(vel) {
