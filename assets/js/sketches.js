@@ -1146,8 +1146,9 @@ class DisplaceImg extends Sketch { // scene 11. maped
 
 class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
-  constructor(img) {
+  constructor(setIndex) {
     super();
+    this.setIndex = setIndex;
     this.params = {
       faders: {
         xOff: 0,
