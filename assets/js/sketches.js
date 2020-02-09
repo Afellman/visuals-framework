@@ -1318,7 +1318,10 @@ class FlowField extends Sketch {
 
   listeners = [
     {
-
+      midiNote: 0,
+      midiMethod: (vel) => {
+        this.mag = vel
+      }
     }
   ]
 }
