@@ -1304,11 +1304,11 @@ class FlowField extends Sketch {
 
     edges() {
       if (this.pos.x > (width / 2) + this.parent.rightMax) {
-        this.pos.x = 0;
+        this.pos.x = (width / 2) - this.parent.leftMax;
         this.updatePrev();
       }
       if (this.pos.x < (width / 2) - this.parent.leftMax) {
-        this.pos.x = width;
+        this.pos.x = (width / 2) + this.parent.rightMax;
         this.updatePrev();
       }
       if (this.pos.y > (height / 2) + this.parent.bottomMax) {
