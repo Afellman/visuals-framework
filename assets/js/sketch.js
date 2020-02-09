@@ -511,8 +511,8 @@ function bindLauncer() {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
   launchers.forEach((launcher, i) => {
-    midi180[i + 32].method = scene.opacity.bind(scene);
-    midi180[i + 80].method = scene.toggle.bind(scene);
+    midi180[i + 32].method = launcher.opacity.bind(launcher);
+    midi180[i + 80].method = launcher.toggle.bind(launcher);
   })
 }
 
