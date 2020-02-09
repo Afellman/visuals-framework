@@ -1301,7 +1301,10 @@ class Gridz extends Sketch {
         console.log("midinote");
         this.speed = val;
       }
-  ]
+    },
+
+
+  ];
 }
 
 class Rainbow extends Sketch {
