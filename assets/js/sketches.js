@@ -1309,7 +1309,7 @@ class FlowField extends Sketch {
     show() {
       stroke(255, 255);
       strokeWeight(1);
-      this.parent.canvas.shaderBox(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.parent.shaderBox.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
     }
 
