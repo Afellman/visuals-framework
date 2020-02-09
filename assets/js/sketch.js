@@ -523,8 +523,8 @@ const sceneLauncher = [
 class Launcher {
   constructor() {
     this.scene = {};
-    isActive: false,
-      
+    this.isActive = false;
+
   }
 
   toggle() {
