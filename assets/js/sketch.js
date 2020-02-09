@@ -359,9 +359,10 @@ function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
 
-function loadScene(scene) {
+function loadScene(scene, sceneNum) {
   const id = Math.random() * 100000;
-  scene.id = id
+  scene.id = id;
+  scene.sceneNum = sceneNum;
   scene.init();
   scenes.push(scene);
 }
