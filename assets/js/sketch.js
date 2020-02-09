@@ -507,11 +507,18 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 
 
 const currentSet = setBuilder([Gridz, FlowField]);
+
 const sceneLauncher = {
   "1": {
     scene: {},
-    method: () => {
+    method: (velocity, cmd) => {
+      if (cmd == 144) {
 
+      } else {
+        if (this.scene.opacity) {
+          this.scene.opacity = midiToNormal(vel);
+        }
+      }
     }
   }
 }
@@ -659,20 +666,19 @@ function onMidiMessage(midiMessage) {
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
 
-
-
   // Fader Fox
   if (command == 179) {
     midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi179[note].method(midi179[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
+
   } else if (command == 180) {
     midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi180[note].method(midi180[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
-  } else {  // Akai 
 
-    if (command == 144 || command == 176) {
+  } else {  // Akai 
+    if (command == 144 || command == 176) { // button press and knob.
       sceneLauncher[note].method(velocity, command);
     }
   }
