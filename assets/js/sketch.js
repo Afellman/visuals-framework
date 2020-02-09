@@ -482,6 +482,7 @@ function keyPressed(e) {
 // ================================================  
 //                     Midi 
 // ================================================  
+navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 let midi179 = (function () {
   let ret = [];
@@ -635,7 +636,7 @@ const genericMidi = {
     },
   }
 }
-navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
 
 function onMIDISuccess(midiAccess) {
   for (let input of midiAccess.inputs.values()) {
