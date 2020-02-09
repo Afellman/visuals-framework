@@ -1204,7 +1204,7 @@ class FlowField extends Sketch {
     this.rows;
     this.zoff = 0;
     this.flowField = [];
-    this.particleAmt = 500;
+    this.particleAmt = 1000;
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 1;
@@ -1328,6 +1328,12 @@ class FlowField extends Sketch {
       midiNote: 1,
       midiMethod: (vel) => {
         this.zinc = vel / 10000
+      }
+    },
+    {
+      midiNote: 3,
+      midiMethod: (vel) => {
+        this.maxspeed = vel
       }
     }
   ]
