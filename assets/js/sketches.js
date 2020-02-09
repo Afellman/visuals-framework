@@ -1312,11 +1312,11 @@ class FlowField extends Sketch {
         this.updatePrev();
       }
       if (this.pos.y > (height / 2) + this.parent.bottomMax) {
-        this.pos.y = (height / 2) + this.parent.topMax;
+        this.pos.y = (height / 2) - this.parent.topMax;
         this.updatePrev();
       }
       if (this.pos.y < (height / 2) - this.parent.topMax) {
-        this.pos.y = (height / 2) - this.parent.bottomMax;
+        this.pos.y = (height / 2) + this.parent.bottomMax;
         this.updatePrev();
       }
     }
@@ -1336,9 +1336,33 @@ class FlowField extends Sketch {
       }
     },
     {
-      midiNote: 3,
+      midiNote: 2,
       midiMethod: (vel) => {
         this.maxspeed = vel
+      }
+    },
+    {
+      midiNote: 4,
+      midiMethod: (vel) => {
+        this.leftMax = map(vel, 0, 127, 0, width / 2)
+      }
+    },
+    {
+      midiNote: 5,
+      midiMethod: (vel) => {
+        this.rightMax = map(vel, 0, 127, 0, width / 2)
+      }
+    },
+    {
+      midiNote: 6,
+      midiMethod: (vel) => {
+        this.topMax = map(vel, 0, 127, 0, height / 2)
+      }
+    },
+    {
+      midiNote: 7,
+      midiMethod: (vel) => {
+        this.bottom = map(vel, 0, 127, 0, height / 2)
       }
     }
   ]
