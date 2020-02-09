@@ -506,7 +506,7 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 })();
 
 
-const currentSet = setBuilder([Gridz,])
+const currentSet = setBuilder([Gridz, FlowField]);
 const sceneLauncher = {
   "1": {
     scene: {},
