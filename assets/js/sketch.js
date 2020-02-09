@@ -293,8 +293,8 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(), 0) // For background.
-  loadScene(new FlowField(), 1) // For background.
-  // loadScene(new Gridz(), 1) // For background.
+  // loadScene(new FlowField(), 1) // For background.
+  loadScene(new Gridz(), 1) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -363,7 +363,6 @@ function normalToColor(val) {
 function loadScene(scene, sceneNum) {
   const id = Math.random() * 100000;
   scene.id = id;
-  scene.sceneNum = sceneNum;
   scene.init();
   scenes.push(scene);
 }
