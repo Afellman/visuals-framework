@@ -222,7 +222,6 @@ class BGShader extends Sketch { // Always loaded. Gives more FPS...??
     this.points = [
       [0.5, 0.5]
     ]
-
   }
 
   draw() {
@@ -1220,6 +1219,10 @@ class FlowField extends Sketch {
     }
 
     this.flowField = new Array(this.cols * this.rows);
+
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[0]._vertSrc, shaders[0]._fragSrc);
     this.canvas = createGraphics(width, height);
   }
 
@@ -1255,6 +1258,16 @@ class FlowField extends Sketch {
       this.particles[i].edges();
       this.particles[i].show();
     }
+
+    noStroke();
+    this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.canvas);
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
   }
 
 
