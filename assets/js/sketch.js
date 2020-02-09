@@ -715,7 +715,11 @@ function bindLaunchers() {
 
 function bindGlobals() {
   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-  midi180[i + 80].method = launcher.toggle.bind(launcher);
+  midi180[43].method = (vel) => {
+    glBackground[3] = midiToNormal(vel) / 20;
+    midi180[42].velocity = glBackground[3]
+  };
+  // midi180[i + 80].method = launcher.toggle.bind(launcher);
 }
 
 bindLaunchers();
