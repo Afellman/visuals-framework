@@ -1208,10 +1208,6 @@ class FlowField extends Sketch {
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 1;
-    this.topMax = 10;
-    this.bottomMax = 10;
-    this.rightMax = 10;
-    this.leftMax = 10;
 
   }
 
