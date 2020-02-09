@@ -482,11 +482,17 @@ function keyPressed(e) {
 // ================================================  
 //                     Midi 
 // ================================================  
-navigator.requestMIDIAccess().then((midiAccess) =>{
+navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+function onMIDISuccess(midiAccess) {
   for (let input of midiAccess.inputs.values()) {
     input.onmidimessage = getMIDIMessage;
   }
-}, () =>   console.log('Could not access your MIDI devices.'););
+}
+
+function onMIDIFailure() {
+  console.log('Could not access your MIDI devices.');
+}
 
 let midi179 = (function () {
   let ret = [];
@@ -657,9 +663,7 @@ function getMIDIMessage(midiMessage) {
   console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
 }
 
-function onMIDIFailure() {
 
-}
 
 function midiToColor(vel) {
   return Math.round(map(vel, 0, 127, 0, 255));
