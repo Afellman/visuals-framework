@@ -1184,16 +1184,14 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   listeners = [
     {
       note: 0,
-      socketMethod: (val) => {
-        this.params.faders.xOff = val.args[1] / 100
-        this.params.faders.yOff = val.args[0] / 100
+      method: (val) => {
+        this.params.faders.xOff = val / 100
       }
     },
     {
       note: 1,
-      socketMethod: (val) => {
-        this.params.faders.xOff = val.args[1] / 100
-        this.params.faders.yOff = val.args[0] / 100
+      method: (val) => {
+        this.params.faders.yOff = val / 100
       }
     },
 
