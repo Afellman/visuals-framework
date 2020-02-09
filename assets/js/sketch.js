@@ -517,6 +517,7 @@ const sceneLauncher = {
         if (!this.isActive) {
           this.scene = new currentSet[0].sketch(0);
           scenes.push(this.scene);
+          this.isActive = true;
         } else {
           unloadScene(this.scene.setIndex);
           this.scene = {};
