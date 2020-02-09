@@ -1191,6 +1191,7 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   ]
 }
 
+// Add own background for opacity here?
 class FlowField extends Sketch {
   constructor(setIndex) {
     super();
@@ -1204,6 +1205,7 @@ class FlowField extends Sketch {
     this.zoff = 0;
     this.flowField = [];
     this.particleAmt = 500;
+    this.opacity = 0;
   }
 
   init() {
@@ -1213,10 +1215,6 @@ class FlowField extends Sketch {
     for (let i = 0; i < this.particleAmt; i++) {
       this.particles[i] = new Objects.Particle(this.scale, this.cols);
     }
-    setTimeout(() => {
-      glBackground[3] = 0;
-
-    }, 1000)
 
     this.flowField = new Array(this.cols * this.rows);
   }
