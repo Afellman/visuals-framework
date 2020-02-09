@@ -1215,7 +1215,7 @@ class FlowField extends Sketch {
     this.particleAmt = 1000;
     this.opacity = 0;
     this.maxspeed = 4;
-    this.mag = 1;
+    this.100 = 1;
   }
 
   init() {
