@@ -507,8 +507,8 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
-  currentSet.forEach(scene => {
-
+  const launchers = currentSet.map(setScene => {
+    return new Launcher(setScene.sketch, setScene.setIndex);
   });
   sceneLauncher.forEach((scene, i) => {
     midi180[i + 32].method = scene.opacity.bind(scene);
@@ -516,9 +516,7 @@ function bindLauncer() {
   })
 }
 
-const sceneLauncher = [
-
-]
+const sceneLauncher = []
 
 class Launcher {
   constructor(classConstructor, setIndex) {
