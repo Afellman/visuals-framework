@@ -494,7 +494,7 @@ function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
 
-let midi179 = (function () {
+let midi179 = (function () { // Map of midi notes and attached methods.
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
