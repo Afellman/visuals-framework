@@ -1360,6 +1360,7 @@ class FlowField extends Sketch {
       midiNote: 0,
       isButton: true,
       midiMethod: (vel) => {
+        this.zoff++;
         this.canvas.background(0, 0, 0, 255);
       }
     },
