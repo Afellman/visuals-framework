@@ -1206,7 +1206,7 @@ class FlowField extends Sketch {
     this.setIndex = setIndex;
     this.particles = [];
     this.inc = 0.1;
-    this.zinc = 0.0003;
+    this.zinc = 0;
     this.scale = 20;
     this.cols;
     this.rows;
