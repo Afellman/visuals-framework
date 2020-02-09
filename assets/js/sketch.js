@@ -294,7 +294,7 @@ function setup() {
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(), 0) // For background.
   loadScene(new FlowField(), 1) // For background.
-  loadScene(new Gridz(), 1) // For background.
+  // loadScene(new Gridz(), 1) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
