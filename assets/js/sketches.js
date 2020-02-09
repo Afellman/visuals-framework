@@ -1213,7 +1213,7 @@ class FlowField extends Sketch {
     this.rows = floor(height / this.scale);
 
     for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i] = new Objects.Particle(this.scale, this.cols);
+      this.particles[i] = new this.Particle(this.scale, this.cols);
     }
 
     this.flowField = new Array(this.cols * this.rows);
@@ -1242,6 +1242,75 @@ class FlowField extends Sketch {
       this.particles[i].update();
       this.particles[i].edges();
       this.particles[i].show();
+    }
+  }
+
+
+  Particle = class Particle {
+    constructor(scale, cols) {
+      this.pos = createVector(Math.random() * width, Math.random() * height);
+      this.vel = createVector(0, 0);
+      this.acc = createVector(0, 0);
+      this.maxspeed = 4;
+      this.scale = scale;
+      this.hue = 0;
+
+      this.cols = cols;
+      this.prevPos = this.pos.copy();
+
+    }
+
+    update() {
+      this.vel.add(this.acc);
+      this.vel.limit(this.maxspeed);
+      this.pos.add(this.vel);
+      this.acc.mult(0);
+    }
+
+    follow(vectors) {
+      let x = floor(this.pos.x / this.scale);
+      let y = floor(this.pos.y / this.scale);
+      let index = x + y * this.cols;
+
+      let force = vectors[index];
+      this.applyForce(force);
+
+    }
+
+    applyForce(force) {
+      this.acc.add(force);
+    }
+
+    show() {
+      stroke(255, 2);
+      this.hue++;
+      strokeWeight(1);
+      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.updatePrev();
+    }
+
+    updatePrev() {
+      this.prevPos.x = this.pos.x;
+      this.prevPos.y = this.pos.y;
+    };
+
+    edges() {
+      if (this.pos.x > width) {
+        this.pos.x = 0;
+        this.updatePrev();
+      }
+      if (this.pos.x < 0) {
+        this.pos.x = width;
+        this.updatePrev();
+      }
+      if (this.pos.y > height) {
+        this.pos.y = 0;
+        this.updatePrev();
+      }
+      if (this.pos.y < 0) {
+        this.pos.y = height;
+        this.updatePrev();
+      }
     }
   }
 
