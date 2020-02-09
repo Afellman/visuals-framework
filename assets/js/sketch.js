@@ -273,8 +273,6 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(0)) // For background.
-  loadScene(new Gridz(1)) // For background.
-  loadScene(new FlowField(2)) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -524,7 +522,7 @@ const sceneLauncher = {
           this.isActive = false;
         }
       } else {
-        if (this.scene.opacity) {
+        if (this.isActive) {
           this.scene.opacity = midiToNormal(velocity);
         }
       }
