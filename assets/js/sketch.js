@@ -16,6 +16,7 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
+let currentSet = [];
 
 let midi179 = (function () {
   let ret = [];
@@ -37,9 +38,9 @@ let midiSubscribers = [
 ]
 
 function setBuilder(sketches) {
-  return sketches.map((sketch) => {
-    return new sketch();
-  })
+  currentSet = sketches.map((sketch, i) => {
+    return { sceneNum: i, sketch: sketch };
+  });
 }
 
 const controlScene = {
