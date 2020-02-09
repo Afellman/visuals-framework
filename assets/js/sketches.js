@@ -1175,15 +1175,15 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
   listeners = [
     {
-      note: 0,
-      method: (val) => {
+      midiNote: 0,
+      midiMethod: (val) => {
         // this.params.fader s.xOff = val / 100
         this.opacity = val / 100;
       }
     },
     {
-      note: 1,
-      method: (val) => {
+      midiNote: 1,
+      midiMethod: (val) => {
         this.params.faders.yOff = val / 100
       }
     },
