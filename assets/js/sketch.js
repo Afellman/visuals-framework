@@ -673,7 +673,7 @@ function midiToNormal(vel) {
 }
 
 // ================================================  
-//       Set building and binding launchers 
+//       Global midi bindings
 // ================================================  
 const currentSet = setBuilder([Gridz, FlowField]); // Where do I define the set list? Max 10.
 
