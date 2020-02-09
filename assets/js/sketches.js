@@ -1222,7 +1222,7 @@ class FlowField extends Sketch {
 
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[0]._vertSrc, shaders[0]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
     this.canvas = createGraphics(width, height);
   }
 
@@ -1260,7 +1260,7 @@ class FlowField extends Sketch {
     }
 
     noStroke();
-    this.shader.setUniform("u_opacity", [0, 0, 0, this.opacity])
+    this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.canvas);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
