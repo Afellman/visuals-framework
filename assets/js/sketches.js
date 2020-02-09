@@ -1259,7 +1259,6 @@ class Gridz extends Sketch {
   }
 
   draw() {
-
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * this.scale;
       for (let y = 0; y < this.cols; y++) {
