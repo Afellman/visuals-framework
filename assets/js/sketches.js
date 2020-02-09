@@ -147,7 +147,6 @@ class Sketch {
     }
 
     this.listeners = [];
-    this.params = { faders: {}, buttons: {} }
   }
 
   init() {
@@ -166,13 +165,6 @@ class Sketch {
       if (thisSocket.socketName && thisSocket.socketMethod) {
         socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
-    }
-    // Attaching sockets to all fader params
-    for (let i in this.params.faders) {
-      socket.on(`/${this.sceneNum}/${i}`, (val) => {
-        const param = val.address.split("/")[2];
-        this.params.faders[param] = val.args[0];
-      });
     }
     // this.updateOsc();
 
