@@ -1186,7 +1186,8 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
     {
       note: 0,
       method: (val) => {
-        this.params.faders.xOff = val / 100
+        // this.params.fader s.xOff = val / 100
+        this.opacity = val / 100;
       }
     },
     {
