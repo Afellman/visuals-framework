@@ -1215,7 +1215,7 @@ class FlowField extends Sketch {
     this.particleAmt = 1000;
     this.opacity = 0;
     this.maxspeed = 4;
-    this.mag = 500;
+    this.mag = 127;
     this.freq1 = 1
     this.freq2 = 1
   }
@@ -1377,7 +1377,11 @@ class FlowField extends Sketch {
       midiNote: 1,
       isButton: true,
       midiMethod: (vel) => {
-        this.mag = vel
+        for (let i = 0; i < this.particles.length; i++) {
+          const thisParticle = this.particles[i];
+          thisParticle.pos.x = Math.random() * width;
+          thisParticle.pos.y = Math.random() * height;
+        }
       }
     },
     {
