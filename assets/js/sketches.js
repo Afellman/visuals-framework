@@ -1206,7 +1206,7 @@ class FlowField extends Sketch {
     this.setIndex = setIndex;
     this.particles = [];
     this.inc = 0.1;
-    this.zinc = 0;
+    this.zinc = 1;
     this.scale = 20;
     this.cols;
     this.rows;
@@ -1216,6 +1216,8 @@ class FlowField extends Sketch {
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 500;
+    this.freq1 = PI
+    this.freq2 = PI
   }
 
   init() {
@@ -1240,8 +1242,8 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
+        let angle = sin(this.freq1) + sin(this.freq2) * this.zinc;
         // let angle = noise(xoff, yoff, this.zoff) * PI;
-        let angle = sin(xoff) + sin(yoff) * this.zinc
         // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
         let v = p5.Vector.fromAngle(angle);
 
@@ -1249,13 +1251,13 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
-        // push();
-        // translate(x * this.scale, y * this.scale);
-        // rotate(v.heading());
-        // strokeWeight(1);
-        // stroke(255)
-        // line(0, 0, this.scale, 0);
-        // pop();
+        push();
+        translate(x * this.scale, y * this.scale);
+        rotate(v.heading());
+        strokeWeight(1);
+        stroke(255)
+        line(0, 0, this.scale, 0);
+        pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
