@@ -16,10 +16,9 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
-let currentSet = [];
 
 function setBuilder(sketches) {
-  currentSet = sketches.map((sketch, i) => {
+  return sketches.map((sketch, i) => {
     return { sceneNum: i, sketch: sketch };
   });
 }
@@ -506,12 +505,14 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
   return ret;
 })();
 
+
+const currentSet = setBuilder([Gridz,])
 const sceneLauncher = {
   "1": {
-    scene:
-      method: () => {
+    scene: {},
+    method: () => {
 
-}
+    }
   }
 }
 
