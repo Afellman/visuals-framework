@@ -19,7 +19,7 @@ let debug = false;
 
 function setBuilder(sketches) {
   return sketches.map((sketch, i) => {
-    return { sceneNum: i, sketch: sketch };
+    return { setIndex: i, sketch: sketch };
   });
 }
 
