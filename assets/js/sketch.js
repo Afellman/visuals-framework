@@ -494,7 +494,7 @@ function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
 
-let midi179 = (function () { // Map of midi notes and attached methods.
+let midi179 = (function () { // Map of midi notes and attached methods with cc 179.
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
@@ -502,7 +502,7 @@ let midi179 = (function () { // Map of midi notes and attached methods.
   return ret;
 })();
 
-let midi180 = (function () {
+let midi180 = (function () { // Map of midi notes and attached methods with cc 180.
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
