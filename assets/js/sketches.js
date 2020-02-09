@@ -1250,6 +1250,7 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
+        // To show vector grid
         // push();
         // translate(x * this.scale, y * this.scale);
         // rotate(v.heading());
@@ -1380,6 +1381,7 @@ class FlowField extends Sketch {
           const thisParticle = this.particles[i];
           thisParticle.pos.x = Math.random() * width;
           thisParticle.pos.y = Math.random() * height;
+          this.updatePrev();
         }
       }
     },
