@@ -507,10 +507,10 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
-  for (let i of sceneLauncher) {
-    midi180[i + 32] = sceneLauncher[i].toggle;
-    midi180[i + 80] = sceneLauncher[i].opacity;
-  }
+  sceneLauncher.forEach((scene, i) => {
+    midi180[i + 32] = scene.toggle;
+    midi180[i + 80] = scene.opacity;
+  })
 }
 
 const sceneLauncher = [
