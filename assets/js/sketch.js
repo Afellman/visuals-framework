@@ -21,7 +21,7 @@ let currentSet = [];
 let midi179 = (function () {
   let ret = [];
   for (let i = 0; i < 96; i++) {
-    ret.push(0);
+    ret.push({ method: 0, velocity: 0 });
   }
   return ret;
 })();
@@ -294,6 +294,7 @@ function setup() {
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(), 0) // For background.
   loadScene(new FlowField(), 1) // For background.
+  loadScene(new Gridz(), 1) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -518,8 +519,8 @@ function getMIDIMessage(midiMessage) {
   //   genericMidi[note].method(velocity, command);
   // }
   if (command == 179) {
-    midi179[note] += velocity - 64;
-
+    midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+    midi179[note].method();
   }
   console.log("Midi - Note: " + note + " | Velocity:" + midi179[note])
 }
