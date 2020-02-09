@@ -508,8 +508,8 @@ const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
   sceneLauncher.forEach((scene, i) => {
-    midi180[i + 32].method = scene.opacity;
-    midi180[i + 80].method = scene.toggle;
+    midi180[i + 32].method = scene.opacity.bind(scene);
+    midi180[i + 80].method = scene.toggle.bind(scene);
   })
 }
 
