@@ -1247,13 +1247,14 @@ class FlowField extends Sketch {
 
 
   Particle = class Particle {
-    constructor(scale, cols) {
+    constructor(scale, cols, parent) {
       this.pos = createVector(Math.random() * width, Math.random() * height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.maxspeed = 4;
       this.scale = scale;
       this.hue = 0;
+      this.parent = parentl
 
       this.cols = cols;
       this.prevPos = this.pos.copy();
