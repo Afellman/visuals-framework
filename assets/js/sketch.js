@@ -679,18 +679,6 @@ function midiToNormal(vel) {
 // ================================================  
 const currentSet = setBuilder([Gridz, FlowField]);
 
-function bindLauncer() {
-  const launchers = currentSet.map(setScene => {
-    return new Launcher(setScene.sketch, setScene.setIndex);
-  });
-  launchers.forEach((launcher, i) => {
-    midi180[i + 32].method = launcher.opacity.bind(launcher);
-    midi180[i + 80].method = launcher.toggle.bind(launcher);
-  })
-}
-
-const sceneLauncher = [];
-
 class Launcher {
   constructor(classConstructor, setIndex) {
     this.scene = {};
@@ -717,6 +705,17 @@ class Launcher {
   }
 }
 
+function bindLaunchers() {
+  const launchers = currentSet.map(setScene => {
+    return new Launcher(setScene.sketch, setScene.setIndex);
+  });
+  launchers.forEach((launcher, i) => {
+    midi180[i + 32].method = launcher.opacity.bind(launcher);
+    midi180[i + 80].method = launcher.toggle.bind(launcher);
+  })
+}
+
+bindLaunchers();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
