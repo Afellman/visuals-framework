@@ -1327,7 +1327,7 @@ class FlowField extends Sketch {
     {
       midiNote: 1,
       midiMethod: (vel) => {
-        this.zinc = vel / 1000
+        this.zinc = vel / 10000
       }
     }
   ]
