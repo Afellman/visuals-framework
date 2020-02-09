@@ -33,10 +33,6 @@ let midi180 = (function () {
   return ret;
 })();
 
-let midiSubscribers = [
-
-]
-
 function setBuilder(sketches) {
   currentSet = sketches.map((sketch, i) => {
     return { sceneNum: i, sketch: sketch };
