@@ -1216,7 +1216,7 @@ class FlowField extends Sketch {
     this.rows = floor(height / this.scale);
 
     for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i] = new this.Particle(this.scale, this.cols, this);
+      this.particles[i] = new this.Particle(this.scale, this.cols, this, i);
     }
 
     this.flowField = new Array(this.cols * this.rows);
@@ -1258,7 +1258,7 @@ class FlowField extends Sketch {
 
 
   Particle = class Particle {
-    constructor(scale, cols, parent, ) {
+    constructor(scale, cols, parent, index) {
       this.pos = createVector(Math.random() * width, 0);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
@@ -1297,8 +1297,7 @@ class FlowField extends Sketch {
     }
 
     show() {
-      stroke(255, 2);
-      this.hue++;
+      stroke(255);
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
