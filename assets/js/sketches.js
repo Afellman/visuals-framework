@@ -1206,6 +1206,8 @@ class FlowField extends Sketch {
     this.flowField = [];
     this.particleAmt = 500;
     this.opacity = 0;
+    this.maxspeed = 4;
+    this.mag = 1;
   }
 
   init() {
@@ -1228,7 +1230,7 @@ class FlowField extends Sketch {
         let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
         let v = p5.Vector.fromAngle(angle);
 
-        v.setMag(1);
+        v.setMag(this.mag);
         this.flowField[index] = v;
         xoff += this.inc;
         stroke(0, 50);
@@ -1251,10 +1253,9 @@ class FlowField extends Sketch {
       this.pos = createVector(Math.random() * width, Math.random() * height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
-      this.maxspeed = 4;
       this.scale = scale;
       this.hue = 0;
-      this.parent = parentl
+      this.parent = parent;
 
       this.cols = cols;
       this.prevPos = this.pos.copy();
@@ -1263,7 +1264,7 @@ class FlowField extends Sketch {
 
     update() {
       this.vel.add(this.acc);
-      this.vel.limit(this.maxspeed);
+      this.vel.limit(this.parent.maxspeed);
       this.pos.add(this.vel);
       this.acc.mult(0);
     }
