@@ -36,6 +36,12 @@ let midiSubscribers = [
 
 ]
 
+function setBuilder(sketches) {
+  return sketches.map((sketch) => {
+    return new sketch();
+  })
+}
+
 const controlScene = {
   "1": {
     scene: {},
