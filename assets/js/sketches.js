@@ -184,7 +184,7 @@ class Sketch {
 
     for (let i = 0; i < this.listeners.length; i++) {
       let thisListener = this.listeners[i];
-      midi179[thisListener.note + (this.setIndex * 6)].method = thisListener.method;
+      midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
     }
   }
 
