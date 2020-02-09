@@ -1301,7 +1301,6 @@ class FlowField extends Sketch {
       stroke(255, 10);
       strokeWeight(1);
       this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-      image(this.parent.canvas, 0, 0)
       this.updatePrev();
     }
 
