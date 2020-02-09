@@ -516,10 +516,11 @@ const sceneLauncher = {
       if (cmd == 144) {
         if (!this.isActive) {
           this.scene = new currentSet[0].sketch(0);
-          scenes.push();
+          scenes.push(this.scene);
         } else {
           unloadScene(this.scene.setIndex);
           this.scene = {};
+          this.isActive = false;
         }
       } else {
         if (this.scene.opacity) {
