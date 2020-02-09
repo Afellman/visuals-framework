@@ -1239,6 +1239,7 @@ class FlowField extends Sketch {
         translate(x * this.scale, y * this.scale);
         rotate(v.heading());
         strokeWeight(1);
+        stroke(255)
         line(0, 0, this.scale, 0);
         pop();
       }
