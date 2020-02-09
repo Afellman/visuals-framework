@@ -503,8 +503,6 @@ let midi180 = (function () { // Map of midi notes and attached methods with comm
   return ret;
 })();
 
-
-
 const genericMidi = {
   "1": {
     scene: {},
@@ -677,7 +675,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Set building and binding launchers 
 // ================================================  
-const currentSet = setBuilder([Gridz, FlowField]);
+const currentSet = setBuilder([Gridz, FlowField]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
