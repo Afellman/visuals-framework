@@ -18,21 +18,6 @@ let save;
 let debug = false;
 let currentSet = [];
 
-let midi179 = (function () {
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
-let midi180 = (function () {
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push(0);
-  }
-  return ret;
-})();
-
 function setBuilder(sketches) {
   currentSet = sketches.map((sketch, i) => {
     return { sceneNum: i, sketch: sketch };
@@ -495,8 +480,25 @@ function keyPressed(e) {
 };
 
 // ======================================== 
+
 //                  Midi 
+
 // ======================================== 
+
+let midi179 = (function () {
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+let midi180 = (function () {
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push(0);
+  }
+  return ret;
+})();
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
