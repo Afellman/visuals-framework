@@ -1211,6 +1211,7 @@ class FlowField extends Sketch {
   }
 
   init() {
+    super.init();
     this.cols = floor(width / this.scale);
     this.rows = floor(height / this.scale);
 
