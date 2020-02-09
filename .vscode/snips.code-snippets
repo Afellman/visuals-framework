@@ -44,6 +44,7 @@
 		"body": [
 			"{",
 			"  midiNote: ${1:0},",
+			"  isButton: false,",
 			"  midiMethod: () =>{",
 			"  	$2",
 			"  }",
