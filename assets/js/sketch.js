@@ -492,13 +492,15 @@ let midi179 = (function () {
   }
   return ret;
 })();
+
 let midi180 = (function () {
   let ret = [];
   for (let i = 0; i < 96; i++) {
-    ret.push(0);
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
 })();
+
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
