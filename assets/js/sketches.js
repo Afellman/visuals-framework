@@ -1268,7 +1268,7 @@ class Gridz extends Sketch {
         stroke(hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.time / 10)
+        let lengthNoise = noise(x, y, this.time / 50)
         line(0 - this.scale * lengthNoise, 0 - this.scale * lengthNoise, 0 + this.scale, 0 + this.scale)
         line(0 - this.scale, 0 + this.scale, 0 + this.scale, 0 - this.scale)
         // line(0, 0 + this.scale, 0, 0 - this.scale)
