@@ -1208,7 +1208,6 @@ class FlowField extends Sketch {
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 1;
-
   }
 
   init() {
@@ -1252,7 +1251,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent) {
-      this.pos = createVector(helpers.random(-10, 10) + width / 2, helpers.random(-10, 10) + height / 2);
+      this.pos = createVector(Math.random() * width, Math.random() * height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
@@ -1299,20 +1298,20 @@ class FlowField extends Sketch {
     };
 
     edges() {
-      if (this.pos.x > (width / 2) + this.parent.rightMax) {
-        this.pos.x = (width / 2) - this.parent.leftMax;
+      if (this.pos.x > width) {
+        this.pos.x = 0;
         this.updatePrev();
       }
-      if (this.pos.x < (width / 2) - this.parent.leftMax) {
-        this.pos.x = (width / 2) + this.parent.rightMax;
+      if (this.pos.x < 0) {
+        this.pos.x = width;
         this.updatePrev();
       }
-      if (this.pos.y > (height / 2) + this.parent.bottomMax) {
-        this.pos.y = (height / 2) - this.parent.topMax;
+      if (this.pos.y > height) {
+        this.pos.y = 0;
         this.updatePrev();
       }
-      if (this.pos.y < (height / 2) - this.parent.topMax) {
-        this.pos.y = (height / 2) + this.parent.bottomMax;
+      if (this.pos.y < 0) {
+        this.pos.y = height;
         this.updatePrev();
       }
     }
@@ -1322,7 +1321,7 @@ class FlowField extends Sketch {
     {
       midiNote: 0,
       midiMethod: (vel) => {
-        this.mag = vel / 100
+        this.mag = vel
       }
     },
     {
@@ -1332,33 +1331,9 @@ class FlowField extends Sketch {
       }
     },
     {
-      midiNote: 2,
+      midiNote: 3,
       midiMethod: (vel) => {
         this.maxspeed = vel
-      }
-    },
-    {
-      midiNote: 4,
-      midiMethod: (vel) => {
-        this.leftMax = map(vel, 0, 127, 0, width / 2)
-      }
-    },
-    {
-      midiNote: 5,
-      midiMethod: (vel) => {
-        this.rightMax = map(vel, 0, 127, 0, width / 2)
-      }
-    },
-    {
-      midiNote: 6,
-      midiMethod: (vel) => {
-        this.topMax = map(vel, 0, 127, 0, height / 2)
-      }
-    },
-    {
-      midiNote: 7,
-      midiMethod: (vel) => {
-        this.bottomMax = map(vel, 0, 127, 0, height / 2)
       }
     }
   ]
