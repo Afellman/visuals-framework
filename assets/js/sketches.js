@@ -1298,7 +1298,8 @@ class Gridz extends Sketch {
     {
       note: 0,
       method: (val) => {
-        console.log("midinote"); this.speed = val
+        console.log("midinote");
+        this.speed = val;
       }
   ]
 }
