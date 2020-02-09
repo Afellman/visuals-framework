@@ -138,11 +138,12 @@ let maze = {
 } // Refactor using Sketch as parent.
 
 class Sketch {
-  constructor(obj, setIndex) {
+  constructor(objOrIndex) {
     if (obj && typeof obj == "object") {
       for (let i in obj) {
         this[i] = obj[i];
       }
+      this.setIndex = obj.setIndex;
       this.loaded = true;
     }
     this.setIndex = setIndex;
@@ -1256,7 +1257,7 @@ class FlowField extends Sketch {
 
 class Gridz extends Sketch {
   constructor(sceneNum) {
-    super({}, sceneNum);
+    super(sceneNum);
     this.scale = 75;
     this.rows = Math.ceil(width / this.scale);
     this.cols = Math.ceil(height / this.scale);
