@@ -1228,7 +1228,7 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 2;
         let v = p5.Vector.fromAngle(angle);
 
         v.setMag(this.mag);
