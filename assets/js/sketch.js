@@ -349,15 +349,15 @@ function loadScene(scene, sceneNum) {
   scenes.push(scene);
 }
 
-function unloadScene(id) {
+function unloadScene(setIndex) {
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i].id === id) {
+    if (scenes[i].setIndex === setIndex) {
       index = i;
       break;
     }
   }
-  socket.emit("sceneOff", scenes[index].sceneNum);
+  // socket.emit("sceneOff", scenes[index].sceneNum);
   scenes[index].unload();
   scenes.splice(index, 1);
 }
@@ -511,7 +511,12 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 })();
 
 const sceneLauncher = {
-  "1":
+  "1": {
+    scene:
+      method: () => {
+
+}
+  }
 }
 
 const genericMidi = {
