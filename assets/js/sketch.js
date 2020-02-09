@@ -521,7 +521,7 @@ function getMIDIMessage(midiMessage) {
     midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi179[note].method();
   }
-  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note])
+  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
 }
 
 const genericMidi = {
