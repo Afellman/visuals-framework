@@ -511,12 +511,19 @@ const currentSet = setBuilder([Gridz, FlowField]);
 const sceneLauncher = {
   "1": {
     scene: {},
-    method: (velocity, cmd) => {
+    isActive: false,
+    method: function (velocity, cmd) {
       if (cmd == 144) {
-
+        if (!this.isActive) {
+          this.scene = new currentSet[0].scene(0);
+          scenes.push();
+        } else {
+          unloadScene(this.scene.setIndex);
+          this.scene = {};
+        }
       } else {
         if (this.scene.opacity) {
-          this.scene.opacity = midiToNormal(vel);
+          this.scene.opacity = midiToNormal(velocity);
         }
       }
     }
