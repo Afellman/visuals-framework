@@ -159,20 +159,15 @@ class Sketch {
   }
 
   attachListeners() {
-
-    for (let i = 0; i < this.listeners.length; i++) {
+    for (let i = 0; i < this.listeners.length; i++) { // Socket listeners
       const thisSocket = this.listeners[i];
       if (thisSocket.socketName && thisSocket.socketMethod) {
         socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
-    // this.updateOsc();
-
-
 
     // Faderfox controls
-
-    for (let i = 0; i < this.listeners.length; i++) {
+    for (let i = 0; i < this.listeners.length; i++) { // Midi listeners.
       let thisListener = this.listeners[i];
       midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
     }
