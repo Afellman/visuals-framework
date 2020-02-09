@@ -138,13 +138,14 @@ let maze = {
 } // Refactor using Sketch as parent.
 
 class Sketch {
-  constructor(obj) {
+  constructor(obj, setIndex) {
     if (obj && typeof obj == "object") {
       for (let i in obj) {
         this[i] = obj[i];
       }
       this.loaded = true;
     }
+    this.setIndex = setIndex;
     this.listeners = [];
     this.params = { faders: {}, buttons: {} }
   }
