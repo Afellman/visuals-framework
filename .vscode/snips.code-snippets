@@ -20,8 +20,9 @@
 		"prefix": "sketch",
 		"body": [
 			"class ${1:Sketch} extends Sketch {",
-			"  constructor() {",
+			"  constructor(setIndex) {",
 			"    super();",
+			"    this.setIndex = setIndex;",
 			"  }",
 			" ",
 			"  init() {",
