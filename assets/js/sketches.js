@@ -1206,7 +1206,7 @@ class FlowField extends Sketch {
     this.setIndex = setIndex;
     this.particles = [];
     this.inc = 0.2;
-    this.zinc = 0.003;
+    this.zinc = 0;
     this.scale = 20;
     this.cols;
     this.rows;
@@ -1250,13 +1250,13 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
-        push();
-        translate(x * this.scale, y * this.scale);
-        rotate(v.heading());
-        strokeWeight(1);
-        stroke(255)
-        line(0, 0, this.scale, 0);
-        pop();
+        // push();
+        // translate(x * this.scale, y * this.scale);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // stroke(255)
+        // line(0, 0, this.scale, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
