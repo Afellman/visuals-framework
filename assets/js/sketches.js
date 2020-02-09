@@ -145,8 +145,9 @@ class Sketch {
       }
       this.setIndex = objOrIndex.setIndex;
       this.loaded = true;
+    } else {
+      this.setIndex = objOrIndex;
     }
-    this.setIndex = setIndex;
     this.listeners = [];
     this.params = { faders: {}, buttons: {} }
   }
