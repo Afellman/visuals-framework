@@ -169,7 +169,7 @@ class Sketch {
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
-      if(this.setIndex < 5){
+      if (this.setIndex < 5) {
         midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
       } else {
         midi180[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
@@ -1264,6 +1264,7 @@ class Gridz extends Sketch {
     this.angle = 0;
     this.time = 0;
     this.speed = 0.01;
+    this.opacity = 0;
   }
 
   init() {
