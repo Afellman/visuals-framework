@@ -1261,7 +1261,7 @@ class FlowField extends Sketch {
 
     noStroke();
     this.canvas.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_color", [0, 0, 0, this.opacity])
     this.shader.setUniform("tex0", this.canvas);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
