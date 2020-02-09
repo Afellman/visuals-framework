@@ -381,7 +381,6 @@ function unloadScene(id) {
   scenes.splice(index, 1);
 }
 
-
 function toggleMirror(vert) {
   if (!mirror) {
     loadScene(new Mirror(vert));
