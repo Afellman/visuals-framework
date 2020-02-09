@@ -170,7 +170,11 @@ class Sketch {
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
       if (this.setIndex < 5) {
-        midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
+        if (this.listeners.isButton) {
+          midi179[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
+        } else {
+          midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
+        }
       } else {
         midi180[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
       }
@@ -1308,7 +1312,7 @@ class FlowField extends Sketch {
 
     show() {
       this.parent.canvas.stroke(255, 2);
-      this.parent.canvas.background(0, 0, 0, 0);
+      this.parent.canvas.background(0, 0, 0, 2);
       this.parent.canvas.strokeWeight(1);
       this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
