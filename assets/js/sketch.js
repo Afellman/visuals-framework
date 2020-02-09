@@ -508,7 +508,8 @@ const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
   for (let i of sceneLauncher) {
-    midi180[i + 32] = sceneLauncher[i].method;
+    midi180[i + 32] = sceneLauncher[i].toggle;
+    midi180[i + 80] = sceneLauncher[i].opacity;
   }
 }
 
@@ -516,22 +517,19 @@ const sceneLauncher = [
   {
     scene: {},
     isActive: false,
-    method: function (velocity, cmd) {
-      if (cmd == 144) {
-        if (!this.isActive) {
-          this.scene = new currentSet[0].sketch(0);
-          scenes.push(this.scene);
-          this.isActive = true;
-        } else {
-          unloadScene(this.scene.setIndex);
-          this.scene = {};
-          this.isActive = false;
-        }
+    toggle: function () {
+      if (!this.isActive) {
+        this.scene = new currentSet[0].sketch(0);
+        scenes.push(this.scene);
+        this.isActive = true;
       } else {
-        if (this.isActive) {
-          this.scene.opacity = midiToNormal(velocity);
-        }
+        unloadScene(this.scene.setIndex);
+        this.scene = {};
+        this.isActive = false;
       }
+    },
+    opacity: function (velocity) {
+      this.scene.opacity = midiToNormal(velocity);
     }
   }
 ]
