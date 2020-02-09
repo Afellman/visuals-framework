@@ -507,7 +507,7 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
-  for (let i in sceneLauncher) {
+  for (let i of sceneLauncher) {
     midi180[i + 32] = sceneLauncher[i].method;
   }
 }
