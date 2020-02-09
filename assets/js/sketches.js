@@ -1251,7 +1251,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent) {
-      this.pos = createVector(Math.random() * width, Math.random() * height);
+      this.pos = createVector(helpers.random(-200, 200) + width / 2, helpers.random(-200, 200) + height / 2);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
@@ -2142,7 +2142,7 @@ const Methods = {
 
 }
 
-const Helpers = {
+const helpers = {
   ease: function (val, low, high) {
     return this.easeInOutQuad(normalize(val))
   },
@@ -2163,4 +2163,8 @@ const Helpers = {
     image.pixels[index + 2] = blue;
     image.pixels[index + 3] = alpha;
   },
+  random: function (min, max) {
+    const rand = Math.random();
+    return rand * (max - min) + min;
+  }
 }
