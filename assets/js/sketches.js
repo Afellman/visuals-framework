@@ -139,11 +139,11 @@ let maze = {
 
 class Sketch {
   constructor(objOrIndex) {
-    if (obj && typeof obj == "object") {
-      for (let i in obj) {
-        this[i] = obj[i];
+    if (objOrIndex && typeof objOrIndex == "object") {
+      for (let i in objOrIndex) {
+        this[i] = objOrIndex[i];
       }
-      this.setIndex = obj.setIndex;
+      this.setIndex = objOrIndex.setIndex;
       this.loaded = true;
     }
     this.setIndex = setIndex;
