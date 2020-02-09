@@ -1195,8 +1195,8 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 }
 
 class FlowField extends Sketch {
-  constructor() {
-    super();
+  constructor(setIndex) {
+    super(setIndex);
     this.particles = [];
     this.inc = 0.1;
     this.zinc = 0.0003;
