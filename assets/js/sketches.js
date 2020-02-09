@@ -170,9 +170,9 @@ class Sketch {
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
       if(this.setIndex < 5){
-        midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+        midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.midiMethod;
       } else {
-        midi180[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+        midi180[thisListener.note + (this.setIndex * 8)].method = thisListener.midiMethod;
       }
     }
   }
