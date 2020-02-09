@@ -1229,6 +1229,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle = noise(xoff, yoff, this.zoff) * PI;
+        // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
         let v = p5.Vector.fromAngle(angle);
 
         v.setMag(this.mag);
@@ -1257,14 +1258,14 @@ class FlowField extends Sketch {
 
 
   Particle = class Particle {
-    constructor(scale, cols, parent) {
-      this.pos = createVector(Math.random() * width, Math.random() * height);
+    constructor(scale, cols, parent, ) {
+      this.pos = createVector(Math.random() * width, 0);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
       this.hue = 0;
       this.parent = parent;
-
+      this.index = index;
       this.cols = cols;
       this.prevPos = this.pos.copy();
 
@@ -1291,6 +1292,10 @@ class FlowField extends Sketch {
       this.acc.add(force);
     }
 
+    die() {
+      this.parent.particles[this.index] = new this.parent.Particle(this.parent.scale, this.parent.cols, this.parent, this.index)
+    }
+
     show() {
       stroke(255, 2);
       this.hue++;
@@ -1315,7 +1320,8 @@ class FlowField extends Sketch {
       }
       if (this.pos.y > height) {
         this.pos.y = 0;
-        this.updatePrev();
+        this.die();
+        // this.updatePrev();
       }
       if (this.pos.y < 0) {
         this.pos.y = height;
