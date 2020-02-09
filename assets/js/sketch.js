@@ -359,9 +359,15 @@ function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
 
-function loadScene(scene) {
+/**
+ * 
+ * @param {object} sceneObj object containing a scene constructor and an index in the set list.
+ * {scene: AnySketch, sceneNum: i} 
+ */
+function loadScene(sceneObj) {
+  const scene = new sceneObj.scene(); // 
   const id = Math.random() * 100000;
-  scene.id = id
+  scene.id = id;
   scene.init();
   scenes.push(scene);
 }
