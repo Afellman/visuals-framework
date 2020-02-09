@@ -1290,7 +1290,7 @@ class Gridz extends Sketch {
     // this.shaderBox.shader(this.shader);
     // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     // this.shaderBox.rect(0, 0, width, height);
-    this.time += 0.01
+    this.time += this.speed
   }
 
   listeners = [
