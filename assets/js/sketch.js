@@ -32,6 +32,10 @@ let midi180 = (function () {
   return ret;
 })();
 
+let midiSubscribers = [
+
+]
+
 const controlScene = {
   "1": {
     scene: {},
@@ -509,7 +513,7 @@ function getMIDIMessage(midiMessage) {
     midi179[note] += velocity - 64;
 
   }
-  console.log("Midi- Note: " + note + " | Velocity:" + midi179[note])
+  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note])
 }
 
 const genericMidi = {
