@@ -510,7 +510,7 @@ function bindLauncer() {
   const launchers = currentSet.map(setScene => {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
-  sceneLauncher.forEach((scene, i) => {
+  launchers.forEach((launcher, i) => {
     midi180[i + 32].method = scene.opacity.bind(scene);
     midi180[i + 80].method = scene.toggle.bind(scene);
   })
