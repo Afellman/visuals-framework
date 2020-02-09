@@ -31,8 +31,6 @@ let midi180 = (function () {
   }
   return ret;
 })();
-const midiSubscribers = {
-}
 
 const controlScene = {
   "1": {
@@ -488,7 +486,9 @@ function keyPressed(e) {
   }
 };
 
-// ======================================== Midi
+// ======================================== 
+//                  Midi 
+// ======================================== 
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
@@ -505,7 +505,7 @@ function getMIDIMessage(midiMessage) {
   // if (command !== 132) {
   //   genericMidi[note].method(velocity, command);
   // }
-  if (command == 177) {
+  if (command == 179) {
     // if(velocity >= 127){
     //   midi177[note] ++;
     // } else if(velocity <= 0){
