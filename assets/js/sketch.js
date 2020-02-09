@@ -715,7 +715,7 @@ function bindLaunchers() {
 
 function bindMiscGlobal() {
   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-  // midi180[i + 80].method = launcher.toggle.bind(launcher);
+  midi180[i + 80].method = (vel) => { glBackground[3] = midiToNormal(vel) };
 }
 
 bindLaunchers();
