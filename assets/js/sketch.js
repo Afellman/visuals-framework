@@ -506,7 +506,7 @@ function getMIDIMessage(midiMessage) {
   //   genericMidi[note].method(velocity, command);
   // }
   if (command == 179) {
-    midi179[note] = velocity - 64;
+    midi179[note] += velocity - 64;
 
   }
   console.log("Midi- Note: " + note + " Velocity:" + midi179[note])
