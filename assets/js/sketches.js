@@ -143,7 +143,6 @@ class Sketch {
       for (let i in obj) {
         this[i] = obj[i];
       }
-      this.setIndex = obj.setIndex;
       this.loaded = true;
     }
 
@@ -1195,7 +1194,8 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
 class FlowField extends Sketch {
   constructor(setIndex) {
-    super(setIndex);
+    super();
+    this.setIndex = setIndex;
     this.particles = [];
     this.inc = 0.1;
     this.zinc = 0.0003;
