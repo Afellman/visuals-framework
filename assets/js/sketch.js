@@ -652,9 +652,13 @@ function onMidiMessage(midiMessage) {
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
-  // if (command !== 132) {
-  //   genericMidi[note].method(velocity, command);
-  // }
+
+ // Akai 
+  if (command !== 132) {
+    genericMidi[note].method(velocity, command);
+  }
+
+  // Fader Fox
   if (command == 179) {
     midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi179[note].method(midi179[note].velocity);
