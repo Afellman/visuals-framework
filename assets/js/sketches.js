@@ -1357,6 +1357,13 @@ class FlowField extends Sketch {
       }
     },
     {
+      midiNote: 0,
+      isButton: true,
+      midiMethod: (vel) => {
+        this.mag = vel
+      }
+    },
+    {
       midiNote: 1,
       midiMethod: (vel) => {
         this.zinc = vel / 10000
