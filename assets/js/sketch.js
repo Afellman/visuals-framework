@@ -725,7 +725,8 @@ function bindMiscGlobal() {
   // Encoder 11
   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
   midi180[90].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-
+  midi180[42].velocity = 100;
+  midi180[90].velocity = 127;
 }
 
 bindLaunchers();
