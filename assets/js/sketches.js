@@ -1824,7 +1824,7 @@ class EarthQuake extends Sketch {
   }
 }
 
-class Connecter extends Sketch {// replaced by spinning circles
+class Connecter extends Sketch {// replaced by spinning circles 
   constructor(color) {
     super();
     this.params = {
