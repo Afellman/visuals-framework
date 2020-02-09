@@ -688,7 +688,7 @@ class Launcher {
   toggle() {
     if (!this.isActive) {
       this.scene = new this.classConstructor(this.setIndex);
-      scenes.push(this.scene);
+      loadScene(this.scene);
       this.isActive = true;
       midi180[32].velocity = 0;
     } else {
@@ -713,13 +713,13 @@ function bindLaunchers() {
   })
 }
 
-function bindGlobals() {
+function bindMiscGlobal() {
   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
   // midi180[i + 80].method = launcher.toggle.bind(launcher);
 }
 
 bindLaunchers();
-bindGlobals();
+bindMiscGlobal();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
