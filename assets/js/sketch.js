@@ -684,9 +684,9 @@ function onMidiMessage(midiMessage) {
     midi180[note].method(midi180[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
 
-  } else {  // Akai 
+  } else {
     if (command == 144 || command == 176) { // button press and knob.
-      sceneLauncher[note].method(velocity, command);
+
     }
   }
 }
