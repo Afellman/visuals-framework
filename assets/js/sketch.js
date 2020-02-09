@@ -507,6 +507,9 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 const currentSet = setBuilder([Gridz, FlowField]);
 
 function bindLauncer() {
+  currentSet.forEach(scene => {
+
+  });
   sceneLauncher.forEach((scene, i) => {
     midi180[i + 32].method = scene.opacity.bind(scene);
     midi180[i + 80].method = scene.toggle.bind(scene);
@@ -514,27 +517,33 @@ function bindLauncer() {
 }
 
 const sceneLauncher = [
-  {
-    scene: {},
-    isActive: false,
-    toggle: function () {
-      if (!this.isActive) {
-        this.scene = new currentSet[0].sketch(0);
-        scenes.push(this.scene);
-        this.isActive = true;
-      } else {
-        unloadScene(this.scene.setIndex);
-        this.scene = {};
-        this.isActive = false;
-        midi180[32].velocity = 0;
-      }
-    },
-    opacity: function (velocity) {
-      this.scene.opacity = midiToNormal(velocity);
-    }
-  }
+
 ]
 
+class Launcher {
+  constructor() {
+    this.scene = {};
+    isActive: false,
+      
+  }
+
+  toggle() {
+    if (!this.isActive) {
+      this.scene = new currentSet[0].sketch(0);
+      scenes.push(this.scene);
+      this.isActive = true;
+      midi180[32].velocity = 0;
+    } else {
+      unloadScene(this.scene.setIndex);
+      this.scene = {};
+      this.isActive = false;
+    }
+  }
+
+  opacity(velocity) {
+    this.scene.opacity = midiToNormal(velocity);
+  }
+}
 const genericMidi = {
   "1": {
     scene: {},
