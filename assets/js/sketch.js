@@ -515,7 +515,7 @@ const sceneLauncher = {
     method: function (velocity, cmd) {
       if (cmd == 144) {
         if (!this.isActive) {
-          this.scene = new currentSet[0].scene(0);
+          this.scene = new currentSet[0].sketch(0);
           scenes.push();
         } else {
           unloadScene(this.scene.setIndex);
