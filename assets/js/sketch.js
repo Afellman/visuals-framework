@@ -292,8 +292,8 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
-  loadScene(new BGShader()) // For background.
-  loadScene(new FlowField()) // For background.
+  loadScene(new BGShader(), 0) // For background.
+  loadScene(new FlowField(), 1) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -359,15 +359,9 @@ function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
 
-/**
- * 
- * @param {object} sceneObj object containing a scene constructor and an index in the set list.
- * {scene: AnySketch, sceneNum: i} 
- */
-function loadScene(sceneObj) {
-  const scene = new sceneObj.scene(); // 
-  const id = Math.random() * 99999;
-  scene.id = id;
+function loadScene(scene) {
+  const id = Math.random() * 100000;
+  scene.id = id
   scene.init();
   scenes.push(scene);
 }
