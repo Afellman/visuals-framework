@@ -1256,7 +1256,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent) {
-      this.pos = createVector(helpers.random(-200, 200) + width / 2, helpers.random(-200, 200) + height / 2);
+      this.pos = createVector(helpers.random(-10, 10) + width / 2, helpers.random(-10, 10) + height / 2);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
@@ -1362,7 +1362,7 @@ class FlowField extends Sketch {
     {
       midiNote: 7,
       midiMethod: (vel) => {
-        this.bottom = map(vel, 0, 127, 0, height / 2)
+        this.bottomMax = map(vel, 0, 127, 0, height / 2)
       }
     }
   ]
