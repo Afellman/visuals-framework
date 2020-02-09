@@ -1242,8 +1242,7 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle = sin(xoff * this.freq1) * sin(yoff * this.freq2) * this.zinc;
-        // let angle = noise(xoff, yoff, this.zoff) * PI;
+        let angle = noise(xoff, yoff, this.zoff) * PI;
         // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
         let v = p5.Vector.fromAngle(angle);
 
