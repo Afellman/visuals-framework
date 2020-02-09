@@ -40,12 +40,11 @@
 	},
 	"Listener": {
 		"scope": "javascript",
-		"prefix": "sketch",
+		"prefix": "listener",
 		"body": [
 			"{",
 			"  midiNote: ${1:0},",
 			"  midiMethod: () =>{$2",
-			"    this.setIndex = setIndex;",
 			"  }",
 			"}",
 		],
