@@ -1234,11 +1234,12 @@ class FlowField extends Sketch {
         v.setMag(this.mag);
         this.flowField[index] = v;
         xoff += this.inc;
+
         push();
-        translate(x * this.scl, y * this.scl);
+        translate(x * this.scale, y * this.scale);
         rotate(v.heading());
         strokeWeight(1);
-        line(0, 0, this.scl, 0);
+        line(0, 0, this.scale, 0);
         pop();
       }
       yoff += this.inc;
