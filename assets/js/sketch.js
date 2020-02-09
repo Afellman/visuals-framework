@@ -17,14 +17,14 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
-let midi177 = (function () {
+let midi179 = (function () {
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push(0);
   }
   return ret;
 })();
-let midi178 = (function () {
+let midi180 = (function () {
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push(0);
@@ -284,7 +284,7 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader()) // For background.
-  loadScene(new Rainbow()) // For background.
+  loadScene(new Grdiz()) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
