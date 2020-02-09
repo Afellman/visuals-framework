@@ -522,6 +522,7 @@ const sceneLauncher = [
         this.scene = new currentSet[0].sketch(0);
         scenes.push(this.scene);
         this.isActive = true;
+        midi180[32].velocity = 0;
       } else {
         unloadScene(this.scene.setIndex);
         this.scene = {};
