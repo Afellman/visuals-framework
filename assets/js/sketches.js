@@ -1220,6 +1220,7 @@ class FlowField extends Sketch {
     }
 
     this.flowField = new Array(this.cols * this.rows);
+    this.canvas = createGraphics(width, height);
   }
 
   draw() {
@@ -1297,9 +1298,9 @@ class FlowField extends Sketch {
     }
 
     show() {
-      stroke(255, 2);
+      stroke(255, 10);
       strokeWeight(1);
-      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
     }
 
