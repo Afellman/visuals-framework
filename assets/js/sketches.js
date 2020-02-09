@@ -173,7 +173,16 @@ class Sketch {
         this.params.faders[param] = val.args[0];
       });
     }
-    this.updateOsc();
+    // this.updateOsc();
+
+
+
+    // Faderfox controls
+
+    for (let i = 0; i < this.listeners.length; i++) {
+      let thisListener = this.listeners[i];
+      midi179[thisListener.note * this.sceneNum]
+    }
   }
 
   updateOsc() {
@@ -1284,7 +1293,12 @@ class Gridz extends Sketch {
     this.time += 0.01
   }
 
-  listeners = [{}]
+  listeners = [
+    {
+      midiNote: 0,
+      method: (val) => this.speed = val
+    }
+  ]
 }
 
 class Rainbow extends Sketch {
