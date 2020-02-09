@@ -510,6 +510,10 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
   return ret;
 })();
 
+const sceneLauncher = {
+  "1":
+}
+
 const genericMidi = {
   "1": {
     scene: {},
@@ -665,7 +669,10 @@ function onMidiMessage(midiMessage) {
     midi180[note].method(midi180[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
   } else {  // Akai 
-    genericMidi[note].method(velocity, command);
+
+    if (command == 144 || command == 176) {
+      sceneLauncher[note].method(velocity, command);
+    }
   }
 }
 
