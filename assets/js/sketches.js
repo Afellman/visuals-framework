@@ -1220,7 +1220,6 @@ class FlowField extends Sketch {
 
     this.flowField = new Array(this.cols * this.rows);
 
-    super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
     this.canvas = createGraphics(width, height);
@@ -1310,7 +1309,7 @@ class FlowField extends Sketch {
     show() {
       stroke(255, 255);
       strokeWeight(1);
-      this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.parent.canvas.shaderBox(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
     }
 
