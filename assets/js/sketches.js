@@ -1215,7 +1215,7 @@ class FlowField extends Sketch {
     this.rows = floor(height / this.scale);
 
     for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i] = new this.Particle(this.scale, this.cols);
+      this.particles[i] = new this.Particle(this.scale, this.cols, this);
     }
 
     this.flowField = new Array(this.cols * this.rows);
