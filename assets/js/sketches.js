@@ -1235,6 +1235,12 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
         stroke(0, 50);
+        // push();
+        // translate(x * scl, y * scl);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // line(0, 0, scl, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
