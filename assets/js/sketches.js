@@ -167,9 +167,13 @@ class Sketch {
     }
 
     // Faderfox controls
-    for (let i = 0; i < this.listeners.length; i++) { // Midi listeners.
+    for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
-      midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+      if(this.setIndex < 5){
+        midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+      } else {
+        midi180[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+      }
     }
   }
 
