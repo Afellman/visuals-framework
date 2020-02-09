@@ -1380,9 +1380,21 @@ class FlowField extends Sketch {
       }
     },
     {
-      midiNote: 3, // Make this clear the background.
+      midiNote: 3,
       midiMethod: (vel) => {
         this.maxspeed = vel
+      }
+    },
+    {
+      midiNote: 4,
+      midiMethod: (vel) => {
+        this.freq1 = vel / 100
+      }
+    },
+    {
+      midiNote: 5,
+      midiMethod: (vel) => {
+        this.freq2 = vel / 100
       }
     }
   ]
