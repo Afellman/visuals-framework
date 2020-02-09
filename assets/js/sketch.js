@@ -662,7 +662,6 @@ function onMidiMessage(midiMessage) {
     } else {
       midi179[note].velocity = velocity;
     }
-    midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
     midi180[note].method(midi180[note].velocity);
     if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
 
