@@ -521,15 +521,16 @@ const sceneLauncher = [
 ]
 
 class Launcher {
-  constructor() {
+  constructor(classConstructor, setIndex) {
     this.scene = {};
     this.isActive = false;
-
+    this.classConstructor = classConstructor;
+    this.setIndex = setIndex;
   }
 
   toggle() {
     if (!this.isActive) {
-      this.scene = new currentSet[0].sketch(0);
+      this.scene = new this.classConstructor(this.setIndex);
       scenes.push(this.scene);
       this.isActive = true;
       midi180[32].velocity = 0;
