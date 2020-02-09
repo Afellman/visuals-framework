@@ -486,7 +486,7 @@ navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
   for (let input of midiAccess.inputs.values()) {
-    input.onmidimessage = getMIDIMessage;
+    input.onmidimessage = onMidiMessage;
   }
 }
 
@@ -647,8 +647,7 @@ const genericMidi = {
   }
 }
 
-
-function getMIDIMessage(midiMessage) {
+function onMidiMessage(midiMessage) {
   let command = midiMessage.data[0];
   let note = midiMessage.data[1];
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
@@ -662,8 +661,6 @@ function getMIDIMessage(midiMessage) {
   }
   console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
 }
-
-
 
 function midiToColor(vel) {
   return Math.round(map(vel, 0, 127, 0, 255));
