@@ -487,7 +487,7 @@ function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
 
-let midi179 = (function () { // Map of midi notes and attached methods with cc 179.
+let midi179 = (function () { // Map of midi notes and attached methods with command 179.
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
@@ -495,7 +495,7 @@ let midi179 = (function () { // Map of midi notes and attached methods with cc 1
   return ret;
 })();
 
-let midi180 = (function () { // Map of midi notes and attached methods with cc 180.
+let midi180 = (function () { // Map of midi notes and attached methods with command 180.
   let ret = [];
   for (let i = 0; i < 96; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
@@ -504,45 +504,7 @@ let midi180 = (function () { // Map of midi notes and attached methods with cc 1
 })();
 
 
-const currentSet = setBuilder([Gridz, FlowField]);
 
-function bindLauncer() {
-  const launchers = currentSet.map(setScene => {
-    return new Launcher(setScene.sketch, setScene.setIndex);
-  });
-  launchers.forEach((launcher, i) => {
-    midi180[i + 32].method = launcher.opacity.bind(launcher);
-    midi180[i + 80].method = launcher.toggle.bind(launcher);
-  })
-}
-
-const sceneLauncher = []
-
-class Launcher {
-  constructor(classConstructor, setIndex) {
-    this.scene = {};
-    this.isActive = false;
-    this.classConstructor = classConstructor;
-    this.setIndex = setIndex;
-  }
-
-  toggle() {
-    if (!this.isActive) {
-      this.scene = new this.classConstructor(this.setIndex);
-      scenes.push(this.scene);
-      this.isActive = true;
-      midi180[32].velocity = 0;
-    } else {
-      unloadScene(this.scene.setIndex);
-      this.scene = {};
-      this.isActive = false;
-    }
-  }
-
-  opacity(velocity) {
-    this.scene.opacity = midiToNormal(velocity);
-  }
-}
 const genericMidi = {
   "1": {
     scene: {},
@@ -711,6 +673,50 @@ function midiToColor(vel) {
 function midiToNormal(vel) {
   return map(vel, 0, 127, 0, 1);
 }
+
+// ================================================  
+//       Set building and binding launchers 
+// ================================================  
+const currentSet = setBuilder([Gridz, FlowField]);
+
+function bindLauncer() {
+  const launchers = currentSet.map(setScene => {
+    return new Launcher(setScene.sketch, setScene.setIndex);
+  });
+  launchers.forEach((launcher, i) => {
+    midi180[i + 32].method = launcher.opacity.bind(launcher);
+    midi180[i + 80].method = launcher.toggle.bind(launcher);
+  })
+}
+
+const sceneLauncher = [];
+
+class Launcher {
+  constructor(classConstructor, setIndex) {
+    this.scene = {};
+    this.isActive = false;
+    this.classConstructor = classConstructor;
+    this.setIndex = setIndex;
+  }
+
+  toggle() {
+    if (!this.isActive) {
+      this.scene = new this.classConstructor(this.setIndex);
+      scenes.push(this.scene);
+      this.isActive = true;
+      midi180[32].velocity = 0;
+    } else {
+      unloadScene(this.scene.setIndex);
+      this.scene = {};
+      this.isActive = false;
+    }
+  }
+
+  opacity(velocity) {
+    this.scene.opacity = midiToNormal(velocity);
+  }
+}
+
 // ========================================= Async Loaders
 
 function loadImages(cb) {
