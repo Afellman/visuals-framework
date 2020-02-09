@@ -1261,6 +1261,7 @@ class Gridz extends Sketch {
     this.cols = Math.ceil(height / this.scale);
     this.angle = 0;
     this.time = 0;
+    this.speed = 0.01;
   }
 
   init() {
@@ -1296,8 +1297,9 @@ class Gridz extends Sketch {
   listeners = [
     {
       note: 0,
-      method: (val) => this.speed = val
-    }
+      method: (val) => {
+        console.log("midinote"); this.speed = val
+      }
   ]
 }
 
