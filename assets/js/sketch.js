@@ -480,9 +480,7 @@ function keyPressed(e) {
 };
 
 // ================================================  
-
 //                     Midi 
-
 // ================================================  
 
 let midi179 = (function () {
@@ -500,29 +498,6 @@ let midi180 = (function () {
   }
   return ret;
 })();
-
-navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-
-function onMIDISuccess(midiAccess) {
-  for (let input of midiAccess.inputs.values()) {
-    input.onmidimessage = getMIDIMessage;
-  }
-}
-
-function getMIDIMessage(midiMessage) {
-  let command = midiMessage.data[0];
-  let note = midiMessage.data[1];
-  let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
-  if (debug) console.log(note, velocity, command)
-  // if (command !== 132) {
-  //   genericMidi[note].method(velocity, command);
-  // }
-  if (command == 179) {
-    midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
-    midi179[note].method(midi179[note].velocity);
-  }
-  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
-}
 
 const genericMidi = {
   "1": {
@@ -660,6 +635,30 @@ const genericMidi = {
     },
   }
 }
+navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+function onMIDISuccess(midiAccess) {
+  for (let input of midiAccess.inputs.values()) {
+    input.onmidimessage = getMIDIMessage;
+  }
+}
+
+function getMIDIMessage(midiMessage) {
+  let command = midiMessage.data[0];
+  let note = midiMessage.data[1];
+  let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
+  if (debug) console.log(note, velocity, command)
+  // if (command !== 132) {
+  //   genericMidi[note].method(velocity, command);
+  // }
+  if (command == 179) {
+    midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+    midi179[note].method(midi179[note].velocity);
+  }
+  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
+}
+
+
 
 function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
