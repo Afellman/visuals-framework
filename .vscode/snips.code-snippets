@@ -38,4 +38,27 @@
 		],
 		"description": "Creates a new sketch instance"
 	},
+	"Listener": {
+		"scope": "javascript",
+		"prefix": "sketch",
+		"body": [
+			"class ${1:Sketch} extends Sketch {",
+			"  constructor(setIndex) {",
+			"    super();",
+			"    this.setIndex = setIndex;",
+			"  }",
+			" ",
+			"  init() {",
+			"    super.init()",
+			"  }",
+			" ",
+			"  draw() {",
+			"    $2",
+			"  }",
+			" ",
+			"  listeners = [{}]",
+			"}",
+		],
+		"description": "Creates a new sketch instance"
+	},
 }
