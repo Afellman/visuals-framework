@@ -1308,7 +1308,7 @@ class FlowField extends Sketch {
 
     show() {
       this.parent.canvas.stroke(255, 2);
-      this.parent.canvas.background(0, 0, 0, 0);
+      this.parent.canvas.background(0, 0, 0, 2);
       this.parent.canvas.strokeWeight(1);
       this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
@@ -1351,6 +1351,12 @@ class FlowField extends Sketch {
       midiNote: 1,
       midiMethod: (vel) => {
         this.zinc = vel / 10000
+      }
+    },
+    {
+      midiNote: 3,
+      midiMethod: (vel) => {
+        this.maxspeed = vel
       }
     },
     {
