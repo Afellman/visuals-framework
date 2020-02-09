@@ -21,7 +21,7 @@ let currentSet = [];
 let midi179 = (function () {
   let ret = [];
   for (let i = 0; i < 96; i++) {
-    ret.push({ method: 0, velocity: 0 });
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
 })();
