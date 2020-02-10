@@ -174,14 +174,14 @@ class Sketch {
           midi179[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
         } else {
           midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
-          midi179[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
+          midi179[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal();
         }
       } else {
         if (thisListener.isButton) {
           midi180[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
         } else {
           midi180[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
-          midi180[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
+          midi180[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal();
         }
       }
     }
@@ -1541,7 +1541,7 @@ class Rainbow extends Sketch {
   listeners = [
     {
       midiNote: 0,
-      initialVal: this.arc,
+      initialVal: () => this.arc,
       isButton: false,
       midiMethod: (vel) => {
         this.arc = map(vel, 0, 127, 0, width / 2)
