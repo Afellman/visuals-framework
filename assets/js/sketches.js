@@ -1473,7 +1473,7 @@ class Rainbow extends Sketch {
     super();
     this.lines = [];
     this.lineAmt = 1;
-    this.arc = height / 2;
+    this.arc = width * .9;
     this.lineLength = 3;
     this.speed = 3;
     this.time = 0;
