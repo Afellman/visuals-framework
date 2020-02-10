@@ -1473,7 +1473,7 @@ class Rainbow extends Sketch {
     super();
     this.lines = [];
     this.lineAmt = 1;
-    this.arc = height / 4;
+    this.arc = height / 2;
     this.lineLength = 3;
     this.speed = 3;
     this.time = 0;
@@ -1519,11 +1519,11 @@ class Rainbow extends Sketch {
         this.move();
         this.time += this.parent.speed - i / 4
         this.time = this.time % 360;
-        console.log(this.time, Math.round(this.time) % 180, i)
-        if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
-          this.moving = false;
-          this.move();
-        }
+        // console.log(this.time, Math.round(this.time) % 180, i)
+        // if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
+        //   this.moving = false;
+        //   this.move();
+        // }
       }
     }
 
