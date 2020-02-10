@@ -1529,11 +1529,11 @@ class Rainbow extends Sketch {
 
     move() {
       let rad = radians(this.time);
-      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * 768;
-      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * 768);
+      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * 300;
+      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * 300);
 
-      this.posEnd.x = width / 3 + Math.sin(-HALF_PI + rad) * (768) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (768) / this.parent.lineLength);
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (300) / this.parent.lineLength;
+      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (300) / this.parent.lineLength);
     }
 
     display() {
