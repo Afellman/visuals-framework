@@ -1472,8 +1472,9 @@ class Gridz extends Sketch {
 }
 
 class Rainbow extends Sketch {
-  constructor() {
+  constructor(setIndex) {
     super();
+    this.setIndex = setIndex;
     this.lines = [];
     this.lineAmt = 1;
     this.arc = width * .9;
