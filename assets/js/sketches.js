@@ -172,7 +172,6 @@ class Sketch {
       if (this.setIndex < 5) {
         if (thisListener.isButton) {
           midi179[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
-          midi179[thisListener.midiNote + (this.setIndex * 8) + 48].velocity = thisListener.initialVal || 0;
         } else {
           midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
           midi179[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
@@ -180,7 +179,6 @@ class Sketch {
       } else {
         if (thisListener.isButton) {
           midi180[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
-          midi180[thisListener.midiNote + (this.setIndex * 8) + 48].velocity = thisListener.initialVal || 0;
         } else {
           midi180[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
           midi180[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
@@ -1499,12 +1497,6 @@ class Rainbow extends Sketch {
     }
   }
 
-  mouseClicked() {
-    for (let i = 0; i < this.lines.length; i++) {
-      this.lines[i].startBounce();
-    }
-  }
-
   Line = class Line {
     constructor(parent) {
       this.parent = parent;
@@ -1554,6 +1546,16 @@ class Rainbow extends Sketch {
       isButton: false,
       midiMethod: (vel) => {
         this.arc = map(vel, 0, 127, 0, width / 2)
+      }
+    },
+    {
+      midiNote: 0,
+      initialVal: this.arc,
+      isButton: true,
+      midiMethod: (vel) => {
+        for (let i = 0; i < this.lines.length; i++) {
+          this.lines[i].startBounce();
+        }
       }
     },
     {
