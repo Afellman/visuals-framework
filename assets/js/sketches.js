@@ -1476,7 +1476,7 @@ class Rainbow extends Sketch {
     this.setIndex = setIndex;
     this.lines = [];
     this.lineAmt = 5;
-    this.arc = width * .9;
+    this.arc = 768;
     this.lineLength = 3;
     this.speed = 1;
     this.time = 0;
