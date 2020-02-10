@@ -1542,10 +1542,10 @@ class Rainbow extends Sketch {
   listeners = [
     {
       midiNote: 0,
-      initialVal: () => this.arc,
+      initialVal: () => map(vel, 0, width / 2, 0, 100),
       isButton: false,
       midiMethod: (vel) => {
-        this.arc = map(vel, 0, 127, 0, width / 2)
+        this.arc = map(vel, 0, 100, 0, width / 2)
       }
     },
     {
