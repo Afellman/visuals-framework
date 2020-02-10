@@ -1551,7 +1551,7 @@ class Rainbow extends Sketch {
       initialVal: this.arc,
       isButton: false,
       midiMethod: (vel) => {
-        this.arc = map(vel, 0, 0)
+        this.arc = map(vel, 0, 127, 0, width / 2)
       }
     }
   ]
