@@ -172,6 +172,7 @@ class Sketch {
       if (this.setIndex < 5) {
         if (thisListener.isButton) {
           midi179[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
+          midi179[thisListener.midiNote + (this.setIndex * 8) + 48].velocity = thisListener.initialVal;
         } else {
           midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
         }
