@@ -1532,8 +1532,8 @@ class Rainbow extends Sketch {
       this.posStart.x = width / 12 + Math.sin(-HALF_PI + rad) * this.parent.arc;
       this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
 
-      this.posEnd.x = width / 3 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
+      // this.posEnd.x = width / 3 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
+      // this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
     }
 
     display() {
