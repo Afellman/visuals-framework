@@ -176,13 +176,11 @@ class Sketch {
         } else {
           midi179[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
           midi179[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
-
         }
       } else {
         if (thisListener.isButton) {
           midi180[thisListener.midiNote + (this.setIndex * 8) + 48].method = thisListener.midiMethod;
           midi180[thisListener.midiNote + (this.setIndex * 8) + 48].velocity = thisListener.initialVal || 0;
-
         } else {
           midi180[thisListener.midiNote + (this.setIndex * 8)].method = thisListener.midiMethod;
           midi180[thisListener.midiNote + (this.setIndex * 8)].velocity = thisListener.initialVal || 0;
