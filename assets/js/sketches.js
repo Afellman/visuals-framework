@@ -175,7 +175,7 @@ class Sketch {
           midi179[thisIndex + 48].method = thisListener.midiMethod;
         } else {
           midi179[thisIndex].method = thisListener.midiMethod;
-          midi179[thisIndex].velocity = thisListener.initialVal();
+          midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
         }
       } else {
         if (thisListener.isButton) {
