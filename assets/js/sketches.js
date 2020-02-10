@@ -1542,7 +1542,16 @@ class Rainbow extends Sketch {
     }
   }
 
-  listeners = [{}]
+  listeners = [
+    {
+      midiNote: 0,
+      initialVal: this.arc,
+      isButton: false,
+      midiMethod: (vel) => {
+        this.arc = map(vel, 0, 0)
+      }
+    }
+  ]
 }
 
 class Rain extends Sketch {
