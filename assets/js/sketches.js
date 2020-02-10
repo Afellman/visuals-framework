@@ -1555,6 +1555,14 @@ class Rainbow extends Sketch {
       midiMethod: (vel) => {
         this.arc = map(vel, 0, 127, 0, width / 2)
       }
+    },
+    {
+      midiNote: 0,
+      initialVal: this.lineLength,
+      isButton: false,
+      midiMethod: (vel) => {
+        this.arc = map(vel, 0, 127, 0, width / 2)
+      }
     }
   ]
 }
