@@ -1520,7 +1520,7 @@ class Rainbow extends Sketch {
         this.time += this.parent.speed - (i / 4);
         this.time = this.time % 360;
         console.log(this.time, Math.round(this.time) % 180, i)
-        if (Math.round(this.time) % 180 < 1) { // Stop function
+        if (Math.ceil(this.time) % 180 < 1) { // Stop function
           this.moving = false;
           this.move();
         }
