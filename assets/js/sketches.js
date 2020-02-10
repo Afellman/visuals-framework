@@ -1503,7 +1503,7 @@ class Rainbow extends Sketch {
   Line = class Line {
     constructor(parent) {
       this.parent = parent;
-      this.posStart = createVector(width / 2 - (width / 2.5), height / 2);
+      this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
       this.color = [255, 255, 255, 255];
       this.time = 0;
@@ -1529,11 +1529,11 @@ class Rainbow extends Sketch {
 
     move() {
       let rad = radians(this.time);
-      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * 300;
-      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * 300);
+      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
+      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
 
-      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (300) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (300) / this.parent.lineLength);
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
+      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
     }
 
     display() {
