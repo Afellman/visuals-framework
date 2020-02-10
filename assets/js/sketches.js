@@ -1559,7 +1559,7 @@ class Rainbow extends Sketch {
     },
     {
       midiNote: 1,
-      initialVal: this.lineLength,
+      initialVal: () => this.lineLength,
       isButton: false,
       midiMethod: (vel) => {
         this.lineLength = vel
