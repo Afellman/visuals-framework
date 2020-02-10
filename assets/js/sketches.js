@@ -1527,10 +1527,10 @@ class Rainbow extends Sketch {
     move() {
       let rad = radians(this.time);
       this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
-      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
+      this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * this.parent.arc);
 
       this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
+      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
     }
 
     display() {
@@ -1542,7 +1542,7 @@ class Rainbow extends Sketch {
   listeners = [
     {
       midiNote: 0,
-      initialVal: () => map(vel, 0, width / 2, 0, 100),
+      initialVal: () => map(this.arc, 0, width / 2, 0, 100),
       isButton: false,
       midiMethod: (vel) => {
         this.arc = map(vel, 0, 100, 0, width / 2)
