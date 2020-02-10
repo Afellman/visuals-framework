@@ -1475,7 +1475,7 @@ class Rainbow extends Sketch {
     this.lineAmt = 5;
     this.arc = height / 4;
     this.lineLength = 3;
-    this.speed = 1;
+    this.speed = 3;
     this.time = 0;
   }
 
@@ -1507,6 +1507,7 @@ class Rainbow extends Sketch {
       this.posEnd = createVector(width / 2, height / 2);
       this.color = [255, 255, 255, 255];
       this.time = 0;
+      this.positionInArc = 0;
     }
 
     startBounce() {
@@ -1519,8 +1520,9 @@ class Rainbow extends Sketch {
         this.move();
         this.time += this.parent.speed - i / 4
         this.time = this.time % 360;
+        this.positionInArc++;
         console.log(this.time, Math.round(this.time) % 180, i)
-        if (Math.ceil(this.time) % 180 < 1) { // Stop function
+        if (this.positionInArc % 180 < 1) { // Stop function
           this.moving = false;
           this.move();
         }
