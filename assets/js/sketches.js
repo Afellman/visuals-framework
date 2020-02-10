@@ -1524,11 +1524,11 @@ class Rainbow extends Sketch {
         this.move();
         this.time += this.parent.speed - i / 4
         this.time = this.time % 360;
-        // console.log(this.time, Math.round(this.time) % 180, i)
-        // if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
-        //   this.moving = false;
-        //   this.move();
-        // }
+        console.log(this.time, Math.round(this.time) % 180, i)
+        if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
+          this.moving = false;
+          this.move();
+        }
       }
     }
 
