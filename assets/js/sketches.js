@@ -1503,7 +1503,7 @@ class Rainbow extends Sketch {
   Line = class Line {
     constructor(parent) {
       this.parent = parent;
-      this.posStart = createVector(width / 2, height / 2);
+      this.posStart = createVector(width / 12, height / 2);
       this.posEnd = createVector(width / 2, height / 2);
       this.color = [255, 255, 255, 255];
       this.time = 0;
