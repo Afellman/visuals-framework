@@ -182,7 +182,7 @@ class Sketch {
           midi180[thisIndex + 48].method = thisListener.midiMethod;
         } else {
           midi180[thisIndex].method = thisListener.midiMethod;
-          midi180[thisIndex].velocity = thisListener.initialVal();
+          midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
         }
       }
     }
