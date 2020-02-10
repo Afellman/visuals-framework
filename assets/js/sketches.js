@@ -1514,9 +1514,9 @@ class Rainbow extends Sketch {
     update(i) {
       if (this.moving) {
         this.move();
-        this.time += this.parent.speed - i / 75
+        this.time += this.parent.speed - i / 50
         this.time = this.time % 360;
-        if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
+        if (this.time % 180 < this.parent.speed - i / 50) { // Stop function
           this.moving = false;
           this.move();
         }
