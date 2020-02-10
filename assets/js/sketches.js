@@ -1483,7 +1483,7 @@ class Rainbow extends Sketch {
 
   init() {
     super.init();
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) { // Max lines = 100
       this.lines.push(new this.Line(this));
     }
   }
@@ -1514,9 +1514,8 @@ class Rainbow extends Sketch {
     update(i) {
       if (this.moving) {
         this.move();
-        this.time += this.parent.speed - i / 4
+        this.time += this.parent.speed - i / 10
         this.time = this.time % 360;
-        console.log(this.time, Math.round(this.time) % 180, i)
         if (this.time % 180 < this.parent.speed - i / 4) { // Stop function
           this.moving = false;
           this.move();
