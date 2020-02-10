@@ -1483,7 +1483,7 @@ class Rainbow extends Sketch {
 
   init() {
     super.init();
-    for (let i = 0; i < this.lineAmt; i++) {
+    for (let i = 0; i < 100; i++) {
       this.lines.push(new this.Line(this));
     }
   }
