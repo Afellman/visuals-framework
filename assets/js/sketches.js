@@ -1381,7 +1381,7 @@ class FlowField extends Sketch {
           const thisParticle = this.particles[i];
           thisParticle.pos.x = Math.random() * width;
           thisParticle.pos.y = Math.random() * height;
-          this.updatePrev();
+          thisParticle.updatePrev();
         }
       }
     },
