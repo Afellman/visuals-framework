@@ -1559,13 +1559,19 @@ class Rainbow extends Sketch {
         this.arc = map(vel, 0, 100, 0, width / 2)
       },
       socketName: "arc",
-      socketMethod: () => { this.arc = map(vel, 0, 100, 0, width / 2) }
+      socketMethod: () => this.arc = map(vel, 0, 100, 0, width / 2)
     },
     {
       midiNote: 0,
       initialVal: this.arc,
       isButton: true,
       midiMethod: (vel) => {
+        for (let i = 0; i < this.lines.length; i++) {
+          this.lines[i].startBounce();
+        }
+      },
+      socketName: "bounce",
+      socketMethod: () => {
         for (let i = 0; i < this.lines.length; i++) {
           this.lines[i].startBounce();
         }
