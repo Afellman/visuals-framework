@@ -146,6 +146,7 @@ class Sketch {
       this.loaded = true;
     }
 
+    this.params = { faders: [] }
     this.listeners = [];
   }
 
@@ -174,6 +175,7 @@ class Sketch {
         this.params.faders[param] = val.args[0];
       });
     }
+
     this.updateOsc();
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
