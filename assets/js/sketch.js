@@ -674,7 +674,8 @@ function onMidiMessage(midiMessage) {
 
   } else {
     if (command == 144 || command == 176) { // button press and knob.
-      // midiAkai[note].velocity
+      midiAkai[note].velocity = velocity;
+      midiAkai[note].method(velocity)
     }
   }
 
