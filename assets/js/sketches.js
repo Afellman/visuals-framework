@@ -166,11 +166,19 @@ class Sketch {
       }
     }
 
+
+    // Attaching sockets to all fader params
+    for (let i in this.params.faders) {
+      socket.on(`/${this.sceneNum}/${i}`, (val) => {
+        const param = val.address.split("/")[2];
+        this.params.faders[param] = val.args[0];
+      });
+    }
+    this.updateOsc();
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
       if (thisListener.midiNote) {
-
         let thisIndex = thisListener.midiNote + (this.setIndex * 8)
         if (this.setIndex < 5) {
           if (thisListener.isButton) {
