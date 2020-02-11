@@ -726,8 +726,8 @@ function bindLaunchers() {
     // For Faderfox
     // midi180[i + 32].method = launcher.opacity.bind(launcher);
     // midi180[i + 80].method = launcher.toggle.bind(launcher);
-    midiAkai[i + 1].method = launcher.opacity.bind(launcher);
     midiAkai[i + 1].method = launcher.toggle.bind(launcher);
+    midiAkai[i + 8].method = launcher.opacity.bind(launcher);
   })
 }
 
