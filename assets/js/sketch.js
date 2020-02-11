@@ -343,10 +343,10 @@ function loadScene(scene) {
   scenes.push(scene);
 }
 
-function unloadScene(setIndex) {
+function unloadScene(id) {
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i].setIndex === setIndex) {
+    if (scenes[i].id === id) {
       index = i;
       break;
     }
@@ -704,7 +704,8 @@ class Launcher {
 
   toggle() {
     if (!this.isActive) {
-      this.scene = new this.classConstructor(this.setIndex);
+      this.scene = new this.classConstructor();
+      this.scene.setIndex = this.setIndex;
       this.scene.id = Math.random() * 9999999;
       loadScene(this.scene);
       this.isActive = true;
