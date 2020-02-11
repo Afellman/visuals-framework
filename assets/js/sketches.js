@@ -171,7 +171,7 @@ class Sketch {
     this.updateOsc();
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
-      let thisListener = this.listeners[i];
+      const thisListener = this.listeners[i];
       if (thisListener.midiNote) {
         let thisIndex = thisListener.midiNote + (this.setIndex * 8)
         if (this.setIndex < 5) {
@@ -191,8 +191,7 @@ class Sketch {
         }
       }
 
-      const thisSocket = this.listeners[i];
-      if (thisSocket.socketName && thisSocket.socketMethod) {
+      if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
@@ -1558,7 +1557,9 @@ class Rainbow extends Sketch {
       isButton: false,
       midiMethod: (vel) => {
         this.arc = map(vel, 0, 100, 0, width / 2)
-      }
+      },
+      socketName: "arc",
+      socketMethod: () => { this.arc = map(vel, 0, 100, 0, width / 2) }
     },
     {
       midiNote: 0,
