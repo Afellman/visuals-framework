@@ -160,14 +160,6 @@ class Sketch {
   }
 
   attachListeners() {
-    for (let i = 0; i < this.listeners.length; i++) { // Socket listeners
-      const thisSocket = this.listeners[i];
-      if (thisSocket.socketName && thisSocket.socketMethod) {
-        socket.on(`/${this.setIndex}/${thisSocket.socketName}`, thisSocket.socketMethod);
-      }
-    }
-
-
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
       socket.on(`/${this.setIndex}/${i}`, (val) => {
@@ -197,6 +189,11 @@ class Sketch {
             midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
           }
         }
+      }
+
+      const thisSocket = this.listeners[i];
+      if (thisSocket.socketName && thisSocket.socketMethod) {
+        socket.on(`/${this.setIndex}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
   }
