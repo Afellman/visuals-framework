@@ -1214,7 +1214,7 @@ class FlowField extends Sketch {
     this.rows;
     this.zoff = 0;
     this.flowField = [];
-    this.particleAmt = 1000;
+    this.particleAmt = 500;
     this.opacity = 0;
     this.maxspeed = 4;
     this.mag = 127;
