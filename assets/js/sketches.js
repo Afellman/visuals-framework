@@ -1493,7 +1493,7 @@ class Gridz extends Sketch {
   ];
 }
 
-class Rainbow extends Sketch {
+class WindShield extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
@@ -1517,7 +1517,7 @@ class Rainbow extends Sketch {
   }
 
   draw() {
-    for (let i = 0; i < this.lineAmt; i++) {
+    for (let i = 0; i < this.params.faders.lineAmt; i++) {
       const thisLine = this.lines[i];
       if (thisLine) {
         thisLine.update(i);
