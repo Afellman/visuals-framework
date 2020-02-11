@@ -200,10 +200,11 @@ class Sketch {
 
   updateOsc() {
     // Syncs iPad with scenes starting values
-    const params = this.params.faders.map((param) => param)
+    let params = this.params.faders;
+    let listenerParams = this.listeners.map(listener => listener.socketName)
     socket.emit("updateOsc", {
       scene: this.setIndex,
-      params: this.params.faders
+      params: [...this.params.faders, ...listenerParams]
     });
   }
 
