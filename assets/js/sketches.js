@@ -192,7 +192,7 @@ class Sketch {
       }
 
       if (thisListener.socketName && thisListener.socketMethod) {
-        socket.on(`/${this.setIndex}/${thisSocket.socketName}`, thisSocket.socketMethod);
+        socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
     }
   }
