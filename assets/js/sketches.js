@@ -1503,7 +1503,7 @@ class WindShield extends Sketch {
         arc: 565,
         lineLength: 2.83,
         lineAmt: 1,
-        speed: 0.1,
+        speed: 1,
         lineDupes: 5
       }
     }
@@ -1525,8 +1525,8 @@ class WindShield extends Sketch {
       if (thisLine) {
         thisLine.update();
         for (let j = 0; j < lineDupes; j++) {
-          const vectors = this.move(thisLine.time / (j + 1));
-          stroke(thisLine.color[0] / i, thisLine.color[1] / i, thisLine.color[2] / i, this.opacity);
+          const vectors = this.move(thisLine.time / (j / 25 + 1));
+          stroke(thisLine.color[0] / j, thisLine.color[1] / j, thisLine.color[2] / j, this.opacity);
           line(vectors.start.x, vectors.start.y, vectors.end.x, vectors.end.y);
         }
       }
@@ -1569,10 +1569,13 @@ class WindShield extends Sketch {
       }
     }
 
-    update(i) {
+    update() {
       const { speed } = this.parent.params.faders;
       this.time += speed;
-      this.time = this.time % 360;
+      // this.time = this.time % 360;
+      if (this.time % 1080 == 0) {
+        this.parent.cut(this.i);
+      }
     }
 
 
