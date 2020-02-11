@@ -510,142 +510,143 @@ let midiAkai = (function () {
   }
   return ret;
 })();
-const genericMidi = {
-  "1": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 180) {
-        glBackground[3] = map(vel, 0, 127, 0, 1);
-      }
-    }
-  },
-  "2": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.isActive = false;
-          this.scene = {};
-        } else {
-          this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        this.scene.opacity = midiToNormal(vel);
-      }
-    }
-  },
-  "3": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          // unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          // this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.yOff = midiToNormal(vel) / 10;
-      }
-    }
-  },
-  "4": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          // unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          // this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.xOff = midiToNormal(vel) / 10;
-      }
-    },
-  },
-  "5": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          this.scene = new LinesShader(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.freq = midiToNormal(vel) / 10;
-      }
-    }
-  },
-  "6": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          // unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          // this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.amp = midiToNormal(vel) / 10;
-      }
-    },
-  },
-  "7": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          // unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          // this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.noise = midiToNormal(vel) / 10;
-      }
-    },
-  },
-  "8": {
-    scene: {},
-    method: function (vel, cmd) {
-      if (cmd == 148) {  // 148 == Pad
-        if (this.isActive) {
-          // unloadScene(this.scene.id);
-          this.scene = {};
-          this.isActive = false;
-        } else {
-          // this.scene = new Mirror(true);
-          loadScene(this.scene);
-          this.isActive = true;
-        }
-      } else if (cmd == 180) {
-        genericMidi[5].scene.params.faders.speed = midiToNormal(vel) / 10;
-      }
-    },
-  }
-}
+
+// const genericMidi = {
+//   "1": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 180) {
+//         glBackground[3] = map(vel, 0, 127, 0, 1);
+//       }
+//     }
+//   },
+//   "2": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           unloadScene(this.scene.id);
+//           this.isActive = false;
+//           this.scene = {};
+//         } else {
+//           this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         this.scene.opacity = midiToNormal(vel);
+//       }
+//     }
+//   },
+//   "3": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           // unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           // this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.yOff = midiToNormal(vel) / 10;
+//       }
+//     }
+//   },
+//   "4": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           // unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           // this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.xOff = midiToNormal(vel) / 10;
+//       }
+//     },
+//   },
+//   "5": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           this.scene = new LinesShader(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.freq = midiToNormal(vel) / 10;
+//       }
+//     }
+//   },
+//   "6": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           // unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           // this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.amp = midiToNormal(vel) / 10;
+//       }
+//     },
+//   },
+//   "7": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           // unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           // this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.noise = midiToNormal(vel) / 10;
+//       }
+//     },
+//   },
+//   "8": {
+//     scene: {},
+//     method: function (vel, cmd) {
+//       if (cmd == 148) {  // 148 == Pad
+//         if (this.isActive) {
+//           // unloadScene(this.scene.id);
+//           this.scene = {};
+//           this.isActive = false;
+//         } else {
+//           // this.scene = new Mirror(true);
+//           loadScene(this.scene);
+//           this.isActive = true;
+//         }
+//       } else if (cmd == 180) {
+//         genericMidi[5].scene.params.faders.speed = midiToNormal(vel) / 10;
+//       }
+//     },
+//   }
+// }
 
 function onMidiMessage(midiMessage) {
   let command = midiMessage.data[0];
@@ -691,7 +692,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, LinesShader, Rainbow]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, LinesShader, FlowShader]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -704,11 +705,12 @@ class Launcher {
   toggle() {
     if (!this.isActive) {
       this.scene = new this.classConstructor(this.setIndex);
+      this.scene.id = Math.random() * 9999999;
       loadScene(this.scene);
       this.isActive = true;
       midi180[32].velocity = 0;
     } else {
-      unloadScene(this.scene.setIndex);
+      unloadScene(this.scene.id);
       this.scene = {};
       this.isActive = false;
     }
