@@ -716,8 +716,9 @@ function bindLaunchers() {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
   launchers.forEach((launcher, i) => {
-    midi180[i + 32].method = launcher.opacity.bind(launcher);
-    midi180[i + 80].method = launcher.toggle.bind(launcher);
+    // midi180[i + 32].method = launcher.opacity.bind(launcher);
+    // midi180[i + 80].method = launcher.toggle.bind(launcher);
+    midiAkai[i + 1].method = launcher.opacity.bind(launcher);
   })
 }
 
