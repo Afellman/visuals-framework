@@ -1503,7 +1503,7 @@ class WindShield extends Sketch {
         arc: 768,
         lineLength: 3,
         lineAmt: 5,
-        speed: 1,
+        speed: 0.1,
       }
     }
     this.time = 0;
@@ -1542,16 +1542,16 @@ class WindShield extends Sketch {
     }
 
     update(i) {
-      if (this.moving) {
-        const { speed } = this.parent.params.faders;;
-        this.move();
-        this.time += speed - i / 50
-        this.time = this.time % 360;
-        if (this.time % 180 < speed - i / 50) { // Stop function
-          this.moving = false;
-          this.move();
-        }
-      }
+      // if (this.moving) {
+      const { speed } = this.parent.params.faders;;
+      this.move();
+      this.time += speed - i / 50
+      this.time = this.time % 360;
+      // if (this.time % 180 < speed - i / 50) { // Stop function
+      //   this.moving = false;
+      //   this.move();
+      // }
+      // }
     }
 
     move() {
@@ -1573,10 +1573,6 @@ class WindShield extends Sketch {
 
   listeners = [
     {
-      socketName: "arc",
-      socketMethod: (val) => this.arc = map(val.args[0], 0, 100, 0, width / 2)
-    },
-    {
       socketName: "bounce",
       socketMethod: () => {
         for (let i = 0; i < this.lines.length; i++) {
@@ -1597,9 +1593,10 @@ class WindShield extends Sketch {
       }
     },
     {
-      socketName: "lineAmt",
+      socketName: "sunset",
       socketMethod: (val) => {
-        this.lineAmt = val.args[0];
+        this.params.faders.lineLength = -1;
+        this.updateOsc();
       }
     }
   ]
