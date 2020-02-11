@@ -1543,7 +1543,7 @@ class WindShield extends Sketch {
 
     update(i) {
       if (this.moving) {
-        const { speed } = this.parent.params.faders.speed;
+        const { speed } = this.parent.params.faders;;
         this.move();
         this.time += speed - i / 50
         this.time = this.time % 360;
