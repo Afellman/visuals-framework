@@ -1559,7 +1559,7 @@ class Rainbow extends Sketch {
         this.arc = map(vel, 0, 100, 0, width / 2)
       },
       socketName: "arc",
-      socketMethod: () => this.arc = map(vel, 0, 100, 0, width / 2)
+      socketMethod: (val) => this.arc = map(val.args[0], 0, 100, 0, width / 2)
     },
     {
       midiNote: 0,
@@ -1585,8 +1585,8 @@ class Rainbow extends Sketch {
         this.lineLength = vel
       },
       socketName: "lineLength",
-      socketMethod: () => {
-        this.lineLength = vel
+      socketMethod: (val) => {
+        this.lineLength = val.args[0];
       }
     },
     {
@@ -1595,6 +1595,10 @@ class Rainbow extends Sketch {
       isButton: false,
       midiMethod: (vel) => {
         this.lineAmt = vel
+      },
+      socketName: "lineAmt",
+      socketMethod: (val) => {
+        this.lineAmt = val.args[0];
       }
     }
   ]
