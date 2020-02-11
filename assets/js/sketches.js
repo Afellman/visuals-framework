@@ -168,7 +168,7 @@ class Sketch {
       });
     }
 
-    this.updateOsc();
+
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       const thisListener = this.listeners[i];
@@ -194,6 +194,7 @@ class Sketch {
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
+      this.updateOsc();
     }
   }
 
