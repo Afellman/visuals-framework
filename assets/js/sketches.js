@@ -169,20 +169,23 @@ class Sketch {
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
-      let thisIndex = thisListener.midiNote + (this.setIndex * 8)
-      if (this.setIndex < 5) {
-        if (thisListener.isButton) {
-          midi179[thisIndex + 48].method = thisListener.midiMethod;
+      if (thisListener.midiNote) {
+
+        let thisIndex = thisListener.midiNote + (this.setIndex * 8)
+        if (this.setIndex < 5) {
+          if (thisListener.isButton) {
+            midi179[thisIndex + 48].method = thisListener.midiMethod;
+          } else {
+            midi179[thisIndex].method = thisListener.midiMethod;
+            midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+          }
         } else {
-          midi179[thisIndex].method = thisListener.midiMethod;
-          midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
-        }
-      } else {
-        if (thisListener.isButton) {
-          midi180[thisIndex + 48].method = thisListener.midiMethod;
-        } else {
-          midi180[thisIndex].method = thisListener.midiMethod;
-          midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+          if (thisListener.isButton) {
+            midi180[thisIndex + 48].method = thisListener.midiMethod;
+          } else {
+            midi180[thisIndex].method = thisListener.midiMethod;
+            midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+          }
         }
       }
     }
@@ -1493,7 +1496,6 @@ class Rainbow extends Sketch {
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
       if (thisLine) {
-
         thisLine.update(i);
         thisLine.display();
       }
