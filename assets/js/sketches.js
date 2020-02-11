@@ -1500,12 +1500,12 @@ class Rainbow extends Sketch {
     this.lines = [];
     this.params = {
       faders: {
-        arc: 768
+        arc: 768,
+        lineLength: 3,
+        lineAmt: 5,
+        speed: 1,
       }
     }
-    this.lineAmt = 5;
-    this.lineLength = 3;
-    this.speed = 1;
     this.time = 0;
   }
 
@@ -1543,10 +1543,11 @@ class Rainbow extends Sketch {
 
     update(i) {
       if (this.moving) {
+        const { speed } = this.parent.params.faders.speed;
         this.move();
-        this.time += this.parent.speed - i / 50
+        this.time += speed - i / 50
         this.time = this.time % 360;
-        if (this.time % 180 < this.parent.speed - i / 50) { // Stop function
+        if (this.time % 180 < speed - i / 50) { // Stop function
           this.moving = false;
           this.move();
         }
@@ -1554,13 +1555,14 @@ class Rainbow extends Sketch {
     }
 
     move() {
-      const { arc } = this.parent.params.faders.arc;
+      const { arc, lineLength } = this.parent.params.faders.arc;
+
       let rad = radians(this.time);
       this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
       this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * arc);
 
-      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / this.parent.lineLength;
-      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / this.parent.lineLength);
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / lineLength;
+      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / lineLength);
     }
 
     display() {
