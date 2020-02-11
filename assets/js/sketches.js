@@ -1492,8 +1492,11 @@ class Rainbow extends Sketch {
   draw() {
     for (let i = 0; i < this.lineAmt; i++) {
       const thisLine = this.lines[i];
-      thisLine.update(i);
-      thisLine.display();
+      if (thisLine) {
+
+        thisLine.update(i);
+        thisLine.display();
+      }
 
     }
   }
