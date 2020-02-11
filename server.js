@@ -104,7 +104,7 @@ function registerIncoming() {
     if (val.isXY) {
       udpPort.send({ address: `/${val.scene}/xy`, args: val.xy }, remoteIP, 9000)
     } else {
-      for (let i in val.params) {
+      for (let i of val.params) {
         udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
       }
     }
