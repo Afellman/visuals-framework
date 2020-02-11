@@ -194,7 +194,15 @@ class Sketch {
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
+
+
       this.updateOsc();
+
+      socket.emit("updateOsc", {
+        scene: this.setIndex,
+        oscObj: "on",
+        value: 1
+      });
     }
   }
 
@@ -212,6 +220,11 @@ class Sketch {
       let thisSocket = this.listeners[i];
       socket.removeListener(thisSocket.socketName, thisSocket.method);
     }
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "on",
+      value: 0
+    });
   }
 
   mouseClicked() { }
@@ -480,7 +493,6 @@ class Proximity extends Sketch {// Maped
     super();
     this.setIndex = setIndex;
     this.centerPoints = [];
-    this.sceneNum = 4;
     if (!this.loaded) {
       this.params = {
         faders: {
@@ -1486,8 +1498,12 @@ class Rainbow extends Sketch {
     super();
     this.setIndex = setIndex;
     this.lines = [];
+    this.params = {
+      faders: {
+        arc: 768
+      }
+    }
     this.lineAmt = 5;
-    this.arc = 768;
     this.lineLength = 3;
     this.speed = 1;
     this.time = 0;
@@ -1538,12 +1554,13 @@ class Rainbow extends Sketch {
     }
 
     move() {
+      const { arc } = this.parent.params.faders.arc;
       let rad = radians(this.time);
-      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
-      this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * this.parent.arc);
+      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
+      this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * arc);
 
-      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
-      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
+      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / this.parent.lineLength;
+      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / this.parent.lineLength);
     }
 
     display() {
@@ -1565,7 +1582,6 @@ class Rainbow extends Sketch {
     },
     {
       midiNote: 0,
-      initialVal: this.arc,
       isButton: true,
       midiMethod: (vel) => {
         for (let i = 0; i < this.lines.length; i++) {
