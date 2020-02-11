@@ -103,8 +103,8 @@ function registerIncoming() {
   glClient.on("updateOsc", (val) => {
     if (val.isXY) {
       udpPort.send({ address: `/${val.scene}/xy`, args: val.xy }, remoteIP, 9000)
-    } else {
-      for (let i of val.params) {
+    } else if (val.params) {
+      for (let i in val.params) {
         udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
       }
     }
