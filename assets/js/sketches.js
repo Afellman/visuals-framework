@@ -163,14 +163,14 @@ class Sketch {
     for (let i = 0; i < this.listeners.length; i++) { // Socket listeners
       const thisSocket = this.listeners[i];
       if (thisSocket.socketName && thisSocket.socketMethod) {
-        socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.socketMethod);
+        socket.on(`/${this.setIndex}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
 
 
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
-      socket.on(`/${this.sceneNum}/${i}`, (val) => {
+      socket.on(`/${this.setIndex}/${i}`, (val) => {
         const param = val.address.split("/")[2];
         this.params.faders[param] = val.args[0];
       });
