@@ -503,6 +503,13 @@ let midi180 = (function () { // Map of midi notes and attached methods with comm
   return ret;
 })();
 
+let midiAkai = (function () {
+  let ret = [];
+  for (let i = 0; i < 8; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})
 const genericMidi = {
   "1": {
     scene: {},
@@ -716,9 +723,11 @@ function bindLaunchers() {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
   launchers.forEach((launcher, i) => {
+    // For Faderfox
     // midi180[i + 32].method = launcher.opacity.bind(launcher);
     // midi180[i + 80].method = launcher.toggle.bind(launcher);
     midiAkai[i + 1].method = launcher.opacity.bind(launcher);
+    midiAkai[i + 1].method = launcher.toggle.bind(launcher);
   })
 }
 
