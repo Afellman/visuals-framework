@@ -509,7 +509,7 @@ let midiAkai = (function () {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
-})
+})();
 const genericMidi = {
   "1": {
     scene: {},
@@ -674,9 +674,11 @@ function onMidiMessage(midiMessage) {
 
   } else {
     if (command == 144 || command == 176) { // button press and knob.
-
+      // midiAkai[note].velocity
     }
   }
+
+
 }
 
 function midiToColor(vel) {
