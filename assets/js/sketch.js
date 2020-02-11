@@ -691,7 +691,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Gridz, FlowField, Rainbow]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, LinesShader, Rainbow]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
