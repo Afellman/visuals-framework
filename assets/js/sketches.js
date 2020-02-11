@@ -1583,6 +1583,10 @@ class Rainbow extends Sketch {
       isButton: false,
       midiMethod: (vel) => {
         this.lineLength = vel
+      },
+      socketName: "lineLength",
+      socketMethod: () => {
+        this.lineLength = vel
       }
     },
     {
