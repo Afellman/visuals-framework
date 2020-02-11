@@ -1501,11 +1501,12 @@ class WindShield extends Sketch {
     this.params = {
       faders: {
         arc: 565,
-        lineLength: 3 = 2.83,
+        lineLength: 2.83,
         lineAmt: 5,
         speed: 0.1,
       }
     }
+    this.opacity = 0;
     this.time = 0;
   }
 
@@ -1532,7 +1533,7 @@ class WindShield extends Sketch {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
-      this.color = [255, 255, 255, 255];
+      this.color = [255, 255, 255];
       this.time = 0;
     }
 
@@ -1566,7 +1567,7 @@ class WindShield extends Sketch {
     }
 
     display() {
-      stroke(this.color);
+      stroke(this.color[0], this.color[1], this.color[2], this.parent.opacity);
       line(this.posStart.x, this.posStart.y, this.posEnd.x, this.posEnd.y);
     }
   }
