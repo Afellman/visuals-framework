@@ -1500,10 +1500,10 @@ class WindShield extends Sketch {
     this.lines = [];
     this.params = {
       faders: {
-        arc: 768,
-        lineLength: 3,
+        arc: 565,
+        lineLength: 3 = 2.83,
         lineAmt: 5,
-        speed: 0,
+        speed: 0.1,
       }
     }
     this.time = 0;
@@ -1545,7 +1545,7 @@ class WindShield extends Sketch {
       // if (this.moving) {
       const { speed } = this.parent.params.faders;;
       this.move();
-      this.time += speed - i / 50
+      this.time += speed - i / 100
       this.time = this.time % 360;
       // if (this.time % 180 < speed - i / 50) { // Stop function
       //   this.moving = false;
