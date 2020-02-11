@@ -122,7 +122,7 @@ function setupWatcher() {
     if (
       name.indexOf('.git') == -1
       && name.indexOf("node_modules") == -1
-      && Date.now() - updateInterval > 15000
+      && Date.now() - updateInterval > 150000
     ) {
       try {
         console.log(Date.now() - updateInterval);
