@@ -1514,7 +1514,7 @@ class WindShield extends Sketch {
   init() {
     super.init();
     for (let i = 0; i < 1; i++) {
-      this.lines.push(new this.Line(this));
+      this.lines.push(new this.Line(this, i));
     }
   }
 
@@ -1549,13 +1549,18 @@ class WindShield extends Sketch {
     return { start, end };
   }
 
+  cut(index) {
+    this.lines.splice(index, 1);
+  }
+
   Line = class Line {
-    constructor(parent) {
+    constructor(parent, i) {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
       this.color = [255, 255, 255];
       this.time = 0;
+      this.i = i;
     }
 
     startBounce() {
