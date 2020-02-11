@@ -200,8 +200,6 @@ class Sketch {
 
   updateOsc() {
     // Syncs iPad with scenes starting values
-    let params = this.params.faders;
-    let listenerParams = this.listeners.map(listener => listener.socketName)
     socket.emit("updateOsc", {
       scene: this.setIndex,
       params: this.params.faders
@@ -477,9 +475,10 @@ class RopeSwing extends Sketch { // Scene 3. Maped
   ]
 }
 
-class Proximity extends Sketch { // Scene 4. Maped
-  constructor() {
+class Proximity extends Sketch {// Maped
+  constructor(setIndex) {
     super();
+    this.setIndex = setIndex;
     this.centerPoints = [];
     this.sceneNum = 4;
     if (!this.loaded) {
