@@ -1503,7 +1503,7 @@ class WindShield extends Sketch {
         arc: 768,
         lineLength: 3,
         lineAmt: 5,
-        speed: 0.1,
+        speed: 0,
       }
     }
     this.time = 0;
