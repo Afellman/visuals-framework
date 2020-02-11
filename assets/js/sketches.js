@@ -1555,7 +1555,7 @@ class WindShield extends Sketch {
     }
 
     move() {
-      const { arc, lineLength } = this.parent.params.faders.arc;
+      const { arc, lineLength } = this.parent.params.faders;
 
       let rad = radians(this.time);
       this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
@@ -1573,23 +1573,10 @@ class WindShield extends Sketch {
 
   listeners = [
     {
-      midiNote: 0,
-      initialVal: () => map(this.arc, 0, width / 2, 0, 100),
-      isButton: false,
-      midiMethod: (vel) => {
-        this.arc = map(vel, 0, 100, 0, width / 2)
-      },
       socketName: "arc",
       socketMethod: (val) => this.arc = map(val.args[0], 0, 100, 0, width / 2)
     },
     {
-      midiNote: 0,
-      isButton: true,
-      midiMethod: (vel) => {
-        for (let i = 0; i < this.lines.length; i++) {
-          this.lines[i].startBounce();
-        }
-      },
       socketName: "bounce",
       socketMethod: () => {
         for (let i = 0; i < this.lines.length; i++) {
@@ -1598,24 +1585,18 @@ class WindShield extends Sketch {
       }
     },
     {
-      midiNote: 1,
-      initialVal: () => this.lineLength,
-      isButton: false,
-      midiMethod: (vel) => {
-        this.lineLength = vel
-      },
       socketName: "lineLength",
       socketMethod: (val) => {
         this.lineLength = val.args[0];
       }
     },
     {
-      midiNote: 2,
-      initialVal: this.lineAmt,
-      isButton: false,
-      midiMethod: (vel) => {
-        this.lineAmt = vel
-      },
+      socketName: "lineAmt",
+      socketMethod: (val) => {
+        this.lineAmt = val.args[0];
+      }
+    },
+    {
       socketName: "lineAmt",
       socketMethod: (val) => {
         this.lineAmt = val.args[0];
