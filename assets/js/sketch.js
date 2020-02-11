@@ -505,7 +505,7 @@ let midi180 = (function () { // Map of midi notes and attached methods with comm
 
 let midiAkai = (function () {
   let ret = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
