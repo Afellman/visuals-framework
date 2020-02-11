@@ -1502,30 +1502,51 @@ class WindShield extends Sketch {
       faders: {
         arc: 565,
         lineLength: 2.83,
-        lineAmt: 5,
+        lineAmt: 1,
         speed: 0.1,
+        lineDupes: 5
       }
     }
-    this.opacity = 0;
+    this.opacity = 255;
     this.time = 0;
   }
 
   init() {
     super.init();
-    for (let i = 0; i < 100; i++) { // Max lines = 100
+    for (let i = 0; i < 1; i++) {
       this.lines.push(new this.Line(this));
     }
   }
 
   draw() {
-    for (let i = 0; i < this.params.faders.lineAmt; i++) {
+    const { lineAmt, lineDupes } = this.params.faders;
+    for (let i = 0; i < lineAmt; i++) {
       const thisLine = this.lines[i];
       if (thisLine) {
-        thisLine.update(i);
-        thisLine.display();
+        thisLine.update();
+        for (let j = 0; j < lineDupes; j++) {
+          const vectors = this.move(thisLine.time / (j + 1));
+          stroke(thisLine.color[0] / i, thisLine.color[1] / i, thisLine.color[2] / i, this.opacity);
+          line(vectors.start.x, vectors.start.y, vectors.end.x, vectors.end.y);
+        }
       }
 
     }
+  }
+
+  move(time) {
+    const { arc, lineLength } = this.params.faders;
+    const start = createVector(0, 0)
+    const end = createVector(0, 0)
+
+    let rad = radians(time);
+    start.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
+    start.y = height / 1.5 + -Math.abs(Math.sin(rad) * arc);
+
+    end.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / lineLength;
+    end.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / lineLength);
+
+    return { start, end };
   }
 
   Line = class Line {
@@ -1542,29 +1563,19 @@ class WindShield extends Sketch {
       this.orig = this.posStart.x;
     }
 
+    draw() {
+      for (let i = 0; i < this.parent.params.faders.lineDupes; i++) {
+
+      }
+    }
+
     update(i) {
-      // if (this.moving) {
-      const { speed } = this.parent.params.faders;;
-      this.move();
-      this.time += speed - i / 100
+      const { speed } = this.parent.params.faders;
+      this.time += speed;
       this.time = this.time % 360;
-      // if (this.time % 180 < speed - i / 50) { // Stop function
-      //   this.moving = false;
-      //   this.move();
-      // }
-      // }
     }
 
-    move() {
-      const { arc, lineLength } = this.parent.params.faders;
 
-      let rad = radians(this.time);
-      this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
-      this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * arc);
-
-      this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / lineLength;
-      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / lineLength);
-    }
 
     display() {
       stroke(this.color[0], this.color[1], this.color[2], this.parent.opacity);
