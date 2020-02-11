@@ -147,7 +147,6 @@ class Sketch {
     }
 
     this.listeners = [];
-    this.params = { faders: {}, buttons: {} }
   }
 
   init() {
@@ -160,29 +159,32 @@ class Sketch {
   }
 
   attachListeners() {
-
-    for (let i = 0; i < this.listeners.length; i++) {
+    for (let i = 0; i < this.listeners.length; i++) { // Socket listeners
       const thisSocket = this.listeners[i];
       if (thisSocket.socketName && thisSocket.socketMethod) {
         socket.on(`/${this.sceneNum}/${thisSocket.socketName}`, thisSocket.socketMethod);
       }
     }
-    // Attaching sockets to all fader params
-    for (let i in this.params.faders) {
-      socket.on(`/${this.sceneNum}/${i}`, (val) => {
-        const param = val.address.split("/")[2];
-        this.params.faders[param] = val.args[0];
-      });
-    }
-    // this.updateOsc();
-
-
 
     // Faderfox controls
-
-    for (let i = 0; i < this.listeners.length; i++) {
+    for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       let thisListener = this.listeners[i];
-      midi179[thisListener.note + (this.setIndex * 8)].method = thisListener.method;
+      let thisIndex = thisListener.midiNote + (this.setIndex * 8)
+      if (this.setIndex < 5) {
+        if (thisListener.isButton) {
+          midi179[thisIndex + 48].method = thisListener.midiMethod;
+        } else {
+          midi179[thisIndex].method = thisListener.midiMethod;
+          midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+        }
+      } else {
+        if (thisListener.isButton) {
+          midi180[thisIndex + 48].method = thisListener.midiMethod;
+        } else {
+          midi180[thisIndex].method = thisListener.midiMethod;
+          midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+        }
+      }
     }
   }
 
@@ -231,7 +233,6 @@ class BGShader extends Sketch { // Always loaded. Gives more FPS...??
     this.points = [
       [0.5, 0.5]
     ]
-
   }
 
   draw() {
@@ -1184,21 +1185,15 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
   listeners = [
     {
-      note: 0,
-      method: (val) => {
+      midiNote: 0,
+      midiMethod: (val) => {
         // this.params.fader s.xOff = val / 100
         this.opacity = val / 100;
       }
     },
     {
-      note: 1,
-      method: (val) => {
-        this.params.faders.xOff = val / 100
-      }
-    },
-    {
-      note: 2,
-      method: (val) => {
+      midiNote: 1,
+      midiMethod: (val) => {
         this.params.faders.yOff = val / 100
       }
     },
@@ -1206,34 +1201,41 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   ]
 }
 
+// Add own background for opacity here?
 class FlowField extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
     this.particles = [];
-    this.inc = 0.1;
-    this.zinc = 0.0003;
+    this.inc = 0.2;
+    this.zinc = 0;
     this.scale = 20;
     this.cols;
     this.rows;
     this.zoff = 0;
     this.flowField = [];
-    this.particleAmt = 500;
+    this.particleAmt = 1000;
+    this.opacity = 0;
+    this.maxspeed = 4;
+    this.mag = 127;
+    this.freq1 = 1
+    this.freq2 = 1
   }
 
   init() {
+    super.init();
     this.cols = floor(width / this.scale);
     this.rows = floor(height / this.scale);
 
     for (let i = 0; i < this.particleAmt; i++) {
-      this.particles[i] = new Objects.Particle(this.scale, this.cols);
+      this.particles[i] = new this.Particle(this.scale, this.cols, this, i);
     }
-    setTimeout(() => {
-      glBackground[3] = 0;
-
-    }, 1000)
 
     this.flowField = new Array(this.cols * this.rows);
+
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
+    this.canvas = createGraphics(width, height);
   }
 
   draw() {
@@ -1242,13 +1244,22 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 4;
+        let angle = noise(xoff, yoff, this.zoff) * PI;
+        // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
         let v = p5.Vector.fromAngle(angle);
 
-        v.setMag(1);
+        v.setMag(this.mag);
         this.flowField[index] = v;
         xoff += this.inc;
-        stroke(0, 50);
+
+        // To show vector grid
+        // push();
+        // translate(x * this.scale, y * this.scale);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // stroke(255)
+        // line(0, 0, this.scale, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
@@ -1260,11 +1271,145 @@ class FlowField extends Sketch {
       this.particles[i].edges();
       this.particles[i].show();
     }
+
+    noStroke();
+    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("tex0", this.canvas);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+  }
+
+
+  Particle = class Particle {
+    constructor(scale, cols, parent, index) {
+      this.pos = createVector(Math.random() * width, 0);
+      this.vel = createVector(0, 0);
+      this.acc = createVector(0, 0);
+      this.scale = scale;
+      this.hue = 0;
+      this.parent = parent;
+      this.index = index;
+      this.cols = cols;
+      this.prevPos = this.pos.copy();
+
+    }
+
+    update() {
+      this.vel.add(this.acc);
+      this.vel.limit(this.parent.maxspeed);
+      this.pos.add(this.vel);
+      this.acc.mult(0);
+    }
+
+    follow(vectors) {
+      let x = floor(this.pos.x / this.scale);
+      let y = floor(this.pos.y / this.scale);
+      let index = x + y * this.cols;
+
+      let force = vectors[index];
+      this.applyForce(force);
+
+    }
+
+    applyForce(force) {
+      this.acc.add(force);
+    }
+
+    die() {
+      this.parent.particles[this.index] = new this.parent.Particle(this.parent.scale, this.parent.cols, this.parent, this.index)
+    }
+
+    show() {
+      this.parent.canvas.stroke(255, 2);
+      this.parent.canvas.background(0, 0, 0, 2);
+      this.parent.canvas.strokeWeight(1);
+      this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      this.updatePrev();
+    }
+
+    updatePrev() {
+      this.prevPos.x = this.pos.x;
+      this.prevPos.y = this.pos.y;
+    };
+
+    edges() {
+      if (this.pos.x > width) {
+        this.pos.x = 0;
+        this.updatePrev();
+      }
+      if (this.pos.x < 0) {
+        this.pos.x = width;
+        this.updatePrev();
+      }
+      if (this.pos.y > height) {
+        this.pos.y = 0;
+        this.die();
+        // this.updatePrev();
+      }
+      if (this.pos.y < 0) {
+        this.pos.y = height;
+        this.updatePrev();
+      }
+    }
   }
 
   listeners = [
     {
-
+      midiNote: 0,
+      midiMethod: (vel) => {
+        this.mag = vel
+      }
+    },
+    {
+      midiNote: 0,
+      isButton: true,
+      midiMethod: (vel) => {
+        this.zoff++;
+        this.canvas.background(0, 0, 0, 255);
+      }
+    },
+    {
+      midiNote: 1,
+      midiMethod: (vel) => {
+        this.zinc = vel / 10000
+      }
+    },
+    {
+      midiNote: 1,
+      isButton: true,
+      midiMethod: (vel) => {
+        for (let i = 0; i < this.particles.length; i++) {
+          const thisParticle = this.particles[i];
+          thisParticle.pos.x = Math.random() * width;
+          thisParticle.pos.y = Math.random() * height;
+          thisParticle.updatePrev();
+        }
+      }
+    },
+    {
+      midiNote: 3,
+      midiMethod: (vel) => {
+        this.maxspeed = vel
+      }
+    },
+    {
+      midiNote: 3,
+      midiMethod: (vel) => {
+        this.maxspeed = vel
+      }
+    },
+    {
+      midiNote: 4,
+      midiMethod: (vel) => {
+        this.freq1 = vel / 100
+      }
+    },
+    {
+      midiNote: 5,
+      midiMethod: (vel) => {
+        this.freq2 = vel / 100
+      }
     }
   ]
 }
@@ -1279,6 +1424,7 @@ class Gridz extends Sketch {
     this.angle = 0;
     this.time = 0;
     this.speed = 0.01;
+    this.opacity = 0;
   }
 
   init() {
@@ -1291,7 +1437,7 @@ class Gridz extends Sketch {
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * this.scale;
         let hue = noise(x, y, this.time) * 200;
-        stroke(hue);
+        stroke(hue, hue, hue, this.opacity * 255);
         push();
         translate(xPos, yPos);
         let lengthNoise = noise(x, y, this.time / 50)
@@ -1313,8 +1459,8 @@ class Gridz extends Sketch {
 
   listeners = [
     {
-      note: 0,
-      method: (val) => {
+      midiNote: 0,
+      midiMethod: (val) => {
         console.log("midinote");
         this.speed = val / 1000;
       }
@@ -1325,18 +1471,20 @@ class Gridz extends Sketch {
 }
 
 class Rainbow extends Sketch {
-  constructor() {
+  constructor(setIndex) {
     super();
+    this.setIndex = setIndex;
     this.lines = [];
     this.lineAmt = 5;
-    this.arc = height / 4;
+    this.arc = 768;
     this.lineLength = 3;
-    this.speed = 3;
+    this.speed = 1;
     this.time = 0;
   }
 
   init() {
-    for (let i = 0; i < this.lineAmt; i++) {
+    super.init();
+    for (let i = 0; i < 100; i++) { // Max lines = 100
       this.lines.push(new this.Line(this));
     }
   }
@@ -1350,17 +1498,11 @@ class Rainbow extends Sketch {
     }
   }
 
-  mouseClicked() {
-    for (let i = 0; i < this.lines.length; i++) {
-      this.lines[i].startBounce();
-    }
-  }
-
   Line = class Line {
     constructor(parent) {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
-      this.posEnd = createVector(width / 2, height / 2);
+      this.posEnd = createVector(width / 3, height / 2);
       this.color = [255, 255, 255, 255];
       this.time = 0;
     }
@@ -1373,9 +1515,9 @@ class Rainbow extends Sketch {
     update(i) {
       if (this.moving) {
         this.move();
-        this.time += this.parent.speed - (i / 4);
+        this.time += this.parent.speed - i / 50
         this.time = this.time % 360;
-        if (this.time % 180 < 1) { // Stop function
+        if (this.time % 180 < this.parent.speed - i / 50) { // Stop function
           this.moving = false;
           this.move();
         }
@@ -1385,10 +1527,10 @@ class Rainbow extends Sketch {
     move() {
       let rad = radians(this.time);
       this.posStart.x = width / 2 + Math.sin(-HALF_PI + rad) * this.parent.arc;
-      this.posStart.y = height / 2 + -Math.abs(Math.sin(rad) * this.parent.arc);
+      this.posStart.y = height / 1.5 + -Math.abs(Math.sin(rad) * this.parent.arc);
 
       this.posEnd.x = width / 2 + Math.sin(-HALF_PI + rad) * (this.parent.arc) / this.parent.lineLength;
-      this.posEnd.y = height / 2 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
+      this.posEnd.y = height / 1.5 + -Math.abs(Math.sin(rad) * (this.parent.arc) / this.parent.lineLength);
     }
 
     display() {
@@ -1397,7 +1539,42 @@ class Rainbow extends Sketch {
     }
   }
 
-  listeners = [{}]
+  listeners = [
+    {
+      midiNote: 0,
+      initialVal: () => map(this.arc, 0, width / 2, 0, 100),
+      isButton: false,
+      midiMethod: (vel) => {
+        this.arc = map(vel, 0, 100, 0, width / 2)
+      }
+    },
+    {
+      midiNote: 0,
+      initialVal: this.arc,
+      isButton: true,
+      midiMethod: (vel) => {
+        for (let i = 0; i < this.lines.length; i++) {
+          this.lines[i].startBounce();
+        }
+      }
+    },
+    {
+      midiNote: 1,
+      initialVal: () => this.lineLength,
+      isButton: false,
+      midiMethod: (vel) => {
+        this.lineLength = vel
+      }
+    },
+    {
+      midiNote: 2,
+      initialVal: this.lineAmt,
+      isButton: false,
+      midiMethod: (vel) => {
+        this.lineAmt = vel
+      }
+    }
+  ]
 }
 
 class Rain extends Sketch {
@@ -2049,75 +2226,6 @@ const Objects = {
       return this.amplitude * Math.sin(2 * PI * this.frequency * time + this.phase);
     }
   },
-
-  Particle: class {
-    constructor(scale, cols) {
-      this.pos = createVector(Math.random() * width, Math.random() * height);
-      this.vel = createVector(0, 0);
-      this.acc = createVector(0, 0);
-      this.maxspeed = 4;
-      this.scale = scale;
-      this.hue = 0;
-
-      this.cols = cols;
-      this.prevPos = this.pos.copy();
-
-    }
-
-    update() {
-      this.vel.add(this.acc);
-      this.vel.limit(this.maxspeed);
-      this.pos.add(this.vel);
-      this.acc.mult(0);
-    }
-
-    follow(vectors) {
-      let x = floor(this.pos.x / this.scale);
-      let y = floor(this.pos.y / this.scale);
-      let index = x + y * this.cols;
-
-      let force = vectors[index];
-      this.applyForce(force);
-
-    }
-
-    applyForce(force) {
-      this.acc.add(force);
-    }
-
-    show() {
-      stroke(255, 2);
-      this.hue++;
-      strokeWeight(1);
-      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-      this.updatePrev();
-    }
-
-    updatePrev() {
-      this.prevPos.x = this.pos.x;
-      this.prevPos.y = this.pos.y;
-    };
-
-    edges() {
-      if (this.pos.x > width) {
-        this.pos.x = 0;
-        this.updatePrev();
-      }
-      if (this.pos.x < 0) {
-        this.pos.x = width;
-        this.updatePrev();
-      }
-      if (this.pos.y > height) {
-        this.pos.y = 0;
-        this.updatePrev();
-      }
-      if (this.pos.y < 0) {
-        this.pos.y = height;
-        this.updatePrev();
-      }
-    }
-  }
-
 }
 
 const Methods = {
@@ -2140,7 +2248,7 @@ const Methods = {
 
 }
 
-const Helpers = {
+const helpers = {
   ease: function (val, low, high) {
     return this.easeInOutQuad(normalize(val))
   },
@@ -2161,4 +2269,8 @@ const Helpers = {
     image.pixels[index + 2] = blue;
     image.pixels[index + 3] = alpha;
   },
+  random: function (min, max) {
+    const rand = Math.random();
+    return rand * (max - min) + min;
+  }
 }

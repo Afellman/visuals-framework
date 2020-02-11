@@ -20,8 +20,9 @@
 		"prefix": "sketch",
 		"body": [
 			"class ${1:Sketch} extends Sketch {",
-			"  constructor() {",
+			"  constructor(setIndex) {",
 			"    super();",
+			"    this.setIndex = setIndex;",
 			"  }",
 			" ",
 			"  init() {",
@@ -36,5 +37,19 @@
 			"}",
 		],
 		"description": "Creates a new sketch instance"
+	},
+	"Listener": {
+		"scope": "javascript",
+		"prefix": "listener",
+		"body": [
+			"{",
+			"  midiNote: ${1:0},",
+			"  isButton: false,",
+			"  midiMethod: () =>{",
+			"  	$2",
+			"  }",
+			"}",
+		],
+		"description": "Creates new listener for use in a sketch"
 	},
 }

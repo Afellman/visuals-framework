@@ -16,30 +16,10 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
-let currentSet = [];
-
-let midi179 = (function () {
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
-let midi180 = (function () {
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push(0);
-  }
-  return ret;
-})();
-
-let midiSubscribers = [
-
-]
 
 function setBuilder(sketches) {
-  currentSet = sketches.map((sketch, i) => {
-    return { sceneNum: i, sketch: sketch };
+  return sketches.map((sketch, i) => {
+    return { setIndex: i, sketch: sketch };
   });
 }
 
@@ -293,8 +273,6 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(0)) // For background.
-  loadScene(new Gridz(1)) // For background.
-  loadScene(new FlowField(2)) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -360,23 +338,19 @@ function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
 
-function loadScene(scene, sceneNum) {
-  const id = Math.random() * 100000;
-  scene.id = id;
-  scene.sceneNum = currentSet.filter(set);
+function loadScene(scene) {
   scene.init();
   scenes.push(scene);
 }
 
-function unloadScene(id) {
+function unloadScene(setIndex) {
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i].id === id) {
+    if (scenes[i].setIndex === setIndex) {
       index = i;
       break;
     }
   }
-  socket.emit("sceneOff", scenes[index].sceneNum);
   scenes[index].unload();
   scenes.splice(index, 1);
 }
@@ -498,31 +472,36 @@ function keyPressed(e) {
   }
 };
 
-// ======================================== 
-//                  Midi 
-// ======================================== 
+// ================================================  
+//                     Midi 
+// ================================================  
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
   for (let input of midiAccess.inputs.values()) {
-    input.onmidimessage = getMIDIMessage;
+    input.onmidimessage = onMidiMessage;
   }
 }
 
-function getMIDIMessage(midiMessage) {
-  let command = midiMessage.data[0];
-  let note = midiMessage.data[1];
-  let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
-  if (debug) console.log(note, velocity, command)
-  // if (command !== 132) {
-  //   genericMidi[note].method(velocity, command);
-  // }
-  if (command == 179) {
-    midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
-    midi179[note].method(midi179[note].velocity);
-  }
-  console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
+function onMIDIFailure() {
+  console.log('Could not access your MIDI devices.');
 }
+
+let midi179 = (function () { // Map of midi notes and attached methods with command 179.
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+
+let midi180 = (function () { // Map of midi notes and attached methods with command 180.
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
 
 const genericMidi = {
   "1": {
@@ -661,8 +640,36 @@ const genericMidi = {
   }
 }
 
-function onMIDIFailure() {
-  console.log('Could not access your MIDI devices.');
+function onMidiMessage(midiMessage) {
+  let command = midiMessage.data[0];
+  let note = midiMessage.data[1];
+  let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
+  if (debug) console.log(note, velocity, command)
+
+  // Fader Fox
+  if (command == 179) {
+    if (note >= 0 && note <= 47) {
+      midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+    } else {
+      midi179[note].velocity = velocity;
+    }
+    midi179[note].method(midi179[note].velocity);
+    if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
+
+  } else if (command == 180) {
+    if (note >= 0 && note <= 47) {
+      midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+    } else {
+      midi180[note].velocity = velocity;
+    }
+    midi180[note].method(midi180[note].velocity);
+    if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
+
+  } else {
+    if (command == 144 || command == 176) { // button press and knob.
+
+    }
+  }
 }
 
 function midiToColor(vel) {
@@ -672,6 +679,58 @@ function midiToColor(vel) {
 function midiToNormal(vel) {
   return map(vel, 0, 127, 0, 1);
 }
+
+// ================================================  
+//       Global midi bindings
+// ================================================  
+const currentSet = setBuilder([Gridz, FlowField, Rainbow]); // Where do I define the set list? Max 10.
+
+class Launcher {
+  constructor(classConstructor, setIndex) {
+    this.scene = {};
+    this.isActive = false;
+    this.classConstructor = classConstructor;
+    this.setIndex = setIndex;
+  }
+
+  toggle() {
+    if (!this.isActive) {
+      this.scene = new this.classConstructor(this.setIndex);
+      loadScene(this.scene);
+      this.isActive = true;
+      midi180[32].velocity = 0;
+    } else {
+      unloadScene(this.scene.setIndex);
+      this.scene = {};
+      this.isActive = false;
+    }
+  }
+
+  opacity(velocity) {
+    this.scene.opacity = midiToNormal(velocity);
+  }
+}
+
+function bindLaunchers() {
+  const launchers = currentSet.map(setScene => {
+    return new Launcher(setScene.sketch, setScene.setIndex);
+  });
+  launchers.forEach((launcher, i) => {
+    midi180[i + 32].method = launcher.opacity.bind(launcher);
+    midi180[i + 80].method = launcher.toggle.bind(launcher);
+  })
+}
+
+function bindMiscGlobal() {
+  // Encoder 11
+  midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
+  midi180[90].method = (vel) => { glBackground[3] = midiToNormal(vel) };
+  midi180[42].velocity = 100;
+  midi180[90].velocity = 127;
+}
+
+bindLaunchers();
+bindMiscGlobal();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
@@ -709,6 +768,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/gridz.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
