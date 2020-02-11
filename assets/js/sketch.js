@@ -678,8 +678,6 @@ function onMidiMessage(midiMessage) {
       midiAkai[note].method(velocity);
     }
   }
-
-
 }
 
 function midiToColor(vel) {
