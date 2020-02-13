@@ -28,7 +28,7 @@ void main() {
 
   float disp = avg;
 
-  vec4 img2 = texture2D(tex0,  vec2(uv.x + disp *u_displaceX, uv.y+ disp *u_displaceY));
+  vec4 img2 = texture2D(tex0,  vec2(uv.x + disp * u_displaceX, uv.y+ disp *u_displaceY));
 
   img2.r = distance(uv.x, 0.5) * abs(sin(u_time / 1000.0)) ;
 
