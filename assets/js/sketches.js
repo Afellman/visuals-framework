@@ -1620,7 +1620,6 @@ class WindShield extends Sketch {
       socketName: "addLine",
       socketMethod: (val) => {
         if (val.args[0] > 0) {
-
           this.params.faders.lineAmt++;
           this.lines.push(new this.Line(this, this.lines.length));
         }
@@ -1629,8 +1628,10 @@ class WindShield extends Sketch {
     {
       socketName: "removeLine",
       socketMethod: () => {
-        this.params.faders.lineAmt--;
-        this.lines.splice(this.lines.length - 1, 1);
+        if (val.args[0] > 0) {
+          this.params.faders.lineAmt--;
+          this.lines.splice(this.lines.length - 1, 1);
+        }
       }
     }
   ]
