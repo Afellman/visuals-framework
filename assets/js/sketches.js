@@ -1441,7 +1441,11 @@ class Gridz extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
-    this.scale = 75;
+    this.params = {
+      faders: {
+        scale: 75
+      }
+    }
     this.rows = Math.ceil(width / this.scale);
     this.cols = Math.ceil(height / this.scale);
     this.angle = 0;
@@ -1524,7 +1528,7 @@ class WindShield extends Sketch {
         thisLine.update();
         for (let j = 0; j < lineDupes; j++) {
           const vectors = this.move(thisLine.time / (j / 25 + 1));
-          stroke(thisLine.color[0] / j, thisLine.color[1] / j, thisLine.color[2] / j, this.opacity);
+          stroke(thisLine.color[0] / (j + 1), thisLine.color[1] / (j + 1), thisLine.color[2] / (j + 1), this.opacity);
           line(vectors.start.x, vectors.start.y, vectors.end.x, vectors.end.y);
         }
       }
@@ -1627,7 +1631,7 @@ class WindShield extends Sketch {
     },
     {
       socketName: "removeLine",
-      socketMethod: () => {
+      socketMethod: (val) => {
         if (val.args[0] > 0) {
           this.params.faders.lineAmt--;
           this.lines.splice(this.lines.length - 1, 1);
