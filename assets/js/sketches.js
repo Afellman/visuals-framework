@@ -1501,9 +1501,9 @@ class WindShield extends Sketch {
     this.params = {
       faders: {
         arc: 565,
-        lineLength: 2.83,
+        lineLength: -1,
         lineAmt: 1,
-        speed: 1,
+        speed: 0.12,
         lineDupes: 0,
         dupeSpace: 0
       }
@@ -1531,7 +1531,6 @@ class WindShield extends Sketch {
           line(vectors.start.x, vectors.start.y, vectors.end.x, vectors.end.y);
         }
       }
-
     }
   }
 
@@ -1623,14 +1622,14 @@ class WindShield extends Sketch {
     {
       socketName: "addLine",
       socketMethod: () => {
-        this.lineAmt++;
+        this.params.faders.lineAmt++;
         this.lines.push(new this.Line(this, this.lines.length));
       }
     },
     {
       socketName: "removeLine",
       socketMethod: () => {
-        this.lineAmt--;
+        this.params.faders.lineAmt--;
         this.lines.splice(this.lines.length - 1, 1);
       }
     }
