@@ -1443,12 +1443,12 @@ class Gridz extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        scale: 75,
         speed: 0.01
       }
     }
-    this.rows = Math.ceil(width / this.params.faders.scale);
-    this.cols = Math.ceil(height / this.params.faders.scale);
+    this.scale = 435;
+    this.rows = Math.ceil(width / 100);
+    this.cols = Math.ceil(height / 100);
     this.time = 0;
     this.opacity = 0;
   }
@@ -1458,7 +1458,8 @@ class Gridz extends Sketch {
   }
 
   draw() {
-    const { scale, speed } = this.params.faders;
+    const { speed } = this.params.faders;
+    const scale = this.scale;
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
       for (let y = 0; y < this.cols; y++) {
@@ -1467,10 +1468,9 @@ class Gridz extends Sketch {
         stroke(hue, hue, hue, hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.time / 50)
-        line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale)
-        line(0 - scale, 0 + scale, 0 + scale, 0 - scale)
-        // line(0, 0 + this.scale, 0, 0 - this.scale)
+        let lengthNoise = noise(x, y, this.time / 50);
+        line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
+        line(0 - scale, 0 + scale, 0 + scale, 0 - scale);
         pop();
       }
     }
@@ -1493,9 +1493,15 @@ class Gridz extends Sketch {
       }
     },
     {
-      socketName: "size1",
+      socketName: "size",
       socketMethod: (val) => {
-
+        if (val.args[0] == 1) {
+          this.scale = 435
+        } else if (val.args[0] == 2) {
+          this.scale = 235
+        } else if (val.args[0] == 3) {
+          this.scale = 100
+        }
       }
     }
 
