@@ -654,31 +654,35 @@ function onMidiMessage(midiMessage) {
   let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
   if (debug) console.log(note, velocity, command)
 
-  // Fader Fox
-  if (command == 179) {
-    if (note >= 0 && note <= 47) {
-      midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
-    } else {
-      midi179[note].velocity = velocity;
-    }
-    midi179[note].method(midi179[note].velocity);
-    if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
+  // // Fader Fox
+  // if (command == 179) {
+  //   if (note >= 0 && note <= 47) {
+  //     midi179[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+  //   } else {
+  //     midi179[note].velocity = velocity;
+  //   }
+  //   midi179[note].method(midi179[note].velocity);
+  //   if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi179[note].velocity)
 
-  } else if (command == 180) {
-    if (note >= 0 && note <= 47) {
-      midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
-    } else {
-      midi180[note].velocity = velocity;
-    }
-    midi180[note].method(midi180[note].velocity);
-    if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
+  // } else if (command == 180) {
+  //   if (note >= 0 && note <= 47) {
+  //     midi180[note].velocity += velocity - 64; // On Relative mode, always plus or minus 64.
+  //   } else {
+  //     midi180[note].velocity = velocity;
+  //   }
+  //   midi180[note].method(midi180[note].velocity);
+  //   if (debug) console.log("Midi - Note: " + note + " | Velocity:" + midi180[note].velocity)
 
-  } else {
-    if (command == 144 || command == 176) { // button press and knob.
-      midiAkai[note].velocity = velocity;
-      midiAkai[note].method(velocity);
+  // } else {
+  if (command == 144 || command == 176) { // button press and knob.
+    midiAkai[note].velocity = velocity;
+    midiAkai[note].method(velocity);
+  } else if (command == 145) {
+    if (note == 9) {
+
     }
   }
+  // }
 }
 
 function midiToColor(vel) {
@@ -732,7 +736,9 @@ function bindLaunchers() {
     // midi180[i + 80].method = launcher.toggle.bind(launcher);
     midiAkai[i].method = launcher.toggle.bind(launcher);
     midiAkai[i + 8].method = launcher.opacity.bind(launcher);
-  })
+  });
+
+  mirrorLauncher = new Launcher(Mirror, 10);
 }
 
 function bindMiscGlobal() {
@@ -750,22 +756,11 @@ bindMiscGlobal();
 function loadImages(cb) {
   Promise.all([
     loadImage("./assets/images/peter.jpg"),
-    loadImage("./assets/images/peter2.jpg"),
     loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/waterfall.jpg"),
-    loadImage("./assets/images/alec/img014.jpg"),
-    loadImage("./assets/images/alec/035.jpg"),
     loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
-    loadImage("./assets/images/austrailia/beach.jpeg"),
-    loadImage("./assets/images/austrailia/greens.jpeg"),
-    loadImage("./assets/images/austrailia/termines.jpeg"),
-    loadImage("./assets/images/austrailia/trees.jpeg"),
-    loadImage("./assets/images/austrailia/uluru.jpeg"),
-    // loadImage("./assets/images/austrailia/eucalyptus.jpg"),
-    loadImage("./assets/images/colorImg1.jpg"),
-    loadImage("./assets/images/universe.jpg"),
-    // loadImage("./assets/images/bricks.jpg"),
-
+    loadImage("./assets/images/ameen-fahmy-water.jpg"),
+    loadImage("./assets/images/jason-leung-water.jpg"),
+    loadImage("./assets/images/v2osk-sunset.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
