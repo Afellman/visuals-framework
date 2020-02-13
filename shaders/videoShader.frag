@@ -31,8 +31,8 @@ void main() {
 
   vec4 img2 = texture2D(tex0,  vec2(uv.x + disp * u_displaceX, uv.y+ disp *u_displaceY));
 
-  img2 *= u_red;
+  vec3 lum = vec3(0.299, 0.587, 0.114);
 
   // render the output
-  gl_FragColor = vec4(img2.rgb, u_opacity);
+  gl_FragColor = vec4( vec3(dot( img2.rgb, lum)), u_opacity);
 }
