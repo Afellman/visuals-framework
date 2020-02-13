@@ -1505,7 +1505,7 @@ class WindShield extends Sketch {
         lineAmt: 1,
         speed: 1,
         lineDupes: 0,
-        dupeSpace
+        dupeSpace: 0
       }
     }
     this.opacity = 255;
@@ -1579,9 +1579,9 @@ class WindShield extends Sketch {
       const { speed } = this.parent.params.faders;
       this.time += speed;
       // this.time = this.time % 360;
-      if (this.time % 1080 == 0) {
-        this.parent.cut(this.i);
-      }
+      // if (this.time % 1080 == 0) {
+      //   this.parent.cut(this.i);
+      // }
     }
 
 
@@ -1631,8 +1631,7 @@ class WindShield extends Sketch {
       socketName: "removeLine",
       socketMethod: () => {
         this.lineAmt--;
-        this.lines.splice(lines.length - 1, 1);
-        this.lines.push(new this.Line(this, this.lines.length));
+        this.lines.splice(this.lines.length - 1, 1);
       }
     }
   ]
