@@ -1514,9 +1514,6 @@ class WindShield extends Sketch {
 
   init() {
     super.init();
-    for (let i = 0; i < 1; i++) {
-      this.lines.push(new this.Line(this, i));
-    }
   }
 
   draw() {
