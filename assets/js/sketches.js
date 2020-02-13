@@ -1504,7 +1504,8 @@ class WindShield extends Sketch {
         lineLength: 2.83,
         lineAmt: 1,
         speed: 1,
-        lineDupes: 5
+        lineDupes: 0,
+        dupeSpace
       }
     }
     this.opacity = 255;
