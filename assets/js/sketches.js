@@ -1619,6 +1619,21 @@ class WindShield extends Sketch {
         this.params.faders.lineLength = -1;
         this.updateOsc();
       }
+    },
+    {
+      socketName: "addLine",
+      socketMethod: () => {
+        this.lineAmt++;
+        this.lines.push(new this.Line(this, this.lines.length));
+      }
+    },
+    {
+      socketName: "removeLine",
+      socketMethod: () => {
+        this.lineAmt--;
+        this.lines.splice(lines.length - 1, 1);
+        this.lines.push(new this.Line(this, this.lines.length));
+      }
     }
   ]
 }
