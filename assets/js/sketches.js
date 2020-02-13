@@ -1504,7 +1504,7 @@ class WindShield extends Sketch {
         lineLength: -1,
         lineAmt: 1,
         speed: 0.12,
-        lineDupes: 0,
+        lineDupes: 1,
         dupeSpace: 0
       }
     }
@@ -1618,9 +1618,12 @@ class WindShield extends Sketch {
     },
     {
       socketName: "addLine",
-      socketMethod: () => {
-        this.params.faders.lineAmt++;
-        this.lines.push(new this.Line(this, this.lines.length));
+      socketMethod: (val) => {
+        if (val.args[0] > 0) {
+
+          this.params.faders.lineAmt++;
+          this.lines.push(new this.Line(this, this.lines.length));
+        }
       }
     },
     {
