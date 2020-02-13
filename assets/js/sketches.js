@@ -920,7 +920,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[2];
+    this.img = images[1];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -950,7 +950,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
 
   draw() {
     noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_opacity", this.opacity / 255)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterTime', this.waterTime);
@@ -982,13 +982,13 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[2];
+        this.img = images[1];
       }
     },
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = images[5];
+        this.img = images[4];
       }
     },
     {
@@ -1039,7 +1039,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     this.shaderBox.shader(this.shader);
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
-    this.shader.setUniform("u_opacity", this.opacity / 255)
+    this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
     this.shader.setUniform("u_displaceY", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceY);
     this.shader.setUniform('u_time', frameCount);
@@ -1192,7 +1192,7 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   draw() {
     noStroke();
     this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_opacity", this.opacity / 255)
     this.shader.setUniform("tex0", this.graph);
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
     this.shader.setUniform('u_yOff', this.params.faders.yOff);
