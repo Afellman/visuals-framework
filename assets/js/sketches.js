@@ -1492,6 +1492,12 @@ class Gridz extends Sketch {
         this.speed = val / 1000;
       }
     },
+    {
+      socketName: "size1",
+      socketMethod: (val) => {
+
+      }
+    }
 
 
   ];
