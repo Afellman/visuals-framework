@@ -12,6 +12,7 @@ uniform float u_time;
 uniform float u_opacity;
 uniform float u_displaceX;
 uniform float u_displaceY;
+uniform float u_red;
 
 
 void main() {
@@ -30,7 +31,7 @@ void main() {
 
   vec4 img2 = texture2D(tex0,  vec2(uv.x + disp * u_displaceX, uv.y+ disp *u_displaceY));
 
-  img2.r = img2.r + (u_red * distance(uv.x, 0.5) * abs(sin(u_time / 1000.0)) );
+  img2.r = img2.r * (u_red * distance(uv.x, 0.5) * abs(sin(u_time / 1000.0)) );
 
   // render the output
   gl_FragColor = vec4(img2.rgb, u_opacity);
