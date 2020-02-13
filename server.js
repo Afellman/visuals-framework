@@ -108,7 +108,7 @@ function registerIncoming() {
         udpPort.send({ address: `/${val.scene}/${i}`, args: [{ type: "f", value: val.params[i] }] }, remoteIP, 9000)
       }
     } else {
-      udpPort.send({ address: `/${val.scene}/${val.fader}`, args: [{ type: "f", value: val.value }] }, remoteIP, 9000)
+      udpPort.send({ address: `/${val.scene}/${val.oscObj}`, args: [{ type: "f", value: val.value }] }, remoteIP, 9000)
     }
   });
 

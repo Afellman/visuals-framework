@@ -692,7 +692,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, LinesShader, FlowShader]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -718,7 +718,7 @@ class Launcher {
   }
 
   opacity(velocity) {
-    this.scene.opacity = midiToNormal(velocity);
+    this.scene.opacity = midiToColor(velocity);
   }
 }
 
