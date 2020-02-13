@@ -677,10 +677,6 @@ function onMidiMessage(midiMessage) {
   if (command == 144 || command == 176) { // button press and knob.
     midiAkai[note].velocity = velocity;
     midiAkai[note].method(velocity);
-  } else if (command == 145) {
-    if (note == 9) {
-
-    }
   }
   // }
 }
@@ -738,7 +734,9 @@ function bindLaunchers() {
     midiAkai[i + 8].method = launcher.opacity.bind(launcher);
   });
 
-  mirrorLauncher = new Launcher(Mirror, 10);
+  const mirrorLauncher = new Launcher(Mirror, 8);
+  midiAkai[16].method = launcher.toggle.bind();
+  midiAkai[23].method = launcher.opacity.bind(launcher);
 }
 
 function bindMiscGlobal() {
