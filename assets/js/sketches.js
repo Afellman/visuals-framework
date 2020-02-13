@@ -994,7 +994,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image3",
       socketMethod: (val) => {
-        this.img = images[13];
+        this.img = images[5];
       }
     },
   ]
@@ -1003,13 +1003,14 @@ class FlowShader extends Sketch { // Scene 10. Maped
 class DisplaceImg extends Sketch { // scene 11. maped
   constructor(img) {
     super();
-    this.img = images[5];
+    this.img = images[3];
     this.params = {
       faders: {
         displaceX: 0,
         displaceY: 0,
         freq: 0.001,
-        amp: 1
+        amp: 1,
+        red: 1
       }
     }
     this.displaceX = 0;
@@ -1043,6 +1044,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
     this.shader.setUniform("u_displaceY", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceY);
     this.shader.setUniform('u_time', frameCount);
+    this.shader.setUniform('u_red', this.params.faders.red);
 
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
@@ -1080,28 +1082,15 @@ class DisplaceImg extends Sketch { // scene 11. maped
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[5];
+        this.img = images[3];
       }
     },
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = images[6];
+        this.img = images[4];
       }
     },
-    {
-      socketName: "image3",
-      socketMethod: (val) => {
-        this.img = images[7];
-      }
-    },
-    {
-      socketName: "image4",
-      socketMethod: (val) => {
-        this.img = images[10];
-      }
-    },
-
   ]
 }
 

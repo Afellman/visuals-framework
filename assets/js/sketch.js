@@ -505,7 +505,7 @@ let midi180 = (function () { // Map of midi notes and attached methods with comm
 
 let midiAkai = (function () {
   let ret = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 31; i++) {
     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
@@ -735,8 +735,8 @@ function bindLaunchers() {
   });
 
   const mirrorLauncher = new Launcher(Mirror, 8);
-  midiAkai[16].method = launcher.toggle.bind();
-  midiAkai[23].method = launcher.opacity.bind(launcher);
+  midiAkai[16].method = mirrorLauncher.toggle.bind(mirrorLauncher);
+  midiAkai[23].method = mirrorLauncher.opacity.bind(mirrorLauncher);
 }
 
 function bindMiscGlobal() {

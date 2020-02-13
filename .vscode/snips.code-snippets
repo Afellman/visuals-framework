@@ -43,9 +43,8 @@
 		"prefix": "listener",
 		"body": [
 			"{",
-			"  midiNote: ${1:0},",
-			"  isButton: false,",
-			"  midiMethod: () =>{",
+			"  socketName: \"${1:}\",",
+			"  socketMethod: (val) =>{",
 			"  	$2",
 			"  }",
 			"}",
