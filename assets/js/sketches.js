@@ -1647,7 +1647,7 @@ class Tares extends Sketch {
     super();
     this.setIndex = setIndex;
     this.opacity = 255;
-    this.point = [0.5, 0.5];
+    this.point = [0.0, 0.5];
   }
 
   init(index) {
@@ -1665,9 +1665,8 @@ class Tares extends Sketch {
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-
-    this.point[0] = (width / 2 + sin(frameCount / 100) * 10.0) / width
-    this.point[1] = height / 2 + cos(frameCount / 100) * 10.0;
+    this.point[0] -= 0.01;
+    this.point[0] = this.point[0] % 1;
   }
   listeners = [{}]
 }
