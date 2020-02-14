@@ -1666,7 +1666,7 @@ class Tares extends Sketch {
     this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255);
     for (let i = 0; i < this.pointAmt; i++) {
-      this.shader.setUniform("u_point" + i + 1, this.points[i]);
+      this.shader.setUniform("u_point" + (i + 1), this.points[i]);
     }
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
