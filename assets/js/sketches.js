@@ -1642,10 +1642,12 @@ class WindShield extends Sketch {
   ]
 }
 
-class Tears extends Sketch {
+class Tares extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
+    this.opacity = 255;
+    this.point = [0.5, 0.5];
   }
 
   init(index) {
@@ -1658,13 +1660,14 @@ class Tears extends Sketch {
   draw() {
     noStroke();
     this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity / 255)
-    this.shader.setUniform("tex0", this.graph);
-    this.shader.setUniform('u_xOff', this.params.faders.xOff);
-    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shader.setUniform("u_opacity", this.opacity / 255);
+    this.shader.setUniform("u_point", this.point);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
+
+    this.point[0] = (width / 2 + sin(frameCount / 100) * 10.0) / width
+    this.point[1] = height / 2 + cos(frameCount / 100) * 10.0;
   }
   listeners = [{}]
 }
