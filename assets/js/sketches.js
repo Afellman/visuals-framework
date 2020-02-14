@@ -1560,7 +1560,7 @@ class WindShield extends Sketch {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
-      this.color = [255, 255, 255];
+      this.color = someColor(0);
       this.time = 0;
       this.i = i;
     }
