@@ -15,9 +15,9 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
    // Each result will return 1.0 (white) or 0.0 (black).
-    float border = step(vec2(0.1),uv);   // Similar to ( X greater than 0.1 )
+    vec2 border = step(vec2(0.5),uv);   // Similar to ( X greater than 0.1 )
 
-    vec3 color = vec3( left * bottom );
+    vec3 color = vec3( border.x * border.y );
 
   // output to screen
     gl_FragColor = vec4(color,u_opacity);
