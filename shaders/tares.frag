@@ -1,4 +1,3 @@
-#define POINTS_AMOUNT  
 precision mediump float;
 
 // lets grab texcoords from the vertex shader
@@ -7,11 +6,11 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform float u_opacity;
-uniform vec2 u_point[POINTS_AMOUNT];
+uniform vec2 u_points[1];
 
-float getDis(vec2 uv, vec2 points[POINTS_AMOUNT]) {
+float getDis(vec2 uv, vec2 points[3]) {
   float dis = 1.0;
-  for(int i =0 ; i < POINTS_AMOUNT; i ++){
+  for(int i = 0; i < 3; i ++){
     dis *= distance(points[i], uv) * 10.0;
   }
 
@@ -24,8 +23,7 @@ void main() {
   uv = 1.0 - uv;
    // Each result will return 1.0 (white) or 0.0 (black).
 
-  
-   float dis = getDis(uv, u_points);
+  float dis = getDis(uv, u_points);
 
    
   vec3 color = vec3(1.0- dis);
