@@ -1652,7 +1652,7 @@ class Tares extends Sketch {
 
   init(index) {
     for (let i = 0; i < 20; i++) {
-      this.points.push([0.1 * i, 0.3 * i])
+      this.points.push([0.01 * i, 0.03 * i])
     }
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
