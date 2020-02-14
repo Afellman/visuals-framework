@@ -1647,10 +1647,13 @@ class Tares extends Sketch {
     super();
     this.setIndex = setIndex;
     this.opacity = 255;
-    this.point = [0.0, 0.5];
+    this.points = [];
   }
 
   init(index) {
+    for (let i = 0; i < 20; i++) {
+      this.points.push([0.1 * i, 0.3 * i])
+    }
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
@@ -1661,12 +1664,10 @@ class Tares extends Sketch {
     noStroke();
     this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255);
-    this.shader.setUniform("u_point", this.point);
+    this.shader.setUniform("u_points", this.points);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
-    this.point[0] -= 0.01;
-    this.point[0] = this.point[0] % 1;
   }
   listeners = [{}]
 }
