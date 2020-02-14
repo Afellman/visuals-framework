@@ -1650,7 +1650,7 @@ class Tares extends Sketch {
     this.pointAmt = 10;
     this.params = {
       faders: {
-        num1: 1.7054274082183838,
+        num1: PI,
         num2: 2.945736885070801
       }
     }
@@ -1674,7 +1674,13 @@ class Tares extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     // this.params.faders.num1 = 1.705 + sin(frameCount / 100000) * 100;
-    this.params.faders.num2 = 2.95 + sin(frameCount / 1000) * 100;
+    const rad2 = radians(this.time2);
+    this.params.faders.num2 = 2.95 + sin(-HALF_PI + rad) * 100;
+
+    this.time1++;
+    this.time2++;
+    this.time1 = this.time1 % 360;
+    this.time2 = this.time2 % 360;
   }
   listeners = [{}]
 }
