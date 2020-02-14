@@ -273,7 +273,6 @@ function setup() {
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
   loadScene(new BGShader(0)) // For background.
-  loadScene(new Tares(0)) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -693,7 +692,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz, Tares]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -738,6 +737,7 @@ function bindLaunchers() {
   const mirrorLauncher = new Launcher(Mirror, 8);
   midiAkai[16].method = mirrorLauncher.toggle.bind(mirrorLauncher);
   midiAkai[23].method = mirrorLauncher.opacity.bind(mirrorLauncher);
+  midiAkai[24].method = (val) => glBackground[3] = midiToNormal(val)
 }
 
 function bindMiscGlobal() {
@@ -775,7 +775,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
     loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/gridz.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
     loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
   ])
     .then(res => cb(res))
