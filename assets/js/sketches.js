@@ -1672,6 +1672,9 @@ class Tares extends Sketch {
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
+
+    // this.params.faders.num1 = 1.705 + sin(frameCount / 100000) * 100;
+    this.params.faders.num2 = 2.95 + sin(frameCount / 1000) * 100;
   }
   listeners = [{}]
 }
