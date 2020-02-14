@@ -760,6 +760,7 @@ function loadImages(cb) {
     loadImage("./assets/images/ameen-fahmy-water.jpg"),
     loadImage("./assets/images/jason-leung-water.jpg"),
     loadImage("./assets/images/v2osk-sunset.jpg"),
+    loadImage("./assets/images/colorImg1.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
