@@ -1647,12 +1647,15 @@ class Tares extends Sketch {
     super();
     this.setIndex = setIndex;
     this.opacity = 255;
-    this.points = [];
+    this.points = new Array(3);
   }
 
   init(index) {
-    for (let i = 1; i < 2; i++) {
-      this.points.push([0.5, 0.5])
+    for (let i = 1; i < 4; i++) {
+      const arr = new Array(2);
+      arr[0] = 0.5;
+      arr[1] = 0.2;
+      this.points[i] = arr;
     }
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
@@ -1664,7 +1667,16 @@ class Tares extends Sketch {
     noStroke();
     this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255);
-    this.shader.setUniform("u_points", this.points);
+    this.shader.setUniform("u_points[0]", this.points[0]);
+    this.shader.setUniform("u_points[1]", this.points[1]);
+    this.shader.setUniform("u_points[2]", this.points[2]);
+    this.shader.setUniform("u_points[3]", this.points[3]);
+    this.shader.setUniform("u_points[4]", this.points[4]);
+    this.shader.setUniform("u_points[5]", this.points[5]);
+    this.shader.setUniform("u_points[6]", this.points[6]);
+    this.shader.setUniform("u_points[7]", this.points[7]);
+    this.shader.setUniform("u_points[8]", this.points[8]);
+    this.shader.setUniform("u_points[9]", this.points[9]);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
