@@ -1510,11 +1510,13 @@ class WindShield extends Sketch {
         lineAmt: 1,
         speed: 0.12,
         lineDupes: 1,
-        dupeSpace: 0
+        dupeSpace: 0,
+        bottom: height / 1.5
       }
     }
     this.opacity = 255;
     this.time = 0;
+
   }
 
   init() {
@@ -1537,16 +1539,16 @@ class WindShield extends Sketch {
   }
 
   move(time) {
-    const { arc, lineLength } = this.params.faders;
+    const { arc, lineLength, bottom } = this.params.faders;
     const start = createVector(0, 0)
     const end = createVector(0, 0)
 
     let rad = radians(time);
     start.x = width / 2 + Math.sin(-HALF_PI + rad) * arc;
-    start.y = height / 1.5 + -Math.abs(Math.sin(rad) * arc);
+    start.y = bottom + -Math.abs(Math.sin(rad) * arc);
 
     end.x = width / 2 + Math.sin(-HALF_PI + rad) * (arc) / lineLength;
-    end.y = height / 1.5 + -Math.abs(Math.sin(rad) * (arc) / lineLength);
+    end.y = bottom + -Math.abs(Math.sin(rad) * (arc) / lineLength);
 
     return { start, end };
   }
@@ -1560,7 +1562,7 @@ class WindShield extends Sketch {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
-      this.color = someColor(0);
+      this.color = someColor(1);
       this.time = 0;
       this.i = i;
     }
