@@ -13,8 +13,8 @@ void main() {
   vec2 uv = vTexCoord;
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
-  float color = distance(u_point, uv);
-  vec3 color = vec3(color, color, color);
+  float dis = distance(u_point, vec2(uv.x * 3.0, uv.y * 10.0));
+  vec3 color = vec3(1.0-dis, 1.0-dis, 1.0-dis);
   // output to screen
     gl_FragColor = vec4(color,u_opacity);
 
