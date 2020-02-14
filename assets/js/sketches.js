@@ -1642,6 +1642,33 @@ class WindShield extends Sketch {
   ]
 }
 
+class Tears extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
+    this.graph = createGraphics(width, height);
+  }
+
+  draw() {
+    noStroke();
+    this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_opacity", this.opacity / 255)
+    this.shader.setUniform("tex0", this.graph);
+    this.shader.setUniform('u_xOff', this.params.faders.xOff);
+    this.shader.setUniform('u_yOff', this.params.faders.yOff);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+  }
+  listeners = [{}]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
