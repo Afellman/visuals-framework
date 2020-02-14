@@ -11,6 +11,7 @@ const io = require('socket.io')(server);
 let debug = true;
 
 let updateInterval = Date.now();
+let saveInterval = Date.now();
 let udpPort;
 let glClient;
 
@@ -28,6 +29,7 @@ if (!process.argv[2]) {
   debug = false;
 } else {
   setupWatcher();
+
 }
 
 
@@ -131,11 +133,24 @@ function setupWatcher() {
         updateInterval = Date.now();
         console.log(name + " changed");
         pushToGit(name);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    if (
+      name.indexOf('.git') == -1
+      && name.indexOf("node_modules") == -1
+      && Date.now() - saveInterval > 7000
+    ) {
+      try {
+        saveInterval = Date.now();
         glClient.emit("refresh", true);
       } catch (err) {
         console.log(err);
       }
     }
+
   });
 }
 
