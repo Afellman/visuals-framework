@@ -1651,7 +1651,7 @@ class Tares extends Sketch {
   }
 
   init(index) {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 1; i < 21; i++) {
       this.points.push([0.01 * i, 0.03 * i])
     }
     super.init();
