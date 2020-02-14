@@ -875,7 +875,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
     this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity)
+    this.shader.setUniform("u_opacity", this.opacity / 255)
     this.shader.setUniform("tex0", this.graph);
     // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
@@ -1673,7 +1673,7 @@ class Tares extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    // this.params.faders.num1 = 1.705 + sin(frameCount / 100000) * 100;
+    this.params.faders.num1 = 1.705 + sin(frameCount / 100000) * 100;
     this.params.faders.num2 = Math.abs(4.4 + sin(frameCount / 100000) * 100);
   }
   listeners = [{}]
