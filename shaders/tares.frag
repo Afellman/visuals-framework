@@ -33,20 +33,20 @@ float getDis(vec2 uv) {
   return dis;
 }
 
+float random (float x) {
+    return fract(sin(dot(x,10.233))* 10.5453123);
+}
+
 float getDis2(vec2 uv) {
   float dis = 1.0;
   for(int i = 0; i < 10; i ++){
-    dis *= distance(random(uv), uv) * 10.0;
+    dis *= distance(vec2(random(uv.x),random(uv.y)), uv) * 10.0;
   }
 
   return dis;
 }
 
-float random (vec2 st) {
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
-}
+
 
 void main() {
   vec2 uv = vTexCoord;
