@@ -10,7 +10,7 @@ uniform float u_opacity;
 uniform vec2 u_point;
 
 float lineShape(vec2 point){
-  return step(0.05, length(point));
+  return step(0.1, length(uv - point));
 }
 
 void main() {
@@ -18,7 +18,7 @@ void main() {
   // the texture is loaded upside down and backwards by default so lets flip it
   uv = 1.0 - uv;
   float line = lineShape(u_point);
-  vec3 color = vec3(1.0-dis, 1.0-dis, 1.0-dis);
+  vec3 color = vec3(1.0-line, 1.0-line, 1.0-line);
   // output to screen
     gl_FragColor = vec4(color,u_opacity);
 
