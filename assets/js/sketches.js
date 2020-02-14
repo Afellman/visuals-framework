@@ -1654,8 +1654,6 @@ class Tares extends Sketch {
         num2: 2.945736885070801
       }
     }
-    this.time1 = 0;
-    this.time2 = 0;
   }
 
   init(index) {
@@ -1676,13 +1674,7 @@ class Tares extends Sketch {
     this.shaderBox.rect(0, 0, width, height);
 
     // this.params.faders.num1 = 1.705 + sin(frameCount / 100000) * 100;
-    const rad2 = radians(this.time2 * 100);
-    this.params.faders.num2 = sin(-HALF_PI + rad2) * 100;
-
-    this.time1 += 0.1;
-    this.time2 += 0.1;
-    this.time1 = this.time1 % 0.360;
-    this.time2 = this.time2 % 0.360;
+    this.params.faders.num2 = Math.abs(4.4 + sin(frameCount / 100000) * 100);
   }
   listeners = [{}]
 }
