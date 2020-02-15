@@ -172,24 +172,24 @@ class Sketch {
     // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       const thisListener = this.listeners[i];
-      if (thisListener.midiNote) {
-        let thisIndex = thisListener.midiNote + (this.setIndex * 8)
-        if (this.setIndex < 5) {
-          if (thisListener.isButton) {
-            midi179[thisIndex + 48].method = thisListener.midiMethod;
-          } else {
-            midi179[thisIndex].method = thisListener.midiMethod;
-            midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
-          }
-        } else {
-          if (thisListener.isButton) {
-            midi180[thisIndex + 48].method = thisListener.midiMethod;
-          } else {
-            midi180[thisIndex].method = thisListener.midiMethod;
-            midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
-          }
-        }
-      }
+      // if (thisListener.midiNote) {
+      //   let thisIndex = thisListener.midiNote + (this.setIndex * 8)
+      //   if (this.setIndex < 5) {
+      //     if (thisListener.isButton) {
+      //       midi179[thisIndex + 48].method = thisListener.midiMethod;
+      //     } else {
+      //       midi179[thisIndex].method = thisListener.midiMethod;
+      //       midi179[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+      //     }
+      //   } else {
+      //     if (thisListener.isButton) {
+      //       midi180[thisIndex + 48].method = thisListener.midiMethod;
+      //     } else {
+      //       midi180[thisIndex].method = thisListener.midiMethod;
+      //       midi180[thisIndex].velocity = typeof thisListener.initialVal == "function" ? thisListener.initialVal() : 0;
+      //     }
+      //   }
+      // }
 
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
@@ -1010,7 +1010,9 @@ class DisplaceImg extends Sketch { // scene 11. maped
         displaceY: 0,
         freq: 0.001,
         amp: 1,
-        red: 1
+        red: 0,
+        green: 0,
+        blue: 0,
       }
     }
     this.displaceX = 0;
@@ -1043,8 +1045,10 @@ class DisplaceImg extends Sketch { // scene 11. maped
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
     this.shader.setUniform("u_displaceY", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceY);
-    this.shader.setUniform('u_time', frameCount);
+    this.shader.setUniform('u_time', frameCount / 500);
     this.shader.setUniform('u_red', this.params.faders.red);
+    this.shader.setUniform('u_green', this.params.faders.green);
+    this.shader.setUniform('u_blue', this.params.faders.blue);
 
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
