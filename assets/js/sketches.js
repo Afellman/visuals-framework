@@ -1652,10 +1652,14 @@ class Tares extends Sketch {
     this.pointAmt = 10;
     this.params = {
       faders: {
-        x: 0.26,
-        y: 0.23,
+        x: 0.001,
+        y: 0.6612,
+        speed: 0,
+        amp: 0
       }
     }
+    this.speed = 10000;
+    this.amp = 2;
     this.num1Start = 10;
     this.num2Start = 10;
     this.num1 = this.num1Start
@@ -1681,8 +1685,11 @@ class Tares extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    this.num1 = this.num1Start + sin(frameCount / 100000) * 100;
-    this.num2 = Math.abs(this.num2Start + sin(frameCount / 100000) * 100);
+    this.speed += this.params.faders.speed;
+
+    this.amp += this.params.faders.amp;
+    this.num1 = this.num1Start + sin(frameCount / this.speed) * this.amp;
+    this.num2 = Math.abs(this.num2Start + sin(frameCount / this.speed) * this.amp);
 
   }
   listeners = [{}]
