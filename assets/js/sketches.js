@@ -1689,7 +1689,7 @@ class Tares extends Sketch {
 
     this.amp += this.params.faders.amp;
     this.num1 = this.num1Start + sin(frameCount / this.speed) * this.amp;
-    this.num2 = Math.abs(this.num2Start + sin(frameCount / this.speed) * this.amp);
+    // this.num2 = Math.abs(this.num2Start + sin(frameCount / this.speed) * this.amp);
 
   }
   listeners = [{}]
