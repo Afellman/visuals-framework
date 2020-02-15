@@ -751,11 +751,21 @@ bindMiscGlobal();
 //       Global OSC bindings
 // ================================================ 
 
+const mirrorLauncher = new Launcher(Mirror, -1);
 socket.on("/-1/mirrorOn", (val) => {
-  if (val.args[0]) {
-    loadScene()
-  }
+  mirrorMethod();
 });
+
+socket.on("/-1/mirrorOpacity", (val) => {
+  mirrorOpacity();
+});
+
+socket.on("/-1/mirrorOpacity", (val) => {
+  glBackground[3] = val.args[0];
+});
+
+const mirrorMethod = mirrorLauncher.toggle.bind(mirrorLauncher);
+const mirrorOpacity = mirrorLauncher.opacity.bind(mirrorLauncher);
 // ========================================= Async Loaders
 
 function loadImages(cb) {
