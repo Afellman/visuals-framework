@@ -763,10 +763,10 @@ function bindGlobalSockets() {
   });
 
   socket.on("/-1/mirrorOpacity", (val) => {
-    mirrorOpacity();
+    mirrorOpacity(map(val.args[0], 0, 1, 0, 127);
   });
 
-  socket.on("/-1/mirrorOpacity", (val) => {
+  socket.on("/-1/glOpacity", (val) => {
     glBackground[3] = val.args[0];
   });
 
