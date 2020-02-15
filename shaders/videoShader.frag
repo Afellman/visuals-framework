@@ -13,6 +13,8 @@ uniform float u_opacity;
 uniform float u_displaceX;
 uniform float u_displaceY;
 uniform float u_red;
+uniform float u_blue;
+uniform float u_green;
 
 
 
@@ -36,9 +38,9 @@ void main() {
 
   vec3 color = vec3(dot( img2.rgb, lum));
 
-  color.r += distance(0.5, uv.x) * u_red / 10.0;
-  color.g += distance(0.5, uv.x) * u_green / 10.0;
-  color.b += distance(0.5, uv.x) * u_blue / 10.0;
+  color.r += distance(0.5, uv.x) * u_red;
+  color.g += distance(0.5, uv.x) * u_green;
+  color.b += distance(0.5, uv.x) * u_blue;
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
