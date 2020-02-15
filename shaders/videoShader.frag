@@ -34,8 +34,12 @@ void main() {
 
   vec3 lum = vec3(0.299, 0.587, 0.114);
 
-  lum.r *= u_red;
+  vec3 color = vec3(dot( img2.rgb, lum));
+
+  color.r += distance(0.5, uv.x) * u_red / 10.0;
+  color.g += distance(0.5, uv.x) * u_green / 10.0;
+  color.b += distance(0.5, uv.x) * u_blue / 10.0;
 
   // render the output
-  gl_FragColor = vec4(vec3(dot( img2.rgb, lum)), u_opacity);
+  gl_FragColor = vec4(color, u_opacity);
 }
