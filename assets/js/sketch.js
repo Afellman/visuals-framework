@@ -487,30 +487,6 @@ function onMIDIFailure() {
   console.log('Could not access your MIDI devices.');
 }
 
-let midi179 = (function () { // Map of midi notes and attached methods with command 179.
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
-
-let midi180 = (function () { // Map of midi notes and attached methods with command 180.
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
-
-let midiAkai = (function () {
-  let ret = [];
-  for (let i = 0; i < 31; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
-
 // const genericMidi = {
 //   "1": {
 //     scene: {},
@@ -692,6 +668,31 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
+
+let midi179 = (function () { // Map of midi notes and attached methods with command 179.
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+
+let midi180 = (function () { // Map of midi notes and attached methods with command 180.
+  let ret = [];
+  for (let i = 0; i < 96; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+
+let midiAkai = (function () {
+  let ret = [];
+  for (let i = 0; i < 31; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+
 const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz, Tares]); // Where do I define the set list? Max 10.
 
 class Launcher {
@@ -733,11 +734,6 @@ function bindLaunchers() {
     midiAkai[i].method = launcher.toggle.bind(launcher);
     midiAkai[i + 8].method = launcher.opacity.bind(launcher);
   });
-
-  const mirrorLauncher = new Launcher(Mirror, 8);
-  midiAkai[16].method = mirrorLauncher.toggle.bind(mirrorLauncher);
-  midiAkai[23].method = mirrorLauncher.opacity.bind(mirrorLauncher);
-  midiAkai[24].method = (val) => glBackground[3] = midiToNormal(val)
 }
 
 function bindMiscGlobal() {
@@ -750,6 +746,16 @@ function bindMiscGlobal() {
 
 bindLaunchers();
 bindMiscGlobal();
+
+// ================================================  
+//       Global OSC bindings
+// ================================================ 
+
+socket.on("/-1/mirrorOn", (val) => {
+  if (val.args[0]) {
+    loadScene()
+  }
+});
 // ========================================= Async Loaders
 
 function loadImages(cb) {
