@@ -1652,8 +1652,8 @@ class Tares extends Sketch {
     this.pointAmt = 10;
     this.params = {
       faders: {
-        x: 0.2,
-        y: 0,
+        x: 0.26,
+        y: 0.23,
       }
     }
     this.num1Start = 10;
