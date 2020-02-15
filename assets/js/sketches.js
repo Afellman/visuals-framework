@@ -1685,11 +1685,11 @@ class Tares extends Sketch {
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    this.speed += this.params.faders.speed / 1000;
+    this.speed += this.params.faders.speed;
 
     this.amp += this.params.faders.amp;
     // this.num1 = this.num1Start + sin(frameCount * this.speed) * this.amp;
-    this.num2 = Math.abs(this.num2Start + sin(frameCount * this.speed) * this.amp);
+    this.num2 = Math.abs(this.num2Start + sin(this.speed) * this.amp);
 
   }
   listeners = [
@@ -1697,7 +1697,7 @@ class Tares extends Sketch {
       socketName: "stopSpeed",
       socketMethod: (val) => {
         this.params.faders.speed = 0;
-        this.speed = 0;
+        this.updateOsc();
       }
     }
   ]
