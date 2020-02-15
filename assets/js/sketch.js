@@ -693,7 +693,7 @@ let midiAkai = (function () {
   return ret;
 })();
 
-const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz, Tares]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -763,7 +763,7 @@ function bindGlobalSockets() {
   });
 
   socket.on("/-1/mirrorOpacity", (val) => {
-    mirrorOpacity(map(val.args[0], 0, 1, 0, 127);
+    mirrorOpacity(map(val.args[0], 0, 1, 0, 127));
   });
 
   socket.on("/-1/glOpacity", (val) => {
