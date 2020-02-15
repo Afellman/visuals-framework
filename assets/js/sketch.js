@@ -764,6 +764,22 @@ socket.on("/-1/mirrorOpacity", (val) => {
   glBackground[3] = val.args[0];
 });
 
+socket.on("/-1/videoOpacity", (val) => {
+  const video = document.getElementById("fireVideo");
+  video.style.opacity = val.args[0];
+});
+
+socket.on("/-1/videoOn", (val) => {
+  if (val.args[0]) {
+    const video = document.createElement("video");
+    video.setAttribute("id", "fireVideo");
+    video.setAttribute("src", "./assets/videos/fire2.mp4");
+    document.body.appendChild('video');
+  }
+  const video = document.getElementById("fireVideo");
+  video.remove();
+});
+
 const mirrorMethod = mirrorLauncher.toggle.bind(mirrorLauncher);
 const mirrorOpacity = mirrorLauncher.opacity.bind(mirrorLauncher);
 // ========================================= Async Loaders
