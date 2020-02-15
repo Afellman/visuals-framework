@@ -38,9 +38,9 @@ void main() {
 
   vec3 color = vec3(dot( img2.rgb, lum));
 
-  color.r += distance(0.5, uv.x) * u_red * abs(sin(u_time) / 10.0);
-  color.g += distance(0.5, uv.x) * u_green*  abs(sin(u_time) / 10.0);
-  color.b += distance(0.5, uv.x) * u_blue*  abs(sin(u_time) / 10.0);
+  color.r += distance(0.5, uv.x) * u_red * abs(sin(u_time) / 3.0);
+  color.g += distance(0.5, uv.x) * u_green*  abs(sin(u_time) / 3.0);
+  color.b += distance(0.5, uv.x) * u_blue*  abs(sin(u_time) / 3.0);
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
