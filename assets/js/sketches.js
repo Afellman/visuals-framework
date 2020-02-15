@@ -1648,12 +1648,12 @@ class Tares extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
-    this.opacity = 140;
+    this.opacity = 0;
     this.pointAmt = 10;
     this.params = {
       faders: {
-        num1: 10,
-        num2: 10,
+        x: 0.2,
+        y: 0,
       }
     }
     this.num1Start = 10;
@@ -1675,12 +1675,14 @@ class Tares extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_point1", this.num1);
     this.shader.setUniform("u_point2", this.num2);
+    this.shader.setUniform("u_x", this.params.faders.x);
+    this.shader.setUniform("u_y", this.params.faders.y);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    // this.num1 = this.num1Start + sin(frameCount / 100000) * 100;
-    // this.num2 = Math.abs(this.num2Start + sin(frameCount / 100000) * 100);
+    this.num1 = this.num1Start + sin(frameCount / 100000) * 100;
+    this.num2 = Math.abs(this.num2Start + sin(frameCount / 100000) * 100);
 
   }
   listeners = [{}]
