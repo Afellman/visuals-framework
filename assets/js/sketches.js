@@ -1224,7 +1224,7 @@ class FlowField extends Sketch {
     this.setIndex = setIndex;
     this.particles = [];
     this.inc = 0.2;
-    this.zinc = 0.003;
+    this.zinc = 0.0003;
     this.scale = 20;
     this.cols;
     this.rows;
@@ -1260,22 +1260,22 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle = noise(xoff, yoff, this.zoff) * PI;
+        // let angle = noise(xoff, yoff, this.zoff) * PI;
         // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
-        let v = p5.Vector.fromAngle(angle);
+        let v = p5.Vector.fromAngle(PI);
 
         v.setMag(this.mag);
         this.flowField[index] = v;
         xoff += this.inc;
 
         // To show vector grid
-        // push();
-        // translate(x * this.scale, y * this.scale);
-        // rotate(v.heading());
-        // strokeWeight(1);
-        // stroke(255)
-        // line(0, 0, this.scale, 0);
-        // pop();
+        push();
+        translate(x * this.scale, y * this.scale);
+        rotate(v.heading());
+        strokeWeight(1);
+        stroke(255)
+        line(0, 0, this.scale, 0);
+        pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
@@ -1287,13 +1287,6 @@ class FlowField extends Sketch {
       this.particles[i].edges();
       this.particles[i].show();
     }
-
-    noStroke();
-    this.shader.setUniform("u_opacity", this.opacity)
-    this.shader.setUniform("tex0", this.canvas);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
   }
 
 
