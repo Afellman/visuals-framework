@@ -8,6 +8,8 @@ varying vec2 vTexCoord;
 uniform float u_opacity;
 uniform float u_point1;
 uniform float u_point2;
+uniform float u_x;
+uniform float u_y;
 
 
 float random (float x) {
@@ -31,10 +33,9 @@ void main() {
   uv = 1.0 - uv;
    // Each result will return 1.0 (white) or 0.0 (black).
 
-  // float dis = getDis(uv);
-
+  uv.x *= u_x;
+  uv.y *= u_y;
   float dis = getDis2(uv);
-
    
   vec3 color = vec3(1.0- dis);
   // output to screen

@@ -780,12 +780,21 @@ function bindGlobalSockets() {
     video.remove();
   });
 
-  socket.on("/-1/videoOn", (val) => {
+  socket.on("/-1/videoPlay", (val) => {
     const video = document.getElementById("fireVideo");
-    video.remove();
+    if (val.args[0]) {
+      video.play();
+    } else {
+      video.pause();
+    }
   });
 
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoPlay", value: "0" })
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOn", value: "0" })
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOpacity", value: "1" })
 }
+
+bindGlobalSockets();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
