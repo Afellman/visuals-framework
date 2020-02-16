@@ -398,7 +398,23 @@ class Sun extends Sketch { // Scene 2. Maped
         position.y = i % 2 == 0 ? height - 100 : height - 300;
       }
       this.positions.push(position);
+
+
+      this.listeners.push(
+        {
+          socketName: "addSun" + i + 1,
+          socketMethod: (val) => {
+            if (val.args[0]) {
+              this.addSun(val.args[0]);
+            } else {
+              this.removeSun(0);
+            }
+          }
+        },
+      )
     }
+
+
   }
 
   draw() {
@@ -409,22 +425,24 @@ class Sun extends Sketch { // Scene 2. Maped
     stroke(0, 0);
     for (let j = 0; j < sunAmt; j++) {
       const sun = this.suns[j];
-      const y = sun.y;
-      const x = sun.x;
-      const sine = sun.sine();
-      const amp = sun.amp;
-      for (let i = 0; i < ringAmt; i++) {
-        let opacVariance = i;
-        size = 200 + (i * 10) + sine * amp;
-        if (i == 0) {
-          opacVariance = 0.9;
+      if (sun) {
+        const y = sun.y;
+        const x = sun.x;
+        const sine = sun.sine(this.time);
+        const amp = sun.amp;
+        for (let i = 0; i < ringAmt; i++) {
+          let opacVariance = i;
+          size = 200 + (i * 10) + sine * amp;
+          if (i == 0) {
+            opacVariance = 0.9;
+          }
+          fill(r, g, b, (this.opacity / opacVariance));
+          ellipse(x, y, size);
         }
-        fill(r, g, b, (this.opacity / opacVariance));
-        ellipse(x, y, size);
-      }
-      sun.life++;
-      if (sun.life > 1000) {
-        this.removeSun(j);
+        sun.life++;
+        if (sun.life > 1000) {
+          this.removeSun(j);
+        }
       }
     }
     this.time = (frameCount / 10000);
@@ -445,21 +463,10 @@ class Sun extends Sketch { // Scene 2. Maped
 
   removeSun(index) {
     this.suns.splice(index, 1);
+    socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
 
-  listeners = [
-    {
-      socketName: "addSun",
-      socketMethod: (val) => {
-        if (val.args[0]) {
-          this.addSun(val.args[0]);
-        } else {
-          this.removeSun(0);
-        }
-      }
-    },
-  ]
 }
 
 class RopeSwing extends Sketch { // Scene 3. Maped 
