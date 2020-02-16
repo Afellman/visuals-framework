@@ -1,0 +1,8 @@
+   Alec           |  Andrew
+1. Bowls          | Sun(#2) 
+2. Gong           | Sun + Line shader noise
+3. Unsaid (5:00)  | Prox(#1) -> Line shader offset
+4. Twisting       | Random(#7) + Mirror
+5. Traces (4:27)  | Grid(#6) -> Flow(#9) 
+6. Water(Modular) | Displace(#3) img1
+7. Modular 2      | Displace(#3) img1 + Mirror
