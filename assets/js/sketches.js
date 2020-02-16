@@ -1261,7 +1261,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = noise(xoff, yoff, this.zoff) * -PI * 1.3; // This gives full rotation of movement
+        let angle2 = noise(xoff, yoff, this.zoff) * -HALF_PI * 4; // This gives full rotation of movement
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
@@ -1278,7 +1278,7 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
-        // // // // To show vector grid
+        // // // To show vector grid
         // push();
         // translate(x * this.scale, y * this.scale);
         // rotate(v.heading());
