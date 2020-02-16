@@ -403,7 +403,8 @@ class Sun extends Sketch { // Scene 2. Maped
     this.opacity = 0;
     this.time = this.params.faders.speed;
 
-    this.suns = [];
+    this.suns = new Array(10);
+
   }
 
   draw() {
@@ -445,17 +446,17 @@ class Sun extends Sketch { // Scene 2. Maped
       amp: this.params.faders.amp,
       sine: this.waves[num - 1],
       life: 1000,
-      x: this.positions[num - 1].x,
-      y: this.positions[num - 1].y,
+      x: position.x,
+      y: position.y,
       num: num,
       color: this.colors[num - 1]
     }
 
-    this.suns.push(sun);
+    this.suns[num - 1] = sun;
   }
 
   removeSun(index) {
-    this.suns = this.suns.filter(sun => sun.num !== index);
+    this.suns[index].life = 0;
     socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
