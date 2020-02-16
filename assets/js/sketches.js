@@ -381,7 +381,7 @@ class Sun extends Sketch { // Scene 2. Maped
     stroke(0, 0);
     for (let i = 0; i < ringAmt; i++) {
       let opacVariance = i;
-      size = 200 + + Math.sin((PI * 2 * (frameCount / 10000) * 522)) * amp;
+      size = 200 + (i * 10) + Math.sin((PI * 2 * (frameCount) * 522)) * amp;
       if (i == 0) {
         opacVariance = 0.9;
       }
