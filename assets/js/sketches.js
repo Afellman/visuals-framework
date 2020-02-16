@@ -1358,7 +1358,7 @@ class FlowField extends Sketch {
       faders: {
         angle: 3.709,
         speed: 2,
-        opacity: 10
+        opacity: 2
       }
     }
 
@@ -1404,13 +1404,13 @@ class FlowField extends Sketch {
         xoff += this.inc;
 
         // // // To show vector grid
-        push();
-        translate(x * this.scale, y * this.scale);
-        rotate(v.heading());
-        strokeWeight(1);
-        stroke(255)
-        line(0, 0, this.scale, 0);
-        pop();
+        // push();
+        // translate(x * this.scale, y * this.scale);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // stroke(255)
+        // line(0, 0, this.scale, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
@@ -1502,38 +1502,6 @@ class FlowField extends Sketch {
   }
 
   listeners = [
-    {
-      midiNote: 0,
-      midiMethod: (vel) => {
-        this.mag = vel
-      }
-    },
-    {
-      midiNote: 0,
-      isButton: true,
-      midiMethod: (vel) => {
-        this.zoff++;
-        this.canvas.background(0, 0, 0, 255);
-      }
-    },
-    {
-      midiNote: 1,
-      midiMethod: (vel) => {
-        this.zinc = vel / 10000
-      }
-    },
-    {
-      midiNote: 1,
-      isButton: true,
-      midiMethod: (vel) => {
-        for (let i = 0; i < this.particles.length; i++) {
-          const thisParticle = this.particles[i];
-          thisParticle.pos.x = Math.random() * width;
-          thisParticle.pos.y = Math.random() * height;
-          thisParticle.updatePrev();
-        }
-      }
-    },
   ]
 }
 
