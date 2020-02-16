@@ -1252,10 +1252,6 @@ class FlowField extends Sketch {
 
     this.flowField = new Array(this.cols * this.rows);
 
-
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
-    this.canvas = createGraphics(width, height);
   }
 
   draw() {
