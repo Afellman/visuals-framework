@@ -1340,7 +1340,7 @@ class FlowField extends Sketch {
     }
 
     show() {
-      stroke(255, 2);
+      stroke(255, 50);
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
