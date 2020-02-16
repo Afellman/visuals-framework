@@ -1263,10 +1263,10 @@ class FlowField extends Sketch {
         // let angle = noise(xoff, yoff, this.zoff) * PI;
         // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
 
-        let dis = dist(width / 2, height, map(x, 0, this.cols, 0, width), map(y, 0, cols, 0, height));
+        let dis = dist(width / 2, height - 100, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
-        let angle = dis / PI;
-        if (dis > 100) {
+        let angle = map(dis, 0, width / 2, 0, PI);
+        if (dis < 600) {
           angle = PI;
         }
 
