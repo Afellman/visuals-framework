@@ -1252,6 +1252,10 @@ class FlowField extends Sketch {
 
     this.flowField = new Array(this.cols * this.rows);
 
+
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
+    this.canvas = createGraphics(width, height);
   }
 
   draw() {
@@ -1266,10 +1270,10 @@ class FlowField extends Sketch {
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
         let angle = angle2;
-        this.mag = 50
+        this.mag = 1
         if (dis < 600) {
           angle = angle1;
-          this.mag = 50;
+          this.mag = 1;
         }
 
         let v = p5.Vector.fromAngle(angle);
