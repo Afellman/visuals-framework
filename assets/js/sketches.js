@@ -376,9 +376,6 @@ class Sun extends Sketch { // Scene 2. Maped
       (time) => Math.sin((PI * 2 * time * 592)),
       (time) => Math.sin((PI * 2 * time * 188)),
       (time) => Math.sin((PI * 2 * time * 732))
-
-
-
     ]
   }
 
@@ -387,6 +384,9 @@ class Sun extends Sketch { // Scene 2. Maped
     this.freq = 21;
     this.opacity = 0;
     this.time = this.params.faders.speed;
+
+    this.suns = [];
+
   }
 
   draw() {
@@ -410,9 +410,17 @@ class Sun extends Sketch { // Scene 2. Maped
     }
     this.time = (frameCount / 10000);
   }
-  keyPressed(e) {
 
-  }
+  listeners = [
+    {
+      socketName: "sun1",
+      socketMethod: (val) => {
+        if (val.args[0]) {
+          this.addSun(0);
+        }
+      }
+    }
+  ]
 }
 
 class RopeSwing extends Sketch { // Scene 3. Maped 
