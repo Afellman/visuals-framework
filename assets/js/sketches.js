@@ -1385,7 +1385,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = noise(xoff, yoff, this.zoff) * -this.params.faders.angle;
+        let angle2 = -this.params.faders.angle + noise(xoff, yoff, this.zoff);
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
@@ -1403,13 +1403,13 @@ class FlowField extends Sketch {
         xoff += this.inc;
 
         // // // To show vector grid
-        // push();
-        // translate(x * this.scale, y * this.scale);
-        // rotate(v.heading());
-        // strokeWeight(1);
-        // stroke(255)
-        // line(0, 0, this.scale, 0);
-        // pop();
+        push();
+        translate(x * this.scale, y * this.scale);
+        rotate(v.heading());
+        strokeWeight(1);
+        stroke(255)
+        line(0, 0, this.scale, 0);
+        pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
