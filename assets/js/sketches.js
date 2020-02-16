@@ -358,7 +358,7 @@ class Sun extends Sketch { // Scene 2. Maped
     this.params = {
       faders: {
         amp: 20,
-        ringAmt: 3,
+        ringAmt: 10,
         speed: 0,
         r: 100,
         g: 53,
@@ -571,7 +571,7 @@ class Proximity extends Sketch {// Maped
       }
     }
 
-    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 100) / 100;
+    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 1000) / 100;
     this.freq += speed / 50;
   }
 
