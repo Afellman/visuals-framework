@@ -392,6 +392,7 @@ class Sun extends Sketch { // Scene 2. Maped
           }
         },
       )
+      socket.emit("updateOsc", { oscObj: "addSun" + i + 1, value: 0, scene: 1 });
     }
   }
 
@@ -414,6 +415,7 @@ class Sun extends Sketch { // Scene 2. Maped
       }
       this.positions.push(position);
     }
+
   }
 
   draw() {
@@ -431,15 +433,15 @@ class Sun extends Sketch { // Scene 2. Maped
         const amp = sun.amp;
         for (let i = 0; i < ringAmt; i++) {
           let opacVariance = i;
-          size = sun.life + (i * 10) + sine * amp;
+          size = (sun.life / 5) + (i * 10) + sine * amp;
           if (i == 0) {
             opacVariance = 0.9;
           }
           fill(sun.color[0], sun.color[1], sun.color[2], (this.opacity / opacVariance));
           ellipse(x, y, size);
         }
-        sun.life++;
-        if (sun.life > 1000) {
+        sun.life--
+        if (sun.life <= 0) {
           this.removeSun(sun.num);
         }
       }
@@ -449,9 +451,9 @@ class Sun extends Sketch { // Scene 2. Maped
 
   addSun(num) {
     const sun = {
-      amp: noise(frameCount) * this.params.faders.amp,
+      amp: this.params.faders.amp,
       sine: this.waves[num - 1],
-      life: 0,
+      life: 1000,
       x: this.positions[num - 1].x,
       y: this.positions[num - 1].y,
       num: num,
