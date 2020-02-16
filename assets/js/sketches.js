@@ -387,7 +387,7 @@ class Sun extends Sketch { // Scene 2. Maped
             if (val.args[0]) {
               this.addSun(val.args[0]);
             } else {
-              this.removeSun(i);
+              this.removeSun(i + 1);
             }
           }
         },
@@ -413,10 +413,7 @@ class Sun extends Sketch { // Scene 2. Maped
         position.y = i % 2 == 0 ? height - 100 : height - 300;
       }
       this.positions.push(position);
-
     }
-
-
   }
 
   draw() {
@@ -451,14 +448,14 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   addSun(num) {
-    num = num - 1
     const sun = {
       amp: noise(frameCount) * this.params.faders.amp,
-      sine: this.waves[num],
+      sine: this.waves[num - 1],
       life: 0,
-      x: this.positions[num].x,
-      y: this.positions[num].y,
-      num: num
+      x: this.positions[num - 1].x,
+      y: this.positions[num - 1].y,
+      num: num,
+      color: someColor(3)
     }
 
     this.suns.push(sun);
@@ -466,7 +463,7 @@ class Sun extends Sketch { // Scene 2. Maped
 
   removeSun(index) {
     this.suns = this.suns.filter(sun => sun.num !== index);
-    socket.emit("updateOsc", { oscObj: "addSun" + index + 1, value: 0, scene: 1 });
+    socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
 
