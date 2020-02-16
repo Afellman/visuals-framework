@@ -1512,12 +1512,13 @@ class Gridz extends Sketch {
     this.params = {
       faders: {
         speed: 0.01,
-        lengthScale: 1
+        lengthScale: 1,
+        rotate: 0
       }
     }
     this.scale = 435;
-    this.rows = Math.ceil(width / 100);
-    this.cols = Math.ceil(height / 100);
+    this.rows = Math.ceil(width / 50);
+    this.cols = Math.ceil(height / 50);
     this.time = 0;
     this.opacity = 0;
   }
@@ -1529,6 +1530,7 @@ class Gridz extends Sketch {
   draw() {
     const { speed } = this.params.faders;
     const scale = this.scale;
+
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
       rotate(this.params.faders.lengthScale)
