@@ -476,7 +476,7 @@ class Sun extends Sketch { // Scene 2. Maped
   listeners = [
 
     {
-      socketName: "addSun11",
+      socketName: "bigSun",
       socketMethod: (val) => {
         let position = { x: 0, y: 0 };
         position.x = width / 2
@@ -493,6 +493,12 @@ class Sun extends Sketch { // Scene 2. Maped
         }
 
         this.suns[num - 1] = sun;
+      }
+    },
+    {
+      socketName: "bigSunAmp",
+      socketMethod: (val) => {
+        this.params.faders.amp = val.args[0]
       }
     }
   ]
