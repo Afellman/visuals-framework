@@ -693,7 +693,7 @@ let midiAkai = (function () {
   return ret;
 })();
 
-const currentSet = setBuilder([Proximity, LinesShader, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -763,7 +763,8 @@ function bindGlobalSockets() {
 
   socket.on("/-2/on", () => {
     linesMethod();
-  })
+  });
+
   socket.on("/-1/mirrorOn", (val) => {
     mirrorMethod();
   });
