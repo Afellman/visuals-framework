@@ -1517,8 +1517,8 @@ class Gridz extends Sketch {
       }
     }
     this.scale = 435;
-    this.rows = Math.ceil(width / 50);
-    this.cols = Math.ceil(height / 50);
+    this.rows = Math.ceil(width / 100);
+    this.cols = Math.ceil(height / 100);
     this.time = 0;
     this.opacity = 0;
   }
@@ -1533,14 +1533,14 @@ class Gridz extends Sketch {
 
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
-      rotate(this.params.faders.lengthScale)
+      rotate(this.params.faders.rotate)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
         let hue = noise(x, y, this.time) * this.opacity;
         stroke(hue, hue, hue, hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.time / 50) * this.params.faders.lengthScale;
+        let lengthNoise = noise(x, y, this.time) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
         line(0 - scale * lengthNoise, 0 + scale * lengthNoise, 0 + scale, 0 - scale);
         pop();
