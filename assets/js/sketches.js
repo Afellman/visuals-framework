@@ -1266,10 +1266,10 @@ class FlowField extends Sketch {
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
         let angle = angle2;
-        this.mag = 0.5
+        this.mag = 50
         if (dis < 600) {
           angle = angle1;
-          this.mag = 10;
+          this.mag = 50;
         }
 
         let v = p5.Vector.fromAngle(angle);
