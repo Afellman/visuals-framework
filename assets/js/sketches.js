@@ -443,7 +443,7 @@ class Sun extends Sketch { // Scene 2. Maped
         }
         sun.life++;
         if (sun.life > 1000) {
-          this.removeSun(j);
+          this.removeSun(sun.num);
         }
       }
     }
@@ -465,8 +465,8 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   removeSun(index) {
-    this.suns = this.suns.filter(sun => sun.num !== index)
-    socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
+    this.suns = this.suns.filter(sun => sun.num !== index);
+    socket.emit("updateOsc", { oscObj: "addSun" + index + 1, value: 0, scene: 1 });
   }
 
 
