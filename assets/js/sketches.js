@@ -1233,7 +1233,7 @@ class FlowField extends Sketch {
     this.particleAmt = 500;
     this.opacity = 0;
     this.maxspeed = 4;
-    this.mag = 127;
+    this.mag = 1;
     this.freq1 = 1
     this.freq2 = 1
 
@@ -1260,14 +1260,14 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        // let angle = noise(xoff, yoff, this.zoff) * PI;
-        // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
+        let angle1 = noise(xoff, yoff, this.zoff) * PI;
+        let angle2 = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
 
-        let dis = dist(width / 2, height - 100, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
+        let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
         let angle = map(dis, 0, width / 2, 0, PI);
         if (dis < 600) {
-          angle = PI;
+          angle = angle1;
         }
 
         let v = p5.Vector.fromAngle(angle);
@@ -1276,14 +1276,14 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
-        // To show vector grid
-        push();
-        translate(x * this.scale, y * this.scale);
-        rotate(v.heading());
-        strokeWeight(1);
-        stroke(255)
-        line(0, 0, this.scale, 0);
-        pop();
+        // // To show vector grid
+        // push();
+        // translate(x * this.scale, y * this.scale);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // stroke(255)
+        // line(0, 0, this.scale, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
