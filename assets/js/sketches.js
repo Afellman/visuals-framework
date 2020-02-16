@@ -1,7 +1,6 @@
 /**
  * TODO:
  *  1. Flow osc
- *  2. Prox opacity
  */
 let maze = {
 
@@ -663,9 +662,9 @@ class Proximity extends Sketch {// Maped
       centerPoints,
       freq,
       multiplier } = this;
-    fill(255, 255, 255, 255 * opacity);
     for (let i = 0; i < pointAmt; i++) {
-      stroke(255, 255, 255, 255 * opacity);
+      fill(255, 255, 255, opacity);
+      stroke(255, 255, 255, opacity);
       centerPoint = centerPoints[i];
       orbit = Math.sin(freq + i * 10) * curl;
       circle = Math.sin(i) * circleDiameter;
@@ -677,7 +676,7 @@ class Proximity extends Sketch {// Maped
       centerPoint.pos.y = y;
       centerPoint.size = circleSize;
       ellipse(Math.round(x), Math.round(y), circleSize);
-      stroke(255, 255, 255, 50);
+      stroke(255, 255, 255, opacity * .2);
       for (let j = 0; j < pointAmt; j++) {
         if (dist(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y) < proximity) { // Connects all dots together
           line(x, y, this.centerPoints[j].pos.x, this.centerPoints[j].pos.y);
@@ -685,7 +684,7 @@ class Proximity extends Sketch {// Maped
       }
     }
 
-    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 10000) / 100;
+    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 1000) / 100;
     this.freq += speed / 50;
   }
 
