@@ -378,6 +378,21 @@ class Sun extends Sketch { // Scene 2. Maped
       (time) => Math.sin((PI * 2 * time * 732))
     ]
     this.positions = [];
+
+    for (let i = 0; i < 10; i++) {
+      this.listeners.push(
+        {
+          socketName: "addSun" + (i + 1),
+          socketMethod: (val) => {
+            if (val.args[0]) {
+              this.addSun(val.args[0]);
+            } else {
+              this.removeSun(i);
+            }
+          }
+        },
+      )
+    }
   }
 
   init() {
@@ -399,19 +414,6 @@ class Sun extends Sketch { // Scene 2. Maped
       }
       this.positions.push(position);
 
-
-      this.listeners.push(
-        {
-          socketName: "addSun" + i + 1,
-          socketMethod: (val) => {
-            if (val.args[0]) {
-              this.addSun(val.args[0]);
-            } else {
-              this.removeSun(0);
-            }
-          }
-        },
-      )
     }
 
 
@@ -455,14 +457,15 @@ class Sun extends Sketch { // Scene 2. Maped
       sine: this.waves[num],
       life: 0,
       x: this.positions[num].x,
-      y: this.positions[num].y
+      y: this.positions[num].y,
+      num: num
     }
 
     this.suns.push(sun);
   }
 
   removeSun(index) {
-    this.suns.splice(index, 1);
+    this.suns = this.suns.filter(sun => sun.num !== index)
     socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
