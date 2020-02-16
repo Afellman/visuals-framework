@@ -431,7 +431,7 @@ class Sun extends Sketch { // Scene 2. Maped
         const amp = sun.amp;
         for (let i = 0; i < ringAmt; i++) {
           let opacVariance = i;
-          size = 200 + (i * 10) + sine * amp;
+          size = sun.life + (i * 10) + sine * amp;
           if (i == 0) {
             opacVariance = 0.9;
           }
