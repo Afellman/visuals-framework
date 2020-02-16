@@ -358,7 +358,7 @@ class Sun extends Sketch { // Scene 2. Maped
     this.params = {
       faders: {
         amp: 20,
-        ringAmt: 10,
+        ringAmt: 25,
         speed: 0,
         r: 100,
         g: 53,
@@ -417,7 +417,7 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   draw() {
-    let { ringAmt, r, g, b } = this.params.faders;
+    let { ringAmt } = this.params.faders;
     let size;
     const sunAmt = this.suns.length;
     // noStroke();
@@ -435,7 +435,7 @@ class Sun extends Sketch { // Scene 2. Maped
           if (i == 0) {
             opacVariance = 0.9;
           }
-          fill(r, g, b, (this.opacity / opacVariance));
+          fill(sun.color[0], sun.color[1], sun.color[2], (this.opacity / opacVariance));
           ellipse(x, y, size);
         }
         sun.life++;
@@ -455,7 +455,7 @@ class Sun extends Sketch { // Scene 2. Maped
       x: this.positions[num - 1].x,
       y: this.positions[num - 1].y,
       num: num,
-      color: someColor(3)
+      color: someColor(2)
     }
 
     this.suns.push(sun);
