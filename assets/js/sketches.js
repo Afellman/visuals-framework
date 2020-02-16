@@ -1261,7 +1261,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = noise(xoff, yoff, this.zoff) * -TWO_PI / 2; // This gives full rotation of movement
+        let angle2 = noise(xoff, yoff, this.zoff) * -TWO_PI; // This gives full rotation of movement
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
@@ -1276,14 +1276,14 @@ class FlowField extends Sketch {
         this.flowField[index] = v;
         xoff += this.inc;
 
-        // // To show vector grid
-        push();
-        translate(x * this.scale, y * this.scale);
-        rotate(v.heading());
-        strokeWeight(1);
-        stroke(255)
-        line(0, 0, this.scale, 0);
-        pop();
+        // // // To show vector grid
+        // push();
+        // translate(x * this.scale, y * this.scale);
+        // rotate(v.heading());
+        // strokeWeight(1);
+        // stroke(255)
+        // line(0, 0, this.scale, 0);
+        // pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
@@ -1351,19 +1351,23 @@ class FlowField extends Sketch {
 
     edges() {
       if (this.pos.x > width) {
-        this.pos.x = 0;
+        this.pos.x = width / 2 + (random(-1, 1) * 200);
+        this.pos.y = height;
         this.updatePrev();
       }
       if (this.pos.x < 0) {
-        this.pos.x = width;
+        this.pos.x = width / 2 + (random(-1, 1) * 200);
+        this.pos.y = height;
         this.updatePrev();
       }
       if (this.pos.y > height) {
-        this.pos.y = 0;
+        this.pos.x = width / 2 + (random(-1, 1) * 200);
+        this.pos.y = height;
         // this.die();
         this.updatePrev();
       }
       if (this.pos.y < 0) {
+        this.pos.x = width / 2 + (random(-1, 1) * 200);
         this.pos.y = height;
         this.updatePrev();
       }
