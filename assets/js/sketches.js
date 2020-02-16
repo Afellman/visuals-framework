@@ -1511,7 +1511,8 @@ class Gridz extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        speed: 0.01
+        speed: 0.01,
+        lengthScale: 1
       }
     }
     this.scale = 435;
@@ -1536,7 +1537,7 @@ class Gridz extends Sketch {
         stroke(hue, hue, hue, hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.time / 50) * this.lengthScale;
+        let lengthNoise = noise(x, y, this.time / 50) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
         line(0 - scale, 0 + scale, 0 + scale, 0 - scale);
         pop();
