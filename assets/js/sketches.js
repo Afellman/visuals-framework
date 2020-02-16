@@ -424,10 +424,13 @@ class Sun extends Sketch { // Scene 2. Maped
           if (i == 0) {
             opacVariance = 0.9;
           }
-          fill(sun.color[0] - 50, sun.color[1] - 50, sun.color[2] - 50, (this.opacity / opacVariance));
+          fill(sun.color[0] - 50, sun.color[1] - 50, sun.color[2] - 50, ((sun.opacity * this.opacity) / opacVariance));
           ellipse(x, y, size);
         }
         sun.life--
+        if (sun.life < 100) {
+          sun.opacity -= 0.01
+        }
         if (sun.life <= 0) {
           this.removeSun(sun.num);
         }
@@ -447,7 +450,8 @@ class Sun extends Sketch { // Scene 2. Maped
       x: position.x,
       y: position.y,
       num: num,
-      color: this.colors[num - 1]
+      color: this.colors[num - 1],
+      opacity: 1
     }
 
     this.suns[num - 1] = sun;
