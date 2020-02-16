@@ -752,12 +752,18 @@ bindMiscGlobal();
 // ================================================ 
 
 const mirrorLauncher = new Launcher(Mirror, -1);
+const linesLauncher = new Launcher(LinesShader, -2);
 
 function bindGlobalSockets() {
+
+  const linesMethod = linesLauncher.toggle.bind(linesLauncher)
 
   const mirrorMethod = mirrorLauncher.toggle.bind(mirrorLauncher);
   const mirrorOpacity = mirrorLauncher.opacity.bind(mirrorLauncher);
 
+  socket.on("/-2/on", () => {
+    linesMethod();
+  })
   socket.on("/-1/mirrorOn", (val) => {
     mirrorMethod();
   });
