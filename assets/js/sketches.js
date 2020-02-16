@@ -1531,6 +1531,7 @@ class Gridz extends Sketch {
     const scale = this.scale;
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
+      rotate(this.params.faders.lengthScale)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
         let hue = noise(x, y, this.time) * this.opacity;
@@ -1539,7 +1540,7 @@ class Gridz extends Sketch {
         translate(xPos, yPos);
         let lengthNoise = noise(x, y, this.time / 50) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
-        line(0 - scale, 0 + scale, 0 + scale, 0 - scale);
+        line(0 - scale * lengthNoise, 0 + scale * lengthNoise, 0 + scale, 0 - scale);
         pop();
       }
     }
