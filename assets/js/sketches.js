@@ -397,7 +397,7 @@ class Sun extends Sketch { // Scene 2. Maped
         position.x = map(i, 5, 9, 0, width);
         position.y = i % 2 == 0 ? height - 100 : height - 300;
       }
-      const position = {}
+      this.positions.push(position);
     }
   }
 
@@ -411,7 +411,7 @@ class Sun extends Sketch { // Scene 2. Maped
       const sun = this.suns[j];
       const y = sun.y;
       const x = sun.x;
-      const sine = sun.sine;
+      const sine = sun.sine();
       const amp = sun.amp;
       for (let i = 0; i < ringAmt; i++) {
         let opacVariance = i;
@@ -431,9 +431,10 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   addSun(num) {
+    num = num - 1
     const sun = {
       amp: noise(frameCount) * this.params.faders.amp,
-      sine: this.waves[num] + 1,
+      sine: this.waves[num],
       life: 0,
       x: this.positions[num].x,
       y: this.positions[num].y
