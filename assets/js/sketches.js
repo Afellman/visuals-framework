@@ -1350,14 +1350,15 @@ class FlowField extends Sketch {
     this.flowField = [];
     this.particleAmt = 500;
     this.opacity = 0;
-    this.maxspeed = 4;
     this.mag = 0.5;
     this.freq1 = 1
     this.freq2 = 1
 
     this.params = {
       faders: {
-        angle: -HALF_PI * 4
+        angle: 3.709,
+        speed: 2,
+        opacity: 10
       }
     }
 
@@ -1385,7 +1386,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = -this.params.faders.angle + noise(xoff, yoff, this.zoff);
+        let angle2 = -this.params.faders.angle + noise(xoff, yoff, this.zoff) * PI;
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
@@ -1440,7 +1441,7 @@ class FlowField extends Sketch {
 
     update() {
       this.vel.add(this.acc);
-      this.vel.limit(this.parent.maxspeed);
+      this.vel.limit(this.parent.params.faders.speed);
       this.pos.add(this.vel);
       this.acc.mult(0);
     }
@@ -1464,7 +1465,7 @@ class FlowField extends Sketch {
     }
 
     show() {
-      stroke(255, 50);
+      stroke(255, this.parent.params.faders.opacity);
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
@@ -1533,30 +1534,6 @@ class FlowField extends Sketch {
         }
       }
     },
-    {
-      midiNote: 3,
-      midiMethod: (vel) => {
-        this.maxspeed = vel
-      }
-    },
-    {
-      midiNote: 3,
-      midiMethod: (vel) => {
-        this.maxspeed = vel
-      }
-    },
-    {
-      midiNote: 4,
-      midiMethod: (vel) => {
-        this.freq1 = vel / 100
-      }
-    },
-    {
-      midiNote: 5,
-      midiMethod: (vel) => {
-        this.freq2 = vel / 100
-      }
-    }
   ]
 }
 
