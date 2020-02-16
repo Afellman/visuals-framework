@@ -400,7 +400,7 @@ class Sun extends Sketch { // Scene 2. Maped
     this.freq = 21;
     this.opacity = 0;
     this.time = this.params.faders.speed;
-
+    this.bigSun = null;
     this.suns = new Array(10);
 
   }
@@ -436,10 +436,10 @@ class Sun extends Sketch { // Scene 2. Maped
       }
     }
 
-    if (this.suns[11]) {
+    if (this.bigSun) {
       for (let i = 0; i < ringAmt; i++) {
         let opacVariance = i;
-        size = 200 + (i * 10) + sun11.sine(this.time) * this.params.faders.amp;
+        size = 200 + (i * 10) + this.bigSun.sine(this.time) * this.params.faders.amp;
         if (i == 0) {
           opacVariance = 0.9;
         }
@@ -487,12 +487,12 @@ class Sun extends Sketch { // Scene 2. Maped
           life: 1500,
           x: position.x,
           y: position.y,
-          num: num,
+          num: 11,
           color: [100, 53, 0],
           opacity: 1
         }
 
-        this.suns[num - 1] = sun;
+        this.bigSun = sun;
       }
     },
     {
