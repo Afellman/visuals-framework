@@ -302,7 +302,6 @@ function draw() {
     text("FPS:" + frameRate().toFixed(2), 10, 10)
     pop()
   }
-
 }
 
 // ======================================== Other Functions
