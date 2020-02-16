@@ -365,6 +365,21 @@ class Sun extends Sketch { // Scene 2. Maped
         b: 0
       }
     }
+    this.waves = [
+      (time) => Math.sin((PI * 2 * time * 838)),
+      (time) => Math.sin((PI * 2 * time * 522)),
+      (time) => Math.sin((PI * 2 * time * 1184)),
+      (time) => Math.sin((PI * 2 * time * 246)),
+      (time) => Math.sin((PI * 2 * time * 504)),
+      (time) => Math.sin((PI * 2 * time * 574)),
+      (time) => Math.sin((PI * 2 * time * 129)),
+      (time) => Math.sin((PI * 2 * time * 592)),
+      (time) => Math.sin((PI * 2 * time * 188)),
+      (time) => Math.sin((PI * 2 * time * 732))
+
+
+
+    ]
   }
 
   init() {
@@ -380,14 +395,17 @@ class Sun extends Sketch { // Scene 2. Maped
     // noStroke();
     stroke(0, 0);
     for (let j = 0; j < 10; j++) {
+      const y = height / 1;
+      const x = map(j, 0, 10, 0, width);
+      const sine = this.waves[j](this.time);
       for (let i = 0; i < ringAmt; i++) {
         let opacVariance = i;
-        size = 200 + (i * 10) + Math.sin((PI * 2 * this.time * 522)) * amp;
+        size = 200 + (i * 10) + sine * amp;
         if (i == 0) {
           opacVariance = 0.9;
         }
         fill(r, g, b, (this.opacity / opacVariance));
-        ellipse(width / 2, height / 2, size);
+        ellipse(x, y, size);
       }
     }
     this.time = (frameCount / 10000);
