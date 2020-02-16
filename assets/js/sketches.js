@@ -1260,7 +1260,7 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle1 = noise(xoff, yoff, this.zoff) * PI;
+        let angle1 = noise(xoff, yoff, this.zoff) * -PI;
         let angle2 = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
@@ -1300,7 +1300,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent, index) {
-      this.pos = createVector(Math.random() * width, 0);
+      this.pos = createVector(width / 2 * (random(-1, 1) * width / 2), height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
@@ -1360,8 +1360,8 @@ class FlowField extends Sketch {
       }
       if (this.pos.y > height) {
         this.pos.y = 0;
-        this.die();
-        // this.updatePrev();
+        // this.die();
+        this.updatePrev();
       }
       if (this.pos.y < 0) {
         this.pos.y = height;
