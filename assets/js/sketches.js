@@ -194,16 +194,15 @@ class Sketch {
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
-
-
-      this.updateOsc();
-
-      socket.emit("updateOsc", {
-        scene: this.setIndex,
-        oscObj: "on",
-        value: 1
-      });
     }
+
+    this.updateOsc();
+
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "on",
+      value: 1
+    });
   }
 
   updateOsc() {
@@ -875,7 +874,7 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
     // linesShader.setUniform("u_color", [0.0, 1.0, 0.0, 1.0]) // Get this equation correct.
     noStroke();
     this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity / 255)
+    this.shader.setUniform("u_opacity", this.opacity)
     this.shader.setUniform("tex0", this.graph);
     // this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_xOff', this.params.faders.xOff);
@@ -913,6 +912,12 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
         this.updateOsc();
       }
     },
+    {
+      socketName: "opacity",
+      socketMethod: (val) => {
+        this.opacity = val.args[0];
+      }
+    }
   ]
 }
 
