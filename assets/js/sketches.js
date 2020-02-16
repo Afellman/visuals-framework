@@ -377,6 +377,7 @@ class Sun extends Sketch { // Scene 2. Maped
       (time) => Math.sin((PI * 2 * time * 188)),
       (time) => Math.sin((PI * 2 * time * 732))
     ]
+    this.positions = [];
   }
 
   init() {
@@ -387,17 +388,31 @@ class Sun extends Sketch { // Scene 2. Maped
 
     this.suns = [];
 
+    for (let i = 0; i < 10; i++) {
+      let position = { x: 0, y: 0 };
+      if (i < 5) {
+        position.x = map(i, 0, 4, 0, width);
+        position.y = i % 2 == 0 ? 100 : 300;
+      } else {
+        position.x = map(i, 5, 9, 0, width);
+        position.y = i % 2 == 0 ? height - 100 : height - 300;
+      }
+      const position = {}
+    }
   }
 
   draw() {
-    let { ringAmt, amp, speed, r, g, b } = this.params.faders;
+    let { ringAmt, r, g, b } = this.params.faders;
     let size;
+    const sunAmt = this.suns.length;
     // noStroke();
     stroke(0, 0);
-    for (let j = 0; j < 10; j++) {
-      const y = height / 1;
-      const x = map(j, 0, 10, 0, width);
-      const sine = this.waves[j](this.time);
+    for (let j = 0; j < sunAmt; j++) {
+      const sun = this.suns[j];
+      const y = sun.y;
+      const x = sun.x;
+      const sine = sun.sine;
+      const amp = sun.amp;
       for (let i = 0; i < ringAmt; i++) {
         let opacVariance = i;
         size = 200 + (i * 10) + sine * amp;
@@ -407,6 +422,10 @@ class Sun extends Sketch { // Scene 2. Maped
         fill(r, g, b, (this.opacity / opacVariance));
         ellipse(x, y, size);
       }
+      sun.life++;
+      if (sun.life > 1000) {
+        this.removeSun(j);
+      }
     }
     this.time = (frameCount / 10000);
   }
@@ -415,10 +434,16 @@ class Sun extends Sketch { // Scene 2. Maped
     const sun = {
       amp: noise(frameCount) * this.params.faders.amp,
       sine: this.waves[num] + 1,
-      life: 0
+      life: 0,
+      x: this.positions[num].x,
+      y: this.positions[num].y
     }
 
     this.suns.push(sun);
+  }
+
+  removeSun(index) {
+    this.suns.splice(index, 1);
   }
 
 
