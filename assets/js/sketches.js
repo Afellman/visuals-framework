@@ -411,15 +411,28 @@ class Sun extends Sketch { // Scene 2. Maped
     this.time = (frameCount / 10000);
   }
 
+  addSun(num) {
+    const sun = {
+      amp: noise(frameCount) * this.params.faders.amp,
+      sine: this.waves[num] + 1,
+      life: 0
+    }
+
+    this.suns.push(sun);
+  }
+
+
   listeners = [
     {
-      socketName: "sun1",
+      socketName: "addSun",
       socketMethod: (val) => {
         if (val.args[0]) {
-          this.addSun(0);
+          this.addSun(val.args[0]);
+        } else {
+          this.removeSun(0);
         }
       }
-    }
+    },
   ]
 }
 
