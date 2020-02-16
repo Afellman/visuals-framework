@@ -1265,7 +1265,7 @@ class FlowField extends Sketch {
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
-        let angle = map(dis, 0, width / 2, 0, PI);
+        let angle = angle2
         if (dis < 600) {
           angle = angle1;
         }
@@ -1277,13 +1277,13 @@ class FlowField extends Sketch {
         xoff += this.inc;
 
         // // To show vector grid
-        // push();
-        // translate(x * this.scale, y * this.scale);
-        // rotate(v.heading());
-        // strokeWeight(1);
-        // stroke(255)
-        // line(0, 0, this.scale, 0);
-        // pop();
+        push();
+        translate(x * this.scale, y * this.scale);
+        rotate(v.heading());
+        strokeWeight(1);
+        stroke(255)
+        line(0, 0, this.scale, 0);
+        pop();
       }
       yoff += this.inc;
       this.zoff += this.zinc;
@@ -1300,7 +1300,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent, index) {
-      this.pos = createVector(width / 2 * (random(-1, 1) * width / 2), height);
+      this.pos = createVector(width / 2 * (random(-1, 1) * 200), height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
