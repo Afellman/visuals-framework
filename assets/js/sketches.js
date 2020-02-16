@@ -379,16 +379,18 @@ class Sun extends Sketch { // Scene 2. Maped
     let size;
     // noStroke();
     stroke(0, 0);
-    for (let i = 0; i < ringAmt; i++) {
-      let opacVariance = i;
-      size = 200 + (i * 10) + Math.sin((PI * 2 * (frameCount) * 522)) * amp;
-      if (i == 0) {
-        opacVariance = 0.9;
+    for (let j = 0; j < 10; j++) {
+      for (let i = 0; i < ringAmt; i++) {
+        let opacVariance = i;
+        size = 200 + (i * 10) + Math.sin((PI * 2 * this.time * 522)) * amp;
+        if (i == 0) {
+          opacVariance = 0.9;
+        }
+        fill(r, g, b, (this.opacity / opacVariance));
+        ellipse(width / 2, height / 2, size);
       }
-      fill(r, g, b, (this.opacity / opacVariance));
-      ellipse(width / 2, height / 2, size);
     }
-    this.time += speed / 1000;
+    this.time = (frameCount / 10000);
   }
   keyPressed(e) {
 
