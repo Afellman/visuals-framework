@@ -1355,6 +1355,12 @@ class FlowField extends Sketch {
     this.freq1 = 1
     this.freq2 = 1
 
+    this.params = {
+      faders: {
+        angle: -HALF_PI * 4
+      }
+    }
+
     this.x = width / 2
     this.y = height / 2
   }
@@ -1379,7 +1385,7 @@ class FlowField extends Sketch {
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
         let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = noise(xoff, yoff, this.zoff) * -HALF_PI * 4; // This gives full rotation of movement
+        let angle2 = noise(xoff, yoff, this.zoff) * -this.params.faders.angle;
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
