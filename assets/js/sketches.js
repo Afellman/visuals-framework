@@ -392,7 +392,7 @@ class Sun extends Sketch { // Scene 2. Maped
           }
         },
       )
-      socket.emit("updateOsc", { oscObj: "addSun" + i + 1, value: 0, scene: 1 });
+      socket.emit("updateOsc", { oscObj: "addSun" + (i + 1), value: 0, scene: 1 });
     }
   }
 
@@ -414,6 +414,7 @@ class Sun extends Sketch { // Scene 2. Maped
         position.y = i % 2 == 0 ? height - 100 : height - 300;
       }
       this.positions.push(position);
+      this.colors.push(someColor(1));
     }
 
   }
@@ -446,7 +447,7 @@ class Sun extends Sketch { // Scene 2. Maped
         }
       }
     }
-    this.time = (frameCount / 10000);
+    this.time = (frameCount / 100000);
   }
 
   addSun(num) {
@@ -457,7 +458,7 @@ class Sun extends Sketch { // Scene 2. Maped
       x: this.positions[num - 1].x,
       y: this.positions[num - 1].y,
       num: num,
-      color: someColor(2)
+      color: this.colors[num - 1]
     }
 
     this.suns.push(sun);
