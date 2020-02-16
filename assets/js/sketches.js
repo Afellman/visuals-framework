@@ -1233,7 +1233,7 @@ class FlowField extends Sketch {
     this.particleAmt = 500;
     this.opacity = 0;
     this.maxspeed = 4;
-    this.mag = 1;
+    this.mag = 0.5;
     this.freq1 = 1
     this.freq2 = 1
 
@@ -1260,8 +1260,8 @@ class FlowField extends Sketch {
       let xoff = 0;
       for (let x = 0; x < this.cols; x++) {
         let index = x + y * this.cols;
-        let angle1 = noise(xoff, yoff, this.zoff) * -PI;
-        let angle2 = noise(xoff, yoff, this.zoff) * -PI * 1.5; // This gives full rotation of movement
+        let angle1 = noise(xoff, yoff, this.zoff) * iHALF_PI / 2;
+        let angle2 = noise(xoff, yoff, this.zoff) * -PI * 1.3; // This gives full rotation of movement
 
         let dis = dist(width / 2, height - 50, map(x, 0, this.cols, 0, width), map(y, 0, this.cols, 0, height));
 
