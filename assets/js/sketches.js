@@ -377,7 +377,7 @@ class Sun extends Sketch { // Scene 2. Maped
       (time) => Math.sin((PI * 2 * time * 188)),
       (time) => Math.sin((PI * 2 * time * 732))
     ]
-    this.positions = [];
+    this.colors = [];
 
     for (let i = 0; i < 10; i++) {
       this.listeners.push(
@@ -392,6 +392,7 @@ class Sun extends Sketch { // Scene 2. Maped
           }
         },
       )
+      this.colors.push(someColor(1));
       socket.emit("updateOsc", { oscObj: "addSun" + (i + 1), value: 0, scene: 1 });
     }
   }
@@ -403,20 +404,6 @@ class Sun extends Sketch { // Scene 2. Maped
     this.time = this.params.faders.speed;
 
     this.suns = [];
-
-    for (let i = 0; i < 10; i++) {
-      let position = { x: 0, y: 0 };
-      if (i < 5) {
-        position.x = map(i, 0, 4, 0, width);
-        position.y = i % 2 == 0 ? 100 : 300;
-      } else {
-        position.x = map(i, 5, 9, 0, width);
-        position.y = i % 2 == 0 ? height - 100 : height - 300;
-      }
-      this.positions.push(position);
-      this.colors.push(someColor(1));
-    }
-
   }
 
   draw() {
@@ -451,6 +438,9 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   addSun(num) {
+    let position = { x: 0, y: 0 };
+    position.x = Math.random() * width;
+    position.y = Math.random() * height
     const sun = {
       amp: this.params.faders.amp,
       sine: this.waves[num - 1],
