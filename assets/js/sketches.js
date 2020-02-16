@@ -408,10 +408,9 @@ class Sun extends Sketch { // Scene 2. Maped
   draw() {
     let { ringAmt } = this.params.faders;
     let size;
-    const sunAmt = this.suns.length;
     // noStroke();
     stroke(0, 0);
-    for (let j = 0; j < sunAmt; j++) {
+    for (let j = 0; j < 10; j++) {
       const sun = this.suns[j];
       if (sun) {
         const y = sun.y;
@@ -428,12 +427,24 @@ class Sun extends Sketch { // Scene 2. Maped
           ellipse(x, y, size);
         }
         sun.life--
-        if (sun.life < 100) {
-          sun.opacity -= 0.01
+        if (sun.life < 200) {
+          sun.opacity -= 0.005
         }
         if (sun.life <= 0) {
           this.removeSun(sun.num);
         }
+      }
+    }
+
+    if (this.suns[11]) {
+      for (let i = 0; i < ringAmt; i++) {
+        let opacVariance = i;
+        size = 200 + (i * 10) + sun11.sine(this.time) * this.params.faders.amp;
+        if (i == 0) {
+          opacVariance = 0.9;
+        }
+        fill(sun.color[0] - 50, sun.color[1] - 50, sun.color[2] - 50, ((sun.opacity * this.opacity) / opacVariance));
+        ellipse(x, y, size);
       }
     }
     this.time = (frameCount / 100000);
@@ -445,7 +456,7 @@ class Sun extends Sketch { // Scene 2. Maped
     position.y = Math.random() * height
     const sun = {
       amp: this.params.faders.amp,
-      sine: this.waves[num - 1],
+      sine: (time) => Math.sin((PI * 2 * time * 164)),
       life: 1500,
       x: position.x,
       y: position.y,
@@ -462,7 +473,29 @@ class Sun extends Sketch { // Scene 2. Maped
     socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
+  listeners = [
 
+    {
+      socketName: "addSun11",
+      socketMethod: (val) => {
+        let position = { x: 0, y: 0 };
+        position.x = width / 2
+        position.y = height / 2
+        const sun = {
+          amp: this.params.faders.amp,
+          sine: this.params.faders.speed,
+          life: 1500,
+          x: position.x,
+          y: position.y,
+          num: num,
+          color: [100, 53, 0],
+          opacity: 1
+        }
+
+        this.suns[num - 1] = sun;
+      }
+    }
+  ]
 }
 
 class RopeSwing extends Sketch { // Scene 3. Maped 
