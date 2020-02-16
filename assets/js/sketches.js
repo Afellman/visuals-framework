@@ -1121,7 +1121,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
 class DisplaceImg extends Sketch { // scene 11. maped
   constructor(img) {
     super();
-    this.img = images[3];
+    this.img = images[4];
     this.params = {
       faders: {
         displaceX: 0,
@@ -1204,13 +1204,13 @@ class DisplaceImg extends Sketch { // scene 11. maped
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[3];
+        this.img = images[4];
       }
     },
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = images[4];
+        this.img = images[3];
       }
     },
   ]
@@ -1542,9 +1542,10 @@ class Gridz extends Sketch {
         stroke(hue, hue, hue, hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.lengthTime) * this.params.faders.lengthScale;
-        line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
-        line(0 - scale * lengthNoise, 0 + scale * lengthNoise, 0 + scale, 0 - scale);
+        let lengthNoiseX = sin(x * this.lengthTime) * this.params.faders.lengthScale;
+        let lengthNoiseY = sin(y * this.lengthTime) * this.params.faders.lengthScale;
+        line(0 - scale * lengthNoiseX, 0 - scale * lengthNoiseX, 0 + scale, 0 + scale);
+        line(0 - scale * lengthNoiseY, 0 + scale * lengthNoiseY, 0 + scale, 0 - scale);
         pop();
       }
     }
