@@ -1249,9 +1249,6 @@ class FlowField extends Sketch {
 
     this.flowField = new Array(this.cols * this.rows);
 
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[9]._vertSrc, shaders[9]._fragSrc);
-    this.canvas = createGraphics(width, height);
   }
 
   draw() {
@@ -1262,7 +1259,9 @@ class FlowField extends Sketch {
         let index = x + y * this.cols;
         // let angle = noise(xoff, yoff, this.zoff) * PI;
         // let angle = noise(xoff, yoff, this.zoff) * TWO_PI / 4; // This gives full rotation of movement
-        let v = p5.Vector.fromAngle(PI);
+
+        let angle = dist(width / 2, x);
+        let v = p5.Vector.fromAngle(angle);
 
         v.setMag(this.mag);
         this.flowField[index] = v;
@@ -1330,10 +1329,9 @@ class FlowField extends Sketch {
     }
 
     show() {
-      this.parent.canvas.stroke(255, 2);
-      this.parent.canvas.background(0, 0, 0, 2);
-      this.parent.canvas.strokeWeight(1);
-      this.parent.canvas.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+      stroke(255, 2);
+      strokeWeight(1);
+      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
     }
 
