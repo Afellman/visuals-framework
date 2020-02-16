@@ -1511,7 +1511,8 @@ class Gridz extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        speed: 0.01,
+        lengthSpeed: 0.01,
+        colorSpeed: 0.01,
         lengthScale: 1,
         rotate: 0
       }
@@ -1519,7 +1520,8 @@ class Gridz extends Sketch {
     this.scale = 435;
     this.rows = Math.ceil(width / 100);
     this.cols = Math.ceil(height / 100);
-    this.time = 0;
+    this.lengthTime = 0;
+    this.colorTime = 0;
     this.opacity = 0;
   }
 
@@ -1528,7 +1530,7 @@ class Gridz extends Sketch {
   }
 
   draw() {
-    const { speed } = this.params.faders;
+    const { lengthSpeed, colorSpeed } = this.params.faders;
     const scale = this.scale;
 
     for (let x = 0; x < this.rows; x++) {
@@ -1536,11 +1538,11 @@ class Gridz extends Sketch {
       rotate(this.params.faders.rotate)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
-        let hue = noise(x, y, this.time) * this.opacity;
+        let hue = noise(x, y, this.colorTime) * this.opacity;
         stroke(hue, hue, hue, hue);
         push();
         translate(xPos, yPos);
-        let lengthNoise = noise(x, y, this.time) * this.params.faders.lengthScale;
+        let lengthNoise = noise(x, y, this.lengthTime) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoise, 0 - scale * lengthNoise, 0 + scale, 0 + scale);
         line(0 - scale * lengthNoise, 0 + scale * lengthNoise, 0 + scale, 0 - scale);
         pop();
@@ -1553,7 +1555,8 @@ class Gridz extends Sketch {
     // this.shaderBox.shader(this.shader);
     // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     // this.shaderBox.rect(0, 0, width, height);
-    this.time += speed
+    this.lengthTime += lengthSpeed
+    this.colorTime += colorSpeed
   }
 
   listeners = [
