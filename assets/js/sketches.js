@@ -1,7 +1,7 @@
 /**
  * TODO:
- *  1. Build saving and loading from data.
- *  2. Record.
+ *  1. Flow osc
+ *  2. Prox opacity
  */
 let maze = {
 
@@ -685,7 +685,7 @@ class Proximity extends Sketch {// Maped
       }
     }
 
-    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 1000) / 100;
+    this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 10000) / 100;
     this.freq += speed / 50;
   }
 
