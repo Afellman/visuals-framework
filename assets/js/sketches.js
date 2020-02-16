@@ -555,7 +555,7 @@ class Proximity extends Sketch {// Maped
       centerPoint = centerPoints[i];
       orbit = Math.sin(freq + i * 10) * curl;
       circle = Math.sin(i) * circleDiameter;
-      orbitY = cos(2 * PI * 176);
+      orbitY = cos(freq + i * multiplier);
       circleY = cos(i) * circleDiameter;
       x = width / 2 + orbit + circle;
       y = (height / 2 + orbitY * curl) + circleY;
