@@ -1269,7 +1269,7 @@ class FlowField extends Sketch {
         this.mag = 0.5
         if (dis < 600) {
           angle = angle1;
-          this.mag = 2;
+          this.mag = 10;
         }
 
         let v = p5.Vector.fromAngle(angle);
@@ -1302,7 +1302,7 @@ class FlowField extends Sketch {
 
   Particle = class Particle {
     constructor(scale, cols, parent, index) {
-      this.pos = createVector(width / 2 + (random(-1, 1) * 100), height);
+      this.pos = createVector(width / 2 + (random(-1, 1) * 150), height);
       this.vel = createVector(0, 0);
       this.acc = createVector(0, 0);
       this.scale = scale;
@@ -1353,23 +1353,23 @@ class FlowField extends Sketch {
 
     edges() {
       if (this.pos.x > width) {
-        this.pos.x = width / 2 + (random(-1, 1) * 100);
+        this.pos.x = width / 2 + (random(-1, 1) * 150);
         this.pos.y = height;
         this.updatePrev();
       }
       if (this.pos.x < 0) {
-        this.pos.x = width / 2 + (random(-1, 1) * 100);
+        this.pos.x = width / 2 + (random(-1, 1) * 150);
         this.pos.y = height;
         this.updatePrev();
       }
       if (this.pos.y > height) {
-        this.pos.x = width / 2 + (random(-1, 1) * 100);
+        this.pos.x = width / 2 + (random(-1, 1) * 150);
         this.pos.y = height;
         // this.die();
         this.updatePrev();
       }
       if (this.pos.y < 0) {
-        this.pos.x = width / 2 + (random(-1, 1) * 100);
+        this.pos.x = width / 2 + (random(-1, 1) * 150);
         this.pos.y = height;
         this.updatePrev();
       }
