@@ -386,8 +386,6 @@ class Sun extends Sketch { // Scene 2. Maped
           socketMethod: (val) => {
             if (val.args[0]) {
               this.addSun(val.args[0]);
-            } else {
-              this.removeSun(i + 1);
             }
           }
         },
@@ -426,7 +424,7 @@ class Sun extends Sketch { // Scene 2. Maped
           if (i == 0) {
             opacVariance = 0.9;
           }
-          fill(sun.color[0], sun.color[1], sun.color[2], (this.opacity / opacVariance));
+          fill(sun.color[0] * 0.33, sun.color[1] * 0.56, sun.color[2] * 0.86, (this.opacity / opacVariance));
           ellipse(x, y, size);
         }
         sun.life--
@@ -456,7 +454,7 @@ class Sun extends Sketch { // Scene 2. Maped
   }
 
   removeSun(index) {
-    this.suns[index].life = 0;
+    this.suns[index - 1].life = 0;
     socket.emit("updateOsc", { oscObj: "addSun" + index, value: 0, scene: 1 });
   }
 
