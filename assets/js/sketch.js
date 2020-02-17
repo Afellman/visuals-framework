@@ -17,6 +17,8 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
+let launchers = [];
+
 function setBuilder(sketches) {
   return sketches.map((sketch, i) => {
     return { setIndex: i, sketch: sketch };
@@ -734,19 +736,19 @@ class Launcher {
     this.setIndex = setIndex;
   }
 
-  toggle() {
-    if (!this.isActive) {
-      this.scene = new this.classConstructor();
-      this.scene.setIndex = this.setIndex;
-      this.scene.id = Math.random() * 9999999;
-      loadScene(this.scene);
-      this.isActive = true;
-      // midi180[32].velocity = 0;
-    } else {
-      unloadScene(this.scene.id);
-      this.scene = {};
-      this.isActive = false;
-    }
+  on() {
+    this.scene = new this.classConstructor();
+    this.scene.setIndex = this.setIndex;
+    this.scene.id = Math.random() * 9999999;
+    loadScene(this.scene);
+    this.isActive = true;
+    // midi180[32].velocity = 0;
+  }
+
+  off() {
+    unloadScene(this.scene.id);
+    this.scene = {};
+    this.isActive = false;
   }
 
   opacity(velocity) {
@@ -755,19 +757,18 @@ class Launcher {
 }
 
 function bindLaunchers() {
-  const launchers = currentSet.map(setScene => {
+  launchers = currentSet.map(setScene => {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
-  launchers.forEach((launcher, i) => {
-    // For Faderfox
-    // midi180[i + 32].method = launcher.opacity.bind(launcher);
-    // midi180[i + 80].method = launcher.toggle.bind(launcher);
-    // midiAkai[i].method = launcher.toggle.bind(launcher);
-    // midiAkai[i + 8].method = launcher.opacity.bind(launcher);
 
-    midiBeatStep[i][0].method = launcher.toggle.bind(launcher);
-    midiBeatStep[i][1].method = launcher.opacity.bind(launcher);
-  });
+  // launchers.forEach((launcher, i) => {
+  // For Faderfox
+  // midi180[i + 32].method = launcher.opacity.bind(launcher);
+  // midi180[i + 80].method = launcher.toggle.bind(launcher);
+  // midiAkai[i].method = launcher.toggle.bind(launcher);
+  // midiAkai[i + 8].method = launcher.opacity.bind(launcher);
+
+  // });
 }
 
 // function bindMiscGlobal() {
