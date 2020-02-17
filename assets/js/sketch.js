@@ -708,7 +708,7 @@ function midiToNormal(vel) {
 let midiBeatStep = (function () {
   let ret = [];
   for (let i = 0; i < 128; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+    ret.push([{ method: () => { }, velocity: 0 }, { method: () => { }, velocity: 0 }]); // Method to call on incoming note.
   }
   return ret;
 })();
@@ -754,8 +754,8 @@ function bindLaunchers() {
     // midiAkai[i].method = launcher.toggle.bind(launcher);
     // midiAkai[i + 8].method = launcher.opacity.bind(launcher);
 
-    midiBeatStep[i].method = launcher.toggle.bind(launcher);
-    midiBeatStep[i + 8].method = launcher.opacity.bind(launcher);
+    midiBeatStep[i][0].method = launcher.toggle.bind(launcher);
+    midiBeatStep[i][1].method = launcher.opacity.bind(launcher);
   });
 }
 
