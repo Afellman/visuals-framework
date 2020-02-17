@@ -274,7 +274,9 @@ function setup() {
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
   images.forEach((img, i) => takeColor(img, i)) // This is scary...
-  loadScene(new BGShader(0)) // For background.
+  const bg = new BGShader(0);
+  bg.id = Math.random() * 9999999;
+  loadScene(bg) // For background.
 
   // For Audio input
   // mic = new p5.AudioIn();
@@ -836,7 +838,7 @@ function bindGlobalSockets() {
   socket.emit("updateOsc", { scene: "-1", oscObj: "videoOpacity", value: "1" })
 }
 
-bindGlobalSockets();
+// bindGlobalSockets();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
