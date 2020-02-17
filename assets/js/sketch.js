@@ -350,12 +350,11 @@ function unloadScene(id) {
   let index = -1;
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i].id === id) {
-      index = i;
+      scenes[i].unload();
+      scenes.splice(index, 1);
       break;
     }
   }
-  scenes[index].unload();
-  scenes.splice(index, 1);
 }
 
 function toggleMirror(vert) {
@@ -669,6 +668,7 @@ function onMidiMessage(midiMessage) {
     } else if (command == 128) { // Button off
       launchers[note].off();
     } else { // Encoder
+      midiBeatStep[note][1].velocity = velocity - 64;
       launchers[note].opacity(velocity);
     }
   } else {
