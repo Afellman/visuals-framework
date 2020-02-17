@@ -668,8 +668,10 @@ function onMidiMessage(midiMessage) {
     } else if (command == 128) { // Button off
       launchers[note].off();
     } else { // Encoder
-      midiBeatStep[note][1].velocity = velocity - 64;
-      launchers[note].opacity(velocity);
+      if (velocity > 64) velocity = 1;
+      if (velocity < 64) velocity = -1;
+      launchers[note].velocity += velocity
+      launchers[note].opacity(launchers[note].velocity);
     }
   } else {
     if (command == 160) { // Button
@@ -736,6 +738,8 @@ class Launcher {
     this.isActive = false;
     this.classConstructor = classConstructor;
     this.setIndex = setIndex;
+
+    this.velocity = 0;
   }
 
   on() {
