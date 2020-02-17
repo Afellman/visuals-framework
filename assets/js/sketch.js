@@ -650,18 +650,7 @@ function onMidiMessage(midiMessage) {
 
   // } else {
 
-  if (command == 160) {
-    if (note == 44) {
-      glBackground[0] = midiToNormal(velocity)
-    }
-    if (note == 45) {
-      glBackground[1] = midiToNormal(velocity)
-    }
-    if (note == 46) {
-      glBackground[2] = midiToNormal(velocity)
-    }
-  }
-  if (command == 144 || command == 176) { // button press and knob.
+  if (command == 160) { // button press and knob.
     midiAkai[note].velocity = velocity;
     midiAkai[note].method(velocity);
   }
