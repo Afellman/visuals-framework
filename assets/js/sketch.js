@@ -659,7 +659,15 @@ function onMidiMessage(midiMessage) {
   // }
 
   //Beat Step
-  if (note > 15) {
+  if (note < 15) {
+    if (command == 144) { // Button on
+      launchers[note].on();
+    } else if (command == 128) { // Button off
+      launchers[note].off();
+    } else { // Encoder
+      launchers[note].opacity(velocity);
+    }
+  } else {
     if (command == 160) { // Button
       midiBeatStep[note][0].method(velocity);
     } else if (command == 176) { // Encoder
