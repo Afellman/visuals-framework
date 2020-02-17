@@ -668,12 +668,11 @@ function onMidiMessage(midiMessage) {
     } else if (command == 128) { // Button off
       launchers[note].off();
     } else { // Encoder
-      let change = 1;
-      if (velocity < 64) change = -1;
-      if (launchers[note].velocity < 127 && launchers[note].velocity > 0) {
+      let change = velocity - 64;
+      // if (velocity < 64) change = -1;
+      if (launchers[note].velocity + change <= 127 && launchers[note].velocity + change >= 0) {
         launchers[note].velocity += change;
         launchers[note].opacity(launchers[note].velocity);
-
       }
     }
   } else {
