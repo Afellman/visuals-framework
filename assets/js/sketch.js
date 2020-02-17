@@ -659,8 +659,13 @@ function onMidiMessage(midiMessage) {
   // }
 
   //Beat Step
-  if (command == 160) {
+  if (note > 15) {
 
+    if (command == 160) {
+      midiBeatStep[note].method(velocity);
+    } else if (command == 176) {
+      midiBeatStep[note].velocity = velocity;
+    }
   }
 
 }
@@ -703,6 +708,14 @@ function midiToNormal(vel) {
 //   return ret;
 // })();
 
+let midiBeatStep = (function () {
+  let ret = [];
+  for (let i = 0; i < 128; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  }
+  return ret;
+})();
+
 const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 class Launcher {
@@ -720,7 +733,7 @@ class Launcher {
       this.scene.id = Math.random() * 9999999;
       loadScene(this.scene);
       this.isActive = true;
-      midi180[32].velocity = 0;
+      // midi180[32].velocity = 0;
     } else {
       unloadScene(this.scene.id);
       this.scene = {};
@@ -741,21 +754,24 @@ function bindLaunchers() {
     // For Faderfox
     // midi180[i + 32].method = launcher.opacity.bind(launcher);
     // midi180[i + 80].method = launcher.toggle.bind(launcher);
-    midiAkai[i].method = launcher.toggle.bind(launcher);
-    midiAkai[i + 8].method = launcher.opacity.bind(launcher);
+    // midiAkai[i].method = launcher.toggle.bind(launcher);
+    // midiAkai[i + 8].method = launcher.opacity.bind(launcher);
+
+    midiBeatStep[i].method = launcher.toggle.bind(launcher);
+    midiBeatStep[i + 8].method = launcher.opacity.bind(launcher);
   });
 }
 
-function bindMiscGlobal() {
-  // Encoder 11
-  midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-  midi180[90].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-  midi180[42].velocity = 100;
-  midi180[90].velocity = 127;
-}
+// function bindMiscGlobal() {
+//   // Encoder 11
+//   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
+//   midi180[90].method = (vel) => { glBackground[3] = midiToNormal(vel) };
+//   midi180[42].velocity = 100;
+//   midi180[90].velocity = 127;
+// }
 
 bindLaunchers();
-bindMiscGlobal();
+// bindMiscGlobal();
 
 // ================================================  
 //       Global OSC bindings
