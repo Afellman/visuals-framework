@@ -660,9 +660,10 @@ function onMidiMessage(midiMessage) {
 
   //Beat Step
   if (command == 160) {
-    midiBeatStep[note].method(velocity);
+    midiBeatStep[note][0].method(velocity);
   } else if (command == 176) {
-    midiBeatStep[note].velocity = velocity;
+    midiBeatStep[note][1].velocity = velocity - 64;
+    midiBeatStep[note][1].method(midiBeatStep[note].velocity);
   }
 
 }
