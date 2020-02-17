@@ -659,11 +659,13 @@ function onMidiMessage(midiMessage) {
   // }
 
   //Beat Step
-  if (command == 160) {
-    midiBeatStep[note][0].method(velocity);
-  } else if (command == 176) {
-    midiBeatStep[note][1].velocity = velocity - 64;
-    midiBeatStep[note][1].method(midiBeatStep[note].velocity);
+  if (note > 15) {
+    if (command == 160) { // Button
+      midiBeatStep[note][0].method(velocity);
+    } else if (command == 176) { // Encoder
+      midiBeatStep[note][1].velocity = velocity - 64;
+      midiBeatStep[note][1].method(midiBeatStep[note][1].velocity);
+    }
   }
 
 }
