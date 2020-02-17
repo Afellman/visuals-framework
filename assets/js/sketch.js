@@ -650,11 +650,19 @@ function onMidiMessage(midiMessage) {
 
   // } else {
 
-  if (command == 160) { // button press and knob.
-    midiAkai[note].velocity = velocity;
-    midiAkai[note].method(velocity);
-  }
+
+  // AKAI
+  // if (command == 160) { // button press and knob.
+  //   midiAkai[note].velocity = velocity;
+  //   midiAkai[note].method(velocity);
   // }
+  // }
+
+  //Beat Step
+  if (command == 160) {
+
+  }
+
 }
 
 function midiToColor(vel) {
@@ -669,29 +677,31 @@ function midiToNormal(vel) {
 //       Global midi bindings
 // ================================================  
 
-let midi179 = (function () { // Map of midi notes and attached methods with command 179.
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
+// Faderfox
+// let midi179 = (function () { // Map of midi notes and attached methods with command 179.
+//   let ret = [];
+//   for (let i = 0; i < 96; i++) {
+//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+//   }
+//   return ret;
+// })();
 
-let midi180 = (function () { // Map of midi notes and attached methods with command 180.
-  let ret = [];
-  for (let i = 0; i < 96; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
+// let midi180 = (function () { // Map of midi notes and attached methods with command 180.
+//   let ret = [];
+//   for (let i = 0; i < 96; i++) {
+//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+//   }
+//   return ret;
+// })();
 
-let midiAkai = (function () {
-  let ret = [];
-  for (let i = 0; i < 31; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-  }
-  return ret;
-})();
+// Akai
+// let midiAkai = (function () {
+//   let ret = [];
+//   for (let i = 0; i < 31; i++) {
+//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+//   }
+//   return ret;
+// })();
 
 const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
