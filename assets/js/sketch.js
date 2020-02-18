@@ -675,8 +675,12 @@ function onMidiMessage(midiMessage) {
       }
     }
   } else if (note == 127) { // Recall 1, Master knob
-
-    glBackground[3] = midiToNormal(midiBeatStep[note]);
+    let change = velocity - 64;
+    // if (velocity < 64) change = -1;
+    if (midiBeatStep[note] + change <= 127 && midiBeatStep[note] + change >= 0) {
+      midiBeatStep[note] += change;
+      glBackground[3] = midiToNormal(midiBeatStep[note]);
+    }
 
   } else { // Recall > 1
     if (command == 160) { // Button
