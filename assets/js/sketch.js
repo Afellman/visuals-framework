@@ -703,7 +703,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Mirror, Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 let midiBeatStep = (function () {
   let ret = [];
@@ -714,8 +714,7 @@ let midiBeatStep = (function () {
 })();
 
 let glMidi = {};
-glMidi["127"] { velocity: 0 }
-glMidi[127] = 0; // For big knob
+glMidi["127"] = { velocity: 0 }// For big knob
 
 class Launcher {
   constructor(classConstructor, setIndex) {
