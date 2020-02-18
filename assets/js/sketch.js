@@ -670,7 +670,7 @@ function onMidiMessage(midiMessage) {
     } else { // Encoder
       let change = velocity - 64;
       // if (velocity < 64) change = -1;
-      if (launchers[note].velocity + change <= 127 && launchers[note].velocity + change >= 0) {
+      if (launchers[note].velocity + change <= 500 && launchers[note].velocity + change >= 0) {
         launchers[note].velocity += change;
         launchers[note].opacity(launchers[note].velocity);
       }
@@ -733,7 +733,7 @@ class Launcher {
   }
 
   opacity(velocity) {
-    this.scene.opacity = midiToColor(velocity);
+    this.scene.opacity = map(velocity, 0, 500, 0, 255);
   }
 }
 
