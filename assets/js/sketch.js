@@ -662,7 +662,7 @@ function onMidiMessage(midiMessage) {
   // }
 
   //Beat Step
-  if (note < 15) {
+  if (note < 15) { // Recall 1, launchers
     if (command == 144) { // Button on
       launchers[note].on();
     } else if (command == 128) { // Button off
@@ -670,12 +670,19 @@ function onMidiMessage(midiMessage) {
     } else { // Encoder
       let change = velocity - 64;
       // if (velocity < 64) change = -1;
-      if (launchers[note].velocity + change <= 500 && launchers[note].velocity + change >= 0) {
+      if (launchers[note].velocity + change <= 127 && launchers[note].velocity + change >= 0) {
         launchers[note].velocity += change;
         launchers[note].opacity(launchers[note].velocity);
       }
     }
-  } else {
+  } else if (note == 127) { // Recall 1, Master knob
+    let change = velocity - 64;
+    // if (velocity < 64) change = -1;
+    if (glMidi[note].velocity + change <= 127 && glMidi[note].velocity + change >= 0) {
+      glBackground = vel;
+    }
+
+  } else { // Recall > 1
     if (command == 160) { // Button
       midiBeatStep[note][0].method(velocity);
     } else if (command == 176) { // Encoder
@@ -697,6 +704,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
+const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 let midiBeatStep = (function () {
   let ret = [];
@@ -706,7 +714,6 @@ let midiBeatStep = (function () {
   return ret;
 })();
 
-const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -733,18 +740,13 @@ class Launcher {
   }
 
   opacity(velocity) {
-    this.scene.opacity = map(velocity, 0, 500, 0, 255);
+    this.scene.opacity = velocity;
   }
 }
 
-function bindLaunchers() {
-  launchers = currentSet.map(setScene => {
-    return new Launcher(setScene.sketch, setScene.setIndex);
-  });
-}
-
-
-bindLaunchers();
+launchers = currentSet.map(setScene => {
+  return new Launcher(setScene.sketch, setScene.setIndex);
+});
 
 // ================================================  
 //       Global OSC bindings
