@@ -713,6 +713,9 @@ let midiBeatStep = (function () {
   return ret;
 })();
 
+let glMidi = {};
+glMidi["127"] { velocity: 0 }
+glMidi[127] = 0; // For big knob
 
 class Launcher {
   constructor(classConstructor, setIndex) {
@@ -747,7 +750,7 @@ const launchers = currentSet.map(setScene => {
   return new Launcher(setScene.sketch, setScene.setIndex);
 });
 
-midiBeatStep[127] = { velocity: 0 }
+
 
 // ================================================  
 //       Global OSC bindings
