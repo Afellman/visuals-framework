@@ -17,7 +17,6 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 
-let launchers = [];
 
 function setBuilder(sketches) {
   return sketches.map((sketch, i) => {
@@ -744,9 +743,11 @@ class Launcher {
   }
 }
 
-launchers = currentSet.map(setScene => {
+const launchers = currentSet.map(setScene => {
   return new Launcher(setScene.sketch, setScene.setIndex);
 });
+
+midiBeatStep[127] = { velocity: 0 }
 
 // ================================================  
 //       Global OSC bindings
