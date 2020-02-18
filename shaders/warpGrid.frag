@@ -8,13 +8,19 @@ varying vec2 vTexCoord;
 
 // our textures coming from p5
 uniform float u_opacity;
-
+uniform float u_time;
+uniform sampler2D tex0;
 
 void main() {
 
-  vec3 color = vec3(0.0);
+  vec2 uv = vTexCoord;
+  // the texture is loaded upside down and backwards by default so lets flip it
+  uv.y = 1.0 - uv.y;
+  
+  vec4 img = texture2D(tex0, uv);
+  vec3 color = img.rgb;
 
-  color += sin(uv.x,= * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0);
+  color += 1.0 * sin(uv.x * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0);
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
