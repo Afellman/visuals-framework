@@ -1353,6 +1353,7 @@ class FlowField extends Sketch {
     this.mag = 0.5;
     this.freq1 = 1
     this.freq2 = 1
+    this.opacity = 255;
 
     this.params = {
       faders: {
@@ -1465,7 +1466,7 @@ class FlowField extends Sketch {
     }
 
     show() {
-      stroke(255, this.parent.params.faders.opacity);
+      stroke(255, this.parent.params.faders.opacity * (this.parent.opacity / 255));
       strokeWeight(1);
       line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
       this.updatePrev();
@@ -1731,7 +1732,7 @@ class WindShield extends Sketch {
   ]
 }
 
-class Tares extends Sketch {
+class Tares extends Sketch { // Maped
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
@@ -1757,17 +1758,62 @@ class Tares extends Sketch {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
-    this.graph = createGraphics(width, height);
+    // this.graph = createGraphics(width, height);
   }
 
   draw() {
     noStroke();
-    this.graph.image(glCanvas, 0, 0)
+    // this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_point1", this.num1);
     this.shader.setUniform("u_point2", this.num2);
     this.shader.setUniform("u_x", this.params.faders.x);
     this.shader.setUniform("u_y", this.params.faders.y);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
+
+    this.speed += this.params.faders.speed / 10;
+
+    this.amp += this.params.faders.amp;
+    // this.num1 = this.num1Start + sin(frameCount * this.speed) * this.amp;
+    this.num2 = Math.abs(this.num2Start + sin(this.speed) * this.amp);
+
+  }
+  listeners = [
+    {
+      socketName: "stopSpeed",
+      socketMethod: (val) => {
+        this.params.faders.speed = 0;
+        this.updateOsc();
+      }
+    }
+  ]
+}
+
+class WarpGrid extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.img = images[4];
+    this.setIndex = setIndex;
+    this.opacity = 0;
+    this.params = {
+      faders: {
+      }
+    }
+  }
+
+  init(index) {
+    super.init();
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[10]._vertSrc, shaders[10]._fragSrc);
+  }
+
+  draw() {
+    noStroke();
+    this.shader.setUniform('tex0', this.img);
+    this.shader.setUniform("u_opacity", this.opacity / 255);
+    this.shader.setUniform("u_time", frameCount / 1000);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
