@@ -677,8 +677,8 @@ function onMidiMessage(midiMessage) {
   } else if (note == 127) { // Recall 1, Master knob
     let change = velocity - 64;
     // if (velocity < 64) change = -1;
-    if (glMidi[note].velocity + change <= 127 && glMidi[note].velocity + change >= 0) {
-      glBackground = vel;
+    if (midiBeatStep[note] + change <= 127 && midiBeatStep[note] + change >= 0) {
+      glBackground[3] = midiBeatStep[note];
     }
 
   } else { // Recall > 1
@@ -713,8 +713,7 @@ let midiBeatStep = (function () {
   return ret;
 })();
 
-let glMidi = {};
-glMidi["127"] = { velocity: 0 }// For big knob
+midiBeatStep[127] = 0; // For big knob
 
 class Launcher {
   constructor(classConstructor, setIndex) {
