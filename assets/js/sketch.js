@@ -698,32 +698,6 @@ function midiToNormal(vel) {
 //       Global midi bindings
 // ================================================  
 
-// Faderfox
-// let midi179 = (function () { // Map of midi notes and attached methods with command 179.
-//   let ret = [];
-//   for (let i = 0; i < 96; i++) {
-//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-//   }
-//   return ret;
-// })();
-
-// let midi180 = (function () { // Map of midi notes and attached methods with command 180.
-//   let ret = [];
-//   for (let i = 0; i < 96; i++) {
-//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-//   }
-//   return ret;
-// })();
-
-// Akai
-// let midiAkai = (function () {
-//   let ret = [];
-//   for (let i = 0; i < 31; i++) {
-//     ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
-//   }
-//   return ret;
-// })();
-
 let midiBeatStep = (function () {
   let ret = [];
   for (let i = 0; i < 128; i++) {
@@ -750,7 +724,6 @@ class Launcher {
     this.scene.id = Math.random() * 9999999;
     loadScene(this.scene);
     this.isActive = true;
-    // midi180[32].velocity = 0;
   }
 
   off() {
@@ -768,27 +741,10 @@ function bindLaunchers() {
   launchers = currentSet.map(setScene => {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
-
-  // launchers.forEach((launcher, i) => {
-  // For Faderfox
-  // midi180[i + 32].method = launcher.opacity.bind(launcher);
-  // midi180[i + 80].method = launcher.toggle.bind(launcher);
-  // midiAkai[i].method = launcher.toggle.bind(launcher);
-  // midiAkai[i + 8].method = launcher.opacity.bind(launcher);
-
-  // });
 }
 
-// function bindMiscGlobal() {
-//   // Encoder 11
-//   midi180[42].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-//   midi180[90].method = (vel) => { glBackground[3] = midiToNormal(vel) };
-//   midi180[42].velocity = 100;
-//   midi180[90].velocity = 127;
-// }
 
 bindLaunchers();
-// bindMiscGlobal();
 
 // ================================================  
 //       Global OSC bindings
