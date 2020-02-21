@@ -277,7 +277,6 @@ function setup() {
   bg.id = Math.random() * 9999999;
   loadScene(bg) // For background.
 
-
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
@@ -710,6 +709,7 @@ const currentSet = setBuilder([Mirror, Proximity, Sun, FlowShader, DisplaceImg, 
 let midiBeatStep = (function () {
   let ret = [];
   for (let i = 0; i < 128; i++) {
+    // index 0 for button index 1 encoder
     ret.push([{ method: () => { }, velocity: 0 }, { method: () => { }, velocity: 0 }]); // Method to call on incoming note.
   }
   return ret;
