@@ -168,9 +168,9 @@ class Sketch {
     }
 
 
-    // Faderfox controls
     for (let i = 0; i < this.listeners.length; i++) { // Midi listeners
       const thisListener = this.listeners[i];
+      // Faderfox controls
       // if (thisListener.midiNote) {
       //   let thisIndex = thisListener.midiNote + (this.setIndex * 8)
       //   if (this.setIndex < 5) {
@@ -1797,6 +1797,7 @@ class WarpGrid extends Sketch {
     this.img = images[4];
     this.setIndex = setIndex;
     this.opacity = 0;
+    this.amt = 0.3;
     this.params = {
       faders: {
       }
@@ -1813,7 +1814,8 @@ class WarpGrid extends Sketch {
     noStroke();
     this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity / 255);
-    this.shader.setUniform("u_time", frameCount / 1000);
+    this.shader.setUniform("u_time", frameCount / 100);
+    this.shader.setUniform("u_amt", this.amt);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
