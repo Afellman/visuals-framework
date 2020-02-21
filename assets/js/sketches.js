@@ -700,18 +700,31 @@ class Proximity extends Sketch {// Maped
 
   listeners = [
     {
+      encoderMethod: (val) => {
+        this.params.faders.curl = val;
+      },
+      isButton: true,
+      buttonMethod: (val) => {
+        this.multiplier = 10;
+      },
       socketName: "resetMulti",
       socketMethod: (val) => {
         this.multiplier = 10;
       }
     },
     {
+      isButton: true,
+      midiMethod: (val) => {
+        this.params.faders.multiSpeed = 0;
+      },
       socketName: "stopMulti",
       socketMethod: (val) => {
         this.params.faders.multiSpeed = 0;
         this.updateOsc();
       }
-    },]
+    },
+
+  ]
   mouseClicked() { }
 }
 
