@@ -277,6 +277,7 @@ function setup() {
   bg.id = Math.random() * 9999999;
   loadScene(bg) // For background.
 
+
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
@@ -665,7 +666,7 @@ function onMidiMessage(midiMessage) {
     if (command == 144) { // Button on
       launchers[note].on();
     } else if (command == 128) { // Button off
-      // launchers[note].off();
+      launchers[note].off();
     } else { // Encoder
       let change = velocity - 64;
       // if (velocity < 64) change = -1;
@@ -686,7 +687,7 @@ function onMidiMessage(midiMessage) {
     if (command == 160) { // Button
       midiBeatStep[note][0].method(velocity);
     } else if (command == 176) { // Encoder
-      midiBeatStep[note][1].velocity += velocity - 64;
+      midiBeatStep[note][1].velocity = velocity - 64;
       midiBeatStep[note][1].method(midiBeatStep[note][1].velocity);
     }
   }
@@ -709,7 +710,6 @@ const currentSet = setBuilder([Mirror, Proximity, Sun, FlowShader, DisplaceImg, 
 let midiBeatStep = (function () {
   let ret = [];
   for (let i = 0; i < 128; i++) {
-    // index 0 for button index 1 encoder
     ret.push([{ method: () => { }, velocity: 0 }, { method: () => { }, velocity: 0 }]); // Method to call on incoming note.
   }
   return ret;
