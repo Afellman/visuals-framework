@@ -193,6 +193,11 @@ class Sketch {
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
+      if (thisListener.midiNote && thisListener.midiMethod) {
+        if (thisListener.isButton) {
+          midiBeatStep[this.setIndex + 16 + i][0].method = thisListener.method
+        }
+      }
     }
 
     this.updateOsc();
