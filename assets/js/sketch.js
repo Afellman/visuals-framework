@@ -277,6 +277,7 @@ function setup() {
   bg.id = Math.random() * 9999999;
   loadScene(bg) // For background.
 
+
   // For Audio input
   // mic = new p5.AudioIn();
   // mic.getSources((devices) => {
@@ -834,6 +835,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
     loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/warpGrid.frag"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
