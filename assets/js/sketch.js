@@ -654,13 +654,12 @@ function onMidiMessage(midiMessage) {
   // } else {
 
 
-  // AKAI
-  // if (command == 160) { // button press and knob.
-  //   midiAkai[note].velocity = velocity;
-  //   midiAkai[note].method(velocity);
+  //AKAI
+  if (command == 160) { // button press and knob.
+    midiAkai[note].velocity = velocity;
+    midiAkai[note].method(velocity);
+  }
   // }
-  // }
-
   //Beat Step
   // if (note < 15) { // Recall 1, launchers
   //   if (command == 144) { // Button on
@@ -702,17 +701,25 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Mirror, Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
-let midiBeatStep = (function () {
+// let midiBeatStep = (function () {
+//   let ret = [];
+//   for (let i = 0; i < 128; i++) {
+//     ret.push([{ method: () => { }, velocity: 0 }, { method: () => { }, velocity: 0 }]); // Method to call on incoming note.
+//   }
+//   return ret;
+// })();
+
+// midiBeatStep[127] = 127; // For big knob
+
+let midiAkai = (function () {
   let ret = [];
-  for (let i = 0; i < 128; i++) {
-    ret.push([{ method: () => { }, velocity: 0 }, { method: () => { }, velocity: 0 }]); // Method to call on incoming note.
+  for (let i = 0; i < 31; i++) {
+    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
 })();
-
-midiBeatStep[127] = 127; // For big knob
 
 class Launcher {
   constructor(classConstructor, setIndex) {
