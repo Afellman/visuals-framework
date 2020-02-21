@@ -662,35 +662,32 @@ function onMidiMessage(midiMessage) {
   // }
 
   //Beat Step
-  if (note < 15) { // Recall 1, launchers
-    if (command == 144) { // Button on
-      launchers[note].on();
-    } else if (command == 128) { // Button off
-      launchers[note].off();
-    } else { // Encoder
-      let change = velocity - 64;
-      // if (velocity < 64) change = -1;
-      if (launchers[note].velocity + change <= 127 && launchers[note].velocity + change >= 0) {
-        launchers[note].velocity += change;
-        launchers[note].opacity(launchers[note].velocity);
-      }
-    }
-  } else if (note == 127) { // Recall 1, Master knob
-    let change = velocity - 64;
-    // if (velocity < 64) change = -1;
-    if (midiBeatStep[note] + change <= 127 && midiBeatStep[note] + change >= 0) {
-      midiBeatStep[note] += change;
-      glBackground[3] = midiToNormal(midiBeatStep[note]);
-    }
+  // if (note < 15) { // Recall 1, launchers
+  //   if (command == 144) { // Button on
+  //     launchers[note].on();
+  //   } else if (command == 128) { // Button off
+  //     launchers[note].off();
+  //   } else { // Encoder
+  //     // if (velocity < 64) change = -1;
+  //     launchers[note].velocity = velocity;
+  //     launchers[note].opacity(velocity);
+  //   }
+  // } else if (note == 127) { // Recall 1, Master knob
+  //   let change = velocity - 64;
+  //   // if (velocity < 64) change = -1;
+  //   if (midiBeatStep[note] + change <= 127 && midiBeatStep[note] + change >= 0) {
+  //     midiBeatStep[note] += change;
+  //     glBackground[3] = midiToNormal(midiBeatStep[note]);
+  //   }
 
-  } else { // Recall > 1
-    if (command == 160) { // Button
-      midiBeatStep[note][0].method(velocity);
-    } else if (command == 176) { // Encoder
-      midiBeatStep[note][1].velocity = velocity - 64;
-      midiBeatStep[note][1].method(midiBeatStep[note][1].velocity);
-    }
-  }
+  // } else { // Recall > 1
+  //   if (command == 160) { // Button
+  //     midiBeatStep[note][0].method(velocity);
+  //   } else if (command == 176) { // Encoder
+  //     midiBeatStep[note][1].velocity = velocity - 64;
+  //     midiBeatStep[note][1].method(midiBeatStep[note][1].velocity);
+  //   }
+  // }
 
 }
 
