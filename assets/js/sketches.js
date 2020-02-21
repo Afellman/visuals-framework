@@ -193,13 +193,6 @@ class Sketch {
       if (thisListener.socketName && thisListener.socketMethod) {
         socket.on(`/${this.setIndex}/${thisListener.socketName}`, thisListener.socketMethod);
       }
-      if (thisListener.encoderMethod) {
-        midiBeatStep[this.setIndex + 15 + i][1].method = thisListener.encoderMethod;
-      }
-      if (thisListener.buttonMethod) {
-        midiBeatStep[this.setIndex + 16 + i][0].method = thisListener.buttonMethod;
-
-      }
     }
 
     this.updateOsc();
@@ -623,9 +616,6 @@ class Proximity extends Sketch {// Maped
           circleSize: 3,
           multiSpeed: 0
         },
-        buttons: {
-
-        }
       }
       this.multiSin = false;
       this.pointMax = 200;
@@ -700,32 +690,18 @@ class Proximity extends Sketch {// Maped
 
   listeners = [
     {
-      encoderMethod: (val) => {
-        this.params.faders.curl = val;
-      },
-      buttonMethod: (val) => {
-        this.multiplier = 10;
-      },
       socketName: "resetMulti",
       socketMethod: (val) => {
         this.multiplier = 10;
       }
     },
     {
-      encoderMethod: (val) => {
-        this.params.faders.circleDiameter = val;
-      },
-      buttonMethod: (val) => {
-        this.params.faders.multiSpeed = 0;
-      },
       socketName: "stopMulti",
       socketMethod: (val) => {
         this.params.faders.multiSpeed = 0;
         this.updateOsc();
       }
-    },
-
-  ]
+    },]
   mouseClicked() { }
 }
 
