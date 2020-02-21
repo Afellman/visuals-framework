@@ -655,7 +655,7 @@ function onMidiMessage(midiMessage) {
 
 
   //AKAI
-  if (command == 160) { // button press and knob.
+  if (command == 144 || command == 176) { // button press and knob.
     midiAkai[note].velocity = velocity;
     midiAkai[note].method(velocity);
   }
@@ -731,18 +731,18 @@ class Launcher {
     this.velocity = 0;
   }
 
-  on() {
-    this.scene = new this.classConstructor();
-    this.scene.setIndex = this.setIndex;
-    this.scene.id = Math.random() * 9999999;
-    loadScene(this.scene);
-    this.isActive = true;
-  }
-
-  off() {
-    unloadScene(this.scene.id);
-    this.scene = {};
-    this.isActive = false;
+  toggle() {
+    if (!this.isActive) {
+      this.scene = new this.classConstructor();
+      this.scene.setIndex = this.setIndex;
+      this.scene.id = Math.random() * 9999999;
+      loadScene(this.scene);
+      this.isActive = true;
+    } else {
+      unloadScene(this.scene.id);
+      this.scene = {};
+      this.isActive = false;
+    }
   }
 
   opacity(velocity) {
@@ -750,11 +750,21 @@ class Launcher {
   }
 }
 
-const launchers = currentSet.map(setScene => {
-  return new Launcher(setScene.sketch, setScene.setIndex);
-});
 
+function bindLaunchers() {
+  const launchers = currentSet.map(setScene => {
+    return new Launcher(setScene.sketch, setScene.setIndex);
+  });
+  launchers.forEach((launcher, i) => {
+    // For Faderfox
+    // midi180[i + 32].method = launcher.opacity.bind(launcher);
+    // midi180[i + 80].method = launcher.toggle.bind(launcher);
+    midiAkai[i].method = launcher.toggle.bind(launcher);
+    midiAkai[i + 8].method = launcher.opacity.bind(launcher);
+  });
+}
 
+bindLaunchers();
 
 // ================================================  
 //       Global OSC bindings
