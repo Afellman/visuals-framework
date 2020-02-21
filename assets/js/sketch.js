@@ -665,7 +665,7 @@ function onMidiMessage(midiMessage) {
     if (command == 144) { // Button on
       launchers[note].on();
     } else if (command == 128) { // Button off
-      launchers[note].off();
+      // launchers[note].off();
     } else { // Encoder
       let change = velocity - 64;
       // if (velocity < 64) change = -1;
