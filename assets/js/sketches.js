@@ -195,7 +195,9 @@ class Sketch {
       }
       if (thisListener.midiNote && thisListener.midiMethod) {
         if (thisListener.isButton) {
-          midiBeatStep[this.setIndex + 16 + i][0].method = thisListener.method
+          midiBeatStep[this.setIndex + 16 + i][0].method = thisListener.method;
+        } else {
+          midiBeatStep[this.setIndex + 16 + i][1].method = thisListener.method;
         }
       }
     }
@@ -621,6 +623,9 @@ class Proximity extends Sketch {// Maped
           circleSize: 3,
           multiSpeed: 0
         },
+        buttons: {
+
+        }
       }
       this.multiSin = false;
       this.pointMax = 200;
