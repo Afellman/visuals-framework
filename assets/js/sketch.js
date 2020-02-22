@@ -351,7 +351,7 @@ function unloadScene(id) {
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i].id === id) {
       scenes[i].unload();
-      scenes.splice(index, 1);
+      scenes.splice(i, 1);
       break;
     }
   }
@@ -727,8 +727,6 @@ class Launcher {
     this.isActive = false;
     this.classConstructor = classConstructor;
     this.setIndex = setIndex;
-
-    this.velocity = 0;
   }
 
   toggle() {
@@ -820,7 +818,7 @@ function bindGlobalSockets() {
   socket.emit("updateOsc", { scene: "-1", oscObj: "videoOpacity", value: "1" })
 }
 
-// bindGlobalSockets();
+bindGlobalSockets();
 // ========================================= Async Loaders
 
 function loadImages(cb) {
