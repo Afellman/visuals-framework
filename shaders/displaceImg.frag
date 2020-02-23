@@ -15,13 +15,14 @@ uniform float u_displaceY;
 uniform float u_red;
 uniform float u_blue;
 uniform float u_green;
+uniform bool u_blackAndWhite;
 
-vec3 setBandW(vec3 color) {
+vec3 setBandW(vec3 color, vec2 pos) {
     vec3 lum = vec3(0.299, 0.587, 0.114);
     vec3 bAndW = vec3(dot(color.rgb, lum));
-    bAndW.r += distance(0.5, uv.x) * u_red * abs(sin(u_time) / 3.0);
-    bAndW.g += distance(0.5, uv.x) * u_green *  abs(sin(u_time) / 3.0);
-    bAndW.b += distance(0.5, uv.x) * u_blue *  abs(sin(u_time) / 3.0);
+    bAndW.r += distance(0.5, pos.x) * u_red * abs(sin(u_time) / 3.0);
+    bAndW.g += distance(0.5, pos.x) * u_green *  abs(sin(u_time) / 3.0);
+    bAndW.b += distance(0.5, pos.x) * u_blue *  abs(sin(u_time) / 3.0);
     return bAndW;
 }
 
@@ -44,7 +45,7 @@ void main() {
   vec3 color = img2.rgb;
 
   if(u_blackAndWhite){
-    color = setBandW(color);
+    color = setBandW(color, uv);
   }
 
   // render the output
