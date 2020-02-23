@@ -347,7 +347,6 @@ function loadScene(scene) {
 }
 
 function unloadScene(id) {
-  let index = -1;
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i].id === id) {
       scenes[i].unload();
@@ -701,7 +700,7 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, Sun, WarpGrid, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 // let midiBeatStep = (function () {
 //   let ret = [];
