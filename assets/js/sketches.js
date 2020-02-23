@@ -1838,6 +1838,26 @@ class WarpGrid extends Sketch {
   ]
 }
 
+class AudioReactive extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+  }
+
+  init() {
+    super.init();
+  }
+
+  draw() {
+
+    const spectrum = fft.analayze();
+    const bass = getEnergy("bass");
+    
+  }
+
+  listeners = [{}]
+}
+
 class Rain extends Sketch {
   constructor(obj) {
     super(obj);
