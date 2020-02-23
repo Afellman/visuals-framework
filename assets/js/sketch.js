@@ -18,25 +18,6 @@ let save;
 let debug = false;
 
 
-function setBuilder(sketches) {
-  return sketches.map((sketch, i) => {
-    return { setIndex: i, sketch: sketch };
-  });
-}
-
-
-function setImages(imgs) {
-  images = imgs;
-}
-
-function setShaders(shaderArry) {
-  shaders = shaderArry;
-}
-
-function setVideos(videoArray) {
-  console.log("videos loaded")
-  this.videos = videoArray;
-}
 
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
@@ -110,20 +91,6 @@ function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
 
-function loadScene(scene) {
-  scene.init();
-  scenes.push(scene);
-}
-
-function unloadScene(id) {
-  for (let i = 0; i < scenes.length; i++) {
-    if (scenes[i].id === id) {
-      scenes[i].unload();
-      scenes.splice(i, 1);
-      break;
-    }
-  }
-}
 
 function toggleMirror(vert) {
   if (!mirror) {
@@ -587,6 +554,44 @@ function bindGlobalSockets() {
 }
 
 bindGlobalSockets();
+
+// ================================================  
+//               Intial setups  
+// ================================================ 
+
+function loadScene(scene) {
+  scene.init();
+  scenes.push(scene);
+}
+
+function unloadScene(id) {
+  for (let i = 0; i < scenes.length; i++) {
+    if (scenes[i].id === id) {
+      scenes[i].unload();
+      scenes.splice(i, 1);
+      break;
+    }
+  }
+}
+
+function setBuilder(sketches) {
+  return sketches.map((sketch, i) => {
+    return { setIndex: i, sketch: sketch };
+  });
+}
+
+function setImages(imgs) {
+  images = imgs;
+}
+
+function setShaders(shaderArry) {
+  shaders = shaderArry;
+}
+
+function setVideos(videoArray) {
+  console.log("videos loaded")
+  this.videos = videoArray;
+}
 // ========================================= Async Loaders
 
 function loadImages(cb) {
