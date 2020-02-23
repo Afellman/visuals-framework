@@ -1147,6 +1147,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     this.cray = 0.0;
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
+    this.canvasImage;
   }
 
   removeLayer() {
@@ -1157,6 +1158,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
   draw() {
     noStroke();
     // draw the camera on the current layer
+    this.canvasImage.image(glCanvas, 0, 0)
     this.shaderBox.shader(this.shader);
     // send the camera and the two other past frames into the camera feed
     this.shader.setUniform('tex0', this.img);
