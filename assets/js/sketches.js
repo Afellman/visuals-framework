@@ -1864,7 +1864,7 @@ class AudioReactive extends Sketch {
     const bass = fft.getEnergy("lowMid");
     const mid = fft.getEnergy("mid");
     const high = fft.getEnergy("highMid");
-    background(bass, mid, high)
+    // background(bass, mid, high)
     let x = 0;
     let y = 0;
     let prevX = 10;
@@ -1872,8 +1872,9 @@ class AudioReactive extends Sketch {
 
     // stroke(255);
     for (let i = 0; i < spectrum.length / 6; i++) {
-      stroke(255, 255, 255)
+      stroke(bass, mid, high)
 
+      // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
       x = map(i, 0, spectrum.length / 6, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
       line(prevX, prevY, x, y)
