@@ -1854,6 +1854,15 @@ class AudioReactive extends Sketch {
 
   init() {
     super.init();
+    // For Audio input
+    mic = new p5.AudioIn();
+    mic.getSources((devices) => {
+      devices.forEach((device, i) => console.log(i, device.label))
+      console.log(devices)
+    });
+    mic.start();
+    fft = new p5.FFT(0.8, 512);
+    fft.setInput(mic);
   }
 
   draw() {
@@ -1862,7 +1871,7 @@ class AudioReactive extends Sketch {
     const bass = fft.getEnergy("lowMid");
     const mid = fft.getEnergy("mid");
     const high = fft.getEnergy("highMid");
-    // background(bass, mid, high)
+    background(bass, mid, high)
     let x = 0;
     let y = 0;
     let prevX = 10;
