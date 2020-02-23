@@ -37,6 +37,15 @@ function setup() {
   bg.id = Math.random() * 9999999;
   loadScene(bg) // For background.
 
+
+  mic = new p5.AudioIn();
+  mic.getSources((devices) => {
+    devices.forEach((device, i) => console.log(i, device.label))
+    console.log(devices)
+  });
+  mic.start();
+  fft = new p5.FFT(0.8, 512);
+  fft.setInput(mic);
 }
 
 function draw() {
@@ -81,10 +90,6 @@ function setupSockets() {
     showFPS = val;
   });
 
-  for (const i in controlScene) {
-    socket.on(`/${i}/toggle`, val => controlScene[i].toggle(val))
-    socket.on(`/${i}/opacity`, val => controlScene[i].opacity(val))
-  }
 }
 
 function normalToColor(val) {
