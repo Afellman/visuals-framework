@@ -1851,20 +1851,20 @@ class AudioReactive extends Sketch {
   draw() {
 
     const spectrum = fft.analyze();
-    const bass = fft.getEnergy("bass");
+    const bass = fft.getEnergy("lowMid");
     const mid = fft.getEnergy("mid");
     const high = fft.getEnergy("highMid");
     // background(bass, mid, high)
     let x = 0;
     let y = 0;
-    let prevX = 0;
+    let prevX = 10;
     let prevY = height / 2;
 
     // stroke(255);
     for (let i = 0; i < spectrum.length / 6; i++) {
       stroke(bass, mid, high)
 
-      x = map(i, 0, spectrum.length / 6, 0, width);
+      x = map(i, 10, spectrum.length / 6, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
       line(prevX, prevY, x, y)
       prevX = x;
