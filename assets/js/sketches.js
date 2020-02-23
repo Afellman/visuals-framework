@@ -1860,9 +1860,11 @@ class AudioReactive extends Sketch {
     let prevX = 0;
     let prevY = height / 2;
 
-    stroke(255);
-    for (let i = 0; i < spectrum.length / 4; i++) {
-      x = map(i, 0, spectrum.length, 0, width);
+    // stroke(255);
+    for (let i = 0; i < spectrum.length / 6; i++) {
+      stroke(bass, mid, high)
+
+      x = map(i, 0, spectrum.length / 6, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
       line(prevX, prevY, x, y)
       prevX = x;
