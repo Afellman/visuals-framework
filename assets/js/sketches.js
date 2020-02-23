@@ -1852,13 +1852,15 @@ class AudioReactive extends Sketch {
 
     const spectrum = fft.analyze();
     const bass = fft.getEnergy("bass");
+    const mid = fft.getEnergy("mid");
+    const high = fft.getEnergy("hight");
+    background(bass, mid, hight)
     // background(150, 150, map(bass, 0, 1, 0, 150));
     let x = 0;
     let y = 0;
     let prevX = 0;
-    let prevY = 0;
-    beginShape();
-    stroke(0);
+    let prevY = height / 2;
+    stroke(255);
 
     for (let i = 0; i < spectrum.length; i++) {
       x = map(i, 0, spectrum.length, 0, width);
@@ -1867,7 +1869,6 @@ class AudioReactive extends Sketch {
       prevX = x;
       prevY = y;
     }
-    endShape()
   }
 
   listeners = [{}]
