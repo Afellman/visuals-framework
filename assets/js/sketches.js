@@ -1850,9 +1850,12 @@ class AudioReactive extends Sketch {
 
   draw() {
 
-    const spectrum = fft.analayze();
-    const bass = getEnergy("bass");
-    
+    const spectrum = fft.analyze();
+    const bass = fft.getEnergy("bass");
+    background(150, 150, map(bass, 0, 1, 0, 150));
+    for (let i = 0; i < spectrum.length; i++) {
+
+    }
   }
 
   listeners = [{}]
