@@ -285,7 +285,7 @@ function setup() {
     console.log(devices)
   });
   mic.start();
-  fft = new p5.FFT(0.3, 512);
+  fft = new p5.FFT(0.8, 512);
   fft.setInput(mic);
 
 }
