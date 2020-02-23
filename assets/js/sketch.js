@@ -277,7 +277,6 @@ function setup() {
   bg.id = Math.random() * 9999999;
   loadScene(bg) // For background.
 
-
   // For Audio input
   mic = new p5.AudioIn();
   mic.getSources((devices) => {
