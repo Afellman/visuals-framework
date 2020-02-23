@@ -279,13 +279,14 @@ function setup() {
 
 
   // For Audio input
-  // mic = new p5.AudioIn();
-  // mic.getSources((devices) => {
-  //   devices.forEach((device, i) => console.log(i, device.label))
-  // });
-  // mic.start();
-  // fft = new p5.FFT(0.8, 512);
-  // fft.setInput(mic);
+  mic = new p5.AudioIn();
+  mic.getSources((devices) => {
+    devices.forEach((device, i) => console.log(i, device.label))
+    console.log(devices)
+  });
+  mic.start();
+  fft = new p5.FFT(0.3, 512);
+  fft.setInput(mic);
 
 }
 
