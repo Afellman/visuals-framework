@@ -1118,7 +1118,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   ]
 }
 
-class DisplaceImg extends Sketch { // scene 11. maped
+class DisplaceImg extends Sketch {
   constructor(img) {
     super();
     this.img = images[4];
@@ -1213,6 +1213,12 @@ class DisplaceImg extends Sketch { // scene 11. maped
       socketName: "image2",
       socketMethod: (val) => {
         this.img = images[3];
+      }
+    },
+    {
+      socketName: "canvas",
+      socketMethod: (val) => {
+        this.img = this.canvasImage;
       }
     },
   ]
