@@ -1147,7 +1147,7 @@ class DisplaceImg extends Sketch { // scene 11. maped
     this.cray = 0.0;
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
-    this.canvasImage;
+    this.canvasImage = createGraphics(width, height);
   }
 
   removeLayer() {
