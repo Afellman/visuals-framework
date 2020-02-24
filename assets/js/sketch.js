@@ -89,6 +89,9 @@ function setupSockets() {
   socket.on("debug", (val) => {
     debug = val;
     showFPS = val;
+    if (val) {
+      bindLiveCoding();
+    }
   });
 
 }
@@ -659,15 +662,15 @@ setupSockets();
 //               Live Coding methods  
 // ================================================ 
 
-if (debug) {
+function bindLiveCoding() {
   window.dispalce = function () {
     const scene = this.loadScene(new DisplaceImg());
-    scene.opacity(255);
+    scene.opacity = 255;
   }
   window.glOpac = function (value) {
     if (value > 1) {
       value = map(value, 0, 255, 0, 1);
     }
-    glBackground[0] = value;
+    glBackground[3] = value;
   }
 }
