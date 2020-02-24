@@ -1121,7 +1121,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
 class DisplaceImg extends Sketch {
   constructor(img) {
     super();
-    this.img = images[4];
+    this.img = {};
     this.params = {
       faders: {
         displaceX: 0,
@@ -1149,6 +1149,7 @@ class DisplaceImg extends Sketch {
     this.shader = shaders[6];
     this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
     this.canvasImage = createGraphics(width, height);
+    this.img = this.canvasImage;
   }
 
   removeLayer() {
@@ -1877,7 +1878,6 @@ class AudioReactive extends Sketch {
     const mid = fft.getEnergy("mid");
     const high = fft.getEnergy("highMid");
     // stroke(255);
-    stroke(bass, mid, high);
     for (let i = 0; i < spectrum.length / 5; i++) {
 
       // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
@@ -1885,9 +1885,8 @@ class AudioReactive extends Sketch {
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
 
 
-      fill(spectrum[i], spectrum[i], spectrum[i], this.opacity)
+      fill(spectrum[i] * sin(frameCount / 1000), spectrum[i] * cos(frameCount / sin(1000)), spectrum[i], this.opacity)
       strokeWeight(0.1)
-      stroke(255)
       rect(0, x, width, 200);
 
       // line(prevX, prevY, x, y);
