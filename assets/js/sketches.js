@@ -1137,6 +1137,7 @@ class DisplaceImg extends Sketch {
     this.displaceY = 0;
     this.sceneNum = 11;
     this.opacity = 0;
+    this.isBandW = false;
   }
 
   init(index) {
@@ -1169,6 +1170,7 @@ class DisplaceImg extends Sketch {
     this.shader.setUniform('u_red', this.params.faders.red);
     this.shader.setUniform('u_green', this.params.faders.green);
     this.shader.setUniform('u_blue', this.params.faders.blue);
+    this.shader.setUniform('u_blackAndWhite', this.isBandW);
 
     image(this.shaderBox, 0, 0, width, height);
     this.shaderBox.rect(0, 0, width, height);
@@ -1872,12 +1874,12 @@ class AudioReactive extends Sketch {
 
     // stroke(255);
     for (let i = 0; i < spectrum.length / 6; i++) {
-      stroke(bass, mid, high)
+      stroke(bass, mid, high);
 
       // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
       x = map(i, 0, spectrum.length / 6, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
-      line(prevX, prevY, x, y)
+      line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
     }

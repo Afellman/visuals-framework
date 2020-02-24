@@ -38,6 +38,7 @@ function setup() {
   loadScene(bg) // For background.
 
 
+  // For audio setup.
   mic = new p5.AudioIn();
   mic.getSources((devices) => {
     devices.forEach((device, i) => console.log(i, device.label))
@@ -621,7 +622,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/videoShader.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/displaceImg.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
     loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
