@@ -1871,14 +1871,14 @@ class AudioReactive extends Sketch {
     let y = 0;
     let prevX = 10;
     let prevY = height / 2;
-    const avg16 = fft.linAverages();
+    const avg100 = fft.linAverages(100);
 
     // stroke(255);
-    for (let i = 0; i < avg16.length / 6; i++) {
+    for (let i = 0; i < avg100.length; i++) {
       stroke(bass, mid, high);
       // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
-      x = map(i, 0, avg16.length / 6, 0, width);
-      y = height - 20 - map(avg16[i], 0, 255, 0, height / 2);
+      x = map(i, 0, avg100.length, 0, width);
+      y = height - 20 - map(avg100[i], 0, 255, 0, height / 2);
       line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
