@@ -210,7 +210,9 @@ function keyPressed(e) {
   if (ctrlPressed && key == "i") {
     let wasFpsOn = showFPS;
     showFPS = false;
-    saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
+    setTimeout(() => {
+      saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
+    }, 500);
     if (wasFpsOn) showFPS = true;
   }
 };
@@ -568,6 +570,7 @@ bindGlobalSockets();
 function loadScene(scene) {
   scene.init();
   scenes.push(scene);
+  return scene;
 }
 
 function unloadScene(id) {
@@ -650,3 +653,21 @@ function loadVideos(cb) {
 }
 
 setupSockets();
+
+
+// ================================================  
+//               Live Coding methods  
+// ================================================ 
+
+if (debug) {
+  window.dispalce = function () {
+    const scene = this.loadScene(new DisplaceImg());
+    scene.opacity(255);
+  }
+  window.glOpac = function (value) {
+    if (value > 1) {
+      value = map(value, 0, 255, 0, 1);
+    }
+    glBackground[0] = value;
+  }
+}
