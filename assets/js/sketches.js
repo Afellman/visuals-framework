@@ -1880,19 +1880,16 @@ class AudioReactive extends Sketch {
     for (let i = 0; i < spectrum.length; i++) {
 
       // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
+      fill(bass, mid, high)
       x = map(i, 0, spectrum.length, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
-      fill(bass)
+      rect(width / 10, 0, 100, height);
 
       // line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
     }
 
-    for (let i = 0; i < 10; i++) {
-
-      rect(width / i, 0, width / spectrum.length, height);
-    }
   }
 
   listeners = [{}]
