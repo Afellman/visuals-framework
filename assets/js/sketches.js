@@ -1864,9 +1864,6 @@ class AudioReactive extends Sketch {
   }
 
   draw() {
-
-
-
     // background(bass, mid, high)
     let x = 0;
     let y = 0;
