@@ -1870,7 +1870,7 @@ class AudioReactive extends Sketch {
     let prevX = 10;
     let prevY = height / 2;
 
-    this.spectrum = fft.analyze(1024);
+    let spectrum = fft.analyze(1024);
     // const avg100 = fft.linAverages(100);
     // const bass = fft.getEnergy("lowMid");
     // const mid = fft.getEnergy("mid");
