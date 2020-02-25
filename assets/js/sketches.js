@@ -1870,7 +1870,7 @@ class AudioReactive extends Sketch {
     let prevX = 10;
     let prevY = height / 2;
 
-    this.spectrums[frameCount % 5] = fft.analyze(1024);
+    this.spectrum = fft.analyze(1024);
     // const avg100 = fft.linAverages(100);
     // const bass = fft.getEnergy("lowMid");
     // const mid = fft.getEnergy("mid");
@@ -1881,7 +1881,6 @@ class AudioReactive extends Sketch {
 
       x = map(i, 0, spectrum.length / 3, 0, width);
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
-
 
       fill(spectrum[i] * abs(sin(frameCount / 1000)), spectrum[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
       strokeWeight(0.1)
