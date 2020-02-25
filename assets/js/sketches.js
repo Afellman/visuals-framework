@@ -1887,7 +1887,7 @@ class AudioReactive extends Sketch {
       x = map(i, 0, this.avg100.length, 0, width);
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
 
-      fill(spectrum[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
+      fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity)
       strokeWeight(0.1)
       rect(0, x, width, 200);
 
@@ -1895,15 +1895,6 @@ class AudioReactive extends Sketch {
       prevX = x;
       prevY = y;
     }
-
-
-    noStroke();
-    // this.graph.image(glCanvas, 0, 0)
-    this.shader.setUniform("u_opacity", this.opacity / 255);
-    this.shader.setUniform("u_foobar", this.avg100);
-    this.shaderBox.shader(this.shader);
-    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    this.shaderBox.rect(0, 0, width, height);
   }
 
   listeners = [{}]
