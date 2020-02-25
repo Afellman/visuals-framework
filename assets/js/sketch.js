@@ -493,7 +493,7 @@ class Launcher {
     if (typeof velocity === "number") {
       this.scene.opacity = velocity;
     } else {
-      this.scene.opacity = val.args[0];
+      this.scene.opacity = velocity.args[0];
 
     }
   }
