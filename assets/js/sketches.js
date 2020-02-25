@@ -1863,9 +1863,6 @@ class AudioReactive extends Sketch {
     // For Audio input
     userStartAudio();
 
-    this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[11]._vertSrc, shaders[11]._fragSrc);
-    // this.graph = createGraphics(width, height);
   }
 
   draw() {
@@ -1880,23 +1877,21 @@ class AudioReactive extends Sketch {
     // const bass = fft.getEnergy("lowMid");
     // const mid = fft.getEnergy("mid");
     // const high = fft.getEnergy("highMid");
-
+    noStroke();
     // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
     for (let i = 0; i < this.avg100.length; i++) {
-
       x = map(i, 0, this.avg100.length, 0, width);
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
-
-      fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity)
-      strokeWeight(0.1)
-      rect(0, x, width, 200);
+      if (this.avg100[i] > 5) {
+        fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity * this.avg100[i])
+        rect(0, x, width, 200);
+      }
 
       // line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
     }
   }
-
   listeners = [{}]
 }
 
