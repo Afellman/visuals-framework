@@ -1552,13 +1552,14 @@ class Gridz extends Sketch {
       rotate(this.params.faders.rotate)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
-        let hue = noise(x, y, this.colorTime) * this.opacity;
+        // let hue = noise(x, y, this.colorTime) * this.opacity; // made this audio reactive.
         // stroke(hue, hue, hue, hue);
-
-
         push();
         translate(xPos, yPos);
-        stroke(avgFFT[x + y] * abs(sin(frameCount / 1000)), avgFFT[x + y] * abs(cos(frameCount / 500)), avgFFT[x + y], this.opacity)
+        stroke(avgFFT[x + y] * abs(sin(frameCount / 1000)),
+          avgFFT[x + y] * abs(cos(frameCount / 500)),
+          avgFFT[x + y], this.opacity
+        );
         let lengthNoiseX = sin(x * this.lengthTime) * this.params.faders.lengthScale;
         let lengthNoiseY = sin(y * this.lengthTime) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoiseX, 0 - scale * lengthNoiseX, 0 + scale, 0 + scale);
