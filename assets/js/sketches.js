@@ -1523,7 +1523,7 @@ class Gridz extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        lengthSpeed: 0.01,
+        lengthSpeed: 0.0023,
         colorSpeed: 0.01,
         lengthScale: 1,
         rotate: 0
@@ -1560,8 +1560,8 @@ class Gridz extends Sketch {
           avgFFT[x + y] * abs(cos(frameCount / 500)),
           avgFFT[x + y], this.opacity
         );
-        let lengthNoiseX = sin(x * this.lengthTime) * this.params.faders.lengthScale;
-        let lengthNoiseY = sin(y * this.lengthTime) * this.params.faders.lengthScale;
+        let lengthNoiseX = avgFFT[x + y] * this.params.faders.lengthScale;
+        let lengthNoiseY = avgFFT[x + y] * this.params.faders.lengthScale;
         line(0 - scale * lengthNoiseX, 0 - scale * lengthNoiseX, 0 + scale, 0 + scale);
         line(0 - scale * lengthNoiseY, 0 + scale * lengthNoiseY, 0 + scale, 0 - scale);
         pop();
