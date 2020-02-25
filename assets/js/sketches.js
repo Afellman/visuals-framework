@@ -1553,7 +1553,7 @@ class Gridz extends Sketch {
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
       translate(width / 2, height / 2)
-      rotate(this.params.faders.rotate)
+      rotate(this.params.faders.rotate * 200)
       translate(- width / 2, -height / 2)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
