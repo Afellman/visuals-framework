@@ -1855,6 +1855,7 @@ class AudioReactive extends Sketch {
     this.setIndex = setIndex;
     this.opacity = 0;
     this.spectrums = [];
+    this.avg100 = [];
   }
 
   init() {
@@ -1874,19 +1875,19 @@ class AudioReactive extends Sketch {
     let prevX = 10;
     let prevY = height / 2;
 
-    let spectrum = fft.analyze(1024);
-    const avg100 = fft.linAverages(100);
+    fft.analyze(1024);
+    this.avg100 = fft.linAverages(100);
     // const bass = fft.getEnergy("lowMid");
     // const mid = fft.getEnergy("mid");
     // const high = fft.getEnergy("highMid");
 
     // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
-    for (let i = 0; i < avg100.length; i++) {
+    for (let i = 0; i < this.avg100.length; i++) {
 
-      x = map(i, 0, avg100.length, 0, width);
+      x = map(i, 0, this.avg100.length, 0, width);
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
 
-      fill(spectrum[i] * abs(sin(frameCount / 1000)), avg100[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
+      fill(spectrum[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
       strokeWeight(0.1)
       rect(0, x, width, 200);
 
@@ -1899,10 +1900,7 @@ class AudioReactive extends Sketch {
     noStroke();
     // this.graph.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255);
-    this.shader.setUniform("u_point1", this.num1);
-    this.shader.setUniform("u_point2", this.num2);
-    this.shader.setUniform("u_x", this.params.faders.x);
-    this.shader.setUniform("u_y", this.params.faders.y);
+    this.shader.setUniform("u_foobar", this.avg100);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
