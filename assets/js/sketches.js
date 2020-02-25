@@ -1861,6 +1861,10 @@ class AudioReactive extends Sketch {
     super.init();
     // For Audio input
     userStartAudio();
+
+    this.shaderBox = createGraphics(width, height, WEBGL);
+    this.shader = this.shaderBox.createShader(shaders[11]._vertSrc, shaders[11]._fragSrc);
+    // this.graph = createGraphics(width, height);
   }
 
   draw() {
@@ -1871,18 +1875,18 @@ class AudioReactive extends Sketch {
     let prevY = height / 2;
 
     let spectrum = fft.analyze(1024);
-    // const avg100 = fft.linAverages(100);
+    const avg100 = fft.linAverages(100);
     // const bass = fft.getEnergy("lowMid");
     // const mid = fft.getEnergy("mid");
     // const high = fft.getEnergy("highMid");
 
     // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
-    for (let i = 0; i < spectrum.length / 3; i++) {
+    for (let i = 0; i < avg100.length; i++) {
 
-      x = map(i, 0, spectrum.length / 3, 0, width);
+      x = map(i, 0, avg100.length, 0, width);
       // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
 
-      fill(spectrum[i] * abs(sin(frameCount / 1000)), spectrum[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
+      fill(spectrum[i] * abs(sin(frameCount / 1000)), avg100[i] * abs(cos(frameCount / 500)), spectrum[i], this.opacity)
       strokeWeight(0.1)
       rect(0, x, width, 200);
 
@@ -1891,6 +1895,17 @@ class AudioReactive extends Sketch {
       prevY = y;
     }
 
+
+    noStroke();
+    // this.graph.image(glCanvas, 0, 0)
+    this.shader.setUniform("u_opacity", this.opacity / 255);
+    this.shader.setUniform("u_point1", this.num1);
+    this.shader.setUniform("u_point2", this.num2);
+    this.shader.setUniform("u_x", this.params.faders.x);
+    this.shader.setUniform("u_y", this.params.faders.y);
+    this.shaderBox.shader(this.shader);
+    image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
+    this.shaderBox.rect(0, 0, width, height);
   }
 
   listeners = [{}]
