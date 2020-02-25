@@ -1517,6 +1517,11 @@ class FlowField extends Sketch {
   ]
 }
 
+/**
+ * @todo 
+ * 1. Make local rotate a button with speed control
+ * 2. Make totalRoate control.
+*/
 class Gridz extends Sketch {
   constructor(setIndex) {
     super();
@@ -1553,7 +1558,7 @@ class Gridz extends Sketch {
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
       translate(width / 2, height / 2)
-      rotate(this.params.faders.rotate * 200)
+      rotate(this.params.faders.rotate)
       translate(- width / 2, -height / 2)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
