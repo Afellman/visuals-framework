@@ -1535,6 +1535,7 @@ class Gridz extends Sketch {
     this.lengthTime = 0;
     this.colorTime = 0;
     this.opacity = 0;
+    this.fullRotate = 0;
   }
 
   init() {
@@ -1547,11 +1548,11 @@ class Gridz extends Sketch {
     const { lengthSpeed, colorSpeed } = this.params.faders;
     const scale = this.scale;
     translate(width / 2, height / 2)
-    rotate(this.params.faders.rotate)
-    translate(0, 0)
+    rotate(this.fullRotate)
+    translate(- width / 2, -height / 2)
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
-
+      rotate(this.params.faders.rotate)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
         let hue = noise(x, y, this.colorTime) * this.opacity; // made this audio reactive.
