@@ -490,7 +490,12 @@ class Launcher {
   }
 
   opacity(velocity) {
-    this.scene.opacity = velocity;
+    if (typeof velocity === "number") {
+      this.scene.opacity = velocity;
+    } else {
+      this.scene.opacity = val.args[0];
+
+    }
   }
 }
 
@@ -506,8 +511,8 @@ function bindLaunchers() {
     midiAkai[i].method = launcher.toggle.bind(launcher);
     midiAkai[i + 8].method = launcher.opacity.bind(launcher);
 
-    socket.on(`/${setIndex}/opacity`, launcher.opacity.bind(launcher));
-    socket.on(`/${setIndex}/on`, launcher.toggle.bind(launcher));
+    socket.on(`/${launcher.setIndex}/opacity`, launcher.opacity.bind(launcher));
+    socket.on(`/${launcher.setIndex}/on`, launcher.toggle.bind(launcher));
   });
 }
 
