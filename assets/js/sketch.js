@@ -505,6 +505,9 @@ function bindLaunchers() {
     // midi180[i + 80].method = launcher.toggle.bind(launcher);
     midiAkai[i].method = launcher.toggle.bind(launcher);
     midiAkai[i + 8].method = launcher.opacity.bind(launcher);
+
+    socket.on(`/${setIndex}/opacity`, launcher.opacity.bind(launcher));
+    socket.on(`/${setIndex}/on`, launcher.toggle.bind(launcher));
   });
 }
 
@@ -663,7 +666,7 @@ setupSockets();
 // ================================================ 
 
 function bindLiveCoding() {
-  window.dispalce = function () {
+  window.displaceCanvas = function () {
     const scene = this.loadScene(new DisplaceImg());
     scene.opacity = 255;
   }
