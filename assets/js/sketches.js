@@ -1542,6 +1542,8 @@ class Gridz extends Sketch {
   }
 
   draw() {
+    fft.analyze(1024);
+    const avgFFT = fft.linAverages(this.rows * this.cols);
     const { lengthSpeed, colorSpeed } = this.params.faders;
     const scale = this.scale;
 
@@ -1551,7 +1553,7 @@ class Gridz extends Sketch {
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
         let hue = noise(x, y, this.colorTime) * this.opacity;
-        stroke(hue, hue, hue, hue);
+        stroke(avgFFT[x + y], avgFFT[x + y], avgFFT[x + y], hue);
         push();
         translate(xPos, yPos);
         let lengthNoiseX = sin(x * this.lengthTime) * this.params.faders.lengthScale;
