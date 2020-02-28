@@ -1545,6 +1545,7 @@ class Gridz extends Sketch {
 
   init() {
     super.init();
+    userStartAudio();
   }
 
   draw() {
