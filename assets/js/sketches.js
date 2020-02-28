@@ -1532,7 +1532,7 @@ class Gridz extends Sketch {
         colorSpeed: 0.01,
         lengthScale: 1,
         rotate: 0,
-
+        spinSpeed: 0
       }
     }
     this.scale = 435;
@@ -1553,7 +1553,7 @@ class Gridz extends Sketch {
   draw() {
     fft.analyze(1024);
     const avgFFT = fft.linAverages(this.rows * this.cols);
-    const { lengthSpeed, colorSpeed, spinSpeed } = this.params.faders;
+    const { lengthSpeed, colorSpeed } = this.params.faders;
     const scale = this.scale;
     translate(width / 2, height / 2)
     rotate(this.params.faders.rotate)
@@ -1583,7 +1583,11 @@ class Gridz extends Sketch {
     }
     this.lengthTime += lengthSpeed
     this.colorTime += colorSpeed
-    this.spin += spinSpeed;
+    this.spin += this.spinSpeed * this.params.spinSpeed;
+    if (this.spin === 3.14) {
+      this.spinSpeed = 0;
+      this.updateOsc();
+    }
   }
 
   listeners = [
@@ -1604,6 +1608,12 @@ class Gridz extends Sketch {
         } else if (val.args[0] == 3) {
           this.scale = 100
         }
+      }
+    },
+    {
+      socketName: "rotateClock",
+      socketMethod: (val) => {
+
       }
     }
 
