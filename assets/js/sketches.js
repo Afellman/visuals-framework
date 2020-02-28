@@ -1543,6 +1543,7 @@ class Gridz extends Sketch {
     this.opacity = 0;
     this.fullRotate = 0;
     this.spin = 0;
+    this.spinSpeed = 0;
   }
 
   init() {
@@ -1583,7 +1584,7 @@ class Gridz extends Sketch {
     }
     this.lengthTime += lengthSpeed
     this.colorTime += colorSpeed
-    this.spin += this.spinSpeed * this.params.spinSpeed;
+    this.spin += this.spinSpeed * this.params.faders.spinSpeed;
     if (this.spin === 3.14) {
       this.spinSpeed = 0;
       this.updateOsc();
@@ -1613,7 +1614,13 @@ class Gridz extends Sketch {
     {
       socketName: "rotateClock",
       socketMethod: (val) => {
-
+        this.spinSpeed = 1;
+      }
+    },
+    {
+      socketName: "rotateCounter",
+      socketMethod: (val) => {
+        this.spinSpeed = -1;
       }
     }
 
