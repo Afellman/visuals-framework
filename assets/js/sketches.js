@@ -1549,6 +1549,18 @@ class Gridz extends Sketch {
   init() {
     super.init();
     userStartAudio();
+
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "rotateClock",
+      value: 0
+    });
+
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "rotateCounter",
+      value: 0
+    });
   }
 
   draw() {
