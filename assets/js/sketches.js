@@ -1535,7 +1535,7 @@ class Gridz extends Sketch {
         spinSpeed: 0
       }
     }
-    this.scale = 435;
+    this.scale = 100;
     this.rows = Math.ceil(width / 100);
     this.cols = Math.ceil(height / 100);
     this.lengthTime = 0;

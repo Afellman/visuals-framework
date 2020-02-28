@@ -74,10 +74,15 @@ function setupSockets() {
   socket.on('connect', function () {
     console.log(socket)
     console.log("Socket Connected");
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) { // Assuming < 20 scenes
       socket.emit("updateOsc", {
-        scene: this.setIndex,
+        scene: i,
         oscObj: "on",
+        value: 0
+      });
+      socket.emit("updateOsc", {
+        scene: i,
+        oscObj: "opacity",
         value: 0
       });
     }
@@ -537,12 +542,12 @@ function bindGlobalSockets() {
   const mirrorMethod = mirrorLauncher.toggle.bind(mirrorLauncher);
   const mirrorOpacity = mirrorLauncher.opacity.bind(mirrorLauncher);
 
-  socket.on("/-2/on", () => {
-    linesMethod();
+  socket.on("/-2/on", (val) => {
+    linesMethod(val);
   });
 
   socket.on("/-1/mirrorOn", (val) => {
-    mirrorMethod();
+    mirrorMethod(val);
   });
 
   socket.on("/-1/mirrorOpacity", (val) => {
