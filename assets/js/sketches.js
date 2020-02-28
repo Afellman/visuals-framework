@@ -1613,6 +1613,12 @@ class Gridz extends Sketch {
         this.spinSpeed = val.args[0];
       }
     },
+    {
+      socketName: "rotateCounter",
+      socketMethod: (val) => {
+        this.spinSpeed = val.args[0];
+      }
+    },
 
 
   ];
