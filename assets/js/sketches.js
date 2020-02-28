@@ -1585,10 +1585,10 @@ class Gridz extends Sketch {
     this.lengthTime += lengthSpeed
     this.colorTime += colorSpeed
     this.spin += this.spinSpeed * this.params.faders.spinSpeed;
-    if (this.spin === 3.14) {
+    if (this.spinSpeed && this.spin >= 3.14) {
       this.spinSpeed = 0;
       this.updateOsc();
-    }
+    } else if (!this.spinSpeed && this.spin >= -3.14) Proximity
   }
 
   listeners = [
