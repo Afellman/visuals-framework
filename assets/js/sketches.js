@@ -1531,7 +1531,8 @@ class Gridz extends Sketch {
         lengthSpeed: 0.0023,
         colorSpeed: 0.01,
         lengthScale: 1,
-        rotate: 0
+        rotate: 0,
+
       }
     }
     this.scale = 435;
@@ -1541,6 +1542,7 @@ class Gridz extends Sketch {
     this.colorTime = 0;
     this.opacity = 0;
     this.fullRotate = 0;
+    this.spin = 0;
   }
 
   init() {
@@ -1551,15 +1553,15 @@ class Gridz extends Sketch {
   draw() {
     fft.analyze(1024);
     const avgFFT = fft.linAverages(this.rows * this.cols);
-    const { lengthSpeed, colorSpeed } = this.params.faders;
+    const { lengthSpeed, colorSpeed, spinSpeed } = this.params.faders;
     const scale = this.scale;
     translate(width / 2, height / 2)
-    rotate(this.fullRotate)
+    rotate(this.params.faders.rotate)
     translate(- width / 2, -height / 2)
     for (let x = 0; x < this.rows; x++) {
       let xPos = x * scale;
       translate(width / 2, height / 2)
-      rotate(this.params.faders.rotate)
+      rotate(this.spin)
       translate(- width / 2, -height / 2)
       for (let y = 0; y < this.cols; y++) {
         let yPos = y * scale;
@@ -1579,15 +1581,9 @@ class Gridz extends Sketch {
         pop();
       }
     }
-
-    // this.graph.image(glCanvas, 0, 0)
-    // this.shader.setUniform("u_intervalX",  this.scale / width);
-    // this.shader.setUniform("u_intervalY",  this.scale / height);
-    // this.shaderBox.shader(this.shader);
-    // image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
-    // this.shaderBox.rect(0, 0, width, height);
     this.lengthTime += lengthSpeed
     this.colorTime += colorSpeed
+    this.spin += spinSpeed;
   }
 
   listeners = [
