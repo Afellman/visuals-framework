@@ -73,7 +73,14 @@ function draw() {
 function setupSockets() {
   socket.on('connect', function () {
     console.log(socket)
-    console.log("Socket Connected")
+    console.log("Socket Connected");
+    for (let i = 0; i < 20; i++) {
+      socket.emit("updateOsc", {
+        scene: this.setIndex,
+        oscObj: "on",
+        value: 0
+      });
+    }
   });
 
   socket.on('disconnected', function () {
@@ -470,18 +477,16 @@ let midiAkai = (function () {
 class Launcher {
   constructor(classConstructor, setIndex) {
     this.scene = {};
-    this.isActive = false;
     this.classConstructor = classConstructor;
     this.setIndex = setIndex;
   }
 
-  toggle() {
-    if (!this.isActive) {
+  toggle(val) {
+    if (val.args[0]) {
       this.scene = new this.classConstructor();
       this.scene.setIndex = this.setIndex;
       this.scene.id = Math.random() * 9999999;
       loadScene(this.scene);
-      this.isActive = true;
     } else {
       unloadScene(this.scene.id);
       this.scene = {};
