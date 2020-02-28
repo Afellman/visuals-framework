@@ -1611,12 +1611,22 @@ class Gridz extends Sketch {
       socketName: "rotateClock",
       socketMethod: (val) => {
         this.spinSpeed = val.args[0];
+        socket.emit("updateOsc", {
+          scene: this.setIndex,
+          oscObj: "rotateCounter",
+          value: 0
+        });
       }
     },
     {
       socketName: "rotateCounter",
       socketMethod: (val) => {
         this.spinSpeed = val.args[0];
+        socket.emit("updateOsc", {
+          scene: this.setIndex,
+          oscObj: "rotateClock",
+          value: 0
+        });
       }
     },
 
