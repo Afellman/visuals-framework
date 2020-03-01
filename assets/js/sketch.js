@@ -494,14 +494,7 @@ class Launcher {
     } else {
       value = velocity.args[0];
     }
-
     this.scene.opacity = value;
-
-    socket.emit("updateOsc", {
-      scene: this.setIndex,
-      oscObj: "opacity",
-      val: value
-    })
   }
 }
 
