@@ -1066,7 +1066,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[7];
+    this.img = images[5];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -2306,7 +2306,6 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    this.createSet(100);
   }
 
   draw() {
@@ -2326,7 +2325,7 @@ class Drops extends Sketch { // Scene 12.
           stroke(255, 255, 255, this.opacity);
           triangle(
             thisPoint.x,
-            thisPoint.y - 100 * this.params.faders.size,
+            thisPoint.y,
             thisPoint.x + 100 * this.params.faders.size,
             thisPoint.y + 100 * this.params.faders.size,
             thisPoint.x - 100 * this.params.faders.size,
@@ -2362,7 +2361,9 @@ class Drops extends Sketch { // Scene 12.
     {
       socketName: "addSet",
       socketMethod: (val) => {
-        this.createSet(50)
+        if (val.args[0]) {
+          this.createSet(50)
+        }
       }
     },
   ]
