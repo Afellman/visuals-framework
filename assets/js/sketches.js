@@ -2242,90 +2242,26 @@ class Walker extends Sketch {
 class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
-    this.spacing = 50;
-    this.ringAmt = 0;
-    this.dotsPer = Math.ceil(width  / this.spacing);
-    this.size = 5;
-    this.grid = [];
-    this.center = createVector(width / 2, height / 2);
-    this.speed = 0.01;
     this.rings = [];
   }
 
   init() {
     super.init();
     for (let i = 0; i < 10; i++) {
-     this.createRing(i);
+     this.createRing();
     }
   }
 
   draw() {
-    let thisPoint = {};
-    stroke("white")
-    fill("white")
-    let outOfBounce = false;
-    for (let i = 0; i < this.ringAmt; i++) {
-      for(let j = 0; j < 4; j++) {
-        for (let k = 0; k < this.rings[i][j].length; k++) {
-          thisPoint = this.rings[i][j][k];
-          let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(400));
-          let size = 5 * (frameCount / 1000);
-          rect(thisPoint.x, thisPoint.y, this.size, this.size);
-          if(thisPoint.y > height){
-            outOfBounce = true;
-          }
-        }
-      }
-      if(outOfBounce) {
-         this.rings.splice(i, 1);
-         this.ringAmt --
-         outOfBounce = false;
-      }
-    }
-    if(frameCount % 100 == 0){
-      for(let i = 0; i < 10; i ++){ 
-        this.createRing(i)
-      }
+    for(let i =0 ;i < this.rings.length; i ++){
+      let thisRing = this.rings[i];
+      thisRing.size ++;
+      ellipse(width / 2, height / 2, thisRing.size);
     }
   }
 
-  createRing(i) {
-    const dotsPerX = this.dotsPer - (i * 2);
-    const dotsPerY = this.dotsPer - (i * 2);
-    const newArray = new Array(4);
-    
-   newArray[0] = new Array(dotsPerX);
-   newArray[1] = new Array(dotsPerX);
-   newArray[2] = new Array(dotsPerY);
-   newArray[3] = new Array(dotsPerY);
-
-    // Top row
-    for(let k = 0; k < dotsPerX; k ++) {
-      let x = i * this.spacing + (k * this.spacing);
-      let y = i * this.spacing;
-     newArray[0][k] = createVector(Math.floor(x), Math.floor(y));
-    }
-    // Left Row
-    for(let k = 0; k < dotsPerY; k ++) {
-      let x = i * this.spacing;
-      let y = i * this.spacing + (k * this.spacing);
-     newArray[2][k] = createVector(Math.floor(x), Math.floor(y));
-    }   
-    // bottom row
-    for(let k = 0; k < dotsPerX; k ++) {
-      let x = i * this.spacing + (k * this.spacing);
-      let y = newArray[2][dotsPerY - 1].y
-     newArray[1][k] = createVector(Math.floor(x), Math.floor(y));
-    }
-    // Right Row
-    for(let k = 0; k < dotsPerY; k ++) {
-      let x = newArray[1][dotsPerX - 1].x
-      let y = i * this.spacing + (k * this.spacing);
-     newArray[3][k] = createVector(Math.floor(x), Math.floor(y));
-    }
-    this.rings.push(newArray);
-    this.ringAmt ++
+  createRing() {
+    this.rings.push({size: 0;})
   }
 
   
