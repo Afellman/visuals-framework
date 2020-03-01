@@ -1062,7 +1062,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
         colorAmount: 0
       }
     }
-    this.offsetSin = 0.07;
+    this.offsetSin = 0.7619147651413981;
     this.waterTime = 0.1;
     this.backTime = 0.1;
     this.sceneNum = 10;
