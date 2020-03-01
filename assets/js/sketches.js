@@ -2268,7 +2268,7 @@ class Drops extends Sketch { // Scene 12.
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center).mult( sin(frameCount / 100));
-          thisPoint.add(acc.div(200));
+          thisPoint.add(acc.div(100));
           fill(255, 255, 255, 255)
           noStroke();
           ellipse(thisPoint.x, thisPoint.y, size, size);
