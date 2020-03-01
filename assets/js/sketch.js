@@ -76,6 +76,18 @@ function setupSockets() {
   socket.on('connect', function () {
     console.log(socket)
     console.log("Socket Connected");
+    for (let i = 0; i < 20; i++) { // Assuming < 20 scenes
+      socket.emit("updateOsc", {
+        scene: i,
+        oscObj: "on",
+        value: 0
+      });
+      socket.emit("updateOsc", {
+        scene: i,
+        oscObj: "opacity",
+        value: 0
+      });
+    }
   });
 
   socket.on('disconnected', function () {
@@ -488,13 +500,12 @@ class Launcher {
   }
 
   opacity(velocity) {
-    let value;
-    if (typeof velocity === "number") { // From Midi
-      value = velocity;
+    if (typeof velocity === "number") {
+      this.scene.opacity = velocity;
     } else {
-      value = velocity.args[0];
+      this.scene.opacity = velocity.args[0];
+
     }
-    this.scene.opacity = value;
   }
 }
 
@@ -547,6 +558,28 @@ function bindGlobalSockets() {
     glBackground[3] = val.args[0];
   });
 
+  socket.on("/-1/videoOpacity", (val) => {
+    const video = document.getElementById("fireVideo");
+    video.style.opacity = val.args[0];
+  });
+
+  socket.on("/-1/videoOn", (val) => {
+    const video = document.getElementById("fireVideo");
+    video.remove();
+  });
+
+  socket.on("/-1/videoPlay", (val) => {
+    const video = document.getElementById("fireVideo");
+    if (val.args[0]) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  });
+
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoPlay", value: "0" })
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOn", value: "0" })
+  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOpacity", value: "1" })
 }
 
 bindGlobalSockets();
@@ -600,7 +633,6 @@ function loadImages(cb) {
     loadImage("./assets/images/jason-leung-water.jpg"),
     loadImage("./assets/images/v2osk-sunset.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
-    loadImage("./assets/images/brian-suh.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
