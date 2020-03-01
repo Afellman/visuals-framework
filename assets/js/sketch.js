@@ -76,18 +76,21 @@ function setupSockets() {
   socket.on('connect', function () {
     console.log(socket)
     console.log("Socket Connected");
-    for (let i = 0; i < 20; i++) { // Assuming < 20 scenes
-      socket.emit("updateOsc", {
-        scene: i,
-        oscObj: "on",
-        value: 0
-      });
-      socket.emit("updateOsc", {
-        scene: i,
-        oscObj: "opacity",
-        value: 0
-      });
-    }
+    setTimeout(() => {
+
+      for (let i = 0; i < 20; i++) { // Assuming < 20 scenes
+        socket.emit("updateOsc", {
+          scene: i,
+          oscObj: "on",
+          value: 0
+        });
+        socket.emit("updateOsc", {
+          scene: i,
+          oscObj: "opacity",
+          value: 0
+        });
+      }
+    }, 2000)
   });
 
   socket.on('disconnected', function () {
@@ -633,6 +636,7 @@ function loadImages(cb) {
     loadImage("./assets/images/jason-leung-water.jpg"),
     loadImage("./assets/images/v2osk-sunset.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
+    loadImage("./assets/images/brian-suh.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
