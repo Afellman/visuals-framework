@@ -476,8 +476,9 @@ class Sun extends Sketch { // Scene 2. Maped
 
   addSun(num) {
     let position = { x: 0, y: 0 };
-    position.x = Math.random() * (width - this.params.faders.amp * 2);
-    position.y = Math.random() * (height - this.params.faders.amp * 2);
+    position.x = random(100, width + 100);
+    position.x = random(100, height + 100);
+
     const sun = {
       amp: this.params.faders.amp,
       sine: this.waves[num - 1],
@@ -2305,7 +2306,7 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 5; i++) {
       this.createSet(100 * i + 1);
     }
   }
