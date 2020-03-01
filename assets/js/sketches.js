@@ -148,6 +148,7 @@ class Sketch {
     this.params = { faders: [] }
     this.listeners = [];
     this.easingValues = {};
+    this.easing = 0.05;
   }
 
   init() {
