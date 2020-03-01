@@ -16,6 +16,8 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
+let glEasing = 0.5;
+
 const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 
@@ -523,43 +525,44 @@ function bindLaunchers() {
     socket.on(`/${launcher.setIndex}/opacity`, launcher.opacity.bind(launcher));
     socket.on(`/${launcher.setIndex}/on`, launcher.toggle.bind(launcher));
   });
-
-  midiAkai[i].method = mirrorLauncher.toggle.bind(mirrorLauncher);
-  midiAkai[i + 8].method = mirrorLauncher.opacity.bind(mirrorLauncher);
 }
 
 bindLaunchers();
+
+
+function bindGlobalMidi() {
+  const mirrorLauncher = new Launcher(Mirror, -1);
+  midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
+  midiAkai[8].method = mirrorLauncher.opacity.bind(mirrorLauncher);
+
+  midiAkai[1].method = () => {
+    if (glEasing !== 1) {
+      glEasing = 1;
+    } else {
+      glEasing = 0.5;
+    }
+  }
+  midiAkai[9].method = ({ args }) => {
+    glEasing = map(args[0], 0, 127, 0, 1);
+  }
+
+}
+
+
+bindGlobalMidi();
 
 // ================================================  
 //       Global OSC bindings
 // ================================================ 
 
-const mirrorLauncher = new Launcher(Mirror, -1);
-const linesLauncher = new Launcher(LinesShader, -2);
 
 function bindGlobalSockets() {
-
+  const linesLauncher = new Launcher(LinesShader, -2);
   const linesMethod = linesLauncher.toggle.bind(linesLauncher)
-
-  const mirrorMethod = mirrorLauncher.toggle.bind(mirrorLauncher);
-  const mirrorOpacity = mirrorLauncher.opacity.bind(mirrorLauncher);
 
   socket.on("/-2/on", (val) => {
     linesMethod(val);
   });
-
-  socket.on("/-1/mirrorOn", (val) => {
-    mirrorMethod(val);
-  });
-
-  socket.on("/-1/mirrorOpacity", (val) => {
-    mirrorOpacity(map(val.args[0], 0, 1, 0, 255));
-  });
-
-  socket.on("/-1/glOpacity", (val) => {
-    glBackground[3] = val.args[0];
-  });
-
 }
 
 bindGlobalSockets();
