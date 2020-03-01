@@ -2259,7 +2259,7 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     translate(width / 2, height / 2)
-    rotate(sin(frameCount / 200) * PI)
+    // rotate(sin(frameCount / 200) * PI)
     translate(- width / 2, - height / 2)
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
@@ -2267,7 +2267,7 @@ class Drops extends Sketch { // Scene 12.
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
-          let acc = p5.Vector.sub(thisPoint, this.center + sin(frameCount / 200) * 200);
+          let acc = p5.Vector.sub(thisPoint, this.center).mult( sin(frameCount / 100));
           thisPoint.add(acc.div(200));
           fill(255, 255, 255, 255)
           noStroke();
