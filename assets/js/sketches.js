@@ -2299,11 +2299,6 @@ class Drops extends Sketch { // Scene 12.
   init() {
     super.init();
     this.createSet(50);
-    this.createSet(100);
-    this.createSet(150);
-    this.createSet(200);
-    this.createSet(250);
-    this.createSet(300);
   }
 
   draw() {
@@ -2317,7 +2312,7 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
-          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 100;
+          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 2;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(100));
           stroke(255, 255, 255, 255)
@@ -2329,10 +2324,8 @@ class Drops extends Sketch { // Scene 12.
       }
       if (isOff >= this.resolution * 4 - 4) {
         this.sets.splice(i, 1);
+        this.createSet(50)
       }
-    }
-    if (this.sets.length < 6) {
-      this.createSet(50)
     }
   }
 
