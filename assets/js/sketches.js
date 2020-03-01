@@ -2317,6 +2317,10 @@ class Drops extends Sketch { // Scene 12.
           thisPoint.add(acc.div(100));
           stroke(255, 255, 255, 255)
           ellipse(thisPoint.x, thisPoint.y, size, size);
+          if (thisPoint.x > width / 2 + 200 && !this.sets[i].isDuped) {
+            this.createSet(50)
+            this.sets[i].isDuped = true
+          }
           if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
             isOff++;
           }
@@ -2324,7 +2328,6 @@ class Drops extends Sketch { // Scene 12.
       }
       if (isOff >= this.resolution * 4 - 4) {
         this.sets.splice(i, 1);
-        this.createSet(50)
       }
     }
   }
