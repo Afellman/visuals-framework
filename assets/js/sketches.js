@@ -165,7 +165,7 @@ class Sketch {
   }
 
   easeParams() {
-    for(let i in this.easingValues){
+    for (let i in this.easingValues) {
       const actualValue = this.params.faders[i];
       const target = this.easingValues[i];
       const diff = target - actualValue;
@@ -466,8 +466,8 @@ class Sun extends Sketch { // Scene 2. Maped
 
   addSun(num) {
     let position = { x: 0, y: 0 };
-    position.x = Math.random() * width;
-    position.y = Math.random() * height
+    position.x = Math.random() * (width - this.params.faders.amp * 2);
+    position.y = Math.random() * (height - this.params.faders.amp * 2)
     const sun = {
       amp: this.params.faders.amp,
       sine: this.waves[num - 1],
@@ -2261,18 +2261,18 @@ class Drops extends Sketch { // Scene 12.
     translate(width / 2, height / 2)
     // rotate(sin(frameCount / 200) * PI)
     translate(- width / 2, - height / 2)
-    for(let i = 0; i < this.sets.length; i ++){
+    for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
-          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
-          let acc = p5.Vector.sub(thisPoint, this.center).mult( sin(frameCount / 100));
+          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 100;
+          let acc = p5.Vector.sub(thisPoint, this.center).mult(sin(frameCount / 100));
           thisPoint.add(acc.div(100));
           fill(255, 255, 255, 255)
           noStroke();
           ellipse(thisPoint.x, thisPoint.y, size, size);
-          if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
+          if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
             isOff++;
           }
         }
@@ -2287,9 +2287,9 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet() {
-    const newSet = {arr: [], rotate: PI/ 4}
+    const newSet = { arr: [], rotate: PI / 4 }
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, -height, height  * 2);
+      let y = map(i, 0, this.resolution, -height, height * 2);
       newSet.arr[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
         let x = map(j, 0, this.resolution, -width, width * 2);
@@ -2298,7 +2298,7 @@ class Drops extends Sketch { // Scene 12.
     }
     this.sets.push(newSet)
   }
-  
+
   listeners = [
     {
       socketName: "multixy1/1",
