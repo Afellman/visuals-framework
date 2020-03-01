@@ -1100,7 +1100,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
     this.shader.setUniform('u_waterTime', this.waterTime);
-    this.shader.setUniform('u_fbmAmp', this.fbmAmp);
+    this.shader.setUniform('u_multiplier', this.params.faders.multiplier);
     this.shader.setUniform('u_backTime', this.backTime / 10);
     this.shader.setUniform('u_offset', this.offsetSin);
     this.shader.setUniform('u_colorAmount', this.params.faders.colorAmount);
@@ -1109,7 +1109,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     this.shaderBox.rect(0, 0, width, height);
 
     this.backTime += this.params.faders.backSpeed / 2;
-    this.waterTime += this.params.faders.waterSpeed / 1000;
+    this.waterTime += this.params.faders.waterSpeed / 100;
     this.offsetSin += this.params.faders.offset / 10;
   }
 
@@ -1129,7 +1129,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[1];
+        this.img = images[5];
       }
     },
     {
