@@ -2248,20 +2248,27 @@ class Drops extends Sketch { // Scene 12.
   init() {
     super.init();
     for (let i = 0; i < 10; i++) {
-     this.createRing();
+     this.createRings(i);
     }
   }
 
   draw() {
+    noFill();
     for(let i =0 ;i < this.rings.length; i ++){
       let thisRing = this.rings[i];
-      thisRing.size ++;
+      stroke(255, 255, 255, thisRing.size)
+      thisRing.size += 5;
       ellipse(width / 2, height / 2, thisRing.size);
+      if(thisRing.size > width / 2){
+        this.rings.splice(i, 1);
+      }
     }
   }
 
-  createRing() {
-    this.rings.push({size: 0;})
+  createRings(i) {
+    this.rings.push({size: i * 10})
+    this.rings.push({size: i * 20})
+    this.rings.push({size: i * 30})
   }
 
   
