@@ -2267,15 +2267,10 @@ class Drops extends Sketch { // Scene 12.
          
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(100));
+          thisPoint.add(acc.div(600));
           fill(255, 255, 255, 255)
           noStroke();
           rect(thisPoint.x, thisPoint.y, size, size);
-          if(this.sets[i + 1]){
-            stroke(255)
-            line(thisPoint.x, thisPoint.y, this.sets[i + 1][j][k].x, this.sets[i + 1][j][k].y )
-          }
-
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
             isOff++;
           }
@@ -2285,7 +2280,7 @@ class Drops extends Sketch { // Scene 12.
         this.sets.splice(i, 1);
       }
     }
-    if(frameCount % 300 == 0){
+    if(frameCount % 500 == 0){
       this.createSet()
     }
   }
