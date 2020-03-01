@@ -148,7 +148,6 @@ class Sketch {
     this.params = { faders: [] }
     this.listeners = [];
     this.easingValues = {};
-    this.easing = 0.05;
   }
 
   init() {
@@ -1030,6 +1029,8 @@ class LinesShader extends Sketch { // Scene 9. Maped. Needs work.
 
   unload() {
     super.unload();
+    document.body.removeChild(this.graph.canvas);
+    document.body.removeChild(this.shaderBox.canvas);
     // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
   }
 
@@ -1110,6 +1111,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
 
   unload() {
     super.unload();
+    document.body.removeChild(this.shaderBox.canvas);
   }
 
   listeners = [
@@ -1205,6 +1207,8 @@ class DisplaceImg extends Sketch {
 
   unload() {
     super.unload();
+    document.body.removeChild(this.canvasImage.canvas);
+    document.body.removeChild(this.shaderBox.canvas);
   }
 
   listeners = [
@@ -1842,6 +1846,11 @@ class Tares extends Sketch { // Maped
     // this.graph = createGraphics(width, height);
   }
 
+  unload() {
+    super.unload();
+    document.body.removeChild(this.shaderBox.canvas);
+  }
+
   draw() {
     noStroke();
     // this.graph.image(glCanvas, 0, 0)
@@ -1909,6 +1918,11 @@ class WarpGrid extends Sketch {
     // this.num1 = this.num1Start + sin(frameCount * this.speed) * this.amp;
     this.num2 = Math.abs(this.num2Start + sin(this.speed) * this.amp);
 
+  }
+
+  unload() {
+    super.unload();
+    document.body.removeChild(this.shaderBox.canvas);
   }
   listeners = [
     {
