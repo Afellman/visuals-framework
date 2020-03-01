@@ -224,7 +224,7 @@ function keyPressed(e) {
 // ================================================  
 //                     Midi 
 // ================================================  
-navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
+navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
   console.log(midiAccess)
