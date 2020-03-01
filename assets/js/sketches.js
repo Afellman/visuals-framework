@@ -2259,7 +2259,7 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     translate(width / 2, height / 2)
-    // rotate(frameCount / 100)
+    rotate(sin(frameCount / 200) * PI)
     translate(- width / 2, - height / 2)
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
@@ -2267,8 +2267,8 @@ class Drops extends Sketch { // Scene 12.
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
-          // let acc = p5.Vector.sub(thisPoint, this.center);
-          // thisPoint.add(acc.div(200));
+          let acc = p5.Vector.sub(thisPoint, this.center + sin(frameCount / 200) * 200);
+          thisPoint.add(acc.div(200));
           fill(255, 255, 255, 255)
           noStroke();
           ellipse(thisPoint.x, thisPoint.y, size, size);
@@ -2289,10 +2289,10 @@ class Drops extends Sketch { // Scene 12.
   createSet() {
     const newSet = {arr: [], rotate: PI/ 4}
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, -height, height);
+      let y = map(i, 0, this.resolution, -height, height  * 2);
       newSet.arr[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
-        let x = map(j, 0, this.resolution, -width, width);
+        let x = map(j, 0, this.resolution, -width, width * 2);
         newSet.arr[i][j] = createVector(x, y);
       }
     }
