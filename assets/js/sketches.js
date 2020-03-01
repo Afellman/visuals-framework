@@ -2277,14 +2277,11 @@ class Drops extends Sketch { // Scene 12.
           }
 
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
-            this.sets[i][j].splice(k, 1);
+            isOff++;
           }
         }
-        if(this.sets[i][j].length == 0){
-          this.sets[i].splice(j, 1);
-        }
       }
-      if(this.sets[i].length == 0){
+      if(isOff >= this.resolution * this.resolution){
         this.sets.splice(i, 1);
       }
     }
