@@ -405,7 +405,7 @@ function onMidiMessage(midiMessage) {
   //AKAI
   if (command == 144 || command == 176) { // button press and knob.
     midiAkai[note].velocity = velocity;
-    midiAkai[note].method(velocity);
+    midiAkai[note].method({ args: [velocity] });
   }
   // }
   //Beat Step
