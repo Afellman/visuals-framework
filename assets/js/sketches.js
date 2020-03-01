@@ -2259,7 +2259,6 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     stroke("white")
-    fill("white")
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
       for (let j = 0; j < this.sets[i].length; j++) {
@@ -2268,31 +2267,32 @@ class Drops extends Sketch { // Scene 12.
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 300;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(100));
+          fill(255, 255, 255, size)
           rect(thisPoint.x, thisPoint.y, size, size);
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
             this.sets[i][j].splice(k, 1);
           }
         }
         if(this.sets[i][j].length == 0){
-          this.sets[i].splice(j);
+          this.sets[i].splice(j, 1);
         }
       }
       if(this.sets[i].length == 0){
         this.sets.splice(i, 1);
       }
     }
-    // if(frameCount % 100 == 0){
-    //   this.createSet()
-    // }
+    if(frameCount % 200 == 0){
+      this.createSet()
+    }
   }
 
   createSet() {
     const newSet = []
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, height / 2 - 50, height / 2 + 50);
+      let y = map(i, 0, this.resolution, height / 2 - 25, height / 2 + 25);
       newSet[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
-        let x = map(j, 0, this.resolution, width / 2 - 50, width / 2 + 50);
+        let x = map(j, 0, this.resolution, width / 2 - 25, width / 2 + 25);
         newSet[i][j] = createVector(x, y);
       }
     }
