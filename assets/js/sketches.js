@@ -2264,15 +2264,14 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.sets[i].length; j++) {
         for (let k = 0; k < this.sets[i][j].length; k++) {
           thisPoint = this.sets[i][j][k];
-          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2);
+          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 300;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(800));
-          let size = 5 * (frameCount / 1000);
+          thisPoint.add(acc.div(100));
           rect(thisPoint.x, thisPoint.y, size, size);
         }
       }
     }
-    if(frameCount % 300 == 0){
+    if(frameCount % 200 == 0){
       this.createSet()
     }
   }
@@ -2280,10 +2279,10 @@ class Drops extends Sketch { // Scene 12.
   createSet() {
     const newSet = []
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, 0, height);
+      let y = map(i, 0, this.resolution, 0, 200);
       newSet[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
-        let x = map(j, 0, this.resolution, 0, width);
+        let x = map(j, 0, this.resolution, width / 2 - 100, width / 2 + 100);
         newSet[i][j] = createVector(x, y);
       }
     }
