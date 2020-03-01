@@ -1940,6 +1940,26 @@ class WarpGrid extends Sketch {
   ]
 }
 
+class Fractal extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+  }
+
+  init() {
+    super.init()
+  }
+
+  draw() {
+
+  }
+
+  unload() {
+
+  }
+
+  listeners = [{}]
+}
 class AudioReactive extends Sketch {
   constructor(setIndex) {
     super();
