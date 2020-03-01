@@ -9,10 +9,11 @@ varying vec2 vTexCoord;
 uniform sampler2D tex0;
 uniform float u_backTime;
 uniform float u_waterTime;
+uniform float u_time;
 uniform float u_opacity;
 uniform float u_offset;
 uniform float u_colorAmount;
-uniform float u_fbmAmp;
+uniform float u_multiplier;
 
 
 vec3 colorize(vec4 tex){
@@ -51,7 +52,7 @@ float noise (in vec2 st) {
             (d - b) * u.x * u.y;
 }
 
-#define OCTAVES 6
+#define OCTAVES 4
 float fbm (in vec2 st) {
     // Initial values
     float value = 0.0;
@@ -89,8 +90,8 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 void main() {
   vec2 uv = vTexCoord;
     uv.y = 1.0 - uv.y;
-  float pat = fbm(uv * u_offset); // Swirl pattern on image
-  vec4 tex = texture2D(tex0, uv * pat);
+  float pat = fbm(u_multiplier * uv + ( u_waterTime * u_time));// Swirl pattern on image
+  vec4 tex = texture2D(tex0, pat);
 
   tex += (colorSwirl(tex, uv) * u_colorAmount); // Adding background color movement
 
