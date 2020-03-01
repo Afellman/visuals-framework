@@ -1072,7 +1072,8 @@ class FlowShader extends Sketch { // Scene 10. Maped
         waterSpeed: 0.001,
         backSpeed: 0.001,
         offset: 0,
-        colorAmount: 0
+        colorAmount: 0,
+        multiplier: 0
       }
     }
     this.offsetSin = 0.7619147651413981;
@@ -1141,7 +1142,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image3",
       socketMethod: (val) => {
-        this.img = images[5];
+        this.img = images[8];
       }
     },
   ]
