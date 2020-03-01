@@ -2294,6 +2294,12 @@ class Drops extends Sketch { // Scene 12.
     this.center = createVector(width / 2, height / 2);
     this.speed = 0.01;
     this.sets = [];
+    this.params = {
+      faders: {
+        size: 0.5,
+        speed: 2
+      }
+    }
   }
 
   init() {
@@ -2312,12 +2318,13 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
-          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 2;
+          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(100));
+          thisPoint.add(acc.div(this.params.faders.speed * 100));
+          let opacity = this.opacity
           stroke(255, 255, 255, 255)
           ellipse(thisPoint.x, thisPoint.y, size, size);
-          if (thisPoint.x > width / 2 + 200 && !this.sets[i].isDuped) {
+          if (thisPoint.x > width / 2 && !this.sets[i].isDuped) {
             this.createSet(50)
             this.sets[i].isDuped = true
           }
@@ -2327,7 +2334,9 @@ class Drops extends Sketch { // Scene 12.
         }
       }
       if (isOff >= this.resolution * 4 - 4) {
-        this.sets.splice(i, 1);
+        this.sets[i].isFaded = true;
+        this.sets[i].
+          this.sets.splice(i, 1);
       }
     }
   }
