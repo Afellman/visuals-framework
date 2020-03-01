@@ -2283,7 +2283,7 @@ class Drops extends Sketch { // Scene 12.
          outOfBounce = false;
       }
     }
-    if(frameCount % 200 == 0){
+    if(frameCount % 100 == 0){
       for(let i = 0; i < 10; i ++){ 
         this.createRing(i)
       }
@@ -2291,8 +2291,8 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createRing(i) {
-    const dotsPerX = this.dotsPerX - (i * 2);
-    const dotsPerY = this.dotsPerY - (i * 2);
+    const dotsPerX = this.dotsPer - (i * 2);
+    const dotsPerY = this.dotsPer - (i * 2);
     const newArray = new Array(4);
     
    newArray[0] = new Array(dotsPerX);
