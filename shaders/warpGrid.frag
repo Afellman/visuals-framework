@@ -10,6 +10,7 @@ varying vec2 vTexCoord;
 uniform float u_opacity;
 uniform float u_time;
 uniform float u_amt;
+uniform float u_yOff;
 uniform sampler2D tex0;
 
 void main() {
@@ -21,7 +22,7 @@ void main() {
   vec4 img = texture2D(tex0, uv);
   vec3 color = img.rgb;
 
-  color += u_amt * sin(uv.x * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0 + u_yOff);
+  color += u_amt * sin(uv.x * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0 + (u_yOff * uv.x);
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
