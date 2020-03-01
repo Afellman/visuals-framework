@@ -147,6 +147,8 @@ class Sketch {
 
     this.params = { faders: [] }
     this.listeners = [];
+    this.easingValues = {};
+    this.easing = 0.05;
   }
 
   init() {
@@ -158,12 +160,25 @@ class Sketch {
     this.detachListeners();
   }
 
+  setEase(value, key) {
+    this.easingValues[key] = value;
+  }
+
+  easeParams() {
+    for(let i in this.easingValues){
+      const actualValue = this.params.faders[i];
+      const target = this.easingValues[i];
+      const diff = target - actualValue;
+      this.params.faders[i] += diff * this.easing;
+    }
+  }
+
   attachListeners() {
     // Attaching sockets to all fader params
     for (let i in this.params.faders) {
       socket.on(`/${this.setIndex}/${i}`, (val) => {
         const param = val.address.split("/")[2];
-        this.params.faders[param] = val.args[0];
+        this.setEase(val.args[0], param);
       });
     }
 
@@ -1061,8 +1076,8 @@ class FlowShader extends Sketch { // Scene 10. Maped
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = shaders[5];
-    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
+    this.shader = shaders[2];
+    this.shader = this.shaderBox.createShader(shaders[2]._vertSrc, shaders[2]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag"
   }
 
@@ -1146,8 +1161,8 @@ class DisplaceImg extends Sketch {
     this.time = 0;
     this.loops = 4;
     this.cray = 0.0;
-    this.shader = shaders[6];
-    this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
+    this.shader = shaders[3];
+    this.shader = this.shaderBox.createShader(shaders[3]._vertSrc, shaders[3]._fragSrc);
     this.canvasImage = createGraphics(width, height);
     this.img = this.canvasImage;
   }
@@ -1163,7 +1178,7 @@ class DisplaceImg extends Sketch {
     this.canvasImage.image(glCanvas, 0, 0)
     this.shaderBox.shader(this.shader);
     // send the camera and the two other past frames into the camera feed
-    this.shader.setUniform('tex0', this.img);
+
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
     this.shader.setUniform("u_displaceY", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceY);
@@ -1247,7 +1262,7 @@ class DisplaceImg extends Sketch {
 //     this.time = 0;
 //     this.loops = 4;
 //     this.cray = 0.0;
-//     this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
+//     this.shader = this.shaderBox.createShader(shaders[4]._vertSrc, shaders[4]._fragSrc);
 //     this.graph = createGraphics(width, height);
 //   }
 
@@ -1307,7 +1322,7 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
   init(index) {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[7]._vertSrc, shaders[7]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[4]._vertSrc, shaders[4]._fragSrc);
     this.graph = createGraphics(width, height);
   }
 
@@ -1517,11 +1532,6 @@ class FlowField extends Sketch {
   ]
 }
 
-/**
- * @todo 
- * 1. Make local rotate a button with speed control
- * 2. Make totalRoate control.
-*/
 class Gridz extends Sketch {
   constructor(setIndex) {
     super();
@@ -1817,7 +1827,7 @@ class Tares extends Sketch { // Maped
   init(index) {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[8]._vertSrc, shaders[8]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[5]._vertSrc, shaders[5]._fragSrc);
     // this.graph = createGraphics(width, height);
   }
 
@@ -1867,7 +1877,7 @@ class WarpGrid extends Sketch {
   init(index) {
     super.init();
     this.shaderBox = createGraphics(width, height, WEBGL);
-    this.shader = this.shaderBox.createShader(shaders[10]._vertSrc, shaders[10]._fragSrc);
+    this.shader = this.shaderBox.createShader(shaders[6]._vertSrc, shaders[6]._fragSrc);
   }
 
   draw() {
@@ -2232,26 +2242,20 @@ class Walker extends Sketch {
 class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
-    if (!this.loaded) {
-      this.resolution = 25;
-    }
+    this.spacing = 50;
+    this.ringAmt = 0;
+    this.dotsPer = Math.ceil(width  / this.spacing);
+    this.size = 5;
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
-    this.center.normalize();
     this.speed = 0.01;
-    this.explodePoints = [];
-    this.sceneNum = 12;
+    this.rings = [];
   }
 
   init() {
     super.init();
-    for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, 0, height);
-      this.grid[i] = new Array(2);
-      for (let j = 0; j < this.resolution; j++) {
-        let x = map(j, 0, this.resolution, 0, width);
-        this.grid[i][j] = createVector(x, y);
-      }
+    for (let i = 0; i < 10; i++) {
+     this.createRing(i);
     }
   }
 
@@ -2259,31 +2263,69 @@ class Drops extends Sketch { // Scene 12.
     let thisPoint = {};
     stroke("white")
     fill("white")
-    for (let i = 0; i < this.resolution; i++) {
-      for (let j = 0; j < this.resolution; j++) {
-        thisPoint = this.grid[i][j];
-        for (let k = 0; k < this.explodePoints.length; k++) {
-          const explode = this.explodePoints[k];
-          let acc = p5.Vector.sub(thisPoint, explode.vec);
-          explode.sin = Math.sin(frameCount / 100) / 10;
-          thisPoint.add(acc.normalize().mult(explode.sin));
-          if (explode.sin <= 0) {
-            this.explodePoints.slice(k, 1);
-            break;
+    let outOfBounce = false;
+    for (let i = 0; i < this.ringAmt; i++) {
+      for(let j = 0; j < 4; j++) {
+        for (let k = 0; k < this.rings[i][j].length; k++) {
+          thisPoint = this.rings[i][j][k];
+          let acc = p5.Vector.sub(thisPoint, this.center);
+          thisPoint.add(acc.div(400));
+          let size = 5 * (frameCount / 1000);
+          rect(thisPoint.x, thisPoint.y, this.size, this.size);
+          if(thisPoint.y > height){
+            outOfBounce = true;
           }
         }
-        // thisPoint.add(acc.div(800));
-        let size = 5 * (frameCount / 1000);
-        rect(thisPoint.x, thisPoint.y, size, size);
+      }
+      if(outOfBounce) {
+         this.rings.splice(i, 1);
+         this.ringAmt --
+         outOfBounce = false;
+      }
+    }
+    if(frameCount % 200 == 0){
+      for(let i = 0; i < 10; i ++){ 
+        this.createRing(i)
       }
     }
   }
 
-  addPoint(x, y) {
-    x = map(x, 0, 1, 0, width);
-    y = map(y, 0, 1, 0, width);
-    const newPoint = createVector(x, y);
-    this.explodePoints.push({ vec: newPoint, sin: 0 });
+  createRing(i) {
+    const dotsPerX = this.dotsPerX - (i * 2);
+    const dotsPerY = this.dotsPerY - (i * 2);
+    const newArray = new Array(4);
+    
+   newArray[0] = new Array(dotsPerX);
+   newArray[1] = new Array(dotsPerX);
+   newArray[2] = new Array(dotsPerY);
+   newArray[3] = new Array(dotsPerY);
+
+    // Top row
+    for(let k = 0; k < dotsPerX; k ++) {
+      let x = i * this.spacing + (k * this.spacing);
+      let y = i * this.spacing;
+     newArray[0][k] = createVector(Math.floor(x), Math.floor(y));
+    }
+    // Left Row
+    for(let k = 0; k < dotsPerY; k ++) {
+      let x = i * this.spacing;
+      let y = i * this.spacing + (k * this.spacing);
+     newArray[2][k] = createVector(Math.floor(x), Math.floor(y));
+    }   
+    // bottom row
+    for(let k = 0; k < dotsPerX; k ++) {
+      let x = i * this.spacing + (k * this.spacing);
+      let y = newArray[2][dotsPerY - 1].y
+     newArray[1][k] = createVector(Math.floor(x), Math.floor(y));
+    }
+    // Right Row
+    for(let k = 0; k < dotsPerY; k ++) {
+      let x = newArray[1][dotsPerX - 1].x
+      let y = i * this.spacing + (k * this.spacing);
+     newArray[3][k] = createVector(Math.floor(x), Math.floor(y));
+    }
+    this.rings.push(newArray);
+    this.ringAmt ++
   }
 
   listeners = [

@@ -16,6 +16,7 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
+const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 
 
@@ -56,6 +57,7 @@ function draw() {
     if (scenes[i]) {
       push()
       scenes[i].draw();
+      scenes[i].easeParams();
       pop();
     }
   }
@@ -111,7 +113,6 @@ function setupSockets() {
 function normalToColor(val) {
   return Math.round(map(val, 0, 1, 0, 255));
 }
-
 
 function toggleMirror(vert) {
   if (!mirror) {
@@ -459,7 +460,6 @@ function midiToNormal(vel) {
 // ================================================  
 //       Global midi bindings
 // ================================================  
-const currentSet = setBuilder([Proximity, Sun, WarpGrid, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 // let midiBeatStep = (function () {
 //   let ret = [];
@@ -642,14 +642,10 @@ function loadShaders(cb) {
   Promise.all([
     loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
     loadShader("./shaders/texture.vert", "./shaders/movingLines.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/shader.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/meltingWaterfalls.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/trippy.frag"),
     loadShader("./shaders/texture.vert", "./shaders/trippytwo.frag"),
     loadShader("./shaders/texture.vert", "./shaders/displaceImg.frag"),
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/flowField.frag"),
     loadShader("./shaders/texture.vert", "./shaders/warpGrid.frag"),
   ])
     .then(res => cb(res))
