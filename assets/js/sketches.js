@@ -2248,7 +2248,7 @@ class Drops extends Sketch { // Scene 12.
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
     this.speed = 0.01;
-    
+    this.sets = [];
   }
 
   init() {
@@ -2261,15 +2261,19 @@ class Drops extends Sketch { // Scene 12.
     stroke("white")
     fill("white")
     for(let i = 0; i < this.sets.length; i ++){
-      for (let j = 0; j < this.sets[i]; j++) {
-        for (let k = 0; k < this.sets[i][j]; k++) {
+      for (let j = 0; j < this.sets[i].length; j++) {
+        for (let k = 0; k < this.sets[i][j].length; k++) {
           thisPoint = this.sets[i][j][k];
+          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2);
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(800));
           let size = 5 * (frameCount / 1000);
           rect(thisPoint.x, thisPoint.y, size, size);
         }
       }
+    }
+    if(frameCount % 300 == 0){
+      this.createSet()
     }
   }
 
