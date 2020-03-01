@@ -174,10 +174,12 @@ class Sketch {
       const actualValue = this.params.faders[i];
       const target = this.easingValues[i];
       const diff = target - actualValue;
-      if (diff < 0.001) {
+      if (diff < 0.00001) {
         delete this.easingValues[i];
+        this.params.faders[i] = target;
+      } else {
+        this.params.faders[i] += diff * this.easing;
       }
-      this.params.faders[i] += diff * this.easing;
     }
   }
 
