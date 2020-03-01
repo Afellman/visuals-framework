@@ -404,7 +404,7 @@ function onMidiMessage(midiMessage) {
 
   //AKAI
   if (command == 144 || command == 176) { // button press and knob.
-    midiAkai[note].velocity = velocity;
+    midiAkai[note].velocity = midiToColor(velocity);
     midiAkai[note].method({ args: [velocity] });
   }
   // }
@@ -473,10 +473,12 @@ class Launcher {
     this.scene = {};
     this.classConstructor = classConstructor;
     this.setIndex = setIndex;
+    this.isActive = false;
   }
 
   toggle(val) {
-    if (val.args[0]) {
+    if (!this.isActive) {
+      this.isActive = true;
       this.scene = new this.classConstructor();
       this.scene.setIndex = this.setIndex;
       this.scene.id = Math.random() * 9999999;
