@@ -2242,92 +2242,50 @@ class Walker extends Sketch {
 class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
-    this.spacing = 50;
-    this.ringAmt = 0;
-    this.dotsPer = Math.ceil(width  / this.spacing);
-    this.size = 5;
+    if (!this.loaded) {
+      this.resolution = 25;
+    }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
     this.speed = 0.01;
-    this.rings = [];
+    
   }
 
   init() {
     super.init();
-    for (let i = 0; i < 10; i++) {
-     this.createRing(i);
-    }
+    this.createSet();
   }
 
   draw() {
     let thisPoint = {};
     stroke("white")
     fill("white")
-    let outOfBounce = false;
-    for (let i = 0; i < this.ringAmt; i++) {
-      for(let j = 0; j < 4; j++) {
-        for (let k = 0; k < this.rings[i][j].length; k++) {
-          thisPoint = this.rings[i][j][k];
+    for(let i = 0; i < this.sets.length; i ++){
+      for (let j = 0; j < this.sets[i]; j++) {
+        for (let k = 0; k < this.sets[i][j]; k++) {
+          thisPoint = this.sets[i][j][k];
           let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(400));
+          thisPoint.add(acc.div(800));
           let size = 5 * (frameCount / 1000);
-          rect(thisPoint.x, thisPoint.y, this.size, this.size);
-          if(thisPoint.y > height){
-            outOfBounce = true;
-          }
+          rect(thisPoint.x, thisPoint.y, size, size);
         }
       }
-      if(outOfBounce) {
-         this.rings.splice(i, 1);
-         this.ringAmt --
-         outOfBounce = false;
-      }
-    }
-    if(frameCount % 200 == 0){
-      for(let i = 0; i < 10; i ++){ 
-        this.createRing(i)
-      }
     }
   }
 
-  createRing(i) {
-    const dotsPerX = this.dotsPerX - (i * 2);
-    const dotsPerY = this.dotsPerY - (i * 2);
-    const newArray = new Array(4);
-    
-   newArray[0] = new Array(dotsPerX);
-   newArray[1] = new Array(dotsPerX);
-   newArray[2] = new Array(dotsPerY);
-   newArray[3] = new Array(dotsPerY);
-
-    // Top row
-    for(let k = 0; k < dotsPerX; k ++) {
-      let x = i * this.spacing + (k * this.spacing);
-      let y = i * this.spacing;
-     newArray[0][k] = createVector(Math.floor(x), Math.floor(y));
+  createSet() {
+    const newSet = []
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, 0, height);
+      newSet[i] = new Array(2);
+      for (let j = 0; j < this.resolution; j++) {
+        let x = map(j, 0, this.resolution, 0, width);
+        newSet[i][j] = createVector(x, y);
+      }
     }
-    // Left Row
-    for(let k = 0; k < dotsPerY; k ++) {
-      let x = i * this.spacing;
-      let y = i * this.spacing + (k * this.spacing);
-     newArray[2][k] = createVector(Math.floor(x), Math.floor(y));
-    }   
-    // bottom row
-    for(let k = 0; k < dotsPerX; k ++) {
-      let x = i * this.spacing + (k * this.spacing);
-      let y = newArray[2][dotsPerY - 1].y
-     newArray[1][k] = createVector(Math.floor(x), Math.floor(y));
-    }
-    // Right Row
-    for(let k = 0; k < dotsPerY; k ++) {
-      let x = newArray[1][dotsPerX - 1].x
-      let y = i * this.spacing + (k * this.spacing);
-     newArray[3][k] = createVector(Math.floor(x), Math.floor(y));
-    }
-    this.rings.push(newArray);
-    this.ringAmt ++
+    this.sets.push(newSet)
   }
-
+  
   listeners = [
     {
       socketName: "multixy1/1",
