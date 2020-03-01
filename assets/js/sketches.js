@@ -450,7 +450,7 @@ class Sun extends Sketch { // Scene 2. Maped
           fill(sun.color[0] - 50, sun.color[1] - 50, sun.color[2] - 50, ((sun.opacity * this.opacity) / opacVariance));
           ellipse(x, y, size);
         }
-        sun.life--
+        sun.life -= 0.6;
         if (sun.life < 200) {
           sun.opacity -= 0.005
         }
@@ -476,8 +476,8 @@ class Sun extends Sketch { // Scene 2. Maped
 
   addSun(num) {
     let position = { x: 0, y: 0 };
-    position.x = random(0 + 300, width - 300);
-    position.y = random(0 + 275, height - 275);
+    position.x = random(0 + 225, width - 225);
+    position.y = random(0 + 200, height - 200);
 
     const sun = {
       amp: this.params.faders.amp,
