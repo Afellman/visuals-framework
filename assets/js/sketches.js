@@ -450,7 +450,7 @@ class Sun extends Sketch { // Scene 2. Maped
           fill(sun.color[0] - 50, sun.color[1] - 50, sun.color[2] - 50, ((sun.opacity * this.opacity) / opacVariance));
           ellipse(x, y, size);
         }
-        sun.life -= 0.6;
+        sun.life -= 0.7;
         if (sun.life < 200) {
           sun.opacity -= 0.005
         }
@@ -2306,9 +2306,7 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    for (let i = 0; i < 5; i++) {
-      this.createSet(100 * i + 1);
-    }
+    this.createSet(100);
   }
 
   draw() {
@@ -2324,10 +2322,10 @@ class Drops extends Sketch { // Scene 12.
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          thisPoint.add(acc.div(this.params.faders.speed * 100));
+          // thisPoint.add(acc.div(this.params.faders.speed * 100));
           let opacity = this.opacity * this.sets[i].opacity;
           stroke(255, 255, 255, opacity);
-          ellipse(thisPoint.x, thisPoint.y, size, size);
+          triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100, thisPoint.y + 100, thisPoint.x - 100, thisPoint.y + 100);
           if (thisPoint.x > width && !this.sets[i].isDuped) {
             this.createSet(25);
             this.sets[i].isDuped = true;
