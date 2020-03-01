@@ -2297,24 +2297,24 @@ class Drops extends Sketch { // Scene 12.
     this.sets = [];
     this.params = {
       faders: {
-        size: 0.1,
-        speed: 4
+        size: 1,
+        speed: 10
       }
     }
     this.opacity = 255;
-    this.canvas = createGraphics(width, height, WEBGL)
   }
 
   init() {
     super.init();
-    this.createSet(25);
-    this.createSet(50);
-    this.createSet(75);
+    this.createSet(100);
   }
 
   draw() {
     let thisPoint = {};
     noFill();
+    translate(width / 2, height / 2)
+    // rotate(sin(frameCount / 200) * PI)
+    translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
       for (let j = 0; j < this.sets[i].arr.length; j++) {
@@ -2323,9 +2323,8 @@ class Drops extends Sketch { // Scene 12.
           // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          this.canvas.stroke(255, 255, 255, this.opacity);
-          this.canvas.sphere(40);
-          image(this.canvas, 0, 0);
+          stroke(255, 255, 255, this.opacity);
+          triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100 * this.params.faders.size, thisPoint.y + 100 * this.params.faders.size, thisPoint.x - 100 * this.params.faders.size, thisPoint.y + 100 * this.params.faders.size);
           if (thisPoint.x > width && !this.sets[i].isDuped) {
             this.createSet(25);
             this.sets[i].isDuped = true;
@@ -2356,21 +2355,9 @@ class Drops extends Sketch { // Scene 12.
 
   listeners = [
     {
-      socketName: "multixy1/1",
+      socketName: "addSet",
       socketMethod: (val) => {
-        this.addPoint(val.args[0], val.args[1]);
-      }
-    },
-    {
-      socketName: "multixy1/2",
-      socketMethod: (val) => {
-        this.addPoint(val.args[0], val.args[1]);
-      }
-    },
-    {
-      socketName: "multixy1/3",
-      socketMethod: (val) => {
-        this.addApoint(val.args[0], val.args[1]);
+        this.createSet(50)
       }
     },
   ]
