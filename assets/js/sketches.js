@@ -2302,6 +2302,7 @@ class Drops extends Sketch { // Scene 12.
       }
     }
     this.opacity = 255;
+    this.canvas = createGraphics(width, height, WEBGL)
   }
 
   init() {
@@ -2322,13 +2323,13 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
-          let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
+          // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          let opacity = this.opacity * size;
-          stroke(255, 255, 255, opacity);
+          stroke(255, 255, 255, this.opacity);
           triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100, thisPoint.y + 100, thisPoint.x - 100, thisPoint.y + 100);
           if (thisPoint.x > width && !this.sets[i].isDuped) {
+            this.createSet(25);
             this.sets[i].isDuped = true;
           }
         }
