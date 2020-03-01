@@ -2299,6 +2299,11 @@ class Drops extends Sketch { // Scene 12.
   init() {
     super.init();
     this.createSet(50);
+    this.createSet(100);
+    this.createSet(150);
+    this.createSet(200);
+    this.createSet(250);
+    this.createSet(300);
   }
 
   draw() {
@@ -2322,12 +2327,12 @@ class Drops extends Sketch { // Scene 12.
           }
         }
       }
-      if (isOff >= this.resolution) {
+      if (isOff >= this.resolution * 4 - 4) {
         this.sets.splice(i, 1);
       }
     }
-    if (this.sets.length < 3) {
-      this.createSet()
+    if (this.sets.length < 6) {
+      this.createSet(50)
     }
   }
 
