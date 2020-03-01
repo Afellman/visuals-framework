@@ -157,6 +157,11 @@ class Sketch {
   }
 
   unload() {
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "opacity",
+      value: 0
+    });
     this.detachListeners();
   }
 
@@ -1327,6 +1332,8 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[4]._vertSrc, shaders[4]._fragSrc);
     this.graph = createGraphics(width, height);
+    this.graph.id(Math.floor(Math.random() * 99999));
+    this.shaderBox.id(Math.floor(Math.random() * 99999));
   }
 
   draw() {
@@ -1343,7 +1350,8 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
 
   unload() {
     super.unload();
-    // shaders[1] = loadShader("./shaders/texture.vert", this.shaderPath);
+    document.body.removeChild(this.graph.canvas);
+    document.body.removeChild(this.shaderBox.canvas);
   }
 
   listeners = [
