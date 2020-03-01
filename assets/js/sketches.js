@@ -1946,7 +1946,8 @@ class Fractal extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        size: 200
+        size: 200,
+        tiltY: 50
       }
     }
   }
@@ -1956,25 +1957,24 @@ class Fractal extends Sketch {
   }
 
   draw() {
-    // noFill();
+    noFill();
     stroke(255);
     translate(width / 2, this.params.faders.size);
-    for (let i = 0; i < 3; i++) {
-      this.circle(this.params.faders.size / (i + 1));
-    }
-
+    this.circle(this.params.faders.size);
   }
 
   circle(size) {
     ellipse(0, 0, size);
-    push()
-    translate(-size, 100);
-    this.circle(size / 2);
-    pop();
-    push()
-    translate(size, 50);
-    this.circle(size / 2)
-    pop()
+    if (size > 20) {
+      push()
+      translate(-size, this.params.faders.tiltY);
+      this.circle(size / 2);
+      pop();
+      push()
+      translate(size, 0);
+      this.circle(size / 2)
+      pop()
+    }
   }
 
   unload() {
@@ -1989,7 +1989,7 @@ class AudioReactive extends Sketch {
     this.setIndex = setIndex;
     this.opacity = 0;
     this.spectrums = [];
-    this.avg100 = [];
+    this.avg0 = [];
   }
 
   init() {
