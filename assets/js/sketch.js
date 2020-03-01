@@ -534,7 +534,7 @@ function bindGlobalMidi() {
   const mirrorLauncher = new Launcher(Mirror, -1);
   midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
   midiAkai[8].method = ({ args }) => {
-    mirrorLauncher(midiToNormal(ars[0]))
+    mirrorLauncher.opacity(midiToNormal(args[0]))
   };
 
   midiAkai[9].method = ({ args }) => {
