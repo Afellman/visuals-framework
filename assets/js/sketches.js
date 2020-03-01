@@ -1959,34 +1959,18 @@ class Fractal extends Sketch {
   draw() {
     noFill();
     stroke(255);
-    this.location = width / 2, height / 2;
-    this.isVisable = true;
     translate(width / 2, height / 2);
     this.circle(this.params.faders.size);
   }
 
-  checkVis() {
-    let isVis = true;
-    if (this.location[0] > width || this.location[0] < 0) {
-      isVis = false
-    }
-    if (this.location[1] > height || this.location[1] < 0) {
-      isVis = false;
-    }
-    this.isVisable = false;
-  }
-
   circle(size) {
     ellipse(0, 0, size);
-    this.checkVis();
-    if (size > 10 && this.isVisable) {
+    if (size > this.params.size / 10) {
       push();
-      this.location = [-size, this.params.faders.tiltY];
       translate(-size, this.params.faders.tiltY);
       this.circle(size / 2);
       pop();
       push();
-      this.location = [size, this.params.faders.tiltY];
       translate(size, this.params.faders.tiltY);
       this.circle(size / 2)
       pop();
