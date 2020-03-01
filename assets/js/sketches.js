@@ -2262,8 +2262,6 @@ class Drops extends Sketch { // Scene 12.
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
       for (let j = 0; j < this.sets[i].length; j++) {
-        let lineTop = 0;
-        let lineBottom = this.sets[i].length - 1;
         for (let k = 0; k < this.sets[i][j].length; k++) {
           thisPoint = this.sets[i][j][k];
          
@@ -2274,16 +2272,12 @@ class Drops extends Sketch { // Scene 12.
           noStroke();
           rect(thisPoint.x, thisPoint.y, size, size);
           if(this.sets[i + 1]){
-            if((j == lineTop || j == lineBottom)){
-              stroke(255)
-              line(thisPoint.x, thisPoint.y,this.sets[i + 1][j][k].x, this.sets[i + 1][j][k].y )
-            }
+            stroke(255)
+            line(thisPoint.x, thisPoint.y, this.sets[i + 1][j][k].x, this.sets[i + 1][j][k].y )
           }
 
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
             this.sets[i][j].splice(k, 1);
-            lineTop ++;
-            lineBottom --;
           }
         }
         if(this.sets[i][j].length == 0){
