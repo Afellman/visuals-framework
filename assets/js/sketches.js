@@ -2258,11 +2258,13 @@ class Drops extends Sketch { // Scene 12.
 
   draw() {
     let thisPoint = {};
-
+    translate(width / 2, height / 2)
+    rotate(frameCount / 100)
+    translate(- width / 2, - height / 2)
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
+ 
       for (let j = 0; j < this.sets[i].arr.length; j++) {
-        rotate(this.sets[i].rotate)
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
