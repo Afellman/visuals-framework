@@ -738,7 +738,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.params = {
         faders: {
           angle: 1.2666,
-          divider: 0.45,
+          divider: 0.65,
           length: 220,
           movement: 0,
         }
@@ -766,9 +766,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
   }
   branch(len, i) {
     i++;
-    if (len < 20) {
-      line(0, 0, 0, -len);
-    }
+    line(0, 0, 0, -len);
     translate(0, -len);
     if (len > 4) {
       push();
@@ -776,7 +774,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.branch(len * this.params.faders.divider, i);
       pop();
       push();
-      rotate(-this.params.faders.angle);
+      rotate(noise(frameCount * this.movement * i / 10, frameCount * this.movement * i / 10) - this.params.faders.angle);
       this.branch(len * this.params.faders.divider, i);
       pop();
     }
@@ -1870,7 +1868,7 @@ class Tares extends Sketch { // Maped
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
 
-    this.speed += this.params.faders.speed / 10;
+    this.speed += this.params.faders.speed / 100;
 
     this.amp += this.params.faders.amp;
     // this.num1 = this.num1Start + sin(frameCount * this.speed) * this.amp;
