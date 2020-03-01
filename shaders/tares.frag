@@ -10,6 +10,8 @@ uniform float u_point1;
 uniform float u_point2;
 uniform float u_x;
 uniform float u_y;
+uniform float u_thickness;
+
 
 
 float random (float x) {
@@ -19,7 +21,7 @@ float random (float x) {
 float getDis2(vec2 uv) {
   float dis = 1.0;
   for(int i = 0; i < 10; i ++){
-    dis *= distance(vec2(random(uv.x),random(uv.y)), uv) * 10.0;
+    dis *= distance(vec2(random(uv.x),random(uv.y)), uv) * (20 / u_thickness);
   }
 
   return dis;
