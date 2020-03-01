@@ -476,8 +476,8 @@ class Sun extends Sketch { // Scene 2. Maped
 
   addSun(num) {
     let position = { x: 0, y: 0 };
-    position.x = random(100, width + 100);
-    position.x = random(100, height + 100);
+    position.x = width - 300;
+    position.y = height - 200;
 
     const sun = {
       amp: this.params.faders.amp,
