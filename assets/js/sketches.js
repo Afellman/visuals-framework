@@ -765,7 +765,6 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement += this.params.faders.movement / 1000;
   }
   branch(len, i) {
-    len = len * (1 + noise(len))
     i++;
     line(0, 0, 0, -len);
     translate(0, -len);
@@ -775,7 +774,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.branch(len * this.params.faders.divider, i);
       pop();
       push();
-      rotate(noise(frameCount * this.movement * i / 10, frameCount * this.movement * i / 10) - this.params.faders.angle);
+      rotate(this.params.faders.angle);
       this.branch(len * this.params.faders.divider, i);
       pop();
     }
