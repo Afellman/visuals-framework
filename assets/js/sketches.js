@@ -1887,7 +1887,7 @@ class WarpGrid extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_time", frameCount / 100);
     this.shader.setUniform("u_amt", this.amt);
-    this.shader.setUniform("u_yOff", this.params.faders.yOff);
+    this.shader.setUniform("u_yOff", noise(this.params.faders.yOff, frameCount / 500) * 10);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
