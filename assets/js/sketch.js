@@ -16,7 +16,7 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
-let glEasing = 0.5;
+let glEasing = 0.05;
 
 const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
@@ -535,15 +535,15 @@ function bindGlobalMidi() {
   midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
   midiAkai[8].method = mirrorLauncher.opacity.bind(mirrorLauncher);
 
-  midiAkai[1].method = () => {
+  midiAkai[4].method = () => {
     if (glEasing !== 1) {
       glEasing = 1;
     } else {
-      glEasing = 0.5;
+      glEasing = 0.05;
     }
   }
-  midiAkai[9].method = ({ args }) => {
-    glEasing = map(args[0], 0, 127, 0, 1);
+  midiAkai[12].method = ({ args }) => {
+    glEasing = map(args[0], 0, 127, 0.05, 0.5);
   }
 
 }
