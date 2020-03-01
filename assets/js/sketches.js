@@ -1965,7 +1965,7 @@ class Fractal extends Sketch {
 
   circle(size) {
     ellipse(0, 0, size);
-    if (size > 10) {
+    if (size > 10 && size < width / 2) {
       push();
       translate(-size, this.params.faders.tiltY);
       this.circle(size / 2);
