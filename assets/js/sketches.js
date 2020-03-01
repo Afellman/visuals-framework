@@ -2335,9 +2335,9 @@ class Drops extends Sketch { // Scene 12.
     const newSet = { arr: [], rotate: PI / 4 }
     for (let i = 0; i < this.resolution; i++) {
       let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
+      newSet.arr[i] = [];
       for (let j = 0; j < this.resolution; j++) {
         if (j == 0 || j == this.resolution - 1) {
-          newSet.arr[i] = [];
           let x = map(j, 0, this.resolution, width / 2 - size, width / 2 + size);
           newSet.arr[i].push(createVector(x, y));
         }
