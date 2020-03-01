@@ -2305,8 +2305,8 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    for (let i = 0; i < 10; i++) {
-      this.createSet(50 * i);
+    for (let i = 0; i < 20; i++) {
+      this.createSet(100 * i + 1);
     }
   }
 
@@ -2331,12 +2331,9 @@ class Drops extends Sketch { // Scene 12.
             this.createSet(25);
             this.sets[i].isDuped = true;
           }
-          if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
-            isOff++;
-          }
         }
       }
-      if (isOff >= this.resolution * 4 - 4) {
+      if (this.sets[i].isDuped) {
         this.sets[i].isFaded = true;
         this.sets.splice(i, 1);
       }
