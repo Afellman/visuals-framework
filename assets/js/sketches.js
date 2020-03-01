@@ -174,11 +174,11 @@ class Sketch {
       const actualValue = this.params.faders[i];
       const target = this.easingValues[i];
       const diff = target - actualValue;
-      if (diff < 0.00001) {
+      if (Math.abs(diff) < 0.00001) {
         delete this.easingValues[i];
         this.params.faders[i] = target;
       } else {
-        this.params.faders[i] += diff * this.easing;
+        this.params.faders[i] += diff * glEasing;
       }
     }
   }
@@ -1254,6 +1254,16 @@ class DisplaceImg extends Sketch {
         this.img = this.canvasImage;
       }
     },
+    {
+      socketName: "bAndW",
+      socketMethod: (val) => {
+        if (val) {
+          this.isBandW = true;
+        } else {
+          this.isBandW = false;
+        }
+      }
+    },
   ]
 }
 
@@ -1339,8 +1349,6 @@ class Mirror extends Sketch { // Scene 14. Maped. Needs work.
     this.shaderBox = createGraphics(width, height, WEBGL);
     this.shader = this.shaderBox.createShader(shaders[4]._vertSrc, shaders[4]._fragSrc);
     this.graph = createGraphics(width, height);
-    this.graph.id(Math.floor(Math.random() * 99999));
-    this.shaderBox.id(Math.floor(Math.random() * 99999));
   }
 
   draw() {
