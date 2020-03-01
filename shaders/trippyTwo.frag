@@ -52,7 +52,7 @@ float noise (in vec2 st) {
             (d - b) * u.x * u.y;
 }
 
-#define OCTAVES 4
+#define OCTAVES 2
 float fbm (in vec2 st) {
     // Initial values
     float value = 0.0;
@@ -91,7 +91,7 @@ void main() {
   vec2 uv = vTexCoord;
     uv.y = 1.0 - uv.y;
   float pat = fbm(u_multiplier * uv + ( u_waterTime * u_time));// Swirl pattern on image
-  vec4 tex = texture2D(tex0, pat);
+  vec4 tex = texture2D(tex0, uv * pat);
 
   tex += (colorSwirl(tex, uv) * u_colorAmount); // Adding background color movement
 
