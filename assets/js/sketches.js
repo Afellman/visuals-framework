@@ -2323,7 +2323,7 @@ class Drops extends Sketch { // Scene 12.
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          // thisPoint.add(acc.div(this.params.faders.speed * 100));
+          thisPoint.add(acc.div(this.params.faders.speed * 100));
           let opacity = this.opacity * this.sets[i].opacity;
           stroke(255, 255, 255, opacity);
           ellipse(thisPoint.x, thisPoint.y, size, size);
@@ -2347,7 +2347,7 @@ class Drops extends Sketch { // Scene 12.
       newSet.arr[i] = [];
       for (let j = 0; j < this.resolution; j++) {
         if (j == 0 || j == this.resolution - 1 || i == 0 || i == this.resolution - 1) {
-          let x = map(j, 0, this.resolution, width / 2 - size * 2.127, width / 2 + size * 2.127);
+          let x = map(j, 0, this.resolution - 1, width / 2 - size, width / 2 + size);
           newSet.arr[i].push(createVector(x, y));
         }
       }
