@@ -16,7 +16,7 @@ let mirror = false;
 let ctrlPressed = false;
 let save;
 let debug = false;
-const currentSet = setBuilder([Proximity, Sun, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
 
 
 
@@ -224,7 +224,7 @@ function keyPressed(e) {
 // ================================================  
 //                     Midi 
 // ================================================  
-navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
   console.log(midiAccess)
