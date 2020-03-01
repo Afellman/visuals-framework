@@ -2322,7 +2322,7 @@ class Drops extends Sketch { // Scene 12.
           }
         }
       }
-      if (isOff >= this.resolution * this.resolution - 1) {
+      if (isOff >= this.resolution) {
         this.sets.splice(i, 1);
       }
     }
@@ -2337,7 +2337,7 @@ class Drops extends Sketch { // Scene 12.
       let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
       newSet.arr[i] = [];
       for (let j = 0; j < this.resolution; j++) {
-        if (j == 0 || j == this.resolution - 1) {
+        if (j == 0 || j == this.resolution - 1 || i == 0 || i == this.resolution - 1) {
           let x = map(j, 0, this.resolution, width / 2 - size, width / 2 + size);
           newSet.arr[i].push(createVector(x, y));
         }
