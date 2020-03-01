@@ -76,21 +76,6 @@ function setupSockets() {
   socket.on('connect', function () {
     console.log(socket)
     console.log("Socket Connected");
-    setTimeout(() => {
-
-      for (let i = 0; i < 20; i++) { // Assuming < 20 scenes
-        socket.emit("updateOsc", {
-          scene: i,
-          oscObj: "on",
-          value: 0
-        });
-        socket.emit("updateOsc", {
-          scene: i,
-          oscObj: "opacity",
-          value: 0
-        });
-      }
-    }, 2000)
   });
 
   socket.on('disconnected', function () {
@@ -503,12 +488,20 @@ class Launcher {
   }
 
   opacity(velocity) {
-    if (typeof velocity === "number") {
-      this.scene.opacity = velocity;
+    let value;
+    if (typeof velocity === "number") { // From Midi
+      value = velocity;
     } else {
-      this.scene.opacity = velocity.args[0];
-
+      value = velocity.args[0];
     }
+
+    this.scene.opacity = value;
+
+    socket.emit("updateOsc", {
+      scene: this.setIndex,
+      oscObj: "opacity",
+      val: value
+    })
   }
 }
 
@@ -561,28 +554,6 @@ function bindGlobalSockets() {
     glBackground[3] = val.args[0];
   });
 
-  socket.on("/-1/videoOpacity", (val) => {
-    const video = document.getElementById("fireVideo");
-    video.style.opacity = val.args[0];
-  });
-
-  socket.on("/-1/videoOn", (val) => {
-    const video = document.getElementById("fireVideo");
-    video.remove();
-  });
-
-  socket.on("/-1/videoPlay", (val) => {
-    const video = document.getElementById("fireVideo");
-    if (val.args[0]) {
-      video.play();
-    } else {
-      video.pause();
-    }
-  });
-
-  socket.emit("updateOsc", { scene: "-1", oscObj: "videoPlay", value: "0" })
-  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOn", value: "0" })
-  socket.emit("updateOsc", { scene: "-1", oscObj: "videoOpacity", value: "1" })
 }
 
 bindGlobalSockets();
