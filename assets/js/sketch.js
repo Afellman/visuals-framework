@@ -17,8 +17,9 @@ let ctrlPressed = false;
 let save;
 let debug = false;
 let glEasing = 0.05;
+let glRotate = 0;
 
-const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField, Sun]); // Where do I define the set list? Max 10.
 
 
 
@@ -57,7 +58,10 @@ function draw() {
   // background(glBackground); // Moved to shader.
   for (let i = 0; i < length; i++) {
     if (scenes[i]) {
-      push()
+      translate(width / 2, height / 2);
+      rotate(glRotate);
+      translate(-width / 2, - height / 2);
+      push();
       scenes[i].draw();
       scenes[i].easeParams();
       pop();
@@ -534,7 +538,7 @@ function bindGlobalMidi() {
   const mirrorLauncher = new Launcher(Mirror, -1);
   midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
   midiAkai[8].method = ({ args }) => {
-    mirrorLauncher.opacity(midiToNormal(args[0]))
+    mirrorLauncher.opacity(midiToColor(args[0]))
   };
 
   midiAkai[9].method = ({ args }) => {
