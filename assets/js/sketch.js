@@ -533,18 +533,26 @@ bindLaunchers();
 function bindGlobalMidi() {
   const mirrorLauncher = new Launcher(Mirror, -1);
   midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
-  midiAkai[8].method = mirrorLauncher.opacity.bind(mirrorLauncher);
+  midiAkai[8].method = ({ args }) => {
+    mirrorLauncher(midiToNormal(ars[0]))
+  };
 
-  midiAkai[4].method = () => {
+  midiAkai[9].method = ({ args }) => {
+    glBackground[3] = midiToNormal(args[0])
+  }
+
+  midiAkai[3].method = () => {
     if (glEasing !== 1) {
       glEasing = 1;
     } else {
       glEasing = 0.05;
     }
   }
-  midiAkai[12].method = ({ args }) => {
+  midiAkai[11].method = ({ args }) => {
     glEasing = map(args[0], 0, 127, 0.05, 0.5);
   }
+
+
 
 }
 
