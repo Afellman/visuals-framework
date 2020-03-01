@@ -1947,7 +1947,7 @@ class Fractal extends Sketch {
     this.params = {
       faders: {
         size: 200,
-        tiltY: 50
+        tiltY: 0
       }
     }
   }
@@ -1959,19 +1959,19 @@ class Fractal extends Sketch {
   draw() {
     noFill();
     stroke(255);
-    translate(width / 2, this.params.faders.size);
+    translate(width / 2, height / 2);
     this.circle(this.params.faders.size);
   }
 
   circle(size) {
     ellipse(0, 0, size);
-    if (size > 20) {
+    if (size > this.params.faders.size / 100) {
       push()
       translate(-size, this.params.faders.tiltY);
       this.circle(size / 2);
       pop();
       push()
-      translate(size, 0);
+      translate(size, this.params.faders.tiltY);
       this.circle(size / 2)
       pop()
     }
