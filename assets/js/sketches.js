@@ -2242,38 +2242,61 @@ class Walker extends Sketch {
 class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
-    this.rings = [];
+    if (!this.loaded) {
+      this.resolution = 25;
+    }
+    this.grid = [];
+    this.center = createVector(width / 2, height / 2);
+    this.speed = 0.01;
+    this.sets = [];
   }
 
   init() {
     super.init();
-    for (let i = 0; i < 100; i++) {
-     this.createRings(i +1);
-    }
+    this.createSet();
   }
 
   draw() {
-    noFill();
-    for(let i =0 ;i < this.rings.length; i ++){
-      let thisRing = this.rings[i];
-      stroke(255, 255, 255, thisRing.size / 5)
-      thisRing.size += 5;
-      let size = thisRing.size;
-      if(i % 25 == 0){
-        size = 5
+    let thisPoint = {};
+
+    for(let i = 0; i < this.sets.length; i ++){
+      let isOff = 0;
+      for (let j = 0; j < this.sets[i].length; j++) {
+        for (let k = 0; k < this.sets[i][j].length; k++) {
+          thisPoint = this.sets[i][j][k];
+         
+          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 50;
+          let acc = p5.Vector.sub(thisPoint, this.center);
+          thisPoint.add(acc.div(200));
+          fill(255, 255, 255, size * 10)
+          noStroke();
+          rect(thisPoint.x, thisPoint.y, size, size);
+          if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
+            isOff++;
+          }
+        }
       }
-      ellipse(width / 2, height / 2, size);
-      if(thisRing.size / 2 > width / 2){
-        thisRing.size = 0
+      if(isOff >= this.resolution * this.resolution){
+        this.sets.splice(i, 1);
       }
-     
+    }
+    if(frameCount % 500 == 0){
+      this.createSet()
     }
   }
 
-  createRings(i) {
-    this.rings.push({size: i * 20})
+  createSet() {
+    const newSet = []
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, height / 2 - 25, height / 2 + 25);
+      newSet[i] = new Array(2);
+      for (let j = 0; j < this.resolution; j++) {
+        let x = map(j, 0, this.resolution, width / 2 - 25, width / 2 + 25);
+        newSet[i][j] = createVector(x, y);
+      }
+    }
+    this.sets.push(newSet)
   }
-
   
   listeners = [
     {
