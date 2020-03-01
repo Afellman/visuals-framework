@@ -2288,7 +2288,7 @@ class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 25;
+      this.resolution = 12;
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
@@ -2299,10 +2299,13 @@ class Drops extends Sketch { // Scene 12.
   init() {
     super.init();
     this.createSet();
+    this.createSet(50);
+    this.createSet(100);
   }
 
   draw() {
     let thisPoint = {};
+    noFill();
     translate(width / 2, height / 2)
     // rotate(sin(frameCount / 200) * PI)
     translate(- width / 2, - height / 2)
@@ -2314,8 +2317,7 @@ class Drops extends Sketch { // Scene 12.
           let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(100));
-          fill(255, 255, 255, 255)
-          noStroke();
+          stroke(255, 255, 255, 255)
           ellipse(thisPoint.x, thisPoint.y, size, size);
           if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
             isOff++;
@@ -2325,46 +2327,46 @@ class Drops extends Sketch { // Scene 12.
       if (isOff >= this.resolution * this.resolution) {
         this.sets.splice(i, 1);
       }
-      // }
-      // // if(frameCount % 500 == 0){
-      // //   this.createSet()
-      // // }
     }
-
-    createSet() {
-      const newSet = { arr: [], rotate: PI / 4 }
-      for (let i = 0; i < this.resolution; i++) {
-        let y = map(i, 0, this.resolution, -height, height * 2);
-        newSet.arr[i] = new Array(2);
-        for (let j = 0; j < this.resolution; j++) {
-          let x = map(j, 0, this.resolution, -width, width * 2);
-          newSet.arr[i][j] = createVector(x, y);
-        }
-      }
-      this.sets.push(newSet)
+    if (frameCount % 100 == 0) {
+      this.createSet()
     }
-
-    listeners = [
-      {
-        socketName: "multixy1/1",
-        socketMethod: (val) => {
-          this.addPoint(val.args[0], val.args[1]);
-        }
-      },
-      {
-        socketName: "multixy1/2",
-        socketMethod: (val) => {
-          this.addPoint(val.args[0], val.args[1]);
-        }
-      },
-      {
-        socketName: "multixy1/3",
-        socketMethod: (val) => {
-          this.addApoint(val.args[0], val.args[1]);
-        }
-      },
-    ]
   }
+
+  createSet(size = 25) {
+    const newSet = { arr: [], rotate: PI / 4 }
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
+      newSet.arr[i] = new Array(2);
+      for (let j = 0; j < this.resolution; j++) {
+        let x = map(j, 0, this.resolution, width / 2 - size, width / 2 + size);
+        newSet.arr[i][j] = createVector(x, y);
+      }
+    }
+    this.sets.push(newSet)
+  }
+
+  listeners = [
+    {
+      socketName: "multixy1/1",
+      socketMethod: (val) => {
+        this.addPoint(val.args[0], val.args[1]);
+      }
+    },
+    {
+      socketName: "multixy1/2",
+      socketMethod: (val) => {
+        this.addPoint(val.args[0], val.args[1]);
+      }
+    },
+    {
+      socketName: "multixy1/3",
+      socketMethod: (val) => {
+        this.addApoint(val.args[0], val.args[1]);
+      }
+    },
+  ]
+}
 
 class Grid extends Sketch {
   constructor(obj) {
