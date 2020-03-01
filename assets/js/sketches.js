@@ -2297,7 +2297,7 @@ class Drops extends Sketch { // Scene 12.
     this.params = {
       faders: {
         size: 0.1,
-        speed: 2
+        speed: 4
       }
     }
     this.opacity = 255;
@@ -2305,7 +2305,9 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    this.createSet(50);
+    for (let i = 0; i < 10; i++) {
+      this.createSet(50 * i);
+    }
   }
 
   draw() {
@@ -2325,8 +2327,8 @@ class Drops extends Sketch { // Scene 12.
           let opacity = this.opacity * this.sets[i].opacity;
           stroke(255, 255, 255, opacity);
           ellipse(thisPoint.x, thisPoint.y, size, size);
-          if (thisPoint.x > width / 2 + width && !this.sets[i].isDuped) {
-            this.createSet(50);
+          if (thisPoint.x > width && !this.sets[i].isDuped) {
+            this.createSet(25);
             this.sets[i].isDuped = true;
           }
           if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
@@ -2342,17 +2344,14 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet(size = 25) {
-    for (let k = 0; k < 4; k++) {
-      size *= k + 1;
-      const newSet = { opacity: 1, arr: [], rotate: PI / 4 }
-      for (let i = 0; i < this.resolution; i++) {
-        let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
-        newSet.arr[i] = [];
-        for (let j = 0; j < this.resolution; j++) {
-          if (j == 0 || j == this.resolution - 1 || i == 0 || i == this.resolution - 1) {
-            let x = map(j, 0, this.resolution, width / 2 - size, width / 2 + size);
-            newSet.arr[i].push(createVector(x, y));
-          }
+    const newSet = { opacity: 1, arr: [], rotate: PI / 4 }
+    for (let i = 0; i < this.resolution; i++) {
+      let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
+      newSet.arr[i] = [];
+      for (let j = 0; j < this.resolution; j++) {
+        if (j == 0 || j == this.resolution - 1 || i == 0 || i == this.resolution - 1) {
+          let x = map(j, 0, this.resolution, width / 2 - size, width / 2 + size);
+          newSet.arr[i].push(createVector(x, y));
         }
       }
       this.sets.push(newSet)
