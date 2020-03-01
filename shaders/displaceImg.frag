@@ -47,6 +47,11 @@ void main() {
   if(u_blackAndWhite){
     color = setBandW(color, uv);
   }
+  
+  color.r += distance(0.5, uv.x) * u_red * abs(sin(u_time) / 3.0);
+  color.g += distance(0.5, uv.x) * u_green*  abs(sin(u_time) / 3.0);
+  color.b += distance(0.5, uv.x) * u_blue*  abs(sin(u_time) / 3.0);
+
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
