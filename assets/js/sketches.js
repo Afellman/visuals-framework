@@ -2259,7 +2259,7 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     translate(width / 2, height / 2)
-    rotate(frameCount / 100)
+    // rotate(frameCount / 100)
     translate(- width / 2, - height / 2)
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
@@ -2271,7 +2271,7 @@ class Drops extends Sketch { // Scene 12.
           // thisPoint.add(acc.div(200));
           fill(255, 255, 255, 255)
           noStroke();
-          rect(thisPoint.x, thisPoint.y, size, size);
+          ellipse(thisPoint.x, thisPoint.y, size, size);
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
             isOff++;
           }
@@ -2289,10 +2289,10 @@ class Drops extends Sketch { // Scene 12.
   createSet() {
     const newSet = {arr: [], rotate: PI/ 4}
     for (let i = 0; i < this.resolution; i++) {
-      let y = map(i, 0, this.resolution, 0, height);
+      let y = map(i, 0, this.resolution, -height, height);
       newSet.arr[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
-        let x = map(j, 0, this.resolution, 0, width);
+        let x = map(j, 0, this.resolution, -width, width);
         newSet.arr[i][j] = createVector(x, y);
       }
     }
