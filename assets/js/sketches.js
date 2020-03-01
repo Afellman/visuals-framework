@@ -2261,14 +2261,14 @@ class Drops extends Sketch { // Scene 12.
 
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
-      for (let j = 0; j < this.sets[i].length; j++) {
-        for (let k = 0; k < this.sets[i][j].length; k++) {
-          thisPoint = this.sets[i][j][k];
-         
-          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 50;
+      for (let j = 0; j < this.sets[i].arr.length; j++) {
+        rotate(this.sets[i].rotate)
+        for (let k = 0; k < this.sets[i].arr[j].length; k++) {
+          thisPoint = this.sets[i].arr[j][k];
+          let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(200));
-          fill(255, 255, 255, size * 10)
+          fill(255, 255, 255, 255)
           noStroke();
           rect(thisPoint.x, thisPoint.y, size, size);
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
@@ -2286,13 +2286,13 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet() {
-    const newSet = []
+    const newSet = {arr: [], rotate: PI/ 4}
     for (let i = 0; i < this.resolution; i++) {
       let y = map(i, 0, this.resolution, height / 2 - 25, height / 2 + 25);
-      newSet[i] = new Array(2);
+      newSet.arr[i] = new Array(2);
       for (let j = 0; j < this.resolution; j++) {
         let x = map(j, 0, this.resolution, width / 2 - 25, width / 2 + 25);
-        newSet[i][j] = createVector(x, y);
+        newSet.arr[i][j] = createVector(x, y);
       }
     }
     this.sets.push(newSet)
