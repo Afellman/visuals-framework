@@ -2247,8 +2247,8 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    for (let i = 0; i < 20; i++) {
-     this.createRings(i);
+    for (let i = 0; i < 100; i++) {
+     this.createRings(i +1);
     }
   }
 
@@ -2258,16 +2258,20 @@ class Drops extends Sketch { // Scene 12.
       let thisRing = this.rings[i];
       stroke(255, 255, 255, thisRing.size / 5)
       thisRing.size += 5;
-      ellipse(width / 2, height / 2, thisRing.size);
-      if(thisRing.size / 2 > width / 2){
-        this.rings.splice(i, 1);
-        this.createRings(1);
+      let size = thisRing.size;
+      if(i % 25 == 0){
+        size = 5
       }
+      ellipse(width / 2, height / 2, size);
+      if(thisRing.size / 2 > width / 2){
+        thisRing.size = 0
+      }
+     
     }
   }
 
   createRings(i) {
-    this.rings.push({size: i * 100})
+    this.rings.push({size: i * 20})
   }
 
   
