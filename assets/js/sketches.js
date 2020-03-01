@@ -467,7 +467,7 @@ class Sun extends Sketch { // Scene 2. Maped
   addSun(num) {
     let position = { x: 0, y: 0 };
     position.x = Math.random() * (width - this.params.faders.amp * 2);
-    position.y = Math.random() * (height - this.params.faders.amp * 2)
+    position.y = Math.random() * (height - this.params.faders.amp * 2);
     const sun = {
       amp: this.params.faders.amp,
       sine: this.waves[num - 1],
@@ -1053,7 +1053,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   constructor(img) {
     super();
     // this.img = images[2];
-    this.img = images[1];
+    this.img = images[7];
     this.params = {
       faders: {
         waterSpeed: 0.001,
@@ -1178,7 +1178,7 @@ class DisplaceImg extends Sketch {
     this.canvasImage.image(glCanvas, 0, 0)
     this.shaderBox.shader(this.shader);
     // send the camera and the two other past frames into the camera feed
-
+    this.shader.setUniform('tex0', this.img);
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_displaceX", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceX);
     this.shader.setUniform("u_displaceY", noise(frameCount * this.params.faders.freq) * this.params.faders.amp * this.displaceY);
@@ -1951,6 +1951,23 @@ class AudioReactive extends Sketch {
       prevY = y;
     }
   }
+  listeners = [{}]
+}
+
+class Bowls extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+  }
+
+  init() {
+    super.init()
+  }
+
+  draw() {
+
+  }
+
   listeners = [{}]
 }
 
