@@ -1956,17 +1956,23 @@ class Fractal extends Sketch {
   }
 
   draw() {
+    noFill();
+    stroke(255);
     translate(width / 2, height / 2);
     this.circle(this.params.faders.size);
   }
 
   circle(size) {
     ellipse(0, 0, size);
-    if (size > 20) {
+    if (size > 10) {
+      push()
       translate(-size, 0);
       this.circle(size / 2);
+      pop();
+      push()
       translate(size, 0);
       this.circle(size / 2)
+      pop()
     }
   }
 
