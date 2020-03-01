@@ -2301,7 +2301,7 @@ class Drops extends Sketch { // Scene 12.
         speed: 10
       }
     }
-    this.opacity = 255;
+    this.opacity = 0;
   }
 
   init() {
@@ -2324,9 +2324,14 @@ class Drops extends Sketch { // Scene 12.
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
           stroke(255, 255, 255, this.opacity);
-          triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100 * this.params.faders.size, thisPoint.y + 100 * this.params.faders.size, thisPoint.x - 100 * this.params.faders.size, thisPoint.y + 100 * this.params.faders.size);
+          triangle(
+            thisPoint.x,
+            thisPoint.y - 100 * this.params.faders.size,
+            thisPoint.x + 100 * this.params.faders.size,
+            thisPoint.y + 100 * this.params.faders.size,
+            thisPoint.x - 100 * this.params.faders.size,
+            thisPoint.y + 100 * this.params.faders.size);
           if (thisPoint.x > width && !this.sets[i].isDuped) {
-            this.createSet(25);
             this.sets[i].isDuped = true;
           }
         }
