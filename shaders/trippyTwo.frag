@@ -9,7 +9,6 @@ varying vec2 vTexCoord;
 uniform sampler2D tex0;
 uniform float u_backTime;
 uniform float u_waterTime;
-uniform float u_time;
 uniform float u_opacity;
 uniform float u_offset;
 uniform float u_colorAmount;
@@ -90,7 +89,7 @@ vec4 colorSwirl(vec4 texture, vec2 uv) {
 void main() {
   vec2 uv = vTexCoord;
     uv.y = 1.0 - uv.y;
-  float pat = fbm(uv +( u_waterTime * u_time)); // Swirl pattern on image
+  float pat = fbm(uv * u_offset); // Swirl pattern on image
   vec4 tex = texture2D(tex0, uv * pat);
 
   tex += (colorSwirl(tex, uv) * u_colorAmount); // Adding background color movement
