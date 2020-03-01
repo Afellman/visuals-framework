@@ -2264,6 +2264,9 @@ class Drops extends Sketch { // Scene 12.
       for (let j = 0; j < this.sets[i].length; j++) {
         for (let k = 0; k < this.sets[i][j].length; k++) {
           thisPoint = this.sets[i][j][k];
+          if(this.sets[i] - 1 && (j == 0  || j == this.sets[i].length){
+            
+          }
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(100));
@@ -2281,7 +2284,7 @@ class Drops extends Sketch { // Scene 12.
         this.sets.splice(i, 1);
       }
     }
-    if(frameCount % 200 == 0){
+    if(frameCount % 300 == 0){
       this.createSet()
     }
   }
