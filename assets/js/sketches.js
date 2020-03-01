@@ -1944,6 +1944,11 @@ class Fractal extends Sketch {
   constructor(setIndex) {
     super();
     this.setIndex = setIndex;
+    this.params = {
+      faders: {
+        size: 200
+      }
+    }
   }
 
   init() {
@@ -1951,11 +1956,22 @@ class Fractal extends Sketch {
   }
 
   draw() {
+    translate(width / 2, height / 2);
+    this.circle(this.params.faders.size);
+  }
 
+  circle(size) {
+    ellipse(0, 0, size);
+    if (size > 20) {
+      translate(-size, 0);
+      this.circle(size / 2);
+      translate(size, 0);
+      this.circle(size / 2)
+    }
   }
 
   unload() {
-
+    super.init();
   }
 
   listeners = [{}]
