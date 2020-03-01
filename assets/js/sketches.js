@@ -1597,8 +1597,8 @@ class Gridz extends Sketch {
           avgFFT[x + y],
           this.opacity
         );
-        let lengthNoiseX = map(avgFFT[x + y], 0, 255, 0, 1) * this.params.faders.lengthScale;
-        let lengthNoiseY = map(avgFFT[x + y], 0, 255, 0, 1) * this.params.faders.lengthScale;
+        let lengthNoiseX = sin(x * this.lengthTime) * this.params.faders.lengthScale;
+        let lengthNoiseY = sin(y * this.lengthTime) * this.params.faders.lengthScale;
         line(0 - scale * lengthNoiseX, 0 - scale * lengthNoiseX, 0 + scale, 0 + scale);
         line(0 - scale * lengthNoiseY, 0 + scale * lengthNoiseY, 0 + scale, 0 - scale);
         pop();
@@ -1887,7 +1887,7 @@ class WarpGrid extends Sketch {
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_time", frameCount / 100);
     this.shader.setUniform("u_amt", this.amt);
-    this.shader.setUniform("u_yOff", noise(this.params.faders.yOff, frameCount / 500) * 10);
+    this.shader.setUniform("u_yOff", this.params.faders.yOff);
     this.shaderBox.shader(this.shader);
     image(this.shaderBox, 0, 0); // Creating an image from the shader graphics onto the main canvas.
     this.shaderBox.rect(0, 0, width, height);
