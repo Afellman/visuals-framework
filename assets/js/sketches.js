@@ -2288,7 +2288,7 @@ class Drops extends Sketch { // Scene 12.
   constructor(obj) {
     super(obj);
     if (!this.loaded) {
-      this.resolution = 12;
+      this.resolution = 4;
     }
     this.grid = [];
     this.center = createVector(width / 2, height / 2);
@@ -2321,12 +2321,12 @@ class Drops extends Sketch { // Scene 12.
           let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          let opacity = this.opacity
-          stroke(255, 255, 255, 255)
+          let opacity = this.opacity * this.sets[i].opacity;
+          stroke(255, 255, 255, opacity);
           ellipse(thisPoint.x, thisPoint.y, size, size);
-          if (thisPoint.x > width / 2 && !this.sets[i].isDuped) {
-            this.createSet(50)
-            this.sets[i].isDuped = true
+          if (thisPoint.x > width / 2 + 75 && !this.sets[i].isDuped) {
+            this.createSet(50);
+            this.sets[i].isDuped = true;
           }
           if (thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0) {
             isOff++;
@@ -2335,8 +2335,8 @@ class Drops extends Sketch { // Scene 12.
       }
       if (isOff >= this.resolution * 4 - 4) {
         this.sets[i].isFaded = true;
-        this.sets[i].
-          this.sets.splice(i, 1);
+        this.sets[i].opacity = 1;
+        this.sets.splice(i, 1);
       }
     }
   }
