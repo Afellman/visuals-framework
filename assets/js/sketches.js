@@ -738,7 +738,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
       this.params = {
         faders: {
           angle: 1.2666,
-          divider: 0.65,
+          divider: 0.45,
           length: 220,
           movement: 0,
         }
@@ -765,6 +765,7 @@ class Geometry extends Sketch { // Scene 5. Maped.
     this.movement += this.params.faders.movement / 1000;
   }
   branch(len, i) {
+    len = len * (1 + noise(len))
     i++;
     line(0, 0, 0, -len);
     translate(0, -len);
@@ -1831,7 +1832,8 @@ class Tares extends Sketch { // Maped
         x: 0.001,
         y: 0.6612,
         speed: 0,
-        amp: 0
+        amp: 0,
+        thickness: 1
       }
     }
     this.speed = 0.001;
@@ -1860,6 +1862,7 @@ class Tares extends Sketch { // Maped
     this.shader.setUniform("u_opacity", this.opacity / 255);
     this.shader.setUniform("u_point1", this.num1);
     this.shader.setUniform("u_point2", this.num2);
+    this.shader.setUniform("u_thickness", this.params.faders.thickness);
     this.shader.setUniform("u_x", this.params.faders.x);
     this.shader.setUniform("u_y", this.params.faders.y);
     this.shaderBox.shader(this.shader);
