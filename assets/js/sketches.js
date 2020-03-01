@@ -2258,20 +2258,22 @@ class Drops extends Sketch { // Scene 12.
 
   draw() {
     let thisPoint = {};
-    // stroke("white")
+    stroke("white")
     for(let i = 0; i < this.sets.length; i ++){
       let isOff = 0;
       for (let j = 0; j < this.sets[i].length; j++) {
         for (let k = 0; k < this.sets[i][j].length; k++) {
           thisPoint = this.sets[i][j][k];
-          if(this.sets[i] - 1 && (j == 0  || j == this.sets[i].length){
-            
-          }
+         
           let size = dist(thisPoint.x, thisPoint.y, width/2, height / 2) / 100;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(100));
           fill(255, 255, 255, 255)
           rect(thisPoint.x, thisPoint.y, size, size);
+          if(this.sets[i + 1] && (j == 0  || j == this.sets[i].length)){
+            line(thisPoint.x, thisPoint.y,this.sets[i + 1][j][k].x, this.sets[i + 1][j][k].y )
+          }
+
           if(thisPoint.x > width || thisPoint.y > height || thisPoint.x < 0 || thisPoint.y < 0){
             this.sets[i][j].splice(k, 1);
           }
