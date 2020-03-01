@@ -2315,9 +2315,6 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     noFill();
-    translate(width / 2, height / 2)
-    // rotate(sin(frameCount / 200) * PI)
-    translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
       for (let j = 0; j < this.sets[i].arr.length; j++) {
@@ -2326,8 +2323,9 @@ class Drops extends Sketch { // Scene 12.
           // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          stroke(255, 255, 255, this.opacity);
-          triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100, thisPoint.y + 100, thisPoint.x - 100, thisPoint.y + 100);
+          this.canvas.stroke(255, 255, 255, this.opacity);
+          this.canvas.sphere(40);
+          image(this.canvas, 0, 0);
           if (thisPoint.x > width && !this.sets[i].isDuped) {
             this.createSet(25);
             this.sets[i].isDuped = true;
