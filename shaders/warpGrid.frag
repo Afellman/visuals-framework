@@ -45,7 +45,7 @@ void main() {
   vec4 img = texture2D(tex0, uv);
   vec3 color = img.rgb;
 
-  color += u_amt * sin(uv.x * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0 + (noise(uv) * noise(uv)));
+  color += u_amt * sin(uv.x * cos(u_time / 30.0) * 60.0) + sin(uv.y * cos(u_time / 15.0) * 10.0 + noise(vec2(u_yOff, u_time * uv.x)));
 
   // render the output
   gl_FragColor = vec4(color, u_opacity);
