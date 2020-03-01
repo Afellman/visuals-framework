@@ -2296,7 +2296,7 @@ class Drops extends Sketch { // Scene 12.
     this.sets = [];
     this.params = {
       faders: {
-        size: 0.5,
+        size: 0.1,
         speed: 2
       }
     }
@@ -2325,7 +2325,7 @@ class Drops extends Sketch { // Scene 12.
           let opacity = this.opacity * this.sets[i].opacity;
           stroke(255, 255, 255, opacity);
           ellipse(thisPoint.x, thisPoint.y, size, size);
-          if (thisPoint.x > width / 2 + 75 && !this.sets[i].isDuped) {
+          if (thisPoint.x > width / 2 + width && !this.sets[i].isDuped) {
             this.createSet(50);
             this.sets[i].isDuped = true;
           }
@@ -2342,7 +2342,7 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet(size = 25) {
-    for (let k = 0; k < 10; k++) {
+    for (let k = 0; k < 4; k++) {
       size *= k + 1;
       const newSet = { opacity: 1, arr: [], rotate: PI / 4 }
       for (let i = 0; i < this.resolution; i++) {
