@@ -2306,7 +2306,9 @@ class Drops extends Sketch { // Scene 12.
 
   init() {
     super.init();
-    this.createSet(100);
+    this.createSet(300);
+    this.createSet(500);
+    this.createSet(700);
   }
 
   draw() {
@@ -2322,7 +2324,7 @@ class Drops extends Sketch { // Scene 12.
           thisPoint = this.sets[i].arr[j][k];
           let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
-          // thisPoint.add(acc.div(this.params.faders.speed * 100));
+          thisPoint.add(acc.div(this.params.faders.speed * 100));
           let opacity = this.opacity * this.sets[i].opacity;
           stroke(255, 255, 255, opacity);
           triangle(thisPoint.x, thisPoint.y, thisPoint.x + 100, thisPoint.y + 100, thisPoint.x - 100, thisPoint.y + 100);
