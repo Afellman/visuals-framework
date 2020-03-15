@@ -2010,7 +2010,7 @@ class AudioReactive extends Sketch {
     let prevX = 0;
     let prevY = height / 2;
 
-    stroke(bass, mid, high)
+    stroke(255)
     for (let i = 0; i < spectrum.length / 2; i++) {
       x = map(i, 0, spectrum.length / 2, 0, width);
       y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
