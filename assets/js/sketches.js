@@ -2325,6 +2325,7 @@ class Drops extends Sketch { // Scene 12.
       }
     }
     this.opacity = 0;
+    this.rotate = 0;
   }
 
   init() {
@@ -2333,15 +2334,17 @@ class Drops extends Sketch { // Scene 12.
 
   draw() {
     let thisPoint = {};
-    noFill();
+    noFill(); translate(width / 2, height / 2)
+    rotate(this.rotate)
+    translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
+      this.sets[i].rotate += 0.001;
+
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
-          translate(width / 2, height / 2)
-          rotate(this.sets[i].rotate)
-          translate(- width / 2, - height / 2)
+
           // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
@@ -2366,7 +2369,7 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet(size = 25) {
-    const newSet = { opacity: 1, arr: [], rotate: PI / 4, color: someColor(6) }
+    const newSet = { opacity: 1, arr: [], rotate: 0, color: someColor(6) }
     for (let i = 0; i < this.resolution; i++) {
       let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
       newSet.arr[i] = [];
