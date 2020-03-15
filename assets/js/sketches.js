@@ -1241,13 +1241,13 @@ class DisplaceImg extends Sketch {
     {
       socketName: "image1",
       socketMethod: (val) => {
-        this.img = images[4];
+        this.img = images[9];
       }
     },
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = images[3];
+        this.img = images[10];
       }
     },
     {
@@ -1556,7 +1556,7 @@ class Gridz extends Sketch {
     this.setIndex = setIndex;
     this.params = {
       faders: {
-        lengthSpeed: 0.0023,
+        lengthSpeed: 0.000055,
         colorSpeed: 0.01,
         lengthScale: 1,
         rotate: 0,
@@ -1738,7 +1738,7 @@ class WindShield extends Sketch {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
-      this.color = someColor(4);
+      this.color = someColor(10);
       this.time = 0;
       this.i = i;
     }
