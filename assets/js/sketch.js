@@ -19,7 +19,7 @@ let debug = false;
 let glEasing = 0.05;
 let glRotate = 0;
 
-const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField, Sun]); // Where do I define the set list? Max 10.
+const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField, Sun, Drops]); // Where do I define the set list? Max 10.
 
 
 
@@ -55,12 +55,17 @@ function setup() {
 
 function draw() {
   const length = scenes.length;
-  // background(glBackground); // Moved to shader.
   for (let i = 0; i < length; i++) {
     if (scenes[i]) {
-      translate(width / 2, height / 2);
-      rotate(glRotate);
-      translate(-width / 2, - height / 2);
+      // translate(width / 2, height / 2);
+      // rotate(glRotate);
+      // translate(-width / 2, - height / 2);
+
+      // Crosshair for centering.
+      // stroke(255)
+      // line(width / 2 - 500, height / 2, width / 2 + 500, height / 2)
+      // line(width / 2, height / 2 - 500, width / 2, height / 2 + 500)
+
       push();
       scenes[i].draw();
       scenes[i].easeParams();
@@ -629,6 +634,7 @@ function loadImages(cb) {
     loadImage("./assets/images/v2osk-sunset.jpg"),
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/brian-suh.jpg"),
+    loadImage("./assets/images/melanie-magdalena.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
