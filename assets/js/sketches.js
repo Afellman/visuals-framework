@@ -2000,28 +2000,21 @@ class AudioReactive extends Sketch {
   }
 
   draw() {
+    const spectrum = fft.analyze();
+    const bass = fft.getEnergy("bass");
+    const mid = fft.getEnergy("mid");
+    const high = fft.getEnergy("highMid");
     // background(bass, mid, high)
     let x = 0;
     let y = 0;
-    let prevX = 10;
+    let prevX = 0;
     let prevY = height / 2;
 
-    fft.analyze(1024);
-    this.avg100 = fft.linAverages(100);
-    // const bass = fft.getEnergy("lowMid");
-    // const mid = fft.getEnergy("mid");
-    // const high = fft.getEnergy("highMid");
-    noStroke();
-    // Dividing by 6 only grabs the first sixth of the spectrum (where most of the values will be)
-    for (let i = 0; i < this.avg100.length; i++) {
-      x = map(i, 0, this.avg100.length, 0, width);
-      // y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
-      if (this.avg100[i] > 5) {
-        fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity * this.avg100[i])
-        rect(0, x, width, 200);
-      }
-
-      // line(prevX, prevY, x, y);
+    stroke(255);
+    for (let i = 0; i < spectrum.length; i++) {
+      x = map(i, 0, spectrum.length, 0, width);
+      y = height - 20 - map(spectrum[i], 0, 255, 0, height / 2);
+      line(prevX, prevY, x, y)
       prevX = x;
       prevY = y;
     }
