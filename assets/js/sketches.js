@@ -2017,6 +2017,7 @@ class AudioReactive extends Sketch {
       line(prevX, prevY, x, y)
       prevX = x;
       prevY = y;
+
     }
   }
   listeners = [{}]
