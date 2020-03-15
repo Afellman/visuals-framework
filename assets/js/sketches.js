@@ -2335,6 +2335,7 @@ class Drops extends Sketch { // Scene 12.
     let thisPoint = {};
     noFill();
     translate(width / 2, height / 2)
+    const color = someColor(6)
     // rotate(sin(frameCount / 200) * PI)
     translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
@@ -2345,7 +2346,7 @@ class Drops extends Sketch { // Scene 12.
           // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          stroke(255, 255, 255, this.opacity);
+          stroke(color[0], color[1], color[2], this.opacity);
           triangle(
             thisPoint.x,
             thisPoint.y,
