@@ -1093,10 +1093,12 @@ class FlowShader extends Sketch { // Scene 10. Maped
     this.shader = shaders[2];
     this.shader = this.shaderBox.createShader(shaders[2]._vertSrc, shaders[2]._fragSrc);
     this.shaderPath = "./shaders/trippytwo.frag"
+    this.canvasImage = createGraphics(width, height);
   }
 
   draw() {
     noStroke();
+    this.canvasImage.image(glCanvas, 0, 0)
     this.shader.setUniform("u_opacity", this.opacity / 255)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
@@ -1136,7 +1138,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = images[4];
+        this.img = this.canvas;
       }
     },
     {
@@ -2336,11 +2338,10 @@ class Drops extends Sketch { // Scene 12.
     let thisPoint = {};
     noFill(); translate(width / 2, height / 2)
     rotate(this.rotate)
+    this.rotate += 0.01
     translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
-      this.sets[i].rotate += 0.001;
-
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
