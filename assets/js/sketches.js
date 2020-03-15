@@ -2334,19 +2334,18 @@ class Drops extends Sketch { // Scene 12.
   draw() {
     let thisPoint = {};
     noFill();
-    translate(width / 2, height / 2)
-    const color = someColor(6)
-    // rotate(sin(frameCount / 200) * PI)
-    translate(- width / 2, - height / 2)
     for (let i = 0; i < this.sets.length; i++) {
       let isOff = 0;
       for (let j = 0; j < this.sets[i].arr.length; j++) {
         for (let k = 0; k < this.sets[i].arr[j].length; k++) {
           thisPoint = this.sets[i].arr[j][k];
+          translate(width / 2, height / 2)
+          rotate(this.sets[i].rotate)
+          translate(- width / 2, - height / 2)
           // let size = dist(thisPoint.x, thisPoint.y, width / 2, height / 2) * this.params.faders.size;
           let acc = p5.Vector.sub(thisPoint, this.center);
           thisPoint.add(acc.div(this.params.faders.speed * 100));
-          stroke(color[0], color[1], color[2], this.opacity);
+          stroke(this.sets[i].color[0], this.sets[i].color[1], this.sets[i].color[2], this.opacity);
           triangle(
             thisPoint.x,
             thisPoint.y,
@@ -2367,7 +2366,7 @@ class Drops extends Sketch { // Scene 12.
   }
 
   createSet(size = 25) {
-    const newSet = { opacity: 1, arr: [], rotate: PI / 4 }
+    const newSet = { opacity: 1, arr: [], rotate: PI / 4, color: someColor(6) }
     for (let i = 0; i < this.resolution; i++) {
       let y = map(i, 0, this.resolution, height / 2 - size, height / 2 + size);
       newSet.arr[i] = [];
