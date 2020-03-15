@@ -1738,7 +1738,7 @@ class WindShield extends Sketch {
       this.parent = parent;
       this.posStart = createVector(width / 2, height / 2);
       this.posEnd = createVector(width / 3, height / 2);
-      this.color = someColor(10);
+      this.color = someColor(11);
       this.time = 0;
       this.i = i;
     }
@@ -2020,29 +2020,12 @@ class AudioReactive extends Sketch {
         fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity * this.avg100[i])
         rect(0, x, width, 200);
       }
-
-      // line(prevX, prevY, x, y);
+      stroke(255)
+      line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
     }
   }
-  listeners = [{}]
-}
-
-class Bowls extends Sketch {
-  constructor(setIndex) {
-    super();
-    this.setIndex = setIndex;
-  }
-
-  init() {
-    super.init()
-  }
-
-  draw() {
-
-  }
-
   listeners = [{}]
 }
 
