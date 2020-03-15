@@ -2020,8 +2020,8 @@ class AudioReactive extends Sketch {
         fill(this.avg100[i] * abs(sin(frameCount / 1000)), this.avg100[i] * abs(cos(frameCount / 500)), this.avg100[i], this.opacity * this.avg100[i])
         rect(0, x, width, 200);
       }
-      stroke(255)
-      line(prevX, prevY, x, y);
+
+      // line(prevX, prevY, x, y);
       prevX = x;
       prevY = y;
     }
