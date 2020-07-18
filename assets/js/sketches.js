@@ -711,7 +711,7 @@ class Proximity extends Sketch {// Maped
     }
 
     this.multiplier += Math.sin(frameCount * this.params.faders.multiSpeed / 1000) / 100;
-    this.freq += speed / 50;
+    this.freq += speed / 20;
   }
 
   listeners = [
@@ -1098,7 +1098,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
 
   draw() {
     noStroke();
-    this.canvasImage.image(glCanvas, 0, 0)
+    this.canvasImage.image(glCanvas, 0, 0);
     this.shader.setUniform("u_opacity", this.opacity / 255)
     this.shader.setUniform("tex0", this.img);
     this.shader.setUniform('u_time', frameCount / 1000)
@@ -1119,6 +1119,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
   unload() {
     super.unload();
     document.body.removeChild(this.shaderBox.canvas);
+    document.body.removeChild(this.canvasImage.canvas);
   }
 
   listeners = [
@@ -1138,7 +1139,7 @@ class FlowShader extends Sketch { // Scene 10. Maped
     {
       socketName: "image2",
       socketMethod: (val) => {
-        this.img = this.canvas;
+        this.img = this.canvasImage;
       }
     },
     {
@@ -2130,35 +2131,34 @@ class Ripples extends Sketch {
   }
 }
 
-// DEPRECATED. Mirror effect is now in the shader.
-// class Mirror extends Sketch {
-//   constructor(isVertical, isHorizonal) {
-//     super();
-//     this.isVertical = isVertical || false;
-//     this.isHorizonal = isHorizonal || true;
-//     this.opacity = 0;
-//   }
-//   init() {
-//     super.init();
-//   }
-//   draw() {
-//     if (this.isHorizonal) {
-//       push()
-//       translate(width, 0)
-//       scale(-1, 1);
-//       image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
-//       pop()
-//     }
-//     if (this.isVertical) {
-//       push()
-//       translate(0, height)
-//       scale(1, -1);
-//       image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
-//       pop()
-//     }
-//   }
-//   listeners = [{}]
-// } 
+class Mirror2 extends Sketch {
+  constructor(isVertical, isHorizonal) {
+    super();
+    this.isVertical = isVertical || false;
+    this.isHorizonal = isHorizonal || true;
+    this.opacity = 0;
+  }
+  init() {
+    super.init();
+  }
+  draw() {
+    if (this.isHorizonal) {
+      push()
+      translate(width, 0)
+      scale(-1, 1);
+      image(glCanvas, width / 2, 0, width / 2, height, width / 2, 0, width / 2, height);
+      pop()
+    }
+    if (this.isVertical) {
+      push()
+      translate(0, height)
+      scale(1, -1);
+      image(glCanvas, 0, height / 2, width, height / 2, 0, height / 2, width, height / 2);
+      pop()
+    }
+  }
+  listeners = [{}]
+}
 
 class SoundTest extends Sketch {
   constructor() {
@@ -2562,6 +2562,24 @@ class Connecter extends Sketch {// replaced by spinning circles
   mouseClicked() { }
 }
 
+
+class Back extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+    this.opacity = 100;
+  }
+
+  init() {
+    super.init()
+  }
+
+  draw() {
+
+  }
+
+  listeners = [{}]
+}
 
 const Objects = {
   /**
