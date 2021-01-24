@@ -39,6 +39,6 @@ void main() {
    
   vec3 color = vec3(1.0- dis);
   // output to screen
-    gl_FragColor = vec4(color,u_opacity * color);
+    gl_FragColor = vec4(color,u_opacity * color.r);
 
 }

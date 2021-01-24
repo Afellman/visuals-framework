@@ -635,6 +635,9 @@ function loadImages(cb) {
     loadImage("./assets/images/colorImg1.jpg"),
     loadImage("./assets/images/brian-suh.jpg"),
     loadImage("./assets/images/melanie-magdalena.jpg"),
+    loadImage("./assets/images/zoltan-tasi.jpg"),
+    loadImage("./assets/images/damon-rice.jpg"),
+    loadImage("./assets/images/jamie-street.jpg"),
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
@@ -649,6 +652,7 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
     loadShader("./shaders/texture.vert", "./shaders/warpGrid.frag"),
+    loadShader("./shaders/texture.vert", "./shaders/jrew.frag")
   ])
     .then(res => cb(res))
     .catch(res => new Error(res));
