@@ -2575,11 +2575,48 @@ class Back extends Sketch {
   }
 
   draw() {
+    const length = this.circles.length;
+    let obj;
+    for (let i = 0; i < length; i++) {
+      obj = this.circles[i];
+      ellipse(obj.pos.x, obj.pos.y, obj.radius);
 
+    }
   }
 
   listeners = [{}]
 }
+
+class GetRect extends Sketch {
+  constructor(setIndex) {
+    super();
+    this.setIndex = setIndex;
+    this.opacity = 100;
+    this.rects = [];
+    this.rectAmount = 0;
+  }
+
+  init() {
+    super.init();
+    this.rectAmount = 100;
+    let x = 10, y = 10;
+    for (let i = 0; i < this.rectAmount; i++) {
+      x += i;
+      y += i;
+      this.rects.push(creatVector(x, y))
+    }
+  }
+
+  draw() {
+
+    for (let i = 0; i < this.rectAmount; i++) {
+
+    }
+  }
+
+  listeners = [{}]
+}
+
 
 const Objects = {
   /**
