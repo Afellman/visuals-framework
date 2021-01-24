@@ -2599,18 +2599,19 @@ class GetRect extends Sketch {
   init() {
     super.init();
     this.rectAmount = 100;
-    let x = 10, y = 10;
+    let size = 10;
     for (let i = 0; i < this.rectAmount; i++) {
-      x += i;
-      y += i;
-      this.rects.push(creatVector(x, y))
+      size += (i * 2);
+      this.rects.push(createVector(size))
     }
   }
 
   draw() {
 
     for (let i = 0; i < this.rectAmount; i++) {
-
+      const thisRect = this.rects[i];
+      stroke(100, 0, 0);
+      rect(thisRect.x, thisRect.y);
     }
   }
 
