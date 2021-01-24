@@ -2610,15 +2610,16 @@ class GetRect extends Sketch {
   }
 
   draw() {
+    rectMode(CENTER);
 
     for (let i = 0; i < this.rectAmount; i++) {
       const thisRect = this.rects[i];
       stroke(255, 0, 0);
       fill(0, 0, 0, 0);
-      push();
+      // push();
       // rotate(i * ((frameCount / 1000) % 360));
       rect(width / 2, height / 2, thisRect.size, thisRect.size);
-      pop();
+      // pop();
     }
   }
 
