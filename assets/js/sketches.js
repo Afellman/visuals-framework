@@ -2587,6 +2587,7 @@ class Back extends Sketch {
   listeners = [{}]
 }
 
+// Spinning Rects
 class GetRect extends Sketch {
   constructor(setIndex) {
     super();
@@ -2600,9 +2601,11 @@ class GetRect extends Sketch {
     super.init();
     this.rectAmount = 100;
     let size = 10;
+    let newRect = { size: 0, speed: 0 };
     for (let i = 0; i < this.rectAmount; i++) {
       size += (i * 2);
-      this.rects.push(createVector(size))
+      newRect = { size: size, speed: 0 };
+      this.rects.push(newRect);
     }
   }
 
@@ -2611,7 +2614,7 @@ class GetRect extends Sketch {
     for (let i = 0; i < this.rectAmount; i++) {
       const thisRect = this.rects[i];
       stroke(100, 0, 0);
-      rect(thisRect.x, thisRect.y);
+      rect(0, 0, thisRect.size, thisRect.size);
     }
   }
 
