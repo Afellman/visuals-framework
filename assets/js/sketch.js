@@ -1,11 +1,11 @@
-let glBackground = [0, 0, 0, 1.0]
+let glBackground = [0, 0, 0, 1.0];
 let scenes = [];
 let goodColor = [];
 let maxPal = 512;
 let bgShader;
 let glCanvas;
 let showFPS = true;
-var socket = io('http://localhost:3000');
+var socket = io("http://localhost:3000");
 let fft;
 let mic;
 let textureShader;
@@ -19,9 +19,18 @@ let debug = false;
 let glEasing = 0.05;
 let glRotate = 0;
 
-const currentSet = setBuilder([Proximity, WarpGrid, FlowShader, DisplaceImg, WindShield, Gridz, Tares, FlowField, Sun, Drops]); // Where do I define the set list? Max 10.
-
-
+const currentSet = setBuilder([
+  Proximity,
+  WarpGrid,
+  FlowShader,
+  DisplaceImg,
+  WindShield,
+  Gridz,
+  Tares,
+  FlowField,
+  Sun,
+  Drops,
+]); // Where do I define the set list? Max 10.
 
 // ======================================== P5 Functions
 // For any preloading of sounds or images.
@@ -33,20 +42,19 @@ function preload() {
 
 // Starting with a canvas the full window size.
 function setup() {
-  console.log("setup")
+  console.log("setup");
   // disableFriendlyErrors = true;
   glCanvas = createCanvas(windowWidth, windowHeight);
-  images.forEach((img, i) => takeColor(img, i)) // This is scary...
+  images.forEach((img, i) => takeColor(img, i)); // This is scary...
   const bg = new BGShader(0);
   bg.id = Math.random() * 9999999;
-  loadScene(bg) // For background.
-
+  loadScene(bg); // For background.
 
   // For audio setup.
   mic = new p5.AudioIn();
   mic.getSources((devices) => {
-    devices.forEach((device, i) => console.log(i, device.label))
-    console.log(devices)
+    devices.forEach((device, i) => console.log(i, device.label));
+    console.log(devices);
   });
   mic.start();
   fft = new p5.FFT(0.8, 512);
@@ -73,29 +81,29 @@ function draw() {
     }
   }
   if (showFPS) {
-    push()
-    stroke("black")
-    fill('white')
-    text("FPS:" + frameRate().toFixed(2), 10, 10)
-    pop()
+    push();
+    stroke("black");
+    fill("white");
+    text("FPS:" + frameRate().toFixed(2), 10, 10);
+    pop();
   }
 }
 
 // ======================================== Other Functions
 
 function setupSockets() {
-  socket.on('connect', function () {
-    console.log(socket)
+  socket.on("connect", function () {
+    console.log(socket);
     console.log("Socket Connected");
   });
 
-  socket.on('disconnected', function () {
-    console.log("Socket Disconnected")
+  socket.on("disconnected", function () {
+    console.log("Socket Disconnected");
   });
 
   socket.on("refresh", (val) => {
     if (val) {
-      window.location.reload()
+      window.location.reload();
     }
   });
 
@@ -106,7 +114,6 @@ function setupSockets() {
       bindLiveCoding();
     }
   });
-
 }
 
 function normalToColor(val) {
@@ -137,15 +144,13 @@ function someColor(index) {
 }
 
 function getPixel(context, x, y) {
-  return context
-    .getImageData(x, y, 1, 1)
-    .data;
+  return context.getImageData(x, y, 1, 1).data;
 }
 
 function takeColor(img, index) {
   let numPal = 0;
-  let canvas = document.getElementById('defaultCanvas0');
-  let context = canvas.getContext('2d');
+  let canvas = document.getElementById("defaultCanvas0");
+  let context = canvas.getContext("2d");
   image(img, 0, 0);
   goodColor[index] = [];
   for (let x = 0; x < img.width; x += 100) {
@@ -172,7 +177,8 @@ function takeColor(img, index) {
 }
 
 // ======================================== Dom Listeners
-function windowResized() { // p5
+function windowResized() {
+  // p5
   resizeCanvas(windowWidth, windowHeight);
 }
 
@@ -182,8 +188,8 @@ function mouseClicked() {
     if (scenes[i]) {
       scenes[i].mouseClicked();
     }
-  };
-};
+  }
+}
 
 function keyPressed(e) {
   const key = e.key;
@@ -201,22 +207,22 @@ function keyPressed(e) {
 
   if (key == "b") {
     if (glBackground[3] == 0) {
-      glBackground[3] = 100
+      glBackground[3] = 100;
     } else {
-      glBackground[3] = 0
+      glBackground[3] = 0;
     }
   }
   for (let i = 0; i < scenes.length; i++) {
     if (scenes[i]) {
       scenes[i].keyPressed(e);
     }
-  };
+  }
 
   if (key == "Control") {
     ctrlPressed = true;
   }
   if (ctrlPressed && key == "s") {
-    scenes.forEach(scene => {
+    scenes.forEach((scene) => {
       save = JSON.stringify(scene.save());
     });
     ctrlPressed = false;
@@ -226,26 +232,26 @@ function keyPressed(e) {
     let wasFpsOn = showFPS;
     showFPS = false;
     setTimeout(() => {
-      saveCanvas(glCanvas, "./canvas" + Date.now(), "png")
+      saveCanvas(glCanvas, "./canvas" + Date.now(), "png");
     }, 500);
     if (wasFpsOn) showFPS = true;
   }
-};
+}
 
-// ================================================  
-//                     Midi 
-// ================================================  
+// ================================================
+//                     Midi
+// ================================================
 navigator.requestMIDIAccess({ sysex: true }).then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
-  console.log(midiAccess)
+  console.log(midiAccess);
   for (let input of midiAccess.inputs.values()) {
     input.onmidimessage = onMidiMessage;
   }
 }
 
 function onMIDIFailure() {
-  console.log('Could not access your MIDI devices.');
+  console.log("Could not access your MIDI devices.");
 }
 
 // const genericMidi = {
@@ -388,8 +394,8 @@ function onMIDIFailure() {
 function onMidiMessage(midiMessage) {
   let command = midiMessage.data[0];
   let note = midiMessage.data[1];
-  let velocity = (midiMessage.data.length > 2) ? midiMessage.data[2] : 0;
-  if (debug) console.log(note, velocity, command)
+  let velocity = midiMessage.data.length > 2 ? midiMessage.data[2] : 0;
+  if (debug) console.log(note, velocity, command);
 
   // // Fader Fox
   // if (command == 179) {
@@ -412,9 +418,9 @@ function onMidiMessage(midiMessage) {
 
   // } else {
 
-
   //AKAI
-  if (command == 144 || command == 176) { // button press and knob.
+  if (command == 144 || command == 176 || command === 180 || command === 148) {
+    // button press and knob.
     midiAkai[note].velocity = midiToColor(velocity);
     midiAkai[note].method({ args: [velocity] });
   }
@@ -446,7 +452,6 @@ function onMidiMessage(midiMessage) {
   //     midiBeatStep[note][1].method(midiBeatStep[note][1].velocity);
   //   }
   // }
-
 }
 
 function midiToColor(vel) {
@@ -457,9 +462,9 @@ function midiToNormal(vel) {
   return map(vel, 0, 127, 0, 1);
 }
 
-// ================================================  
+// ================================================
 //       Global midi bindings
-// ================================================  
+// ================================================
 
 // let midiBeatStep = (function () {
 //   let ret = [];
@@ -473,8 +478,8 @@ function midiToNormal(vel) {
 
 let midiAkai = (function () {
   let ret = [];
-  for (let i = 0; i < 31; i++) {
-    ret.push({ method: () => { }, velocity: 0 }); // Method to call on incoming note.
+  for (let i = 0; i < 63; i++) {
+    ret.push({ method: () => {}, velocity: 0 }); // Method to call on incoming note.
   }
   return ret;
 })();
@@ -503,7 +508,8 @@ class Launcher {
 
   opacity(velocity) {
     let value;
-    if (typeof velocity === "number") { // From Midi
+    if (typeof velocity === "number") {
+      // From Midi
       value = velocity;
     } else {
       value = velocity.args[0];
@@ -513,14 +519,13 @@ class Launcher {
     socket.emit("updateOsc", {
       scene: this.setIndex,
       oscObj: "opacity",
-      value: value
+      value: value,
     });
   }
 }
 
-
 function bindLaunchers() {
-  const launchers = currentSet.map(setScene => {
+  const launchers = currentSet.map((setScene) => {
     return new Launcher(setScene.sketch, setScene.setIndex);
   });
   launchers.forEach((launcher, i) => {
@@ -538,44 +543,78 @@ function bindLaunchers() {
 
 bindLaunchers();
 
-
 function bindGlobalMidi() {
   const mirrorLauncher = new Launcher(Mirror, -1);
   midiAkai[0].method = mirrorLauncher.toggle.bind(mirrorLauncher);
   midiAkai[8].method = ({ args }) => {
-    mirrorLauncher.opacity(midiToColor(args[0]))
+    mirrorLauncher.opacity(midiToColor(args[0]));
   };
-
   midiAkai[9].method = ({ args }) => {
-    glBackground[3] = midiToNormal(args[0])
-  }
-
+    glBackground[3] = midiToNormal(args[0]);
+  };
   midiAkai[3].method = () => {
     if (glEasing !== 1) {
       glEasing = 1;
     } else {
       glEasing = 0.05;
     }
-  }
+  };
   midiAkai[11].method = ({ args }) => {
     glEasing = map(args[0], 0, 127, 0.05, 0.5);
-  }
+  };
 
-
-
+  // Using just the LPD8 ===================================================================
+  // let sceneToAdd = {};
+  // let selectedScene = {};
+  // const assignToPadHOF =
+  //   (multiplier) =>
+  //   ({ args }) => {
+  //     console.log(multiplier);
+  //     // Key down
+  //     for (let i = 0; i < 14; i++) {
+  //       // 1 for bgShader always in scenes
+  //       midiAkai[multiplier * i].method = selectedScene.params[i];
+  //       console.log(selectedScene, i + scenes.length - 1);
+  //     }
+  //   };
+  // midiAkai[62].method = ({ args }) => {
+  //   // Selecting
+  //   const num = Math.floor(args[0] / 3.75);
+  //   const scene = sceneMapArray[num];
+  //   if (scene) {
+  //     if (scene.name !== sceneToAdd.name) {
+  //       console.log("Scene to add: ", scene.name);
+  //       sceneToAdd = scene;
+  //     }
+  //   }
+  // };
+  // midiAkai[15].method = ({ args }) => {
+  //   const num = Math.floor(args[0] / 3.75);
+  //   const _selectedScene = scenes[num];
+  //   if (_selectedScene !== selectedScene) {
+  //     selectedScene = _selectedScene;
+  //     console.log("Selected Scene: ", _selectedScene);
+  //   }
+  // };
+  // midiAkai[52].method = assignToPadHOF(1);
+  // midiAkai[53].method = assignToPadHOF(2);
+  // midiAkai[54].method = assignToPadHOF(3);
+  // midiAkai[55].method = ({ args }) => {
+  //   const scene = new sceneToAdd();
+  //   loadScene(scene);
+  // };
+  // Using just the LPD8 ===================================================================
 }
-
 
 bindGlobalMidi();
 
-// ================================================  
+// ================================================
 //       Global OSC bindings
-// ================================================ 
-
+// ================================================
 
 function bindGlobalSockets() {
   const linesLauncher = new Launcher(LinesShader, -2);
-  const linesMethod = linesLauncher.toggle.bind(linesLauncher)
+  const linesMethod = linesLauncher.toggle.bind(linesLauncher);
 
   socket.on("/-2/on", (val) => {
     linesMethod(val);
@@ -584,13 +623,20 @@ function bindGlobalSockets() {
 
 bindGlobalSockets();
 
-// ================================================  
-//               Intial setups  
-// ================================================ 
+// ================================================
+//               Intial setups
+// ================================================
 
+/**
+ * Calls scene init and pushes to scenes array
+ * @param {Sketch} scene
+ * @returns
+ */
 function loadScene(scene) {
   scene.init();
   scenes.push(scene);
+  console.log("Scene Loaded: ");
+  console.log(scene);
   return scene;
 }
 
@@ -619,7 +665,7 @@ function setShaders(shaderArry) {
 }
 
 function setVideos(videoArray) {
-  console.log("videos loaded")
+  console.log("videos loaded");
   this.videos = videoArray;
 }
 // ========================================= Async Loaders
@@ -628,7 +674,9 @@ function loadImages(cb) {
   Promise.all([
     loadImage("./assets/images/peter.jpg"),
     loadImage("./assets/images/leaves.jpg"),
-    loadImage("./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"),
+    loadImage(
+      "./assets/images/austrailia/adam-ferguson-australia-fires-climate-change-1.jpg"
+    ),
     loadImage("./assets/images/ameen-fahmy-water.jpg"),
     loadImage("./assets/images/jason-leung-water.jpg"),
     loadImage("./assets/images/v2osk-sunset.jpg"),
@@ -639,8 +687,8 @@ function loadImages(cb) {
     loadImage("./assets/images/damon-rice.jpg"),
     loadImage("./assets/images/jamie-street.jpg"),
   ])
-    .then(res => cb(res))
-    .catch(res => new Error(res));
+    .then((res) => cb(res))
+    .catch((res) => new Error(res));
 }
 
 function loadShaders(cb) {
@@ -652,10 +700,10 @@ function loadShaders(cb) {
     loadShader("./shaders/texture.vert", "./shaders/mirror.frag"),
     loadShader("./shaders/texture.vert", "./shaders/tares.frag"),
     loadShader("./shaders/texture.vert", "./shaders/warpGrid.frag"),
-    loadShader("./shaders/texture.vert", "./shaders/jrew.frag")
+    loadShader("./shaders/texture.vert", "./shaders/jrew.frag"),
   ])
-    .then(res => cb(res))
-    .catch(res => new Error(res));
+    .then((res) => cb(res))
+    .catch((res) => new Error(res));
 }
 
 function loadVideos(cb) {
@@ -672,25 +720,26 @@ function loadVideos(cb) {
     createVideo(["./assets/videos/aussie3.mp4"], isDone),
   ];
 
-  videos.forEach(video => video.hide())
+  videos.forEach((video) => video.hide());
 }
 
 setupSockets();
 
-
-// ================================================  
-//               Live Coding methods  
-// ================================================ 
+// ================================================
+//               Live Coding methods
+// ================================================
 
 function bindLiveCoding() {
   window.displaceCanvas = function () {
     const scene = this.loadScene(new DisplaceImg());
     scene.opacity = 255;
-  }
+  };
   window.glOpac = function (value) {
     if (value > 1) {
       value = map(value, 0, 255, 0, 1);
     }
     glBackground[3] = value;
-  }
+  };
 }
+
+// TEST GROUND.
